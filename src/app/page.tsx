@@ -1,103 +1,101 @@
-import Image from "next/image";
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import Particles from "./components/Particles";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="flex flex-col items-center p-8 space-y-32">
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+    {/* Hero Section */}
+    <section
+      id="hero"
+      className="relative flex flex-col items-center justify-center min-h-screen w-full text-center overflow-hidden"
+    >
+      <h1 className="relative text-5xl font-bold text-[var(--accent-blue)] z-10">
+        Hi, I’m Zura 👋
+      </h1>
+      <p className="relative mt-6 text-lg text-gray-300 max-w-2xl mx-auto z-10">
+        I’m a physicist, mathematician, and data engineer. I build things with math, physics, and data.
+      </p>
+    </section>
+
+
+      {/* About */}
+      <section id="about" className="max-w-2xl mx-auto text-center">
+        <h2 className="text-3xl font-semibold mb-4 text-[var(--accent-blue)]">About Me</h2>
+        <p className="text-gray-300 leading-relaxed">
+          I enjoy solving complex problems and creating data-driven solutions. My background spans physics,
+          math, and data engineering, and I’m passionate about bridging science and technology.
+        </p>
+      </section>
+
+      {/* Experience */}
+      <section id="experience" className="max-w-3xl mx-auto text-center">
+        <h2 className="text-3xl font-semibold mb-8 text-[var(--accent-blue)]">Experience</h2>
+        <div className="space-y-8 text-left">
+          {[
+            {
+              title: "Big Data Engineer – Bank of Georgia",
+              time: "2023 – Present",
+              desc: "Building Spark-based ETL pipelines, Airflow DAGs, and Kafka streams for personalized banking offers used by 4M+ clients."
+            },
+            {
+              title: "Researcher – Perimeter Institute",
+              time: "2022 – 2023",
+              desc: "Worked on Fermi surfaces in quasicrystals and CHY-based scattering amplitudes, producing an arXiv preprint and advancing amplitude theory."
+            },
+            {
+              title: "Tutor – Physics & Math Olympiads",
+              time: "2018 – Present",
+              desc: "Coaching students for AMC, AIME, USAPhO, and IOAA with a focus on Olympiad-style problem solving and competition prep."
+            }
+          ].map((job, i) => (
+            <div key={i} className="bg-[#0c1445] rounded-xl p-6 shadow hover:shadow-[0_0_15px_var(--accent-blue)] transition">
+              <h3 className="text-xl font-bold text-[var(--accent-blue)]">{job.title}</h3>
+              <p className="text-gray-400 text-sm">{job.time}</p>
+              <p className="mt-2 text-gray-300">{job.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Projects */}
+      <section id="projects" className="w-full max-w-4xl">
+        <h2 className="text-3xl font-semibold mb-8 text-[var(--accent-blue)] text-center">Projects</h2>
+        <div className="h-[600px] overflow-y-auto pr-2 space-y-6 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
+          {[
+            { img: "/projects/schumann.png", title: "Schumann Resonance Data Project", desc: "Analyzing multi-year electromagnetic field data to study resonance patterns." },
+            { img: "/projects/options.png", title: "Options Trading Simulator", desc: "Advanced strategies with Python, pair trading, and volatility analysis." },
+            { img: "/projects/ai.png", title: "AI Research", desc: "Experiments with machine learning, twinned regression, and LLMs in finance." },
+            { img: "/projects/dashboard.png", title: "Interactive Data Dashboard", desc: "A real-time dashboard for visualizing key performance metrics with interactive charts and filters." },
+            { img: "/projects/weather.png", title: "Weather Forecasting Model", desc: "Built ARIMA/SARIMA-based models to predict rainfall and wind patterns with visual reports." }
+          ].map((p, i) => (
+            <div key={i} className="bg-[#0c1445] rounded-xl shadow hover:shadow-[0_0_15px_var(--accent-blue)] transition flex flex-col md:flex-row">
+              <img src={p.img} alt={p.title} className="w-full md:w-1/3 h-48 object-cover rounded-t-xl md:rounded-l-xl md:rounded-t-none" />
+              <div className="p-4">
+                <h3 className="font-bold text-[var(--accent-blue)]">{p.title}</h3>
+                <p className="text-gray-400 text-sm mt-2">{p.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="max-w-2xl mx-auto text-center">
+        <h2 className="text-3xl font-semibold mb-4 text-[var(--accent-blue)]">Contact</h2>
+        <p className="text-gray-300 mb-6">Let’s connect! You can find me here:</p>
+        <div className="flex justify-center space-x-8 text-3xl">
+          <a href="https://github.com/ZJashi" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[var(--accent-yellow)] transition hover:scale-110">
+            <FaGithub />
           </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+          <a href="https://linkedin.com/in/zurajashi" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[var(--accent-yellow)] transition hover:scale-110">
+            <FaLinkedin />
+          </a>
+          <a href="mailto:zurajashi09@gmail.com" className="text-gray-400 hover:text-[var(--accent-yellow)] transition hover:scale-110">
+            <FaEnvelope />
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+    </main>
   );
 }
