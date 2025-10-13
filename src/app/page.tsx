@@ -10,6 +10,7 @@ export default function Home() {
       id="hero"
       className="relative flex flex-col items-center justify-center min-h-screen w-full text-center overflow-hidden"
     >
+
       <h1 className="relative text-5xl font-bold text-[var(--accent-blue)] z-10">
         Hi, I’m Zura 👋
       </h1>
@@ -82,6 +83,7 @@ export default function Home() {
 
       {/* Contact */}
       <section id="contact" className="max-w-2xl mx-auto text-center">
+        <Particles />
         <h2 className="text-3xl font-semibold mb-4 text-[var(--accent-blue)]">Contact</h2>
         <p className="text-gray-300 mb-6">Let’s connect! You can find me here:</p>
         <div className="flex justify-center space-x-8 text-3xl">
