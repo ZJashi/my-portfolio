@@ -67,7 +67,7 @@ export default function Home() {
             { img: "/projects/schumann.png", title: "Schumann Resonance Data Project", desc: "Analyzing multi-year electromagnetic field data to study resonance patterns." },
             { img: "/projects/options.png", title: "Options Trading Simulator", desc: "Advanced strategies with Python, pair trading, and volatility analysis." },
             { img: "/projects/ai.png", title: "AI Research", desc: "Experiments with machine learning, twinned regression, and LLMs in finance." },
-            { img: "/projects/dashboard.png", title: "Interactive Data Dashboard", desc: "A real-time dashboard for visualizing key performance metrics with interactive charts and filters." },
+            { img: "/projects/budget.png", title: "Interactive Data Dashboard", desc: "A real-time dashboard for visualizing key performance metrics with interactive charts and filters." },
             { img: "/projects/weather.png", title: "Weather Forecasting Model", desc: "Built ARIMA/SARIMA-based models to predict rainfall and wind patterns with visual reports." }
           ].map((p, i) => (
             <div key={i} className="bg-[#0c1445] rounded-xl shadow hover:shadow-[0_0_15px_var(--accent-blue)] transition flex flex-col md:flex-row">

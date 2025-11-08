@@ -2,9 +2,9 @@
 
 /* Theme colors */
 :root {
-  --bg-main: #2372cd;       /* Deep cosmic background */
-  --bg-sidebar: #0a6dee;    /* Sidebar cosmic blue */
-  --accent-blue: #e6aeae;   /* Nebula purple */
+  --bg-main: #09294e;       /* Deep cosmic background */
+  --bg-sidebar: #09294ee1;    /* Sidebar cosmic blue */
+  --accent-blue: #9aafc1;   /* Nebula purple */
   --accent-yellow: #757e32; /* Stellar orange */
   --text-main: #e20b0b;     /* Starlight text */
 }
