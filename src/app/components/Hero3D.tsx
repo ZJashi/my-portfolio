@@ -33,7 +33,7 @@ function FloatingSphere() {
     >
       {/* SPHERE (default state) */}
       {!hovered ? (
-        <Sphere args={[1.8, 64, 64]}>
+        <Sphere args={[0.22, 32, 32]}>
           <MeshDistortMaterial
             color="#2aa9ff"
             emissive="#2aa9ff"
@@ -46,7 +46,7 @@ function FloatingSphere() {
       ) : (
         /* TORUS (smaller + clean) */
         <mesh>
-          <torusKnotGeometry args={[1.4, 0.25, 200, 32]} />
+          <torusKnotGeometry args={[1.4, 0.25, 200, 16]} />
           <MeshDistortMaterial
             color="#00eaff"
             emissive="#00eaff"

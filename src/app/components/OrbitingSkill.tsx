@@ -4,7 +4,7 @@ import { Text } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 
-export default function OrbitingSkill({ text, radius = 3, speed = 0.5, offset = 0 }) {
+export default function OrbitingSkill({ text, radius = 1, speed = 0.5, offset = 0 }) {
   const ref = useRef<any>();
 
   useFrame((state) => {
