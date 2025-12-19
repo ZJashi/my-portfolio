@@ -13,9 +13,9 @@ export default function Home() {
         className="relative flex flex-col items-center justify-center min-h-screen w-full text-center overflow-hidden"
       >
         {/* 3D Background Sphere */}
-        <div className="absolute inset-0 -z-10 opacity-60">
+        {/* <div className="absolute inset-0 -z-10 opacity-60">
           <Hero3D />
-        </div>
+        </div> */}
 
         {/* Hero Text */}
         <h1 className="relative text-6xl font-bold text-[var(--accent-blue)] z-10 drop-shadow-lg">

@@ -65,7 +65,7 @@ export default function RootLayout({
         className={`${inter.className} relative min-h-screen overflow-x-hidden`}
       >
         {/* 🌌 Background Particles */}
-        <Particles
+        {/* <Particles
           particleCount={500}
           particleSpread={15}
           alphaParticles={false}
@@ -75,7 +75,7 @@ export default function RootLayout({
           cameraDistance={10}
           sizeRandomness={10}
           className="fixed top-0 left-0 w-full h-full -z-10"
-        />
+        /> */}
 
         {/* Wrapper */}
         <div className="flex relative z-10">
