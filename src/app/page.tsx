@@ -1,223 +1,156 @@
 "use client";
 
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import Hero3D from "./components/Hero3D";   // ⭐ Add this import
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-5xl px-6 py-16 space-y-28">
-      {/* Hero */}
+    <main className="flex flex-col items-center p-8 space-y-32">
+
+      {/* Hero Section */}
       <section
         id="hero"
-        className="min-h-[70vh] flex flex-col items-center justify-center text-center"
+        className="relative flex flex-col items-center justify-center min-h-screen w-full text-center overflow-hidden"
       >
-        <p className="text-sm tracking-[0.2em] uppercase text-[var(--stone)]">
-          Data Engineering • ML • Physics
-        </p>
+        {/* 3D Background Sphere */}
+        {/* <div className="absolute inset-0 -z-10 opacity-60">
+          <Hero3D />
+        </div> */}
 
-        <h1 className="mt-5 text-5xl md:text-6xl font-semibold text-[var(--ink)]">
-          Hi, I’m Zura.
+        {/* Hero Text */}
+        <h1 className="relative text-6xl font-bold text-[var(--accent-blue)] z-10 drop-shadow-lg">
+          Hi, I’m Zura 👋
         </h1>
 
-        <p className="mt-6 max-w-2xl text-base md:text-lg text-[var(--stone)] leading-relaxed">
-          I build reliable data pipelines, analytics, and ML systems — with a
-          research mindset and production discipline.
+        <p className="relative mt-6 text-lg text-gray-300 max-w-2xl mx-auto z-10">
+          I’m a physicist, mathematician, and data engineer. I build things with math, physics, and data.
         </p>
-
-        <div className="mt-10 flex flex-col sm:flex-row gap-3">
-          <a
-            href="/#contact"
-            className="rounded-xl px-6 py-3 border border-black/15 bg-white/50 hover:bg-white/70 transition"
-            style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.06)" }}
-          >
-            Contact me
-          </a>
-          <a
-            href="/projects"
-            className="rounded-xl px-6 py-3 border border-black/15 hover:bg-black/5 transition"
-          >
-            View projects
-          </a>
-        </div>
       </section>
-
-
-
 
       {/* About */}
-      <section id="about" className="space-y-4">
-        <h2 className="text-2xl md:text-3xl font-semibold text-[var(--ink)]">
-          About
-        </h2>
-        <p className="text-[var(--stone)] leading-relaxed max-w-3xl">
-          I enjoy solving complex problems and building systems that are simple
-          to operate. My background spans physics, mathematics, and data
-          engineering, and I like bridging research thinking with real-world
-          delivery.
+      <section id="about" className="max-w-2xl mx-auto text-center">
+        <h2 className="text-3xl font-semibold mb-4 text-[var(--accent-blue)]">About Me</h2>
+        <p className="text-gray-300 leading-relaxed">
+          I enjoy solving complex problems and creating data-driven solutions. My background spans physics,
+          math, and data engineering, and I’m passionate about bridging science and technology.
         </p>
       </section>
-
-
-
-
-
-
 
       {/* Experience */}
-      <section id="experience" className="space-y-6">
-        <h2 className="text-2xl md:text-3xl font-semibold text-[var(--ink)]">
-          Experience
-        </h2>
-
-        <div className="grid gap-4">
+      <section id="experience" className="max-w-3xl mx-auto text-center">
+        <h2 className="text-3xl font-semibold mb-8 text-[var(--accent-blue)]">Experience</h2>
+        <div className="space-y-8 text-left">
           {[
             {
-              title: "Big Data Engineer — Bank of Georgia",
-              time: "2023 — Present",
+              title: "Big Data Engineer – Bank of Georgia",
+              time: "2023 – Present",
               desc:
-                "Building Spark pipelines, Airflow DAGs, and Kafka streaming jobs for personalization and offers at scale.",
+                "Building Spark-based ETL pipelines, Airflow DAGs, and Kafka streams for personalized banking offers used by 4M+ clients."
             },
             {
-              title: "Researcher — Perimeter Institute",
-              time: "2022 — 2023",
+              title: "Researcher – Perimeter Institute",
+              time: "2022 – 2023",
               desc:
-                "Worked on quasicrystals and scattering amplitudes, producing research writeups and expanding theoretical tools.",
+                "Worked on Fermi surfaces in quasicrystals and CHY-based scattering amplitudes, producing an arXiv preprint and advancing amplitude theory."
             },
             {
-              title: "Tutor — Physics & Math Olympiads",
-              time: "2018 — Present",
+              title: "Tutor – Physics & Math Olympiads",
+              time: "2018 – Present",
               desc:
-                "Coaching students for competition-style problem solving with structured prep and feedback loops.",
-            },
-          ].map((job) => (
+                "Coaching students for AMC, AIME, USAPhO, and IOAA with a focus on Olympiad-style problem solving and competition prep."
+            }
+          ].map((job, i) => (
             <div
-              key={job.title}
-              className="rounded-2xl border border-black/10 bg-white/40 p-6 hover:bg-white/55 transition"
-              style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.05)" }}
+              key={i}
+              className="bg-[#0c1445] rounded-xl p-6 shadow hover:shadow-[0_0_15px_var(--accent-blue)] transition"
             >
-              <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
-                <h3 className="text-lg font-semibold text-[var(--ink)]">
-                  {job.title}
-                </h3>
-                <p className="text-sm text-[var(--stone)]">{job.time}</p>
-              </div>
-              <p className="mt-3 text-[var(--stone)] leading-relaxed">
-                {job.desc}
-              </p>
+              <h3 className="text-xl font-bold text-[var(--accent-blue)]">{job.title}</h3>
+              <p className="text-gray-400 text-sm">{job.time}</p>
+              <p className="mt-2 text-gray-300">{job.desc}</p>
             </div>
           ))}
         </div>
       </section>
-
-
-
 
       {/* Projects */}
-      <section id="projects" className="space-y-6">
-        <div className="flex items-end justify-between gap-4 flex-wrap">
-          <h2 className="text-2xl md:text-3xl font-semibold text-[var(--ink)]">
-            Projects
-          </h2>
-          <a
-            href="/projects"
-            className="text-sm underline underline-offset-4 text-[var(--ultramarine)]"
-          >
-            See all →
-          </a>
-        </div>
-
-        <div className="grid sm:grid-cols-2 gap-4">
+      <section id="projects" className="w-full max-w-4xl">
+        <h2 className="text-3xl font-semibold mb-8 text-[var(--accent-blue)] text-center">Projects</h2>
+        <div className="h-[600px] overflow-y-auto pr-2 space-y-6 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
           {[
             {
+              img: "/projects/schumann.png",
               title: "Schumann Resonance Data Project",
-              desc:
-                "Processing multi-year electromagnetic field data into daily summaries and frequency statistics.",
+              desc: "Analyzing multi-year electromagnetic field data to study resonance patterns."
             },
             {
+              img: "/projects/options.png",
               title: "Options Trading Simulator",
-              desc:
-                "Strategy research with Python, implied volatility analysis, and end-of-day simulation.",
+              desc: "Advanced strategies with Python, pair trading, and volatility analysis."
             },
             {
-              title: "Streaming Offers Pipeline",
-              desc:
-                "Spark + Kafka structured streaming pipelines for eligibility + recommender offer payloads.",
+              img: "/projects/ai.png",
+              title: "AI Research",
+              desc: "Experiments with machine learning, twinned regression, and LLMs in finance."
             },
             {
-              title: "Personal Budget Dashboard",
-              desc:
-                "Expense tracking dashboard with fast querying and clean analytics views.",
+              img: "/projects/budget.png",
+              title: "Interactive Budget Dashboard",
+              desc: "A real-time expense tracking dashboard built with Python, SQLite, and Streamlit."
             },
-          ].map((p) => (
+            {
+              img: "/projects/weather.png",
+              title: "Weather Forecasting Model",
+              desc: "Built ARIMA/SARIMA-based models to predict rainfall and wind patterns with visual reports."
+            }
+          ].map((p, i) => (
             <div
-              key={p.title}
-              className="rounded-2xl border border-black/10 bg-white/40 p-6 hover:bg-white/55 transition"
-              style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.05)" }}
+              key={i}
+              className="bg-[#0c1445] rounded-xl shadow hover:shadow-[0_0_15px_var(--accent-blue)] transition flex flex-col md:flex-row"
             >
-              <h3 className="text-lg font-semibold text-[var(--ink)]">
-                {p.title}
-              </h3>
-              <p className="mt-2 text-[var(--stone)] leading-relaxed">{p.desc}</p>
+              <img
+                src={p.img}
+                alt={p.title}
+                className="w-full md:w-1/3 h-48 object-cover rounded-t-xl md:rounded-l-xl md:rounded-t-none"
+              />
+              <div className="p-4">
+                <h3 className="font-bold text-[var(--accent-blue)]">{p.title}</h3>
+                <p className="text-gray-400 text-sm mt-2">{p.desc}</p>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-
-
-
-
       {/* Contact */}
-      <section id="contact" className="space-y-6 text-center">
-        <h2 className="text-2xl md:text-3xl font-semibold text-[var(--ink)]">
-          Contact
-        </h2>
-        <p className="text-[var(--stone)] max-w-2xl mx-auto">
-          Open to collaboration, consulting, and interesting engineering/research
-          work. The fastest way to reach me is email.
-        </p>
-
-        <div className="flex items-center justify-center gap-6 text-2xl">
+      <section id="contact" className="max-w-2xl mx-auto text-center">
+        <h2 className="text-3xl font-semibold mb-4 text-[var(--accent-blue)]">Contact</h2>
+        <p className="text-gray-300 mb-6">Let’s connect! You can find me here:</p>
+        <div className="flex justify-center space-x-8 text-3xl">
           <a
             href="https://github.com/ZJashi"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[var(--stone)] hover:text-[var(--ink)] transition"
-            aria-label="GitHub"
+            className="text-gray-400 hover:text-[var(--accent-yellow)] transition hover:scale-110"
           >
             <FaGithub />
           </a>
-
           <a
             href="https://linkedin.com/in/zurajashi"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[var(--stone)] hover:text-[var(--ink)] transition"
-            aria-label="LinkedIn"
+            className="text-gray-400 hover:text-[var(--accent-yellow)] transition hover:scale-110"
           >
             <FaLinkedin />
           </a>
-
           <a
             href="mailto:zurajashi09@gmail.com"
-            className="text-[var(--stone)] hover:text-[var(--ink)] transition"
-            aria-label="Email"
+            className="text-gray-400 hover:text-[var(--accent-yellow)] transition hover:scale-110"
           >
             <FaEnvelope />
-          </a>
-        </div>
-
-        <div className="pt-2">
-          <a
-            href="mailto:zurajashi09@gmail.com"
-            className="inline-block rounded-xl px-6 py-3 border border-black/15 bg-white/50 hover:bg-white/70 transition"
-            style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.06)" }}
-          >
-            Email me
           </a>
         </div>
       </section>
     </main>
   );
 }
-
 
