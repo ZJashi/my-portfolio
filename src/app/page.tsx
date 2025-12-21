@@ -2,7 +2,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
-
+import Link from "next/link";
 
 
 export default function Home() {
@@ -62,19 +62,21 @@ export default function Home() {
         transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
         className="mt-10 flex flex-col sm:flex-row gap-3"
       >
-        <a
-          href="/#contact"
-          className="rounded-xl px-6 py-3 border border-black/15 bg-white/50 hover:bg-white/70 transition"
-          style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.06)" }}
-        >
-          Contact me
-        </a>
-        <a
-          href="/#projects"
-          className="rounded-xl px-6 py-3 border border-black/15 bg-white/50 hover:bg-white/70 transition"
-        >
-          View projects
-        </a>
+        <Link
+        href="/#contact"
+        className="rounded-xl px-6 py-3 border border-black/15 bg-white/50 hover:bg-white/70 transition"
+        style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.06)" }}
+      >
+        Contact me
+      </Link>
+
+      <Link
+        href="/#projects"
+        className="rounded-xl px-6 py-3 border border-black/15 bg-white/50 hover:bg-white/70 transition"
+      >
+        View projects
+      </Link>
+
       </motion.div>
     </section>
 
