@@ -16,7 +16,7 @@ const navItems = [
   { href: "/", icon: FaHome, label: "Home" },
   { href: "/#about", icon: FaUser, label: "About" },
   { href: "/#projects", icon: FaProjectDiagram, label: "Projects" },
-    { href: "/#notes", icon: FaBriefcase, label: "Notes" },
+  { href: "/#notes", icon: FaBriefcase, label: "Notes" },
   { href: "/#contact", icon: FaEnvelope, label: "Contact" },
 ];
 

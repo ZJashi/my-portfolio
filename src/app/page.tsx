@@ -80,69 +80,6 @@ export default function Home() {
       </motion.div>
     </section>
 
-      {/* About */}
-      <section id="about" className="space-y-4">
-        <h2 className="text-2xl md:text-3xl font-semibold text-[var(--ink)]">
-          About
-        </h2>
-        <p className="text-[var(--stone)] leading-relaxed max-w-3xl">
-          I enjoy solving complex problems and building systems that are simple
-          to operate. My background spans physics, mathematics, and data
-          engineering, and I like bridging research thinking with real-world
-          delivery.
-        </p>
-      </section>
-
-
-
-      {/* Experience */}
-      <section id="experience" className="space-y-6">
-        <h2 className="text-2xl md:text-3xl font-semibold text-[var(--ink)]">
-          Experience
-        </h2>
-
-        <div className="grid gap-4">
-          {[
-            {
-              title: "Big Data Engineer — Bank of Georgia",
-              time: "2023 — Present",
-              desc:
-                "Building Spark pipelines, Airflow DAGs, and Kafka streaming jobs for personalization and offers at scale.",
-            },
-            {
-              title: "Researcher — Perimeter Institute",
-              time: "2022 — 2023",
-              desc:
-                "Worked on quasicrystals and scattering amplitudes, producing research writeups and expanding theoretical tools.",
-            },
-            {
-              title: "Tutor — Physics & Math Olympiads",
-              time: "2018 — Present",
-              desc:
-                "Coaching students for competition-style problem solving with structured prep and feedback loops.",
-            },
-          ].map((job) => (
-            <div
-              key={job.title}
-              className="rounded-2xl border border-black/10 bg-white/40 p-6 hover:bg-white/55 transition"
-              style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.05)" }}
-            >
-              <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
-                <h3 className="text-lg font-semibold text-[var(--ink)]">
-                  {job.title}
-                </h3>
-                <p className="text-sm text-[var(--stone)]">{job.time}</p>
-              </div>
-              <p className="mt-3 text-[var(--stone)] leading-relaxed">
-                {job.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-
-
 
 
       {/* Projects */}
@@ -195,60 +132,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-
-
-      {/* Notes */}
-      <section id="notes" className="space-y-6">
-        <div className="flex items-end justify-between gap-4 flex-wrap">
-          <h2 className="text-2xl md:text-3xl font-semibold text-[var(--ink)]">
-            Notes
-          </h2>
-          <a
-            href="/Notes"
-            className="text-sm underline underline-offset-4 text-[var(--ultramarine)]"
-          >
-            See all →
-          </a>
-        </div>
-
-        <div className="grid sm:grid-cols-2 gap-4">
-          {[
-            {
-              title: "Schumann Resonance Data Project",
-              desc:
-                "Processing multi-year electromagnetic field data into daily summaries and frequency statistics.",
-            },
-            {
-              title: "Options Trading Simulator",
-              desc:
-                "Strategy research with Python, implied volatility analysis, and end-of-day simulation.",
-            },
-            {
-              title: "Streaming Offers Pipeline",
-              desc:
-                "Spark + Kafka structured streaming pipelines for eligibility + recommender offer payloads.",
-            },
-            {
-              title: "Personal Budget Dashboard",
-              desc:
-                "Expense tracking dashboard with fast querying and clean analytics views.",
-            },
-          ].map((p) => (
-            <div
-              key={p.title}
-              className="rounded-2xl border border-black/10 bg-white/40 p-6 hover:bg-white/55 transition"
-              style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.05)" }}
-            >
-              <h3 className="text-lg font-semibold text-[var(--ink)]">
-                {p.title}
-              </h3>
-              <p className="mt-2 text-[var(--stone)] leading-relaxed">{p.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
 
 
 
