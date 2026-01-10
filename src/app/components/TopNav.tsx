@@ -41,8 +41,8 @@ export default function TopNav() {
                                 className={`transition-colors duration-200
                   ${
                                     isActive
-                                        ? "text-[var(--ink)] font-medium"
-                                        : "text-[var(--stone)] group-hover:text-[var(--ink)]"
+                                        ? "text-(--ink) font-medium"
+                                        : "text-(--stone) group-hover:text-(--ink)"
                                 }
                 `}
                             >
@@ -57,7 +57,7 @@ export default function TopNav() {
                             {/* Hover underline */}
                             <span
                                 className="absolute -bottom-2 h-[1.5px]
-                           w-0 bg-[var(--ink)]
+                           w-0 bg-(--ink)
                            transition-all duration-300
                            group-hover:w-full"
                             />
