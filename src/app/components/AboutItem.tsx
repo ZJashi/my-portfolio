@@ -16,21 +16,21 @@ export function AboutItem({ role, company, time, bullets }: Props) {
     >
       <header className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
         <div>
-          <h3 className="text-lg font-semibold text-[var(--ink)]">
+          <h3 className="text-lg font-semibold text-(--ink)">
             {role}
           </h3>
-          <p className="text-sm italic text-[var(--stone)]">
+          <p className="text-sm italic text-(--stone)">
             {company}
           </p>
         </div>
 
-        <span className="text-sm text-[var(--stone)]">
+        <span className="text-sm text-(--stone)">
           {time}
         </span>
       </header>
 
       {bullets.length > 0 && (
-        <ul className="mt-4 space-y-2 list-disc list-inside text-[var(--stone)]">
+        <ul className="mt-4 space-y-2 list-disc list-inside text-(--stone)">
           {bullets.map((item, i) => (
             <li key={i} className="leading-relaxed">
               {item}
