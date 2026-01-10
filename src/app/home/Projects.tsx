@@ -1,3 +1,6 @@
+import Link from "next/link";
+
+
 export default function Projects() {
     const projects = [
         {
@@ -28,12 +31,13 @@ export default function Projects() {
                 <h2 className="text-2xl md:text-3xl font-semibold text-[var(--ink)]">
                     Projects
                 </h2>
-                <a
+                <Link
                     href="/projects"
                     className="text-sm underline underline-offset-4 text-[var(--ultramarine)]"
                 >
                     See all →
-                </a>
+                </Link>
+
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4">
