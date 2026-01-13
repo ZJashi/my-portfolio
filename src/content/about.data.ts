@@ -1,6 +1,6 @@
-// src/components/About/about.data.ts
 
 import type { TechKey } from "./tech";
+
 
 export const about = [
   {
@@ -8,8 +8,7 @@ export const about = [
     company: "NYU — Center of Artificial Intelligence & Data Science",
     time: "Jan 2025 — Present",
     bullets: [],
-    tech: ["python", 'fastapi', 'react']
-
+    tech: ["python", "react"],
   },
   {
     role: "Big Data Engineering Intern",
@@ -21,6 +20,7 @@ export const about = [
       "Integrated Kafka, HDFS, PostgreSQL, and internal APIs at production scale",
       "Optimized jobs for performance, memory usage, and fault tolerance",
     ],
+    tech: ["spark", "kafka", "airflow", "hdfs", "python"],
   },
   {
     role: "Machine Learning Intern",
@@ -33,4 +33,10 @@ export const about = [
       "Extended existing theoretical frameworks with original contributions",
     ],
   },
-];
+] satisfies Array<{
+  role: string;
+  company: string;
+  time: string;
+  bullets: string[];
+  tech?: TechKey[];
+}>;
