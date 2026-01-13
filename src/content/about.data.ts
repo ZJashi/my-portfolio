@@ -1,11 +1,15 @@
 // src/components/About/about.data.ts
 
+import type { TechKey } from "./tech";
+
 export const about = [
   {
     role: "AI Researcher",
     company: "NYU — Center of Artificial Intelligence & Data Science",
     time: "Jan 2025 — Present",
     bullets: [],
+    tech: ["python", 'fastapi', 'react']
+
   },
   {
     role: "Big Data Engineering Intern",
@@ -23,7 +27,7 @@ export const about = [
     company: "Perimeter Institute",
     time: "2022 — 2023",
     bullets: [
-      "Conducted research on quasicrystals and scattering amplitudes",
+      "Investigate, develop and implement the twinned regression algorithm.",
       "Developed analytical and computational tools for theoretical physics",
       "Produced research notes and technical write-ups with faculty",
       "Extended existing theoretical frameworks with original contributions",

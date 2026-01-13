@@ -1,6 +1,7 @@
 "use client";
 
-// src/app/layout.tsx
+
+
 import "./globals.css";
 import { Inter } from "next/font/google";
 import TopNav from "./components/TopNav";
