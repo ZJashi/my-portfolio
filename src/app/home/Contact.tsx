@@ -2,51 +2,51 @@
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 export default function Contact() {
-    return (
-        <section id="contact" className="space-y-6 text-center">
-            <h2 className="text-2xl md:text-3xl font-semibold text-(--ink)">
-                Contact
-            </h2>
+  return (
+    <section id="contact" className="space-y-6 text-center">
+      <h2 className="text-2xl md:text-3xl font-semibold text-(--ink)">
+        Contact
+      </h2>
 
-            <p className="text-(--stone) max-w-2xl mx-auto">
-                Open to collaboration, consulting, and interesting
-                engineering/research work. The fastest way to reach me is email.
-            </p>
+      <p className="text-(--stone) max-w-2xl mx-auto">
+        Open to collaboration, consulting, and interesting engineering/research
+        work. The fastest way to reach me is email.
+      </p>
 
-            <div className="flex items-center justify-center gap-6 text-2xl">
-                <a
-                    href="https://github.com/ZJashi"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-(--stone) hover:text-(--ink) transition"
-                >
-                    <FaGithub />
-                </a>
+      <div className="flex items-center justify-center gap-6 text-2xl">
+        <a
+          href="https://github.com/ZJashi"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-(--stone) hover:text-(--ink) transition"
+        >
+          <FaGithub />
+        </a>
 
-                <a
-                    href="https://linkedin.com/in/zurajashi"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-(--stone) hover:text-(--ink) transition"
-                >
-                    <FaLinkedin />
-                </a>
+        <a
+          href="https://linkedin.com/in/zurajashi"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-(--stone) hover:text-(--ink) transition"
+        >
+          <FaLinkedin />
+        </a>
 
-                <a
-                    href="mailto:zurajashi09@gmail.com"
-                    className="text-(--stone) hover:text-(--ink) transition"
-                >
-                    <FaEnvelope />
-                </a>
-            </div>
+        <a
+          href="mailto:zurajashi09@gmail.com"
+          className="text-(--stone) hover:text-(--ink) transition"
+        >
+          <FaEnvelope />
+        </a>
+      </div>
 
-            <a
-                href="mailto:zurajashi09@gmail.com"
-                className="inline-block rounded-xl px-6 py-3 border border-black/15 bg-white/50 hover:bg-white/70 transition"
-                style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.06)" }}
-            >
-                Email me
-            </a>
-        </section>
-    );
+      <a
+        href="mailto:zurajashi09@gmail.com"
+        className="inline-block rounded-xl px-6 py-3 border border-black/15 bg-white/50 hover:bg-white/70 transition"
+        style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.06)" }}
+      >
+        Email me
+      </a>
+    </section>
+  );
 }

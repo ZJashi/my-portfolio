@@ -1,6 +1,4 @@
-
 import type { TechKey } from "./tech";
-
 
 export const about = [
   {

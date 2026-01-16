@@ -90,8 +90,8 @@ export default function Sidebar() {
                       className={[
                         "block text-lg",
                         isActive
-                          ? "text-[var(--ink)] opacity-95"
-                          : "text-[var(--ink)] opacity-80",
+                          ? "text-(--ink) opacity-95"
+                          : "text-(--ink) opacity-80",
                       ].join(" ")}
                     />
                   </span>
@@ -100,7 +100,7 @@ export default function Sidebar() {
                   <span
                     className={[
                       "hidden group-hover:inline whitespace-nowrap",
-                      "text-sm text-[var(--ink)]/80",
+                      "text-sm text-(--ink)/80",
                     ].join(" ")}
                   >
                     {label}
@@ -128,5 +128,3 @@ export default function Sidebar() {
     </nav>
   );
 }
-
-

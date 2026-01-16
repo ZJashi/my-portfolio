@@ -5,8 +5,7 @@ import { AboutItem } from "./AboutItem";
 
 export function AboutSection() {
   return (
-    <section  id="about" className="py-24">
-
+    <section id="about" className="py-24">
       <div className="max-w-4xl mx-auto px-6 space-y-12">
         {/* Title */}
         <header className="space-y-3">
@@ -14,21 +13,18 @@ export function AboutSection() {
             About
           </h2>
           <p className="text-(--stone) max-w-2xl">
-            Research, engineering, and teaching experience across academia and industry.
+            Research, engineering, and teaching experience across academia and
+            industry.
           </p>
         </header>
 
         {/* Cards */}
         <div className="space-y-6">
           {about.map((item) => (
-            <AboutItem
-              key={`${item.role}-${item.company}`}
-              {...item}
-            />
+            <AboutItem key={`${item.role}-${item.company}`} {...item} />
           ))}
         </div>
       </div>
     </section>
   );
 }
-

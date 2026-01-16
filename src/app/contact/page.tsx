@@ -3,69 +3,69 @@
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 export default function ContactClient() {
-    return (
-        <main className="mx-auto max-w-4xl px-6 py-20 space-y-16">
-            {/* Header */}
-            <header className="space-y-4 text-center">
-                <h1 className="text-4xl md:text-5xl font-semibold text-[var(--ink)]">
-                    Contact
-                </h1>
-                <p className="mx-auto max-w-2xl text-lg text-[var(--stone)] leading-relaxed">
-                    Open to collaboration, consulting, and interesting engineering or
-                    research work. The best way to reach me is by email.
-                </p>
-            </header>
+  return (
+    <main className="mx-auto max-w-4xl px-6 py-20 space-y-16">
+      {/* Header */}
+      <header className="space-y-4 text-center">
+        <h1 className="text-4xl md:text-5xl font-semibold text-(--ink)">
+          Contact
+        </h1>
+        <p className="mx-auto max-w-2xl text-lg text-(--stone) leading-relaxed">
+          Open to collaboration, consulting, and interesting engineering or
+          research work. The best way to reach me is by email.
+        </p>
+      </header>
 
-            {/* Contact card */}
-            <section
-                className="mx-auto max-w-xl rounded-3xl border border-black/10
+      {/* Contact card */}
+      <section
+        className="mx-auto max-w-xl rounded-3xl border border-black/10
                    bg-white/40 p-10 text-center space-y-8"
-                style={{ boxShadow: "0 10px 40px rgba(0,0,0,0.06)" }}
-            >
-                {/* Email */}
-                <a
-                    href="mailto:zurajashi09@gmail.com"
-                    className="flex items-center justify-center gap-3
-                     text-xl font-medium text-[var(--ink)]
+        style={{ boxShadow: "0 10px 40px rgba(0,0,0,0.06)" }}
+      >
+        {/* Email */}
+        <a
+          href="mailto:zurajashi09@gmail.com"
+          className="flex items-center justify-center gap-3
+                     text-xl font-medium text-(--ink)
                      hover:underline underline-offset-4"
-                >
-                    <FaEnvelope />
-                    zurajashi09@gmail.com
-                </a>
+        >
+          <FaEnvelope />
+          zurajashi09@gmail.com
+        </a>
 
-                {/* Social icons */}
-                <div className="flex justify-center gap-8 text-2xl">
-                    <a
-                        href="https://github.com/ZJashi"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[var(--stone)] hover:text-[var(--ink)] transition"
-                        aria-label="GitHub"
-                    >
-                        <FaGithub />
-                    </a>
+        {/* Social icons */}
+        <div className="flex justify-center gap-8 text-2xl">
+          <a
+            href="https://github.com/ZJashi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-(--stone) hover:text-(--ink) transition"
+            aria-label="GitHub"
+          >
+            <FaGithub />
+          </a>
 
-                    <a
-                        href="https://linkedin.com/in/zurajashi"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[var(--stone)] hover:text-[var(--ink)] transition"
-                        aria-label="LinkedIn"
-                    >
-                        <FaLinkedin />
-                    </a>
-                </div>
+          <a
+            href="https://linkedin.com/in/zurajashi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-(--stone) hover:text-(--ink) transition"
+            aria-label="LinkedIn"
+          >
+            <FaLinkedin />
+          </a>
+        </div>
 
-                {/* CTA */}
-                <a
-                    href="mailto:zurajashi09@gmail.com"
-                    className="inline-block rounded-xl px-8 py-3
+        {/* CTA */}
+        <a
+          href="mailto:zurajashi09@gmail.com"
+          className="inline-block rounded-xl px-8 py-3
                      border border-black/15 bg-white/60
                      hover:bg-white/80 transition"
-                >
-                    Email me
-                </a>
-            </section>
-        </main>
-    );
+        >
+          Email me
+        </a>
+      </section>
+    </main>
+  );
 }

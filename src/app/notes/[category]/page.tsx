@@ -1,11 +1,7 @@
 // app/notes/[category]/page.tsx
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import {
-  notes,
-  CATEGORY_LABELS,
-  type NoteCategory,
-} from "@/content/notes";
+import { notes, CATEGORY_LABELS, type NoteCategory } from "@/content/notes";
 import { formatDate } from "@/content/date";
 
 /* ✅ REQUIRED FOR APP ROUTER */
@@ -66,9 +62,7 @@ export default function CategoryPage({ params }: Props) {
             "
           >
             <div className="flex justify-between items-baseline gap-4">
-              <h2 className="text-lg font-semibold leading-snug">
-                {n.title}
-              </h2>
+              <h2 className="text-lg font-semibold leading-snug">{n.title}</h2>
               <span className="text-sm text-[var(--stone)]">
                 {formatDate(n.year, n.month)}
               </span>
@@ -105,11 +99,7 @@ export default function CategoryPage({ params }: Props) {
               >
                 Open PDF
               </a>
-              <a
-                href={n.pdfUrl}
-                download
-                className="text-sm hover:underline"
-              >
+              <a href={n.pdfUrl} download className="text-sm hover:underline">
                 Download
               </a>
             </div>
@@ -125,4 +115,3 @@ export default function CategoryPage({ params }: Props) {
     </main>
   );
 }
-

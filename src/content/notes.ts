@@ -9,14 +9,14 @@ export const CATEGORY_LABELS: Record<NoteCategory, string> = {
 };
 
 export type Note = {
-  slug: string;          // optional for now, useful later
+  slug: string; // optional for now, useful later
   title: string;
   year: number;
-  month: number;         // 1–12
+  month: number; // 1–12
   category: NoteCategory;
   tags: string[];
   abstract: string;
-  pdfUrl: string;        // must NOT include `/public`
+  pdfUrl: string; // must NOT include `/public`
 };
 
 export const notes: Note[] = [
@@ -70,11 +70,13 @@ export const notes: Note[] = [
     year: 2023,
     month: 1,
     category: "physics",
-    tags: ["Classical Mechanics", "Lagrangian Mechanics", "Hamiltonian Mechanics"],
+    tags: [
+      "Classical Mechanics",
+      "Lagrangian Mechanics",
+      "Hamiltonian Mechanics",
+    ],
     abstract:
       "Lecture notes on classical mechanics, including Lagrangian and Hamiltonian formalisms.",
     pdfUrl: "/papers/mechanics-notes.pdf",
   },
 ];
-
-
