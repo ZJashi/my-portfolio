@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { projects } from "@/content/projects";
-import { TechIcons } from "../components/TechIcons";
+import { TechIcons } from "@/components/TechIcons";
 
 export default function Projects() {
   return (
@@ -43,14 +43,12 @@ export default function Projects() {
               {project.shortDescription}
             </p>
 
-            {/* Tech icons */}
             {project.tech && project.tech.length > 0 && (
               <div className="mt-4">
                 <TechIcons tech={project.tech} size={18} />
               </div>
             )}
 
-            {/* Tags */}
             {project.tags.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
                 {project.tags.map((tag) => (

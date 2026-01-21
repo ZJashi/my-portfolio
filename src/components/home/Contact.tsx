@@ -1,14 +1,13 @@
-"use client";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 export default function Contact() {
   return (
     <section id="contact" className="space-y-6 text-center">
-      <h2 className="text-2xl md:text-3xl font-semibold text-(--ink)">
+      <h2 className="text-2xl md:text-3xl font-semibold text-[var(--ink)]">
         Contact
       </h2>
 
-      <p className="text-(--stone) max-w-2xl mx-auto">
+      <p className="text-[var(--stone)] max-w-2xl mx-auto">
         Open to collaboration, consulting, and interesting engineering/research
         work. The fastest way to reach me is email.
       </p>
@@ -18,7 +17,8 @@ export default function Contact() {
           href="https://github.com/ZJashi"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-(--stone) hover:text-(--ink) transition"
+          className="text-[var(--stone)] hover:text-[var(--ink)] transition"
+          aria-label="GitHub"
         >
           <FaGithub />
         </a>
@@ -27,14 +27,16 @@ export default function Contact() {
           href="https://linkedin.com/in/zurajashi"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-(--stone) hover:text-(--ink) transition"
+          className="text-[var(--stone)] hover:text-[var(--ink)] transition"
+          aria-label="LinkedIn"
         >
           <FaLinkedin />
         </a>
 
         <a
           href="mailto:zurajashi09@gmail.com"
-          className="text-(--stone) hover:text-(--ink) transition"
+          className="text-[var(--stone)] hover:text-[var(--ink)] transition"
+          aria-label="Email"
         >
           <FaEnvelope />
         </a>

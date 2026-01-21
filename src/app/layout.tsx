@@ -2,8 +2,8 @@
 
 import "./globals.css";
 import { Inter } from "next/font/google";
-import TopNav from "./components/TopNav";
-import Sidebar from "./components/Sidebar";
+import TopNav from "@/components/TopNav";
+import Sidebar from "@/components/Sidebar";
 
 import { usePathname } from "next/navigation";
 

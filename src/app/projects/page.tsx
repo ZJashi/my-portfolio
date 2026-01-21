@@ -3,7 +3,7 @@ import Image from "next/image";
 import { projects } from "@/content/projects";
 
 export const metadata = {
-  title: "Projects",
+  title: "Projects | Zura Jashi",
   description:
     "Selected projects in data engineering, AI, physics, and quantitative research.",
 };
@@ -11,12 +11,11 @@ export const metadata = {
 export default function ProjectsPage() {
   return (
     <main className="mx-auto max-w-6xl px-6 py-20 space-y-20">
-      {/* Header */}
       <header className="max-w-3xl space-y-4">
-        <h1 className="text-4xl md:text-5xl font-semibold text-(--ink)">
+        <h1 className="text-4xl md:text-5xl font-semibold text-[var(--ink)]">
           Projects
         </h1>
-        <p className="text-lg text-(--stone) leading-relaxed">
+        <p className="text-lg text-[var(--stone)] leading-relaxed">
           A selection of projects spanning data engineering, artificial
           intelligence, physics, and quantitative research. Each project focuses
           on solving real problems with a strong emphasis on correctness,
@@ -24,7 +23,6 @@ export default function ProjectsPage() {
         </p>
       </header>
 
-      {/* Projects grid */}
       <section className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
           <Link
@@ -35,8 +33,7 @@ export default function ProjectsPage() {
                        hover:bg-white/60"
             style={{ boxShadow: "0 10px 40px rgba(0,0,0,0.06)" }}
           >
-            {/* Preview */}
-            <div className="relative mb-5 aspect-16/10 overflow-hidden rounded-2xl border border-black/5 bg-white">
+            <div className="relative mb-5 aspect-video overflow-hidden rounded-2xl border border-black/5 bg-white">
               <Image
                 src={project.preview}
                 alt={project.title}
@@ -47,24 +44,22 @@ export default function ProjectsPage() {
               />
             </div>
 
-            {/* Content */}
             <div className="space-y-3">
-              <h2 className="text-xl font-semibold text-(--ink)">
+              <h2 className="text-xl font-semibold text-[var(--ink)]">
                 {project.title}
               </h2>
 
-              <p className="text-sm text-(--stone) leading-relaxed">
+              <p className="text-sm text-[var(--stone)] leading-relaxed">
                 {project.shortDescription}
               </p>
 
-              {/* Tags */}
               <div className="flex flex-wrap gap-2 pt-2">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
                     className="rounded-full border border-black/10
                                bg-white/60 px-3 py-1
-                               text-xs text-(--ink)"
+                               text-xs text-[var(--ink)]"
                   >
                     {tag}
                   </span>
@@ -72,10 +67,9 @@ export default function ProjectsPage() {
               </div>
             </div>
 
-            {/* Hover affordance */}
             <span
               className="pointer-events-none absolute right-6 top-6
-                         text-sm text-(--stone)
+                         text-sm text-[var(--stone)]
                          opacity-0 transition
                          group-hover:opacity-100"
             >

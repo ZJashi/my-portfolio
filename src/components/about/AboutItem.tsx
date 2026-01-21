@@ -1,6 +1,6 @@
 "use client";
 
-import { TechIcons } from "../components/TechIcons";
+import { TechIcons } from "@/components/TechIcons";
 import type { TECH } from "@/content/tech";
 
 type Props = {
@@ -20,15 +20,15 @@ export function AboutItem({ role, company, time, bullets, tech }: Props) {
     >
       <header className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
         <div>
-          <h3 className="text-lg font-semibold text-(--ink)">{role}</h3>
-          <p className="text-sm italic text-(--stone)">{company}</p>
+          <h3 className="text-lg font-semibold text-[var(--ink)]">{role}</h3>
+          <p className="text-sm italic text-[var(--stone)]">{company}</p>
         </div>
 
-        <span className="text-sm text-(--stone)">{time}</span>
+        <span className="text-sm text-[var(--stone)]">{time}</span>
       </header>
 
       {bullets.length > 0 && (
-        <ul className="mt-4 space-y-2 list-disc list-inside text-(--stone)">
+        <ul className="mt-4 space-y-2 list-disc list-inside text-[var(--stone)]">
           {bullets.map((item, i) => (
             <li key={i} className="leading-relaxed">
               {item}

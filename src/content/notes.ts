@@ -1,5 +1,3 @@
-// content/notes.ts
-
 export type NoteCategory = "mathematics" | "physics" | "ai";
 
 export const CATEGORY_LABELS: Record<NoteCategory, string> = {

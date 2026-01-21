@@ -42,16 +42,15 @@ export function TechIcons({ tech, size = 20 }: Props) {
             <Icon
               size={size}
               className="
-                text-(--stone)
+                text-[var(--stone)]
                 transition
                 duration-200
-                group-hover:text-(--ink)
+                group-hover:text-[var(--ink)]
                 group-hover:-translate-y-0.5
                 group-hover:scale-110
               "
             />
 
-            {/* Tooltip */}
             <span
               className="
                 pointer-events-none

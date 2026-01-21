@@ -1,4 +1,5 @@
 "use client";
+
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { projects } from "@/content/projects";
@@ -6,8 +7,8 @@ import { projects } from "@/content/projects";
 export default function RollingProjects() {
   return (
     <div className="relative mt-16 w-full overflow-hidden">
-      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-linear-to-r from-white via-white/80 to-transparent" />
-      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-linear-to-l from-white via-white/80 to-transparent" />
+      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-[var(--bg-main)] via-[var(--bg-main)]/80 to-transparent" />
+      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-[var(--bg-main)] via-[var(--bg-main)]/80 to-transparent" />
 
       <motion.div
         className="flex w-max gap-6"
@@ -20,13 +21,12 @@ export default function RollingProjects() {
             href={`/projects/${project.slug}`}
             className="group relative whitespace-nowrap rounded-full
                        border border-black/10 bg-white/60
-                       px-6 py-3 text-sm text-(--ink)
+                       px-6 py-3 text-sm text-[var(--ink)]
                        backdrop-blur-md hover:bg-white/80 transition"
             whileHover={{ scale: 1.05 }}
           >
             {project.title}
 
-            {/* Hover preview */}
             <motion.div
               initial={{ opacity: 0, y: 10, scale: 0.95 }}
               whileHover={{ opacity: 1, y: -12, scale: 1 }}

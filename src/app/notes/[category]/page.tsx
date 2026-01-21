@@ -1,24 +1,36 @@
-// app/notes/[category]/page.tsx
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { notes, CATEGORY_LABELS, type NoteCategory } from "@/content/notes";
-import { formatDate } from "@/content/date";
+import { formatDate } from "@/lib/date";
 
-/* ✅ REQUIRED FOR APP ROUTER */
 export function generateStaticParams() {
   return Object.keys(CATEGORY_LABELS).map((category) => ({
     category,
   }));
 }
 
-type Props = {
-  params: { category: string };
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
+  const { category } = await params;
+  const label = CATEGORY_LABELS[category as NoteCategory];
+  if (!label) return { title: "Notes" };
 
-export default function CategoryPage({ params }: Props) {
-  const category = params.category as NoteCategory;
+  return {
+    title: `${label} Notes | Zura Jashi`,
+    description: `Notes and lecture materials on ${label.toLowerCase()} topics.`,
+  };
+}
 
-  // Guard against invalid categories
+export default async function CategoryPage({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
+  const { category } = await params;
+
   if (!(category in CATEGORY_LABELS)) {
     notFound();
   }
@@ -29,7 +41,6 @@ export default function CategoryPage({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-16 space-y-12">
-      {/* Header */}
       <header className="space-y-4">
         <Link
           href="/notes"
@@ -39,7 +50,7 @@ export default function CategoryPage({ params }: Props) {
         </Link>
 
         <h1 className="text-4xl font-semibold text-[var(--ink)]">
-          {CATEGORY_LABELS[category]}
+          {CATEGORY_LABELS[category as NoteCategory]}
         </h1>
 
         <p className="text-[var(--stone)]">
@@ -47,7 +58,6 @@ export default function CategoryPage({ params }: Props) {
         </p>
       </header>
 
-      {/* Notes list */}
       <section className="space-y-4">
         {filtered.map((n) => (
           <article

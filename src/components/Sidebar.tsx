@@ -1,4 +1,3 @@
-// src/app/components/Sidebar.tsx
 "use client";
 
 import Link from "next/link";
@@ -52,19 +51,15 @@ export default function Sidebar() {
   return (
     <nav
       className={[
-        // floating dock
         "fixed left-6 top-1/2 -translate-y-1/2 z-50",
-        // CSS-driven hover expansion (no freeze)
         "group",
         "w-14 hover:w-52 transition-[width] duration-300",
-        // pretty glass
         "rounded-2xl border border-black/10 shadow-lg",
         "bg-white/60 backdrop-blur-md",
         "overflow-hidden",
       ].join(" ")}
     >
       <div className="flex flex-col items-center py-3">
-        {/* Nav */}
         <ul className="w-full px-2 space-y-2 list-none p-0 m-0">
           {navItems.map(({ href, icon: Icon, label }) => {
             const sectionId = href.includes("#") ? href.split("#")[1] : "";
@@ -78,29 +73,26 @@ export default function Sidebar() {
                     "flex items-center h-10 rounded-xl transition",
                     "hover:bg-black/5",
                     isActive ? "bg-black/5" : "",
-                    // collapsed: center icon; expanded: add padding + left align
                     "justify-center group-hover:justify-start",
                     "px-0 group-hover:px-3",
                     "gap-0 group-hover:gap-3",
                   ].join(" ")}
                 >
-                  {/* fixed icon slot so it never moves/clips */}
                   <span className="w-10 flex justify-center group-hover:justify-start">
                     <Icon
                       className={[
                         "block text-lg",
                         isActive
-                          ? "text-(--ink) opacity-95"
-                          : "text-(--ink) opacity-80",
+                          ? "text-[var(--ink)] opacity-95"
+                          : "text-[var(--ink)] opacity-80",
                       ].join(" ")}
                     />
                   </span>
 
-                  {/* label should not take space when collapsed */}
                   <span
                     className={[
                       "hidden group-hover:inline whitespace-nowrap",
-                      "text-sm text-(--ink)/80",
+                      "text-sm text-[var(--ink)]/80",
                     ].join(" ")}
                   >
                     {label}
@@ -111,7 +103,6 @@ export default function Sidebar() {
           })}
         </ul>
 
-        {/* Resume (only in expanded) */}
         <div className="mt-3 w-full px-2 hidden group-hover:block">
           <a
             href="/resume.pdf"

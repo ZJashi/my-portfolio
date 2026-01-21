@@ -1,7 +1,12 @@
-// app/notes/page.tsx
 import Link from "next/link";
 import { notes, CATEGORY_LABELS, type NoteCategory } from "@/content/notes";
-import { formatDate } from "@/content/date"; // ✅ correct location
+import { formatDate } from "@/lib/date";
+
+export const metadata = {
+  title: "Notes | Zura Jashi",
+  description:
+    "A collection of LaTeX notes on mathematics, physics, and AI topics.",
+};
 
 const categories = Object.keys(CATEGORY_LABELS) as NoteCategory[];
 
@@ -18,8 +23,8 @@ export default function NotesPage() {
   return (
     <main className="mx-auto max-w-6xl px-6 py-16 space-y-14">
       <header className="space-y-3">
-        <h1 className="text-4xl font-semibold text-(--ink)">Notes</h1>
-        <p className="max-w-2xl text-(--stone) leading-relaxed">
+        <h1 className="text-4xl font-semibold text-[var(--ink)]">Notes</h1>
+        <p className="max-w-2xl text-[var(--stone)] leading-relaxed">
           A collection of LaTeX notes. Each category scrolls vertically, newest
           notes first.
         </p>
@@ -28,20 +33,18 @@ export default function NotesPage() {
       <div className="grid gap-10 md:grid-cols-3">
         {categories.map((cat) => (
           <section key={cat} className="space-y-4">
-            {/* Category header (CLICKABLE) */}
             <div className="flex items-baseline justify-between">
               <Link
                 href={`/notes/${cat}`}
-                className="text-xl font-semibold text-(--ink) hover:underline underline-offset-4"
+                className="text-xl font-semibold text-[var(--ink)] hover:underline underline-offset-4"
               >
                 {CATEGORY_LABELS[cat]}
               </Link>
-              <span className="text-sm text-(--stone)">
+              <span className="text-sm text-[var(--stone)]">
                 {byCategory[cat].length}
               </span>
             </div>
 
-            {/* Scroll container */}
             <div
               className="
                 relative
@@ -70,12 +73,12 @@ export default function NotesPage() {
                     <h3 className="text-sm font-semibold leading-snug">
                       {n.title}
                     </h3>
-                    <span className="text-xs text-(--stone)">
+                    <span className="text-xs text-[var(--stone)]">
                       {formatDate(n.year, n.month)}
                     </span>
                   </div>
 
-                  <p className="mt-2 text-sm text-(--stone) line-clamp-3">
+                  <p className="mt-2 text-sm text-[var(--stone)] line-clamp-3">
                     {n.abstract}
                   </p>
 
@@ -83,7 +86,7 @@ export default function NotesPage() {
                     {n.tags.map((t) => (
                       <span
                         key={t}
-                        className="rounded-full border border-black/10 bg-white/40 px-2.5 py-0.5 text-xs text-(--stone)"
+                        className="rounded-full border border-black/10 bg-white/40 px-2.5 py-0.5 text-xs text-[var(--stone)]"
                       >
                         {t}
                       </span>
@@ -111,9 +114,7 @@ export default function NotesPage() {
               ))}
 
               {byCategory[cat].length === 0 && (
-                <div className="text-sm text-(--stone)">
-                  No notes yet.
-                </div>
+                <div className="text-sm text-[var(--stone)]">No notes yet.</div>
               )}
             </div>
           </section>
@@ -122,6 +123,3 @@ export default function NotesPage() {
     </main>
   );
 }
-
-
-

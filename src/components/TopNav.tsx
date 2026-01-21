@@ -37,28 +37,25 @@ export default function TopNav() {
               className="group relative flex flex-col items-center
                          text-sm tracking-wide transition"
             >
-              {/* Label */}
               <span
                 className={`transition-colors duration-200
                   ${
                     isActive
-                      ? "text-(--ink) font-medium"
-                      : "text-(--stone) group-hover:text-(--ink)"
+                      ? "text-[var(--ink)] font-medium"
+                      : "text-[var(--stone)] group-hover:text-[var(--ink)]"
                   }
                 `}
               >
                 {item.label}
               </span>
 
-              {/* Active dot */}
               {isActive && (
-                <span className="absolute -bottom-2 h-1 w-1 rounded-full bg-(--ink)" />
+                <span className="absolute -bottom-2 h-1 w-1 rounded-full bg-[var(--ink)]" />
               )}
 
-              {/* Hover underline */}
               <span
                 className="absolute -bottom-2 h-[1.5px]
-                           w-0 bg-(--ink)
+                           w-0 bg-[var(--ink)]
                            transition-all duration-300
                            group-hover:w-full"
               />

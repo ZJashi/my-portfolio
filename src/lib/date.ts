@@ -1,5 +1,3 @@
-// src/lib/date.ts
-
 export const MONTHS = [
   "Jan",
   "Feb",

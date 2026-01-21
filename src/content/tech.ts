@@ -1,4 +1,3 @@
-// src/data/tech.ts
 import {
   SiReact,
   SiCplusplus,
