@@ -1,5 +1,6 @@
 import { about } from "@/content/about.data";
 import { AboutItem } from "./AboutItem";
+import { Timeline } from "./Timeline";
 
 export function AboutSection() {
   return (
@@ -15,11 +16,11 @@ export function AboutSection() {
           </p>
         </header>
 
-        <div className="space-y-6">
+        <Timeline>
           {about.map((item) => (
             <AboutItem key={`${item.role}-${item.company}`} {...item} />
           ))}
-        </div>
+        </Timeline>
       </div>
     </section>
   );
