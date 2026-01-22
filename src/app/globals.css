@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@import "katex/dist/katex.min.css";
 
 :root {
   --bg-main: #F4EFE6;      /* linen */
@@ -17,4 +17,237 @@ body {
   background: var(--bg-main);
   color: var(--ink);
 }
+
+/* Blog prose styles */
+.blog-content {
+  line-height: 1.8;
+  font-size: 1.0625rem;
+}
+
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4 {
+  color: var(--ink);
+  font-weight: 600;
+  margin-top: 2.5em;
+  margin-bottom: 0.75em;
+  letter-spacing: -0.02em;
+}
+
+.blog-content h1 { font-size: 2rem; }
+.blog-content h2 {
+  font-size: 1.5rem;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+.blog-content h3 { font-size: 1.25rem; }
+.blog-content h4 { font-size: 1.125rem; }
+
+.blog-content p {
+  color: var(--stone);
+  margin-bottom: 1.5em;
+}
+
+.blog-content a {
+  color: var(--ultramarine);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.blog-content a:hover {
+  border-bottom-color: var(--ultramarine);
+}
+
+.blog-content strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.blog-content em {
+  font-style: italic;
+}
+
+.blog-content code {
+  color: var(--ink);
+  background-color: rgba(0, 0, 0, 0.06);
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.375rem;
+  font-size: 0.85em;
+  font-family: 'SF Mono', 'Fira Code', 'Monaco', monospace;
+}
+
+.blog-content pre {
+  background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+  color: #e5e5e5;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  overflow-x: auto;
+  margin: 2em 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.blog-content pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.blog-content blockquote {
+  border-left: 4px solid var(--gold);
+  padding: 1rem 1.5rem;
+  margin: 2em 0;
+  background: linear-gradient(90deg, rgba(197, 161, 74, 0.08) 0%, transparent 100%);
+  border-radius: 0 0.75rem 0.75rem 0;
+  color: var(--stone);
+  font-style: italic;
+}
+
+.blog-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin: 1.5em 0;
+  padding-left: 1.75em;
+  color: var(--stone);
+}
+
+.blog-content li {
+  margin: 0.6em 0;
+  padding-left: 0.25em;
+}
+
+.blog-content ul { list-style-type: disc; }
+.blog-content ol { list-style-type: decimal; }
+
+.blog-content li::marker {
+  color: var(--gold);
+}
+
+.blog-content img {
+  border-radius: 1rem;
+  margin: 2em auto;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.blog-content hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.15), transparent);
+  margin: 3em 0;
+}
+
+/* Tables */
+.blog-content table {
+  width: 100%;
+  margin: 2em 0;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.blog-content th,
+.blog-content td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.blog-content th {
+  color: var(--ink);
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.blog-content td {
+  color: var(--stone);
+}
+
+.blog-content tr:hover td {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* Task lists */
+.blog-content input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: var(--ultramarine);
+}
+
+/* Footnotes */
+.blog-content sup a {
+  color: var(--ultramarine);
+  font-weight: 500;
+  font-size: 0.75em;
+}
+
+/* Definition lists */
+.blog-content dl {
+  margin: 1.5em 0;
+}
+
+.blog-content dt {
+  color: var(--ink);
+  font-weight: 600;
+  margin-top: 1em;
+}
+
+.blog-content dd {
+  color: var(--stone);
+  margin-left: 1.5em;
+  margin-top: 0.25em;
+}
+
+/* KaTeX display math centering */
+.blog-content .katex-display {
+  margin: 2em 0;
+  padding: 1.5em;
+  background: rgba(31, 78, 140, 0.03);
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.blog-content .katex {
+  font-size: 1.1em;
+}
+
+/* Mark/highlight */
+.blog-content mark {
+  background: linear-gradient(120deg, rgba(197, 161, 74, 0.3) 0%, rgba(197, 161, 74, 0.2) 100%);
+  padding: 0.1em 0.3em;
+  border-radius: 0.25em;
+}
+
+/* Abbreviations */
+.blog-content abbr {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+/* Keyboard shortcuts */
+.blog-content kbd {
+  background: linear-gradient(180deg, #fafafa 0%, #e8e8e8 100%);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.375rem;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.85em;
+  font-family: inherit;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Colored text */
+.blog-content .red { color: #dc2626; }
+.blog-content .blue { color: #2563eb; }
+.blog-content .purple { color: #7c3aed; }
+.blog-content .green { color: #059669; }
+.blog-content .orange { color: #ea580c; }
+.blog-content .gold { color: var(--gold); }
 
