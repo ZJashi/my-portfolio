@@ -10,7 +10,6 @@ const navItems = [
   { href: "/notes", label: "Notes" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
-  { href: "/about", label: "About" },
 ];
 
 export default function TopNav() {
@@ -19,8 +18,8 @@ export default function TopNav() {
   return (
     <nav className="fixed top-6 left-1/2 z-50 -translate-x-1/2">
       <div
-        className="flex items-center gap-10
-                   rounded-full px-10 py-4
+        className="flex items-center gap-6
+                   rounded-full px-6 py-3
                    bg-white/80 dark:bg-[#252529]/80 backdrop-blur-md
                    border border-black/10 dark:border-white/10
                    shadow-[0_8px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_40px_rgba(0,0,0,0.4)]"
@@ -68,12 +67,12 @@ export default function TopNav() {
           href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="ml-4 px-4 py-2 text-sm rounded-lg border border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-white dark:hover:text-[#1A1A1F] transition"
+          className="px-3 py-1.5 text-sm rounded-lg border border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-white dark:hover:text-[#1A1A1F] transition"
         >
           Resume
         </a>
 
-        <div className="ml-2 border-l border-black/10 dark:border-white/10 pl-4">
+        <div className="border-l border-black/10 dark:border-white/10 pl-4">
           <ThemeToggle />
         </div>
       </div>

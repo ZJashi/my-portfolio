@@ -1,8 +1,7 @@
 import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
 import Experience from "@/components/home/Experience";
-import Projects from "@/components/home/Projects";
-import Contact from "@/components/home/Contact";
+import Skills from "@/components/home/Skills";
 
 export const metadata = {
   title: "Zura Jashi | AI Researcher & Data Engineer",
@@ -12,12 +11,11 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <main className="mx-auto max-w-5xl px-6 py-16 space-y-28">
+    <main className="mx-auto max-w-5xl px-6 py-16 space-y-24">
       <Hero />
       <About />
       <Experience />
-      <Projects />
-      <Contact />
+      <Skills />
     </main>
   );
 }

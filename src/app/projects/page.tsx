@@ -90,7 +90,7 @@ export default function ProjectsPage() {
                 {/* Tech Stack */}
                 {project.tech && project.tech.length > 0 && (
                   <div className="pt-2">
-                    <TechIcons tech={project.tech} size={18} />
+                    <TechIcons tech={project.tech} size={18} showLabelsOnHover />
                   </div>
                 )}
 

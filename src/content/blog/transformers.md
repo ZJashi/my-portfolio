@@ -102,3 +102,4 @@ They are proposing:
 - Evidence that embedding-space objectives matter in language
 
 **The paper argues that language modeling has overcommitted to reconstruction-based objectives, and proposes LLM-JEPA as a principled way to inject JEPA-style embedding prediction into LLM training without sacrificing generation.**
+
