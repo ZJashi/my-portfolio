@@ -40,7 +40,7 @@ export function BlogList({ posts }: Props) {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group block rounded-2xl border border-black/10 bg-white/40 p-5 transition hover:bg-white/60 hover:shadow-sm"
+              className="group block rounded-2xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/5 p-5 transition hover:bg-white/60 dark:hover:bg-white/10 hover:shadow-sm"
             >
               {post.coverImage && (
                 <div className="relative mb-4 aspect-video overflow-hidden rounded-xl">

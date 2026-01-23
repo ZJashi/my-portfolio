@@ -14,8 +14,8 @@ import {
 const navItems = [
   { href: "/", icon: FaHome, label: "Home" },
   { href: "/#about", icon: FaUser, label: "About" },
+  { href: "/#experience", icon: FaBriefcase, label: "Experience" },
   { href: "/#projects", icon: FaProjectDiagram, label: "Projects" },
-  { href: "/#notes", icon: FaBriefcase, label: "Notes" },
   { href: "/#contact", icon: FaEnvelope, label: "Contact" },
 ];
 
@@ -26,7 +26,7 @@ export default function Sidebar() {
   useEffect(() => {
     if (pathname !== "/") return;
 
-    const sectionIds = ["about", "notes", "projects", "contact"];
+    const sectionIds = ["about", "experience", "projects", "contact"];
     const els = sectionIds
       .map((id) => ({ id, el: document.getElementById(id) }))
       .filter((x): x is { id: string; el: HTMLElement } => Boolean(x.el));
@@ -54,8 +54,8 @@ export default function Sidebar() {
         "fixed left-6 top-1/2 -translate-y-1/2 z-50",
         "group",
         "w-14 hover:w-52 transition-[width] duration-300",
-        "rounded-2xl border border-black/10 shadow-lg",
-        "bg-white/60 backdrop-blur-md",
+        "rounded-2xl border border-black/10 dark:border-white/10 shadow-lg",
+        "bg-white/60 dark:bg-[#252529]/80 backdrop-blur-md",
         "overflow-hidden",
       ].join(" ")}
     >
@@ -71,8 +71,8 @@ export default function Sidebar() {
                   href={href}
                   className={[
                     "flex items-center h-10 rounded-xl transition",
-                    "hover:bg-black/5",
-                    isActive ? "bg-black/5" : "",
+                    "hover:bg-black/5 dark:hover:bg-white/10",
+                    isActive ? "bg-black/5 dark:bg-white/10" : "",
                     "justify-center group-hover:justify-start",
                     "px-0 group-hover:px-3",
                     "gap-0 group-hover:gap-3",
@@ -109,7 +109,7 @@ export default function Sidebar() {
             className={[
               "block w-full text-center",
               "rounded-xl px-4 py-2 text-sm",
-              "border border-black/15 bg-white/50 hover:bg-white/70 transition",
+              "border border-black/15 dark:border-white/15 bg-white/50 dark:bg-white/10 hover:bg-white/70 dark:hover:bg-white/20 transition",
             ].join(" ")}
           >
             Download Resume

@@ -20,9 +20,9 @@ export default function RollingProjects() {
             key={`${project.slug}-${i}`}
             href={`/projects/${project.slug}`}
             className="group relative whitespace-nowrap rounded-full
-                       border border-black/10 bg-white/60
+                       border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/10
                        px-6 py-3 text-sm text-[var(--ink)]
-                       backdrop-blur-md hover:bg-white/80 transition"
+                       backdrop-blur-md hover:bg-white/80 dark:hover:bg-white/20 transition"
             whileHover={{ scale: 1.05 }}
           >
             {project.title}
@@ -33,8 +33,8 @@ export default function RollingProjects() {
               transition={{ duration: 0.25, ease: "easeOut" }}
               className="pointer-events-none absolute left-1/2 bottom-full
                          z-20 mb-4 w-56 -translate-x-1/2
-                         rounded-xl border border-black/10
-                         bg-white/90 p-2 shadow-xl"
+                         rounded-xl border border-black/10 dark:border-white/10
+                         bg-white/90 dark:bg-[#252529]/95 p-2 shadow-xl"
             >
               <Image
                 src={project.preview}

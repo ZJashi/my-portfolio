@@ -39,7 +39,7 @@ export function Timeline({ children }: Props) {
   return (
     <div ref={containerRef} className="relative pl-10">
       {/* Vertical line */}
-      <div className="absolute left-3 top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-black/20 to-transparent" />
+      <div className="absolute left-3 top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-black/20 dark:via-white/20 to-transparent" />
 
       {/* Static node dots */}
       {positions.map((pos, index) => (

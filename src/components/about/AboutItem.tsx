@@ -14,8 +14,8 @@ type Props = {
 export function AboutItem({ role, company, time, bullets, tech }: Props) {
   return (
     <article
-      className="rounded-2xl border border-black/10 bg-white/60 p-6
-                 hover:bg-white/80 transition"
+      className="rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 p-6
+                 hover:bg-white/80 dark:hover:bg-white/10 transition"
       style={{ boxShadow: "0 10px 25px rgba(0,0,0,0.06)" }}
     >
       <header className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">

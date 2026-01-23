@@ -31,7 +31,7 @@ export function TagIcon({ tag, size = 16, showLabel = true, className = "" }: Pr
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white/50 px-2.5 py-1 text-xs ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 px-2.5 py-1 text-xs ${className}`}
     >
       <Icon size={size} className={colorClass} />
       {showLabel && <span className="text-[var(--stone)]">{TAG_LABELS[tag]}</span>}
@@ -54,8 +54,8 @@ export function TagFilter({
         onClick={() => onTagChange(null)}
         className={`rounded-full border px-3 py-1.5 text-sm transition ${
           activeTag === null
-            ? "border-[var(--ink)] bg-[var(--ink)] text-white"
-            : "border-black/10 bg-white/40 text-[var(--stone)] hover:bg-white/60"
+            ? "border-[var(--ink)] bg-[var(--ink)] text-white dark:text-[#1A1A1F]"
+            : "border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--stone)] hover:bg-white/60 dark:hover:bg-white/10"
         }`}
       >
         All
@@ -69,11 +69,11 @@ export function TagFilter({
             onClick={() => onTagChange(tag)}
             className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition ${
               isActive
-                ? "border-[var(--ink)] bg-[var(--ink)] text-white"
-                : "border-black/10 bg-white/40 text-[var(--stone)] hover:bg-white/60"
+                ? "border-[var(--ink)] bg-[var(--ink)] text-white dark:text-[#1A1A1F]"
+                : "border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--stone)] hover:bg-white/60 dark:hover:bg-white/10"
             }`}
           >
-            <Icon size={14} className={isActive ? "text-white" : TAG_COLORS[tag]} />
+            <Icon size={14} className={isActive ? "text-white dark:text-[#1A1A1F]" : TAG_COLORS[tag]} />
             {TAG_LABELS[tag]}
           </button>
         );

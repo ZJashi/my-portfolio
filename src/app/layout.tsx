@@ -4,6 +4,8 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import TopNav from "@/components/TopNav";
 import Sidebar from "@/components/Sidebar";
+import { ThemeProvider } from "@/context/ThemeContext";
+import { PageTransition } from "@/components/PageTransition";
 
 import { usePathname } from "next/navigation";
 
@@ -18,20 +20,22 @@ export default function RootLayout({
   const isHome = pathname === "/";
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <TopNav />
+        <ThemeProvider>
+          <TopNav />
 
-        <div className="min-h-screen flex">
-          {/* Sidebar only on home */}
-          {isHome && <Sidebar />}
+          <div className="min-h-screen flex">
+            {/* Sidebar only on home */}
+            {isHome && <Sidebar />}
 
-          <main
-            className={`flex-1 pt-20 ${isHome ? "ml-16 md:ml-16" : "ml-0"}`}
-          >
-            {children}
-          </main>
-        </div>
+            <main
+              className={`flex-1 pt-20 ${isHome ? "ml-16 md:ml-16" : "ml-0"}`}
+            >
+              <PageTransition>{children}</PageTransition>
+            </main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

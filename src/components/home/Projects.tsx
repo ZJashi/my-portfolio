@@ -22,14 +22,14 @@ export default function Projects() {
         {projects.map((project) => (
           <article
             key={project.slug}
-            className="relative rounded-2xl border border-black/10 bg-white/40 p-6
-                       hover:bg-white/55 transition"
+            className="relative rounded-2xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/5 p-6
+                       hover:bg-white/55 dark:hover:bg-white/10 transition"
             style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.05)" }}
           >
             {project.heroLabel && (
               <span
                 className="absolute right-4 top-4 text-xs rounded-full
-                               bg-black/5 px-2 py-0.5 text-[var(--stone)]"
+                               bg-black/5 dark:bg-white/10 px-2 py-0.5 text-[var(--stone)]"
               >
                 {project.heroLabel}
               </span>
@@ -54,7 +54,7 @@ export default function Projects() {
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs rounded-full border border-black/10
+                    className="text-xs rounded-full border border-black/10 dark:border-white/10
                                px-2 py-0.5 text-[var(--stone)]"
                   >
                     {tag}

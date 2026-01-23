@@ -7,9 +7,11 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
+import rehypeSlug from "rehype-slug";
 import rehypeKatex from "rehype-katex";
 import rehypeStringify from "rehype-stringify";
 import type { BlogPost, BlogPostMeta, BlogTag } from "@/content/blog";
+import { extractHeadings, TOCHeading } from "./extractHeadings";
 
 const BLOG_DIR = path.join(process.cwd(), "src/content/blog");
 
@@ -20,11 +22,24 @@ async function processMarkdown(content: string): Promise<string> {
     .use(remarkMath)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
+    .use(rehypeSlug)
     .use(rehypeKatex)
     .use(rehypeStringify)
     .process(content);
 
   return result.toString();
+}
+
+export type BlogPostWithTOC = BlogPost & { headings: TOCHeading[] };
+
+export async function getPostWithTOC(
+  slug: string
+): Promise<BlogPostWithTOC | null> {
+  const post = await getPostBySlug(slug);
+  if (!post) return null;
+
+  const headings = extractHeadings(post.content);
+  return { ...post, headings };
 }
 
 export async function getAllPosts(): Promise<BlogPostMeta[]> {

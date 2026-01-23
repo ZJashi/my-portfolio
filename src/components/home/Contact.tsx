@@ -44,7 +44,7 @@ export default function Contact() {
 
       <a
         href="mailto:zurajashi09@gmail.com"
-        className="inline-block rounded-xl px-6 py-3 border border-black/15 bg-white/50 hover:bg-white/70 transition"
+        className="inline-block rounded-xl px-6 py-3 border border-black/15 dark:border-white/15 bg-white/50 dark:bg-white/10 hover:bg-white/70 dark:hover:bg-white/20 transition"
         style={{ boxShadow: "0 8px 30px rgba(0,0,0,0.06)" }}
       >
         Email me
