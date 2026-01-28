@@ -23,7 +23,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-[75vh] flex flex-col items-center justify-center text-center relative"
+      className="min-h-[60vh] flex flex-col items-center justify-center text-center relative -mt-8"
     >
       {/* Subtle background gradient */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -68,12 +68,13 @@ export default function Hero() {
         <Link
           href="/projects"
           className="group relative px-8 py-4 rounded-xl
-                     bg-[var(--ink)] text-white dark:text-[#1A1A1F]
+                     bg-[#1E1E1C] dark:bg-[#F5F5F4]
+                     text-white dark:text-[#1E1E1C]
                      font-medium overflow-hidden
                      hover:shadow-xl transition-shadow duration-300"
         >
           <span className="relative z-10">View my work</span>
-          <div className="absolute inset-0 bg-[var(--stone)] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+          <div className="absolute inset-0 bg-[#6B6A65] dark:bg-[#A8A8A6] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
         </Link>
 
         <Link

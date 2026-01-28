@@ -102,7 +102,7 @@ export default function ContactPage() {
             className="group flex items-center gap-5 p-5 rounded-2xl
                        border border-black/10 dark:border-white/10
                        bg-white/40 dark:bg-white/5
-                       hover:bg-white/70 dark:hover:bg-white/10
+                       hover:bg-white/70 dark:hover:bg-white/[0.08]
                        hover:scale-[1.02] hover:shadow-lg
                        transition-all duration-300"
           >

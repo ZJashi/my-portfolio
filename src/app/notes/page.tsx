@@ -44,8 +44,8 @@ function TagFilter({
         onClick={() => onTagChange(null)}
         className={`rounded-full border px-3 py-1.5 text-sm transition ${
           activeTag === null
-            ? "border-[var(--ink)] bg-[var(--ink)] text-white dark:text-[#1A1A1F]"
-            : "border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--stone)] hover:bg-white/60 dark:hover:bg-white/10"
+            ? "border-[#1E1E1C] dark:border-[#F5F5F4] bg-[#1E1E1C] dark:bg-[#F5F5F4] text-white dark:text-[#1E1E1C]"
+            : "border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--stone)] hover:bg-white/60 dark:hover:bg-white/[0.08]"
         }`}
       >
         All
@@ -59,11 +59,11 @@ function TagFilter({
             onClick={() => onTagChange(tag)}
             className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition ${
               isActive
-                ? "border-[var(--ink)] bg-[var(--ink)] text-white dark:text-[#1A1A1F]"
-                : "border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--stone)] hover:bg-white/60 dark:hover:bg-white/10"
+                ? "border-[#1E1E1C] dark:border-[#F5F5F4] bg-[#1E1E1C] dark:bg-[#F5F5F4] text-white dark:text-[#1E1E1C]"
+                : "border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--stone)] hover:bg-white/60 dark:hover:bg-white/[0.08]"
             }`}
           >
-            <Icon size={14} className={isActive ? "text-white dark:text-[#1A1A1F]" : TAG_COLORS[tag]} />
+            <Icon size={14} className={isActive ? "text-white dark:text-[#1E1E1C]" : TAG_COLORS[tag]} />
             {TAG_LABELS[tag]}
           </button>
         );
@@ -149,7 +149,7 @@ export default function NotesPage() {
               transition={{ duration: 0.4, delay: index * 0.1 }}
               className="group rounded-2xl border border-black/10 dark:border-white/10
                          bg-white/40 dark:bg-white/5 p-5
-                         hover:bg-white/70 dark:hover:bg-white/10
+                         hover:bg-white/70 dark:hover:bg-white/[0.08]
                          hover:shadow-xl hover:scale-[1.02]
                          transition-all duration-300"
             >

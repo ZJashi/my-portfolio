@@ -56,8 +56,8 @@ export default function Experience() {
           onClick={() => setActiveCategory("work")}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
             activeCategory === "work"
-              ? "bg-[var(--ink)] text-white dark:text-[#1A1A1F]"
-              : "text-[var(--stone)] hover:text-[var(--ink)] hover:bg-black/5 dark:hover:bg-white/10"
+              ? "bg-[#1E1E1C] dark:bg-[#F5F5F4] text-white dark:text-[#1E1E1C]"
+              : "text-[var(--stone)] hover:text-[var(--ink)] hover:bg-black/5 dark:hover:bg-white/5"
           }`}
         >
           Work
@@ -66,8 +66,8 @@ export default function Experience() {
           onClick={() => setActiveCategory("education")}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
             activeCategory === "education"
-              ? "bg-[var(--ink)] text-white dark:text-[#1A1A1F]"
-              : "text-[var(--stone)] hover:text-[var(--ink)] hover:bg-black/5 dark:hover:bg-white/10"
+              ? "bg-[#1E1E1C] dark:bg-[#F5F5F4] text-white dark:text-[#1E1E1C]"
+              : "text-[var(--stone)] hover:text-[var(--ink)] hover:bg-black/5 dark:hover:bg-white/5"
           }`}
         >
           Education

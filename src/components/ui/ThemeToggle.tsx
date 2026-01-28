@@ -34,9 +34,9 @@ export function ThemeToggle() {
         transition={{ type: "spring", stiffness: 200, damping: 20 }}
       >
         {theme === "light" ? (
-          <IoSunny className="w-5 h-5 text-[var(--stone)]" />
+          <IoSunny className="w-5 h-5 text-(--stone)" />
         ) : (
-          <IoMoon className="w-5 h-5 text-[var(--stone)]" />
+          <IoMoon className="w-5 h-5 text-(--stone)" />
         )}
       </motion.div>
     </button>
