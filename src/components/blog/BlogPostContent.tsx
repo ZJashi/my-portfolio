@@ -87,11 +87,11 @@ export function BlogPostContent({
             className="blog-content prose prose-lg max-w-none
                        prose-headings:text-[var(--ink)] prose-headings:font-semibold
                        prose-p:text-[var(--stone)] prose-p:leading-relaxed
-                       prose-a:text-[var(--ultramarine)] prose-a:no-underline hover:prose-a:underline
+                       prose-a:text-[var(--ink)] prose-a:no-underline hover:prose-a:underline
                        prose-strong:text-[var(--ink)]
-                       prose-code:text-[var(--ultramarine)] prose-code:bg-black/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+                       prose-code:text-[var(--ink)] prose-code:bg-black/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
                        prose-pre:bg-[#1a1a2e] prose-pre:rounded-xl prose-pre:shadow-lg
-                       prose-blockquote:border-l-[var(--gold)] prose-blockquote:text-[var(--stone)] prose-blockquote:italic
+                       prose-blockquote:border-l-[var(--stone)] prose-blockquote:text-[var(--stone)] prose-blockquote:italic
                        prose-img:rounded-xl prose-img:shadow-lg"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />

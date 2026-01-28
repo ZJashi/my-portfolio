@@ -2,6 +2,22 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { TECH, type TechKey } from "@/content/tech";
+
+const skills: TechKey[] = [
+  "python",
+  "java",
+  "react",
+  "spark",
+  "kafka",
+  "airflow",
+  "fastapi",
+  "rust",
+  "cpp",
+  "springboot",
+  "hdfs",
+  "flask",
+];
 
 export default function Hero() {
   return (
@@ -11,23 +27,8 @@ export default function Hero() {
     >
       {/* Subtle background gradient */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[var(--ultramarine)]/5 blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[var(--gold)]/5 blur-[100px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[var(--ink)]/5 blur-[120px]" />
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-full
-                   bg-[var(--gold)]/10 text-[var(--gold)] text-sm mb-6"
-      >
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--gold)] opacity-75" />
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--gold)]" />
-        </span>
-        Open to opportunities
-      </motion.div>
 
       <motion.p
         initial={{ opacity: 0, y: 10 }}
@@ -44,9 +45,7 @@ export default function Hero() {
         transition={{ duration: 0.7, delay: 0.2 }}
         className="mt-6 text-5xl md:text-7xl font-semibold text-[var(--ink)]"
       >
-        Hi, I&apos;m{" "}
-        <span className="text-[var(--ultramarine)]">Zura</span>
-        <span className="text-[var(--gold)]">.</span>
+        Hi, I&apos;m Zura.
       </motion.h1>
 
       <motion.p
@@ -74,7 +73,7 @@ export default function Hero() {
                      hover:shadow-xl transition-shadow duration-300"
         >
           <span className="relative z-10">View my work</span>
-          <div className="absolute inset-0 bg-[var(--ultramarine)] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+          <div className="absolute inset-0 bg-[var(--stone)] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
         </Link>
 
         <Link
@@ -87,6 +86,37 @@ export default function Hero() {
         >
           Get in touch
         </Link>
+      </motion.div>
+
+      {/* Skills - Single Line Marquee */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+        className="mt-16 w-full max-w-3xl relative overflow-hidden"
+      >
+        <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[var(--bg-main)] to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[var(--bg-main)] to-transparent z-10" />
+
+        <div className="flex gap-4 animate-scroll-left">
+          {[...skills, ...skills].map((key, index) => {
+            const tech = TECH[key];
+            return (
+              <div
+                key={`${key}-${index}`}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg
+                           border border-black/10 dark:border-white/10
+                           bg-white/50 dark:bg-white/5
+                           shrink-0"
+              >
+                <tech.Icon size={18} className="text-[var(--stone)]" />
+                <span className="text-sm font-medium text-[var(--ink)]">
+                  {tech.name}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </motion.div>
     </section>
   );

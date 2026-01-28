@@ -85,7 +85,7 @@ export function BlogList({ posts }: Props) {
                     ))}
                   </div>
 
-                  <h2 className="text-lg font-semibold text-[var(--ink)] group-hover:text-[var(--ultramarine)] transition-colors leading-snug">
+                  <h2 className="text-lg font-semibold text-[var(--ink)] group-hover:text-[var(--stone)] transition-colors leading-snug">
                     {post.title}
                   </h2>
 

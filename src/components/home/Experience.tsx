@@ -139,7 +139,7 @@ export default function Experience() {
         >
           <h3 className="text-lg font-semibold text-[var(--ink)]">
             {activeItem.role}
-            <span className="text-[var(--ultramarine)]">
+            <span className="text-[var(--stone)]">
               {" "}
               @{" "}
               {activeItem.url ? (
@@ -165,7 +165,7 @@ export default function Experience() {
             <ul className="mt-4 space-y-3">
               {activeItem.bullets.map((bullet, i) => (
                 <li key={i} className="flex gap-3 text-[var(--stone)]">
-                  <span className="text-[var(--gold)] mt-1.5 shrink-0">▹</span>
+                  <span className="text-[var(--stone)] mt-1.5 shrink-0">▹</span>
                   <span className="leading-relaxed">{bullet}</span>
                 </li>
               ))}

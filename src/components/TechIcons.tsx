@@ -10,7 +10,11 @@ type Props = {
   showLabelsOnHover?: boolean;
 };
 
-export function TechIcons({ tech, size = 20, showLabelsOnHover = false }: Props) {
+export function TechIcons({
+  tech,
+  size = 20,
+  showLabelsOnHover = false,
+}: Props) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
@@ -56,10 +60,13 @@ export function TechIcons({ tech, size = 20, showLabelsOnHover = false }: Props)
                     exit={{ opacity: 0, width: size, scale: 0.9 }}
                     transition={{ duration: 0.2 }}
                     className="flex items-center gap-2 px-3 py-1.5 rounded-lg
-                               bg-[var(--ultramarine)]/10 border border-[var(--ultramarine)]/20"
+                               bg-(--ink)/10 border border-(--ink)/20"
                   >
-                    <Icon size={size} className="text-[var(--ultramarine)] shrink-0" />
-                    <span className="text-sm font-medium text-[var(--ultramarine)] whitespace-nowrap">
+                    <Icon
+                      size={size}
+                      className="text-(--ink) shrink-0"
+                    />
+                    <span className="text-sm font-medium text-(--ink) whitespace-nowrap">
                       {name}
                     </span>
                   </motion.div>
@@ -73,8 +80,8 @@ export function TechIcons({ tech, size = 20, showLabelsOnHover = false }: Props)
                   >
                     <Icon
                       size={size}
-                      className="text-[var(--stone)] transition duration-200
-                                 group-hover:text-[var(--ink)]"
+                      className="text-(--stone) transition duration-200
+                                 group-hover:text-(--ink)"
                     />
                   </motion.div>
                 )}
@@ -83,8 +90,8 @@ export function TechIcons({ tech, size = 20, showLabelsOnHover = false }: Props)
               <>
                 <Icon
                   size={size}
-                  className="text-[var(--stone)] transition duration-200
-                             group-hover:text-[var(--ink)]
+                  className="text-(--stone) transition duration-200
+                             group-hover:text-(--ink)
                              group-hover:-translate-y-0.5
                              group-hover:scale-110"
                 />

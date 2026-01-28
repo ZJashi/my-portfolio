@@ -50,7 +50,7 @@ export function TableOfContents({ headings }: Props) {
                   href={`#${id}`}
                   className={`text-sm transition-colors block truncate ${
                     activeId === id
-                      ? "text-[var(--ultramarine)] font-medium"
+                      ? "text-[var(--ink)] font-medium"
                       : "text-[var(--stone)] hover:text-[var(--ink)]"
                   }`}
                   title={text}
@@ -101,7 +101,7 @@ export function TableOfContents({ headings }: Props) {
                       onClick={() => setIsOpen(false)}
                       className={`text-sm block py-1 truncate ${
                         activeId === id
-                          ? "text-[var(--ultramarine)] font-medium"
+                          ? "text-[var(--ink)] font-medium"
                           : "text-[var(--stone)] hover:text-[var(--ink)]"
                       }`}
                     >

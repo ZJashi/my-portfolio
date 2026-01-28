@@ -75,22 +75,8 @@ export default function ContactPage() {
         transition={{ duration: 0.5 }}
         className="text-center mb-16"
       >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.1 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full
-                     bg-[var(--gold)]/10 text-[var(--gold)] text-sm mb-6"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--gold)] opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--gold)]"></span>
-          </span>
-          Available for opportunities
-        </motion.div>
-
         <h1 className="text-4xl md:text-5xl font-semibold text-[var(--ink)] mb-4">
-          Let&apos;s <span className="text-[var(--ultramarine)]">Connect</span>
+          Let&apos;s Connect
         </h1>
         <p className="text-lg text-[var(--stone)] max-w-md mx-auto">
           Have an idea, question, or just want to say hi? I&apos;m always up for
@@ -144,7 +130,7 @@ export default function ContactPage() {
                 </span>
               </div>
               <p
-                className="text-[var(--ultramarine)] font-mono text-sm mt-0.5 truncate
+                className="text-[var(--stone)] font-mono text-sm mt-0.5 truncate
                            group-hover:underline underline-offset-2"
               >
                 {contact.value}
@@ -179,7 +165,7 @@ export default function ContactPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
-        className="text-center text-sm text-[var(--stone)] mt-12"
+        className="text-center text-sm text-(--stone) mt-12"
       >
         Based in New York City · Usually respond within 24 hours
       </motion.p>

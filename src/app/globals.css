@@ -7,8 +7,8 @@
   --ink: #1E1E1C;
   --stone: #6B6A65;
 
-  --gold: #C5A14A;
-  --ultramarine: #1F4E8C;
+  --accent: #1E1E1C;           /* same as ink for monochrome */
+  --accent-muted: #6B6A65;     /* same as stone */
 }
 
 .dark {
@@ -17,8 +17,8 @@
   --ink: #F5F5F4;              /* warm white */
   --stone: #A8A8A6;            /* warm gray */
 
-  --gold: #E8C566;             /* brighter gold */
-  --ultramarine: #6B9FE8;      /* softer blue */
+  --accent: #F5F5F4;           /* same as ink for monochrome */
+  --accent-muted: #A8A8A6;     /* same as stone */
 }
 
 html { scroll-behavior: smooth; }
@@ -61,14 +61,14 @@ body {
 }
 
 .blog-content a {
-  color: var(--ultramarine);
+  color: var(--accent);
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s ease;
 }
 
 .blog-content a:hover {
-  border-bottom-color: var(--ultramarine);
+  border-bottom-color: var(--accent);
 }
 
 .blog-content strong {
@@ -109,7 +109,7 @@ body {
 }
 
 .blog-content blockquote {
-  border-left: 4px solid var(--gold);
+  border-left: 4px solid var(--accent-muted);
   padding: 1rem 1.5rem;
   margin: 2em 0;
   background: linear-gradient(90deg, rgba(197, 161, 74, 0.08) 0%, transparent 100%);
@@ -138,7 +138,7 @@ body {
 .blog-content ol { list-style-type: decimal; }
 
 .blog-content li::marker {
-  color: var(--gold);
+  color: var(--accent-muted);
 }
 
 .blog-content img {
@@ -189,12 +189,12 @@ body {
 /* Task lists */
 .blog-content input[type="checkbox"] {
   margin-right: 0.5rem;
-  accent-color: var(--ultramarine);
+  accent-color: var(--accent);
 }
 
 /* Footnotes */
 .blog-content sup a {
-  color: var(--ultramarine);
+  color: var(--accent);
   font-weight: 500;
   font-size: 0.75em;
 }
@@ -260,7 +260,7 @@ body {
 .blog-content .purple { color: #7c3aed; }
 .blog-content .green { color: #059669; }
 .blog-content .orange { color: #ea580c; }
-.blog-content .gold { color: var(--gold); }
+.blog-content .gold { color: var(--accent-muted); }
 
 /* Dark mode overrides */
 .dark .blog-content h2 {

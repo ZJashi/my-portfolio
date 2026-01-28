@@ -1,10 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import Image from "next/image";
 import { projects } from "@/content/projects";
 import { TechIcons } from "@/components/TechIcons";
+import { FaGithub } from "react-icons/fa";
 
 export default function ProjectsPage() {
   return (
@@ -20,12 +20,12 @@ export default function ProjectsPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
-          className="text-sm tracking-[0.2em] uppercase text-[var(--gold)] mb-4"
+          className="text-sm tracking-[0.2em] uppercase text-[var(--stone)] mb-4"
         >
           My Work
         </motion.p>
         <h1 className="text-4xl md:text-5xl font-semibold text-[var(--ink)] mb-4">
-          Featured <span className="text-[var(--ultramarine)]">Projects</span>
+          Featured Projects
         </h1>
         <p className="text-lg text-[var(--stone)] max-w-2xl mx-auto leading-relaxed">
           A selection of projects spanning data engineering, AI, and quantitative research.
@@ -37,13 +37,15 @@ export default function ProjectsPage() {
       <div className="grid gap-8 md:grid-cols-2">
         {projects.map((project, index) => (
           <motion.div
-            key={project.slug}
+            key={project.title}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
           >
-            <Link
-              href={`/projects/${project.slug}`}
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group block h-full rounded-3xl border border-black/10 dark:border-white/10
                          bg-white/40 dark:bg-white/5 overflow-hidden
                          hover:shadow-xl hover:scale-[1.02]
@@ -60,24 +62,25 @@ export default function ProjectsPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                {/* View badge */}
+                {/* GitHub badge */}
                 <span className="absolute top-4 right-4 px-3 py-1.5 rounded-full
                                  bg-white/90 dark:bg-black/70 text-xs font-medium
                                  text-[var(--ink)] opacity-0 -translate-y-2
                                  group-hover:opacity-100 group-hover:translate-y-0
-                                 transition-all duration-300">
-                  View Project →
+                                 transition-all duration-300 flex items-center gap-1.5">
+                  <FaGithub size={14} />
+                  View on GitHub
                 </span>
               </div>
 
               {/* Content */}
               <div className="p-6 space-y-4">
                 <div>
-                  <h2 className="text-xl font-semibold text-[var(--ink)] group-hover:text-[var(--ultramarine)] transition-colors">
+                  <h2 className="text-xl font-semibold text-[var(--ink)] group-hover:text-[var(--stone)] transition-colors">
                     {project.title}
                   </h2>
                   {project.heroLabel && (
-                    <span className="inline-block mt-2 text-xs px-2 py-0.5 rounded-full bg-[var(--gold)]/10 text-[var(--gold)]">
+                    <span className="inline-block mt-2 text-xs px-2 py-0.5 rounded-full bg-[var(--ink)]/10 text-[var(--ink)]">
                       {project.heroLabel}
                     </span>
                   )}
@@ -108,7 +111,7 @@ export default function ProjectsPage() {
                   ))}
                 </div>
               </div>
-            </Link>
+            </a>
           </motion.div>
         ))}
       </div>

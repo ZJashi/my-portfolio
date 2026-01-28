@@ -55,7 +55,7 @@ export default async function BlogPostPage({ params }: Props) {
         backLink={
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-[var(--stone)] hover:text-[var(--ultramarine)] transition-colors group"
+            className="inline-flex items-center gap-2 text-sm text-[var(--stone)] hover:text-[var(--ink)] transition-colors group"
           >
             <IoArrowBack size={16} className="transition-transform group-hover:-translate-x-1" />
             Back to Blog
