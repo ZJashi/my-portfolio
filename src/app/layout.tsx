@@ -2,7 +2,7 @@
 
 import "./globals.css";
 import { Inter } from "next/font/google";
-import TopNav from "@/components/TopNav";
+import Sidebar from "@/components/Sidebar";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { PageTransition } from "@/components/PageTransition";
 
@@ -19,10 +19,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider>
-          <TopNav />
+          <Sidebar />
 
-          <div className="min-h-screen">
-            <main className="flex-1 pt-20">
+          {/* Main content with sidebar offset */}
+          <div className="min-h-screen lg:pl-[280px]">
+            <main className="flex-1">
               <PageTransition>{children}</PageTransition>
             </main>
           </div>

@@ -10,6 +10,7 @@ import {
   SiFastapi,
   SiFlask,
   SiPython,
+  SiPostgresql,
 } from "react-icons/si";
 import { DiJava } from "react-icons/di";
 
@@ -26,6 +27,7 @@ export const TECH = {
   fastapi: { name: "FastAPI", Icon: SiFastapi },
   flask: { name: "Flask", Icon: SiFlask },
   python: { name: "Python", Icon: SiPython },
+  postgres: { name: "PostgreSQL", Icon: SiPostgresql },
 } as const;
 
 export type TechKey = keyof typeof TECH;

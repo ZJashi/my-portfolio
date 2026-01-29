@@ -1,19 +1,45 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
-  { href: "/notes", label: "Notes" },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact" },
+  { href: "#hero", label: "Home" },
+  { href: "#projects", label: "Projects" },
+  { href: "#notes", label: "Notes" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export default function TopNav() {
-  const pathname = usePathname();
+  const [activeSection, setActiveSection] = useState("hero");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-50% 0px -50% 0px" }
+    );
+
+    navItems.forEach((item) => {
+      const element = document.querySelector(item.href);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <nav className="fixed top-6 left-1/2 z-50 -translate-x-1/2">
@@ -25,15 +51,13 @@ export default function TopNav() {
                    shadow-[0_8px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_40px_rgba(0,0,0,0.4)]"
       >
         {navItems.map((item) => {
-          const isActive =
-            item.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(item.href);
+          const isActive = activeSection === item.href.slice(1);
 
           return (
-            <Link
+            <a
               key={item.href}
               href={item.href}
+              onClick={(e) => handleClick(e, item.href)}
               className="group relative flex flex-col items-center
                          text-sm tracking-wide transition"
             >
@@ -50,16 +74,16 @@ export default function TopNav() {
               </span>
 
               {isActive && (
-                <span className="absolute -bottom-2 h-1 w-1 rounded-full bg-(--ink)" />
+                <span className="absolute -bottom-2 h-1 w-1 rounded-full bg-[var(--ink)]" />
               )}
 
               <span
                 className="absolute -bottom-2 h-[1.5px]
-                           w-0 bg-(--ink)
+                           w-0 bg-[var(--ink)]
                            transition-all duration-300
                            group-hover:w-full"
               />
-            </Link>
+            </a>
           );
         })}
 
@@ -67,7 +91,7 @@ export default function TopNav() {
           href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-3 py-1.5 text-sm rounded-lg border border-(--ink) text-(--ink) hover:bg-(--ink) hover:text-white dark:hover:text-[#1A1A1F] transition"
+          className="px-3 py-1.5 text-sm rounded-lg border border-[var(--ink)] text-[var(--ink)] hover:bg-[#1E1E1C] hover:text-white dark:hover:bg-[#F5F5F4] dark:hover:text-[#1E1E1C] transition"
         >
           Resume
         </a>

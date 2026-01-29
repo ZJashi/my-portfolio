@@ -6,32 +6,22 @@ import { projects } from "@/content/projects";
 import { TechIcons } from "@/components/TechIcons";
 import { FaGithub } from "react-icons/fa";
 
-export default function ProjectsPage() {
+export default function Projects() {
   return (
-    <main className="mx-auto max-w-6xl px-6 py-20">
-      {/* Hero Header */}
-      <motion.header
+    <section id="projects" className="scroll-mt-24">
+      {/* Header */}
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-16"
+        className="flex items-center gap-4 mb-10"
       >
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.1 }}
-          className="text-sm tracking-[0.2em] uppercase text-[var(--stone)] mb-4"
-        >
-          My Work
-        </motion.p>
-        <h1 className="text-4xl md:text-5xl font-semibold text-[var(--ink)] mb-4">
-          Featured Projects
-        </h1>
-        <p className="text-lg text-[var(--stone)] max-w-2xl mx-auto leading-relaxed">
-          A selection of projects spanning data engineering, AI, and quantitative research.
-          Each focuses on solving real problems with correctness and clarity.
-        </p>
-      </motion.header>
+        <h2 className="text-2xl md:text-3xl font-semibold text-[var(--ink)]">
+          Projects
+        </h2>
+        <div className="flex-1 h-px bg-gradient-to-r from-black/10 to-transparent dark:from-white/10" />
+      </motion.div>
 
       {/* Projects Grid */}
       <div className="grid gap-8 md:grid-cols-2">
@@ -39,14 +29,15 @@ export default function ProjectsPage() {
           <motion.div
             key={project.title}
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             <a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block h-full rounded-3xl border border-black/10 dark:border-white/10
+              className="group block h-full rounded-2xl border border-black/10 dark:border-white/10
                          bg-white/40 dark:bg-white/5 overflow-hidden
                          hover:shadow-xl hover:scale-[1.02]
                          transition-all duration-300"
@@ -74,11 +65,11 @@ export default function ProjectsPage() {
               </div>
 
               {/* Content */}
-              <div className="p-6 space-y-4">
+              <div className="p-5 space-y-3">
                 <div>
-                  <h2 className="text-xl font-semibold text-[var(--ink)] group-hover:text-[var(--stone)] transition-colors">
+                  <h3 className="text-lg font-semibold text-[var(--ink)] group-hover:text-[var(--stone)] transition-colors">
                     {project.title}
-                  </h2>
+                  </h3>
                   {project.heroLabel && (
                     <span className="inline-block mt-2 text-xs px-2 py-0.5 rounded-full bg-[var(--ink)]/10 text-[var(--ink)]">
                       {project.heroLabel}
@@ -96,25 +87,11 @@ export default function ProjectsPage() {
                     <TechIcons tech={project.tech} size={18} showLabelsOnHover />
                   </div>
                 )}
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {project.tags.slice(0, 3).map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2.5 py-1 rounded-full
-                                 border border-black/10 dark:border-white/10
-                                 text-[var(--stone)]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
               </div>
             </a>
           </motion.div>
         ))}
       </div>
-    </main>
+    </section>
   );
 }

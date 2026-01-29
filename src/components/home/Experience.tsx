@@ -36,7 +36,7 @@ export default function Experience() {
   if (!activeItem) return null;
 
   return (
-    <section id="experience" className="space-y-8">
+    <section id="experience" className="space-y-8 scroll-mt-24">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
