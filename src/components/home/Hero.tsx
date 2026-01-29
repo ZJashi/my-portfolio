@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { TECH, type TechKey } from "@/content/tech";
 
 const skills: TechKey[] = [
@@ -23,78 +24,106 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-[60vh] flex flex-col items-center justify-center text-center relative -mt-8"
+      className="min-h-[60vh] flex flex-col items-center justify-center relative -mt-8"
     >
       {/* Subtle background gradient */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[var(--ink)]/5 blur-[120px]" />
       </div>
 
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        className="text-sm tracking-[0.25em] uppercase text-[var(--stone)] font-medium"
-      >
-        Data • AI • Physics • Math
-      </motion.p>
+      <div className="flex flex-col-reverse md:flex-row items-center gap-12 md:gap-16 w-full max-w-5xl">
+        {/* Text Content - Left */}
+        <div className="flex-1 text-center md:text-left">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-sm tracking-[0.25em] uppercase text-[var(--stone)] font-medium"
+          >
+            Data • AI • Physics • Math
+          </motion.p>
 
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-        className="mt-6 text-5xl md:text-7xl font-semibold text-[var(--ink)]"
-      >
-        Hi, I&apos;m Zura.
-      </motion.h1>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mt-6 text-4xl md:text-6xl font-semibold text-[var(--ink)]"
+          >
+            Hi, I&apos;m Zura.
+          </motion.h1>
 
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        className="mt-6 max-w-2xl text-lg md:text-xl text-[var(--stone)] leading-relaxed"
-      >
-        AI Researcher at{" "}
-        <span className="text-[var(--ink)] font-medium">NYU</span> building at the
-        intersection of machine learning, physics, and mathematics.
-      </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="mt-6 max-w-xl text-lg md:text-xl text-[var(--stone)] leading-relaxed"
+          >
+            AI Researcher at{" "}
+            <span className="text-[var(--ink)] font-medium">NYU</span> building at the
+            intersection of machine learning, physics, and mathematics.
+          </motion.p>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.45 }}
-        className="mt-10 flex flex-col sm:flex-row gap-4"
-      >
-        <Link
-          href="/projects"
-          className="group relative px-8 py-4 rounded-xl
-                     bg-[#1E1E1C] dark:bg-[#F5F5F4]
-                     text-white dark:text-[#1E1E1C]
-                     font-medium overflow-hidden
-                     hover:shadow-xl transition-shadow duration-300"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.45 }}
+            className="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+          >
+            <Link
+              href="/projects"
+              className="group relative px-8 py-4 rounded-xl
+                         bg-[#1E1E1C] dark:bg-[#F5F5F4]
+                         text-white dark:text-[#1E1E1C]
+                         font-medium overflow-hidden
+                         hover:shadow-xl transition-shadow duration-300"
+            >
+              <span className="relative z-10">View my work</span>
+              <div className="absolute inset-0 bg-[#6B6A65] dark:bg-[#A8A8A6] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+            </Link>
+
+            <Link
+              href="/contact"
+              className="px-8 py-4 rounded-xl
+                         border border-black/15 dark:border-white/15
+                         bg-white/50 dark:bg-white/10
+                         hover:bg-white/80 dark:hover:bg-white/20
+                         hover:shadow-lg transition-all duration-300"
+            >
+              Get in touch
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Profile Photo - Right */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="relative shrink-0"
         >
-          <span className="relative z-10">View my work</span>
-          <div className="absolute inset-0 bg-[#6B6A65] dark:bg-[#A8A8A6] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-        </Link>
+          {/* Decorative elements */}
+          <div className="absolute -inset-3 rounded-full border border-[var(--ink)]/10 dark:border-white/10" />
+          <div className="absolute -inset-6 rounded-full border border-dashed border-[var(--ink)]/5 dark:border-white/5" />
 
-        <Link
-          href="/contact"
-          className="px-8 py-4 rounded-xl
-                     border border-black/15 dark:border-white/15
-                     bg-white/50 dark:bg-white/10
-                     hover:bg-white/80 dark:hover:bg-white/20
-                     hover:shadow-lg transition-all duration-300"
-        >
-          Get in touch
-        </Link>
-      </motion.div>
+          {/* Photo container */}
+          <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden ring-2 ring-[var(--ink)]/20 dark:ring-white/20 shadow-2xl">
+            <Image
+              src="/profile.jpg"
+              alt="Zura Jashi"
+              fill
+              className="object-cover object-[35%_center]"
+              priority
+            />
+          </div>
+        </motion.div>
+      </div>
 
       {/* Skills - Single Line Marquee */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}
-        className="mt-16 w-full max-w-3xl relative overflow-hidden"
+        className="mt-16 w-full max-w-4xl relative overflow-hidden"
       >
         <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[var(--bg-main)] to-transparent z-10" />
         <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[var(--bg-main)] to-transparent z-10" />

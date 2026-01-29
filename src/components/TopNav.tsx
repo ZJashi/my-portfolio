@@ -50,12 +50,12 @@ export default function TopNav() {
               </span>
 
               {isActive && (
-                <span className="absolute -bottom-2 h-1 w-1 rounded-full bg-[var(--ink)]" />
+                <span className="absolute -bottom-2 h-1 w-1 rounded-full bg-(--ink)" />
               )}
 
               <span
                 className="absolute -bottom-2 h-[1.5px]
-                           w-0 bg-[var(--ink)]
+                           w-0 bg-(--ink)
                            transition-all duration-300
                            group-hover:w-full"
               />
@@ -67,7 +67,7 @@ export default function TopNav() {
           href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-3 py-1.5 text-sm rounded-lg border border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-white dark:hover:text-[#1A1A1F] transition"
+          className="px-3 py-1.5 text-sm rounded-lg border border-(--ink) text-(--ink) hover:bg-(--ink) hover:text-white dark:hover:text-[#1A1A1F] transition"
         >
           Resume
         </a>

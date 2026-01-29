@@ -32,14 +32,14 @@ export default function BlogPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
-          className="text-sm tracking-[0.2em] uppercase text-[var(--stone)] mb-4"
+          className="text-sm tracking-[0.2em] uppercase text-(--stone) mb-4"
         >
           Thoughts & Ideas
         </motion.p>
-        <h1 className="text-4xl md:text-5xl font-semibold text-[var(--ink)] mb-4">
+        <h1 className="text-4xl md:text-5xl font-semibold text-(--ink) mb-4">
           The Blog
         </h1>
-        <p className="text-lg text-[var(--stone)] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg text-(--stone) max-w-2xl mx-auto leading-relaxed">
           Explorations in mathematics, physics, and artificial intelligence.
           Deep dives into concepts that fascinate me.
         </p>
@@ -53,7 +53,7 @@ export default function BlogPage() {
       >
         {loading ? (
           <div className="flex justify-center py-20">
-            <div className="w-8 h-8 border-2 border-[var(--stone)] border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-2 border-(--stone) border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
           <BlogList posts={posts} />
