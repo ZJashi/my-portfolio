@@ -6,39 +6,32 @@ import { projects } from "@/content/projects";
 import { TechIcons } from "@/components/TechIcons";
 import { FaGithub } from "react-icons/fa";
 import type { Project } from "@/content/projects";
+import { useTheme } from "@/context/ThemeContext";
 
 function ProjectCardContent({ project }: { project: Project }) {
+  const { theme } = useTheme();
+  const previewSrc = theme === "dark" && project.previewDark
+    ? project.previewDark
+    : project.preview;
+
   return (
     <>
       {/* Image */}
       <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-black/5 to-black/10 dark:from-white/5 dark:to-white/10">
-        {/* Light mode image (or default if no dark variant) */}
         <Image
-          src={project.preview}
+          src={previewSrc}
           alt={project.title}
           fill
-          className={`object-cover transition-transform duration-500 group-hover:scale-110 ${
-            project.previewDark ? "dark:hidden" : ""
-          }`}
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
           unoptimized
         />
-        {/* Dark mode image */}
-        {project.previewDark && (
-          <Image
-            src={project.previewDark}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110 hidden dark:block"
-            unoptimized
-          />
-        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
         {/* GitHub badge - only for personal projects */}
         {project.isPersonal && (
           <span className="absolute top-4 right-4 px-3 py-1.5 rounded-full
-                           bg-white/90 dark:bg-black/70 text-xs font-medium
-                           text-[var(--ink)] opacity-0 -translate-y-2
+                           bg-white/90 dark:bg-white/90 text-xs font-medium
+                           text-[#1A1A1F] opacity-0 -translate-y-2
                            group-hover:opacity-100 group-hover:translate-y-0
                            transition-all duration-300 flex items-center gap-1.5">
             <FaGithub size={14} />
