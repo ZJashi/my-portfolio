@@ -237,7 +237,7 @@ export default function Sidebar() {
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full px-4 py-3 text-sm font-medium text-center rounded-xl
-                       bg-[var(--ink)] text-white dark:bg-white dark:text-[#1A1A1F]
+                       bg-[var(--ink)] text-[var(--bg-main)]
                        hover:opacity-90 hover:shadow-lg
                        transition-all duration-300"
           >

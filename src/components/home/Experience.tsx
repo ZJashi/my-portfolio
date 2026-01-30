@@ -14,7 +14,8 @@ export default function Experience() {
   const [indicatorStyle, setIndicatorStyle] = useState({ top: 0, height: 0 });
 
   const items = activeCategory === "work" ? workExperience : education;
-  const safeIndex = items.length > 0 ? Math.min(activeIndex, items.length - 1) : 0;
+  const safeIndex =
+    items.length > 0 ? Math.min(activeIndex, items.length - 1) : 0;
   const activeItem = items[safeIndex];
 
   // Update indicator position when active tab changes
@@ -44,10 +45,10 @@ export default function Experience() {
         transition={{ duration: 0.5 }}
         className="flex items-center gap-4"
       >
-        <h2 className="text-2xl md:text-3xl font-semibold text-[var(--ink)]">
+        <h2 className="text-2xl md:text-3xl font-semibold text-(--ink)">
           Experience
         </h2>
-        <div className="flex-1 h-px bg-gradient-to-r from-black/10 to-transparent dark:from-white/10" />
+        <div className="flex-1 h-px bg-linear-to-r from-black/10 to-transparent dark:from-white/10" />
       </motion.div>
 
       {/* Category toggle */}
@@ -57,7 +58,7 @@ export default function Experience() {
           className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
             activeCategory === "work"
               ? "bg-[#1E1E1C] dark:bg-[#F5F5F4] text-white dark:text-[#1E1E1C]"
-              : "text-[var(--stone)] hover:text-[var(--ink)] hover:bg-black/5 dark:hover:bg-white/5"
+              : "text-(--stone) hover:text-(--ink) hover:bg-black/5 dark:hover:bg-white/5"
           }`}
         >
           Work
@@ -85,8 +86,8 @@ export default function Experience() {
                 onClick={() => setActiveIndex(index)}
                 className={`whitespace-nowrap px-4 py-2 text-sm rounded-lg transition ${
                   activeIndex === index
-                    ? "bg-[var(--ink)]/10 text-[var(--ink)] font-medium"
-                    : "text-[var(--stone)] hover:bg-black/5 dark:hover:bg-white/10"
+                    ? "bg-(--ink)/10 text-(--ink) font-medium"
+                    : "text-(--stone) hover:bg-black/5 dark:hover:bg-white/10"
                 }`}
               >
                 {item.shortName}
@@ -98,7 +99,7 @@ export default function Experience() {
           <div className="hidden md:block relative">
             {/* Animated indicator */}
             <motion.div
-              className="absolute left-0 w-0.5 bg-[var(--ink)] rounded-full"
+              className="absolute left-0 w-0.5 bg-(--ink) rounded-full"
               initial={false}
               animate={{
                 top: indicatorStyle.top,
@@ -118,8 +119,8 @@ export default function Experience() {
                   onClick={() => setActiveIndex(index)}
                   className={`text-left px-5 py-3 text-sm transition-colors ${
                     activeIndex === index
-                      ? "text-[var(--ink)] bg-[var(--ink)]/5 font-medium"
-                      : "text-[var(--stone)] hover:text-[var(--ink)] hover:bg-[var(--ink)]/5"
+                      ? "text-(--ink) bg-(--ink)/5 font-medium"
+                      : "text-(--stone) hover:text-(--ink) hover:bg-(--ink)/5"
                   }`}
                 >
                   {item.shortName}
@@ -137,9 +138,9 @@ export default function Experience() {
           transition={{ duration: 0.2 }}
           className="flex-1 min-w-0"
         >
-          <h3 className="text-lg font-semibold text-[var(--ink)]">
+          <h3 className="text-lg font-semibold text-(--ink)">
             {activeItem.role}
-            <span className="text-[var(--stone)]">
+            <span className="text-(--stone)">
               {" "}
               @{" "}
               {activeItem.url ? (
@@ -157,15 +158,15 @@ export default function Experience() {
             </span>
           </h3>
 
-          <p className="mt-1 text-sm text-[var(--stone)] font-mono">
+          <p className="mt-1 text-sm text-(--stone) font-mono">
             {activeItem.time}
           </p>
 
           {activeItem.bullets.length > 0 && (
             <ul className="mt-4 space-y-3">
               {activeItem.bullets.map((bullet, i) => (
-                <li key={i} className="flex gap-3 text-[var(--stone)]">
-                  <span className="text-[var(--stone)] mt-1.5 shrink-0">▹</span>
+                <li key={i} className="flex gap-3 text-(--stone)">
+                  <span className="text-(--stone) mt-1.5 shrink-0">▹</span>
                   <span className="leading-relaxed">{bullet}</span>
                 </li>
               ))}

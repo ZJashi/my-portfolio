@@ -36,7 +36,7 @@ export function TechIcons({
         const entry = TECH[key];
         if (!entry) return null;
 
-        const { Icon, name } = entry;
+        const { Icon, name, color } = entry;
         const isHovered = hoveredIndex === index;
 
         return (
@@ -64,7 +64,8 @@ export function TechIcons({
                   >
                     <Icon
                       size={size}
-                      className="text-(--ink) shrink-0"
+                      style={{ color }}
+                      className="shrink-0"
                     />
                     <span className="text-sm font-medium text-(--ink) whitespace-nowrap">
                       {name}
@@ -80,8 +81,8 @@ export function TechIcons({
                   >
                     <Icon
                       size={size}
-                      className="text-(--stone) transition duration-200
-                                 group-hover:text-(--ink)"
+                      style={{ color }}
+                      className="transition duration-200"
                     />
                   </motion.div>
                 )}
@@ -90,8 +91,8 @@ export function TechIcons({
               <>
                 <Icon
                   size={size}
-                  className="text-(--stone) transition duration-200
-                             group-hover:text-(--ink)
+                  style={{ color }}
+                  className="transition duration-200
                              group-hover:-translate-y-0.5
                              group-hover:scale-110"
                 />

@@ -30,7 +30,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-sm tracking-[0.3em] uppercase text-[var(--stone)] font-medium mb-6"
+          className="text-sm tracking-[0.3em] uppercase text-(--stone) font-medium mb-6"
         >
           Data • AI • Physics • Math
         </motion.p>
@@ -56,7 +56,8 @@ export default function Hero() {
         >
           AI Researcher & Developer at{" "}
           <span className="text-[var(--ink)] font-semibold">NYU</span>.
-          Passionate about the intersection of physics, mathematics, and machine learning.
+          Passionate about the intersection of physics, mathematics, and machine
+          learning.
         </motion.p>
 
         <motion.div
@@ -69,7 +70,9 @@ export default function Hero() {
             href="#projects"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
+              document
+                .querySelector("#projects")
+                ?.scrollIntoView({ behavior: "smooth" });
             }}
             className="group relative px-8 py-4 rounded-2xl font-semibold overflow-hidden
                        bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500
@@ -78,15 +81,19 @@ export default function Hero() {
                        hover:scale-105 transition-all duration-300"
           >
             <span className="relative z-10">View my work</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600
-                            opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div
+              className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600
+                            opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            />
           </a>
 
           <a
             href="#contact"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+              document
+                .querySelector("#contact")
+                ?.scrollIntoView({ behavior: "smooth" });
             }}
             className="px-8 py-4 rounded-2xl font-semibold
                        border-2 border-[var(--ink)]/20 dark:border-white/20
@@ -106,8 +113,8 @@ export default function Hero() {
         transition={{ duration: 0.8, delay: 0.5 }}
         className="mt-20 w-full relative overflow-hidden"
       >
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[var(--bg-main)] to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[var(--bg-main)] to-transparent z-10" />
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-linear-to-r from-(--bg-main) to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-linear-to-l from-(--bg-main) to-transparent z-10" />
 
         <div className="flex gap-4 animate-scroll-left">
           {[...skills, ...skills].map((key, index) => {
@@ -122,8 +129,8 @@ export default function Hero() {
                            transition-all duration-300
                            shrink-0"
               >
-                <tech.Icon size={20} className="text-[var(--stone)]" />
-                <span className="text-sm font-medium text-[var(--ink)]">
+                <tech.Icon size={20} style={{ color: tech.color }} />
+                <span className="text-sm font-medium text-(--ink)">
                   {tech.name}
                 </span>
               </div>

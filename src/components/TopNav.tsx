@@ -22,7 +22,7 @@ export default function TopNav() {
           }
         });
       },
-      { rootMargin: "-50% 0px -50% 0px" }
+      { rootMargin: "-50% 0px -50% 0px" },
     );
 
     navItems.forEach((item) => {
@@ -33,7 +33,10 @@ export default function TopNav() {
     return () => observer.disconnect();
   }, []);
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
     e.preventDefault();
     const element = document.querySelector(href);
     if (element) {
@@ -91,7 +94,7 @@ export default function TopNav() {
           href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-3 py-1.5 text-sm rounded-lg border border-[var(--ink)] text-[var(--ink)] hover:bg-[#1E1E1C] hover:text-white dark:hover:bg-[#F5F5F4] dark:hover:text-[#1E1E1C] transition"
+          className="px-3 py-1.5 text-sm rounded-lg border border-(--ink) text-(--ink) hover:bg-[#1E1E1C] hover:text-white dark:hover:bg-[#F5F5F4] dark:hover:text-[#1E1E1C] transition"
         >
           Resume
         </a>
