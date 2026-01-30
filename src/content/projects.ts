@@ -19,7 +19,7 @@ export const projects: Project[] = [
     shortDescription:
       "End-to-end data pipeline for real-time offer processing and analytics.",
     heroLabel: "Data Engineering",
-    preview: "/Offers_Hub.png",
+    preview: "/Offers_Hub.PNG",
     tags: ["Python", "Spark", "PostgreSQL", "Kafka", "Airflow"],
     tech: ["python", "spark", "postgres", "kafka", "airflow"],
     github: "https://github.com/ZJashi",
