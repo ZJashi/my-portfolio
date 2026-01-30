@@ -30,8 +30,8 @@ export const projects: Project[] = [
     shortDescription:
       "My personal portfolio website built with modern web technologies.",
     heroLabel: "Web Development",
-    preview: "/portfolio-dark.gif",
-    previewDark: "/portfolio-light.gif",
+    preview: "/portfolio-dark.png",
+    previewDark: "/portfolio-light.png",
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "React"],
     tech: ["nextjs", "typescript", "tailwind", "react"],
     github: "https://github.com/ZJashi/my-portfolio",
