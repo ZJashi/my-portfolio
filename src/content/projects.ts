@@ -25,16 +25,16 @@ export const projects: Project[] = [
     github: "https://github.com/ZJashi",
     company: "Bank of Georgia",
   },
-  {
-    title: "Portfolio",
-    shortDescription:
-      "My personal portfolio website built with modern web technologies.",
-    heroLabel: "Web Development",
-    preview: "/portfolio-dark.gif",
-    previewDark: "/portfolio-light.gif",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "React"],
-    tech: ["nextjs", "typescript", "tailwind", "react"],
-    github: "https://github.com/ZJashi/portfolio",
-    isPersonal: true,
-  },
+  // {
+  //   title: "Portfolio",
+  //   shortDescription:
+  //     "My personal portfolio website built with modern web technologies.",
+  //   heroLabel: "Web Development",
+  //   preview: "/portfolio-dark.gif",
+  //   previewDark: "/portfolio-light.gif",
+  //   tags: ["Next.js", "TypeScript", "Tailwind CSS", "React"],
+  //   tech: ["nextjs", "typescript", "tailwind", "react"],
+  //   github: "https://github.com/ZJashi/portfolio",
+  //   isPersonal: true,
+  // },
 ];
