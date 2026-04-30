@@ -68,8 +68,8 @@ export default function TopNav() {
                 className={`transition-colors duration-200
                   ${
                     isActive
-                      ? "text-[var(--ink)] font-medium"
-                      : "text-[var(--stone)] group-hover:text-[var(--ink)]"
+                      ? "text-(--ink) font-medium"
+                      : "text-(--stone) group-hover:text-(--ink)"
                   }
                 `}
               >
@@ -77,12 +77,12 @@ export default function TopNav() {
               </span>
 
               {isActive && (
-                <span className="absolute -bottom-2 h-1 w-1 rounded-full bg-[var(--ink)]" />
+                <span className="absolute -bottom-2 h-1 w-1 rounded-full bg-(--ink)" />
               )}
 
               <span
                 className="absolute -bottom-2 h-[1.5px]
-                           w-0 bg-[var(--ink)]
+                           w-0 bg-(--ink)
                            transition-all duration-300
                            group-hover:w-full"
               />
