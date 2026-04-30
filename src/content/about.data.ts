@@ -31,10 +31,11 @@ export const workExperience: ExperienceItem[] = [
     url: "https://bankofgeorgia.ge/",
     time: "Apr 2024 — Jan 2025",
     bullets: [
-      "Designed and maintained Spark batch and streaming pipelines for personalization systems",
-      "Built Airflow DAGs with Kafka-based triggers, retries, and SLAs",
-      "Integrated Kafka, HDFS, PostgreSQL, and internal APIs at production scale",
-      "Optimized jobs for performance, memory usage, and fault tolerance",
+      "Developed Spark pipelines (batch + streaming) to calculate customer eligibility for cashback, discounts, and loyalty offers across 4M+ customers.",
+      "Built real-time Kafka workflows that update customer eligibility instantly when their data changes.",
+      "Supported campaign launches by rerunning eligibility logic on demand for newly created offers.",
+      "Worked with Java and QA Engineers to investigate customer cases and fix logic issues in complex Spark code.",
+      "Deployed updates from dev to prod using Git, Jenkins, Docker, and Kubernetes",
     ],
     tech: ["spark", "kafka", "airflow", "hdfs", "python"],
   },
@@ -55,27 +56,20 @@ export const workExperience: ExperienceItem[] = [
 
 export const education: ExperienceItem[] = [
   {
-    role: "M.S. in Data Science",
-    company: "New York University",
-    shortName: "NYU",
-    url: "https://cds.nyu.edu/",
-    time: "2025 — Present",
-    bullets: [
-      "Focus on machine learning, deep learning, and statistical methods",
-      "Research in natural language processing and AI systems",
-    ],
+    role: "M.S. in Theoretical Physics",
+    company: "Perimeter Institute for Theoretical Physics",
+    shortName: "Perimeter Institute",
+    url: "https://perimeterinstitute.ca/",
+    time: "2023 — 2024",
+    bullets: [],
   },
   {
-    role: "B.Sc. in Physics & Mathematics",
-    company: "Free University of Tbilisi",
-    shortName: "Free University",
-    url: "https://freeuni.edu.ge/",
-    time: "2020 — 2024",
-    bullets: [
-      "Double major in Theoretical Physics and Pure Mathematics",
-      "Thesis on quantum information theory and machine learning applications",
-      "Dean's list recognition for academic excellence",
-    ],
+    role: "B.Sc. in Mathematics",
+    company: "New York University",
+    shortName: "NYU",
+    url: "https://www.nyu.edu/",
+    time: "2019 — 2023",
+    bullets: [],
   },
 ];
 
