@@ -174,7 +174,7 @@ export default function Sidebar() {
         </div>
 
         {/* Divider */}
-        <div className="mx-6 h-px bg-gradient-to-r from-transparent via-black/10 dark:via-white/10 to-transparent" />
+        <div className="mx-6 h-px bg-linear-to-r from-transparent via-black/10 dark:via-white/10 to-transparent" />
 
         {/* Navigation */}
         <nav className="flex-1 py-6 px-4 overflow-y-auto">
@@ -237,7 +237,7 @@ export default function Sidebar() {
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full px-4 py-3 text-sm font-medium text-center rounded-xl
-                       bg-[var(--ink)] text-[var(--bg-main)]
+                       bg-(--ink) text-(--bg-main)
                        hover:opacity-90 hover:shadow-lg
                        transition-all duration-300"
           >
