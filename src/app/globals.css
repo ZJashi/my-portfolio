@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --bg-main: #F4EFE6;      /* linen */
@@ -50,4 +51,14 @@ body {
 .animate-scroll-left:hover,
 .animate-scroll-right:hover {
   animation-play-state: paused;
+}
+
+/* KaTeX dark mode — math inherits text color by default but some elements need forcing */
+.dark .katex,
+.dark .katex-display {
+  color: #e8e6e1;
+}
+.dark .katex svg {
+  fill: currentColor;
+  stroke: currentColor;
 }

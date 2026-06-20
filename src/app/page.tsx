@@ -12,7 +12,7 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <main className="relative overflow-x-hidden">
+    <main className="relative overflow-x-hidden lg:pl-[280px]">
       {/* Animated gradient orbs */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         {/* Top right orb - teal/cyan */}

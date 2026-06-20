@@ -25,8 +25,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Sidebar />
 
-          {/* Main content with sidebar offset */}
-          <div className="min-h-screen lg:pl-[280px]">
+          <div className="min-h-screen">
             <main className="flex-1">
               <PageTransition>{children}</PageTransition>
             </main>
