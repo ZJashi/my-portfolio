@@ -1,24 +1,25 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Make dark: utilities respond to the .dark class (not just prefers-color-scheme) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --bg-main: #F4EFE6;      /* linen */
+  --bg-main: #F4EFE6;
   --bg-sidebar: rgba(244, 239, 230, 0.7);
   --ink: #1E1E1C;
   --stone: #6B6A65;
-
-  --accent: #1E1E1C;           /* same as ink for monochrome */
-  --accent-muted: #6B6A65;     /* same as stone */
+  --accent: #1E1E1C;
+  --accent-muted: #6B6A65;
 }
 
 .dark {
-  --bg-main: #1A1A1F;          /* warm charcoal */
+  --bg-main: #1A1A1F;
   --bg-sidebar: rgba(26, 26, 31, 0.9);
-  --ink: #F5F5F4;              /* warm white */
-  --stone: #A8A8A6;            /* warm gray */
-
-  --accent: #F5F5F4;           /* same as ink for monochrome */
-  --accent-muted: #A8A8A6;     /* same as stone */
+  --ink: #F5F5F4;
+  --stone: #A8A8A6;
+  --accent: #F5F5F4;
+  --accent-muted: #A8A8A6;
 }
 
 html { scroll-behavior: smooth; }
@@ -29,31 +30,57 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Scrolling animations for skills */
+/* ── Scroll animations ───────────────────────────────────────────────────── */
 @keyframes scroll-left {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-
 @keyframes scroll-right {
-  0% { transform: translateX(-50%); }
+  0%   { transform: translateX(-50%); }
   100% { transform: translateX(0); }
 }
-
-.animate-scroll-left {
-  animation: scroll-left 30s linear infinite;
-}
-
-.animate-scroll-right {
-  animation: scroll-right 30s linear infinite;
-}
-
+.animate-scroll-left  { animation: scroll-left  30s linear infinite; }
+.animate-scroll-right { animation: scroll-right 30s linear infinite; }
 .animate-scroll-left:hover,
-.animate-scroll-right:hover {
-  animation-play-state: paused;
+.animate-scroll-right:hover { animation-play-state: paused; }
+
+/* ── Shiki dual-theme code blocks ───────────────────────────────────────── */
+/* Light tokens */
+code[data-theme*=' '],
+code[data-theme*=' '] span {
+  color: var(--shiki-light);
+}
+pre[data-theme*=' '] {
+  background-color: var(--shiki-light-bg);
+}
+/* Dark tokens */
+.dark code[data-theme*=' '],
+.dark code[data-theme*=' '] span {
+  color: var(--shiki-dark);
+}
+.dark pre[data-theme*=' '] {
+  background-color: var(--shiki-dark-bg);
 }
 
-/* KaTeX dark mode — math inherits text color by default but some elements need forcing */
+/* ── Code block language label ───────────────────────────────────────────── */
+pre[data-language]::before {
+  content: attr(data-language);
+  display: block;
+  padding: 0.45rem 1rem 0.35rem;
+  font-size: 0.65rem;
+  font-family: ui-monospace, "Cascadia Code", "Fira Code", monospace;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #888;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+.dark pre[data-language]::before {
+  color: #666;
+  border-bottom-color: rgba(255, 255, 255, 0.07);
+}
+
+/* ── KaTeX dark mode ─────────────────────────────────────────────────────── */
 .dark .katex,
 .dark .katex-display {
   color: #e8e6e1;

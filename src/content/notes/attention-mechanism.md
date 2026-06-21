@@ -53,6 +53,7 @@ This lets the model jointly attend to information from different representation 
 
 Self-attention over a sequence of length $n$ costs $O(n^2 d)$ — the full attention matrix is $n \times n$. This is the main bottleneck for long contexts. Sparse attention, linear attention, and FlashAttention all target this.
 
+
 ## Key Insight
 
 The power of attention isn't just the weighted sum — it's that $Q$, $K$, $V$ are all learned linear projections of the same input. The model learns *what to ask*, *what to match against*, and *what to retrieve*.

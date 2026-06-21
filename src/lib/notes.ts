@@ -6,11 +6,15 @@ import remarkParse from "remark-parse";
 import remarkMath from "remark-math";
 import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
-import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeKatex from "rehype-katex";
+import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 
 const NOTES_DIR = path.join(process.cwd(), "src/content/notes");
+
+export type Heading = { id: string; text: string; level: number };
 
 export type NoteMetadata = {
   slug: string;
@@ -22,7 +26,22 @@ export type NoteMetadata = {
 
 export type Note = NoteMetadata & {
   content: string;
+  headings: Heading[];
 };
+
+function extractHeadings(html: string): Heading[] {
+  const headings: Heading[] = [];
+  const re = /<h([1-3])[^>]*id="([^"]*)"[^>]*>([\s\S]*?)<\/h[1-3]>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html)) !== null) {
+    headings.push({
+      level: parseInt(m[1]),
+      id: m[2],
+      text: m[3].replace(/<[^>]+>/g, "").trim(),
+    });
+  }
+  return headings;
+}
 
 export function getAllNotes(): NoteMetadata[] {
   if (!fs.existsSync(NOTES_DIR)) return [];
@@ -60,13 +79,23 @@ export async function getNoteBySlug(slug: string): Promise<Note | null> {
 
   const processed = await unified()
     .use(remarkParse)
-    .use(remarkMath)
     .use(remarkGfm)
+    .use(remarkMath)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
+    .use(rehypePrettyCode, {
+      theme: {
+        light: "github-light",
+        dark:  "github-dark-dimmed",
+      },
+      keepBackground: true,
+    })
     .use(rehypeKatex)
+    .use(rehypeSlug)
     .use(rehypeStringify)
     .process(content);
+
+  const html = String(processed);
 
   return {
     slug,
@@ -74,6 +103,7 @@ export async function getNoteBySlug(slug: string): Promise<Note | null> {
     date: data.date ?? "",
     tags: (data.tags ?? []) as string[],
     description: data.description ?? "",
-    content: String(processed),
+    content: html,
+    headings: extractHeadings(html),
   };
 }
