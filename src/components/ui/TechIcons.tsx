@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { TECH } from "@/content/tech";
+import { TECH } from "@/lib/tech";
 
 type Props = {
   tech: (keyof typeof TECH)[];

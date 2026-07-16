@@ -72,6 +72,3 @@ export const education: ExperienceItem[] = [
     bullets: [],
   },
 ];
-
-// Keep legacy export for backwards compatibility
-export const about = workExperience;

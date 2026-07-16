@@ -1,38 +1,21 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { TechIcons } from "@/components/TechIcons";
-import { workExperience, education } from "@/content/about.data";
-
-type TabCategory = "work" | "education";
+import { TechIcons } from "@/components/ui/TechIcons";
+import { useExperience } from "@/hooks/useExperience";
 
 export default function Experience() {
-  const [activeCategory, setActiveCategory] = useState<TabCategory>("work");
-  const [activeIndex, setActiveIndex] = useState(0);
-  const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
-  const [indicatorStyle, setIndicatorStyle] = useState({ top: 0, height: 0 });
-
-  const items = activeCategory === "work" ? workExperience : education;
-  const safeIndex =
-    items.length > 0 ? Math.min(activeIndex, items.length - 1) : 0;
-  const activeItem = items[safeIndex];
-
-  // Update indicator position when active tab changes
-  useEffect(() => {
-    const activeTab = tabsRef.current[safeIndex];
-    if (activeTab) {
-      setIndicatorStyle({
-        top: activeTab.offsetTop,
-        height: activeTab.offsetHeight,
-      });
-    }
-  }, [safeIndex, activeCategory]);
-
-  // Reset to first tab when switching categories
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [activeCategory]);
+  const {
+    activeCategory,
+    setActiveCategory,
+    activeIndex,
+    setActiveIndex,
+    tabsRef,
+    indicatorStyle,
+    items,
+    safeIndex,
+    activeItem,
+  } = useExperience();
 
   if (!activeItem) return null;
 
@@ -118,7 +101,7 @@ export default function Experience() {
                   }}
                   onClick={() => setActiveIndex(index)}
                   className={`text-left px-5 py-3 text-sm transition-colors ${
-                    activeIndex === index
+                    safeIndex === index
                       ? "text-(--ink) bg-(--ink)/5 font-medium"
                       : "text-(--stone) hover:text-(--ink) hover:bg-(--ink)/5"
                   }`}
@@ -132,7 +115,7 @@ export default function Experience() {
 
         {/* Content panel */}
         <motion.div
-          key={`${activeCategory}-${activeIndex}`}
+          key={`${activeCategory}-${safeIndex}`}
           initial={{ opacity: 0, x: 10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.2 }}

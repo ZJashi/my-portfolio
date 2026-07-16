@@ -1,11 +1,11 @@
-import type { TechKey } from "@/content/tech";
+import type { TechKey } from "@/lib/tech";
 
 export type Project = {
   title: string;
   shortDescription: string;
   heroLabel?: string;
   preview: string;
-  previewDark?: string; // shown when in dark mode
+  previewDark?: string;
   tags: string[];
   tech?: TechKey[];
   github: string;

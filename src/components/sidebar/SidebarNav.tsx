@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import type { MouseEvent } from "react";
 
 export type NavItem = {
   href: string;
@@ -10,7 +11,7 @@ type Props = {
   items: NavItem[];
   activeSection: string;
   pathname: string;
-  onItemClick: (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => void;
+  onItemClick: (e: MouseEvent<HTMLAnchorElement>, item: NavItem) => void;
   onNavClose: () => void;
 };
 

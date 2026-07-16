@@ -1,12 +1,10 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { SidebarProfile } from "@/components/sidebar/SidebarProfile";
 import { SidebarNav, type NavItem } from "@/components/sidebar/SidebarNav";
-import { useActiveSection } from "@/hooks/useActiveSection";
+import { useSidebar } from "@/hooks/useSidebar";
 
 const navItems: NavItem[] = [
   { href: "#hero",       label: "Home",       type: "anchor" },
@@ -14,42 +12,20 @@ const navItems: NavItem[] = [
   { href: "#experience", label: "Experience", type: "anchor" },
   { href: "#projects",   label: "Projects",   type: "anchor" },
   { href: "#contact",    label: "Contact",    type: "anchor" },
-  { href: "/notes",      label: "Notes",      type: "page"   },
 ];
 
 export default function Sidebar() {
-  const [isOpen, setIsOpen]       = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const pathname  = usePathname();
-  const router    = useRouter();
-  const isHome    = pathname === "/";
-
-  // Section to jump to when navigating back to home from another page.
-  const pendingTarget = useRef<string | null>(null);
-
-  const [activeSection] = useActiveSection(isHome, pendingTarget.current);
-
-  // Clear the pending target once the hook has consumed it.
-  if (isHome) pendingTarget.current = null;
-
-  const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    item: NavItem,
-  ) => {
-    e.preventDefault();
-    if (item.type === "page") {
-      router.push(item.href);
-    } else if (isHome) {
-      document.getElementById(item.href.slice(1))
-        ?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      // Store the target — the hook will instant-scroll there after mounting.
-      pendingTarget.current = item.href.slice(1);
-      router.push("/");
-    }
-  };
-
-  const sidebarVisible = isOpen || isHovered;
+  const {
+    isOpen,
+    setIsOpen,
+    isHovered,
+    setIsHovered,
+    pathname,
+    isHome,
+    activeSection,
+    handleNavClick,
+    sidebarVisible,
+  } = useSidebar();
 
   return (
     <>

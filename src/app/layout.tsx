@@ -4,17 +4,13 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
 import { ThemeProvider } from "@/context/ThemeContext";
-import { PageTransition } from "@/components/PageTransition";
+import { PageTransition } from "@/components/ui/PageTransition";
 
-import React from "react";
+import type { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
