@@ -4,29 +4,21 @@ import type { MouseEvent } from "react";
 export type NavItem = {
   href: string;
   label: string;
-  type: "anchor" | "page";
 };
 
 type Props = {
   items: NavItem[];
   activeSection: string;
-  pathname: string;
   onItemClick: (e: MouseEvent<HTMLAnchorElement>, item: NavItem) => void;
   onNavClose: () => void;
 };
 
-function isItemActive(item: NavItem, pathname: string, activeSection: string) {
-  if (item.type === "page")
-    return pathname === item.href || pathname.startsWith(item.href + "/");
-  return pathname === "/" && activeSection === item.href.slice(1);
-}
-
-export function SidebarNav({ items, activeSection, pathname, onItemClick, onNavClose }: Props) {
+export function SidebarNav({ items, activeSection, onItemClick, onNavClose }: Props) {
   return (
     <nav className="flex-1 py-6 px-4 overflow-y-auto">
       <ul className="space-y-1">
         {items.map((item, index) => {
-          const active = isItemActive(item, pathname, activeSection);
+          const active = activeSection === item.href.slice(1);
           return (
             <motion.li
               key={item.href}

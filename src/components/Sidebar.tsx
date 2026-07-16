@@ -7,11 +7,11 @@ import { SidebarNav, type NavItem } from "@/components/sidebar/SidebarNav";
 import { useSidebar } from "@/hooks/useSidebar";
 
 const navItems: NavItem[] = [
-  { href: "#hero",       label: "Home",       type: "anchor" },
-  { href: "#about",      label: "About",      type: "anchor" },
-  { href: "#experience", label: "Experience", type: "anchor" },
-  { href: "#projects",   label: "Projects",   type: "anchor" },
-  { href: "#contact",    label: "Contact",    type: "anchor" },
+  { href: "#hero",       label: "Home"       },
+  { href: "#about",      label: "About"      },
+  { href: "#experience", label: "Experience" },
+  { href: "#projects",   label: "Projects"   },
+  { href: "#contact",    label: "Contact"    },
 ];
 
 export default function Sidebar() {
@@ -20,8 +20,6 @@ export default function Sidebar() {
     setIsOpen,
     isHovered,
     setIsHovered,
-    pathname,
-    isHome,
     activeSection,
     handleNavClick,
     sidebarVisible,
@@ -29,14 +27,6 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Hover trigger strip — only on pages where the sidebar is not pinned */}
-      {!isHome && (
-        <div
-          className="fixed left-0 top-0 h-screen w-4 z-30 hidden lg:block"
-          onMouseEnter={() => setIsHovered(true)}
-        />
-      )}
-
       {/* Mobile burger */}
       <button
         onClick={() => setIsOpen((v) => !v)}
@@ -74,7 +64,7 @@ export default function Sidebar() {
                     flex flex-col
                     transition-transform duration-300 ease-out
                     ${sidebarVisible ? "translate-x-0" : "-translate-x-full"}
-                    ${isHome ? "lg:translate-x-0" : ""}`}
+                    lg:translate-x-0`}
       >
         <SidebarProfile />
 
@@ -83,7 +73,6 @@ export default function Sidebar() {
         <SidebarNav
           items={navItems}
           activeSection={activeSection}
-          pathname={pathname}
           onItemClick={handleNavClick}
           onNavClose={() => setIsOpen(false)}
         />
