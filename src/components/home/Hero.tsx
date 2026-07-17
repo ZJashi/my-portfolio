@@ -3,18 +3,18 @@
 import { motion } from "framer-motion";
 import { TECH } from "@/lib/tech";
 import { skills } from "@/lib/skills";
+import { slideUp } from "@/lib/animations";
 
 export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-[70vh] flex flex-col items-center justify-center relative scroll-mt-24"
+      className="min-h-[70vh] flex flex-col items-center justify-center relative"
     >
       {/* Main content - centered */}
       <div className="text-center max-w-3xl">
         <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+          {...slideUp}
           transition={{ duration: 0.6 }}
           className="text-sm tracking-[0.3em] uppercase text-(--stone) font-medium mb-6"
         >
@@ -22,8 +22,7 @@ export default function Hero() {
         </motion.p>
 
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          {...slideUp}
           transition={{ duration: 0.7, delay: 0.1 }}
           className="text-5xl md:text-7xl font-bold text-(--ink) leading-tight"
         >
@@ -35,8 +34,7 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          {...slideUp}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mt-6 text-lg md:text-xl text-(--stone) leading-relaxed max-w-2xl mx-auto"
         >
@@ -46,8 +44,7 @@ export default function Hero() {
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          {...slideUp}
           transition={{ duration: 0.8, delay: 0.3 }}
           className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
         >
@@ -55,9 +52,7 @@ export default function Hero() {
             href="#projects"
             onClick={(e) => {
               e.preventDefault();
-              document
-                .querySelector("#projects")
-                ?.scrollIntoView({ behavior: "smooth" });
+              document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
             }}
             className="group relative px-8 py-4 rounded-2xl font-semibold overflow-hidden
                        bg-linear-to-r from-emerald-500 via-teal-500 to-cyan-500
@@ -68,18 +63,14 @@ export default function Hero() {
             <span className="relative z-10">View my work</span>
             <div
               className="absolute inset-0 bg-linear-to-r from-emerald-600 via-teal-600 to-cyan-600
-                            opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                         opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             />
           </a>
 
           <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              document
-                .querySelector("#contact")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
+            href="https://www.linkedin.com/in/zurab-jashi"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-8 py-4 rounded-2xl font-semibold
                        border-2 border-(--ink)/20 dark:border-white/20
                        bg-white/50 dark:bg-white/5 backdrop-blur-sm
@@ -91,10 +82,9 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Skills - Marquee */}
+      {/* Skills marquee */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        {...slideUp}
         transition={{ duration: 0.8, delay: 0.5 }}
         className="mt-20 w-full relative overflow-hidden"
       >
@@ -111,13 +101,10 @@ export default function Hero() {
                            border border-black/5 dark:border-white/10
                            bg-white/60 dark:bg-white/5 backdrop-blur-sm
                            hover:border-teal-500/30 hover:bg-teal-500/5
-                           transition-all duration-300
-                           shrink-0"
+                           transition-all duration-300 shrink-0"
               >
                 <tech.Icon size={20} style={{ color: tech.color }} />
-                <span className="text-sm font-medium text-(--ink)">
-                  {tech.name}
-                </span>
+                <span className="text-sm font-medium text-(--ink)">{tech.name}</span>
               </div>
             );
           })}

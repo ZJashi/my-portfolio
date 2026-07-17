@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { TECH } from "@/lib/tech";
+import { staggerContainer, staggerItem } from "@/lib/animations";
 
 type Props = {
   tech: (keyof typeof TECH)[];
@@ -10,11 +11,7 @@ type Props = {
   showLabelsOnHover?: boolean;
 };
 
-export function TechIcons({
-  tech,
-  size = 20,
-  showLabelsOnHover = false,
-}: Props) {
+export function TechIcons({ tech, size = 20, showLabelsOnHover = false }: Props) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
@@ -22,14 +19,7 @@ export function TechIcons({
       initial="hidden"
       whileInView="show"
       viewport={{ once: true }}
-      variants={{
-        hidden: {},
-        show: {
-          transition: {
-            staggerChildren: 0.05,
-          },
-        },
-      }}
+      variants={staggerContainer}
       className="flex flex-wrap gap-3"
     >
       {tech.map((key, index) => {
@@ -42,10 +32,7 @@ export function TechIcons({
         return (
           <motion.div
             key={key}
-            variants={{
-              hidden: { opacity: 0, y: 4 },
-              show: { opacity: 1, y: 0 },
-            }}
+            variants={staggerItem}
             className="group relative"
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
@@ -62,11 +49,7 @@ export function TechIcons({
                     className="flex items-center gap-2 px-3 py-1.5 rounded-lg
                                bg-(--ink)/10 border border-(--ink)/20"
                   >
-                    <Icon
-                      size={size}
-                      style={{ color }}
-                      className="shrink-0"
-                    />
+                    <Icon size={size} style={{ color }} className="shrink-0" />
                     <span className="text-sm font-medium text-(--ink) whitespace-nowrap">
                       {name}
                     </span>
@@ -79,11 +62,7 @@ export function TechIcons({
                     exit={{ opacity: 0 }}
                     className="p-1.5"
                   >
-                    <Icon
-                      size={size}
-                      style={{ color }}
-                      className="transition duration-200"
-                    />
+                    <Icon size={size} style={{ color }} className="transition duration-200" />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -92,9 +71,7 @@ export function TechIcons({
                 <Icon
                   size={size}
                   style={{ color }}
-                  className="transition duration-200
-                             group-hover:-translate-y-0.5
-                             group-hover:scale-110"
+                  className="transition duration-200 group-hover:-translate-y-0.5 group-hover:scale-110"
                 />
                 <span
                   className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2

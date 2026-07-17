@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { TechIcons } from "@/components/ui/TechIcons";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { useExperience } from "@/hooks/useExperience";
 
 export default function Experience() {
@@ -20,42 +21,24 @@ export default function Experience() {
   if (!activeItem) return null;
 
   return (
-    <section id="experience" className="space-y-8 scroll-mt-24">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="flex items-center gap-4"
-      >
-        <h2 className="text-2xl md:text-3xl font-semibold text-(--ink)">
-          Experience
-        </h2>
-        <div className="flex-1 h-px bg-linear-to-r from-black/10 to-transparent dark:from-white/10" />
-      </motion.div>
+    <section id="experience" className="space-y-8">
+      <SectionHeader title="Experience" />
 
       {/* Category toggle */}
       <div className="flex gap-2">
-        <button
-          onClick={() => setActiveCategory("work")}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-            activeCategory === "work"
-              ? "bg-[#1E1E1C] dark:bg-[#F5F5F4] text-white dark:text-[#1E1E1C]"
-              : "text-(--stone) hover:text-(--ink) hover:bg-black/5 dark:hover:bg-white/5"
-          }`}
-        >
-          Work
-        </button>
-        <button
-          onClick={() => setActiveCategory("education")}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-            activeCategory === "education"
-              ? "bg-[#1E1E1C] dark:bg-[#F5F5F4] text-white dark:text-[#1E1E1C]"
-              : "text-[var(--stone)] hover:text-[var(--ink)] hover:bg-black/5 dark:hover:bg-white/5"
-          }`}
-        >
-          Education
-        </button>
+        {(["work", "education"] as const).map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition capitalize ${
+              activeCategory === cat
+                ? "bg-(--ink) text-(--bg-main)"
+                : "text-(--stone) hover:text-(--ink) hover:bg-black/5 dark:hover:bg-white/5"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
       </div>
 
       <div className="flex flex-col md:flex-row gap-6">

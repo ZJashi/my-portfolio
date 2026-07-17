@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, type MutableRefObject } from "react";
+import { useState, useRef, useEffect, type RefObject } from "react";
 import { workExperience, education, type ExperienceItem } from "@/lib/experience";
 
 type TabCategory = "work" | "education";
@@ -8,7 +8,7 @@ export type UseExperienceReturn = {
   setActiveCategory: (cat: TabCategory) => void;
   activeIndex: number;
   setActiveIndex: (i: number) => void;
-  tabsRef: MutableRefObject<(HTMLButtonElement | null)[]>;
+  tabsRef: RefObject<(HTMLButtonElement | null)[]>;
   indicatorStyle: { top: number; height: number };
   items: ExperienceItem[];
   safeIndex: number;

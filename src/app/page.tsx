@@ -2,7 +2,6 @@ import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
 import Experience from "@/components/home/Experience";
 import Projects from "@/components/home/Projects";
-import Contact from "@/components/home/Contact";
 
 export const metadata = {
   title: "Zura Jashi | AI Researcher & Developer",
@@ -10,38 +9,29 @@ export const metadata = {
     "Personal portfolio of Zura Jashi - AI researcher at NYU, with expertise in data engineering, physics, and mathematics.",
 };
 
+function GradientOrb({ className }: { className: string }) {
+  return <div className={`absolute rounded-full blur-3xl animate-pulse ${className}`} />;
+}
+
 export default function HomePage() {
   return (
     <main className="relative overflow-x-hidden lg:pl-[280px]">
       {/* Animated gradient orbs */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        {/* Top right orb - teal/cyan */}
-        <div
-          className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full
-                        bg-linear-to-br from-teal-500/20 via-cyan-500/10 to-transparent
-                        dark:from-teal-500/10 dark:via-cyan-500/5
-                        blur-3xl animate-pulse"
-          style={{ animationDuration: "8s" }}
-        />
+        <GradientOrb className="-top-40 -right-40 w-[600px] h-[600px]
+          bg-linear-to-br from-teal-500/20 via-cyan-500/10 to-transparent
+          dark:from-teal-500/10 dark:via-cyan-500/5
+          [animation-duration:8s]" />
 
-        {/* Bottom left orb - emerald/green */}
-        <div
-          className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full
-                        bg-linear-to-tr from-emerald-500/15 via-green-500/10 to-transparent
-                        dark:from-emerald-500/10 dark:via-green-500/5
-                        blur-3xl animate-pulse"
-          style={{ animationDuration: "10s", animationDelay: "2s" }}
-        />
+        <GradientOrb className="-bottom-40 -left-40 w-[500px] h-[500px]
+          bg-linear-to-tr from-emerald-500/15 via-green-500/10 to-transparent
+          dark:from-emerald-500/10 dark:via-green-500/5
+          [animation-duration:10s] [animation-delay:2s]" />
 
-        {/* Center orb - subtle blue */}
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                        w-[800px] h-[800px] rounded-full
-                        bg-linear-to-br from-sky-500/5 via-blue-500/5 to-transparent
-                        dark:from-sky-500/5 dark:via-blue-500/3
-                        blur-3xl animate-pulse"
-          style={{ animationDuration: "12s", animationDelay: "4s" }}
-        />
+        <GradientOrb className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]
+          bg-linear-to-br from-sky-500/5 via-blue-500/5 to-transparent
+          dark:from-sky-500/5 dark:via-blue-500/3
+          [animation-duration:12s] [animation-delay:4s]" />
       </div>
 
       {/* Hero */}
@@ -51,7 +41,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* About - Mesh gradient band */}
+      {/* About */}
       <section className="relative py-20">
         <div className="absolute inset-0 bg-linear-to-r from-teal-500/5 via-transparent to-emerald-500/5 dark:from-teal-500/10 dark:to-emerald-500/10" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-white/50 via-transparent to-transparent dark:from-black/20" />
@@ -67,20 +57,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Projects - Glass band */}
+      {/* Projects */}
       <section className="relative py-20">
         <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 via-cyan-500/5 to-teal-500/5 dark:from-blue-500/10 dark:via-cyan-500/10 dark:to-teal-500/10" />
         <div className="absolute inset-0 backdrop-blur-[1px]" />
         <div className="relative max-w-5xl mx-auto px-6">
           <Projects />
-        </div>
-      </section>
-
-      {/* Contact - Gradient band */}
-      <section className="relative py-20">
-        <div className="absolute inset-0 bg-linear-to-r from-cyan-500/5 via-sky-500/5 to-blue-500/5 dark:from-cyan-500/10 dark:via-sky-500/10 dark:to-blue-500/10" />
-        <div className="relative max-w-5xl mx-auto px-6">
-          <Contact />
         </div>
       </section>
     </main>

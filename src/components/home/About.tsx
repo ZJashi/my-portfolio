@@ -1,36 +1,25 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { fadeUp } from "@/lib/animations";
 
 export default function About() {
   return (
-    <section id="about" className="space-y-8 relative scroll-mt-24">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="flex items-center gap-4"
-      >
-        <h2 className="text-2xl md:text-3xl font-semibold text-[var(--ink)]">
-          About Me
-        </h2>
-        <div className="flex-1 h-px bg-gradient-to-r from-black/10 to-transparent dark:from-white/10" />
-      </motion.div>
+    <section id="about" className="space-y-8 relative">
+      <SectionHeader title="About Me" />
 
       <div className="grid md:grid-cols-2 gap-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          {...fadeUp}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="space-y-5 text-[var(--stone)] leading-relaxed"
+          className="space-y-5 text-(--stone) leading-relaxed"
         >
           <p>
             I&apos;m a researcher and engineer at the intersection of{" "}
-            <span className="text-[var(--ink)] font-medium">artificial intelligence</span>,{" "}
-            <span className="text-[var(--ink)] font-medium">physics</span>, and{" "}
-            <span className="text-[var(--ink)] font-medium">mathematics</span>.
+            <span className="text-(--ink) font-medium">artificial intelligence</span>,{" "}
+            <span className="text-(--ink) font-medium">physics</span>, and{" "}
+            <span className="text-(--ink) font-medium">mathematics</span>.
           </p>
 
           <p>
@@ -40,11 +29,9 @@ export default function About() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          {...fadeUp}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="space-y-5 text-[var(--stone)] leading-relaxed"
+          className="space-y-5 text-(--stone) leading-relaxed"
         >
           <p>
             My journey started with theoretical physics and pure mathematics,

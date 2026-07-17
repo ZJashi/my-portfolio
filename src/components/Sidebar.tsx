@@ -11,7 +11,6 @@ const navItems: NavItem[] = [
   { href: "#about",      label: "About"      },
   { href: "#experience", label: "Experience" },
   { href: "#projects",   label: "Projects"   },
-  { href: "#contact",    label: "Contact"    },
 ];
 
 export default function Sidebar() {
@@ -31,7 +30,7 @@ export default function Sidebar() {
       <button
         onClick={() => setIsOpen((v) => !v)}
         className="fixed top-6 left-6 z-50 lg:hidden w-12 h-12 rounded-2xl
-                   bg-white/80 dark:bg-[#252529]/80 backdrop-blur-xl
+                   bg-white/80 dark:bg-(--bg-main)/80 backdrop-blur-xl
                    border border-black/10 dark:border-white/10
                    flex items-center justify-center
                    shadow-lg hover:shadow-xl transition-shadow"
@@ -59,7 +58,7 @@ export default function Sidebar() {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={`fixed left-0 top-0 h-screen w-[280px] z-40
-                    bg-white/80 dark:bg-[#1E1E23]/90 backdrop-blur-2xl
+                    bg-white/80 dark:bg-(--bg-main)/90 backdrop-blur-2xl
                     border-r border-black/5 dark:border-white/10
                     flex flex-col
                     transition-transform duration-300 ease-out
@@ -90,7 +89,7 @@ export default function Sidebar() {
             Download Resume
           </a>
           <div className="flex items-center justify-between px-2">
-            <span className="text-xs text-[#6B6A65] dark:text-[#A8A8A6]">Theme</span>
+            <span className="text-xs text-(--stone)">Theme</span>
             <ThemeToggle />
           </div>
         </div>

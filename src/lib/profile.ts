@@ -9,7 +9,11 @@ export type SocialLink = {
 };
 
 export const socialLinks: SocialLink[] = [
-  { href: "https://github.com/ZJashi",               icon: FaGithub,      label: "GitHub"   },
-  { href: "https://www.linkedin.com/in/zurab-jashi", icon: FaLinkedin,    label: "LinkedIn" },
-  { href: "mailto:zj774@nyu.edu",                    icon: HiOutlineMail, label: "Email"    },
+  { href: "https://github.com/ZJashi", icon: FaGithub, label: "GitHub" },
+  {
+    href: "https://www.linkedin.com/in/zurab-jashi",
+    icon: FaLinkedin,
+    label: "LinkedIn",
+  },
+  { href: "mailto:zurajashi09@gmail.com", icon: HiOutlineMail, label: "Email" },
 ];

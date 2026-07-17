@@ -3,89 +3,55 @@
 import { motion } from "framer-motion";
 import { TECH } from "@/lib/tech";
 import { skills } from "@/lib/skills";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { fadeUp } from "@/lib/animations";
+
+const cardClass =
+  "group flex items-center gap-3 px-5 py-3 rounded-xl shrink-0 \
+border border-black/10 dark:border-white/10 \
+bg-white/50 dark:bg-white/5 \
+hover:bg-white/80 dark:hover:bg-white/10 \
+hover:shadow-lg hover:scale-105 \
+transition-all duration-300";
+
+function SkillCard({ techKey, index }: { techKey: keyof typeof TECH; index: number }) {
+  const tech = TECH[techKey];
+  return (
+    <motion.div
+      {...fadeUp}
+      transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.5) }}
+      className={cardClass}
+    >
+      <tech.Icon size={24} style={{ color: tech.color }} />
+      <span className="text-sm font-medium text-(--ink)">{tech.name}</span>
+    </motion.div>
+  );
+}
 
 export default function Skills() {
+  const reversed = [...skills].reverse();
+
   return (
     <section id="skills" className="space-y-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="flex items-center gap-4"
-      >
-        <h2 className="text-2xl md:text-3xl font-semibold text-(--ink)">
-          Skills
-        </h2>
-        <div className="flex-1 h-px bg-linear-to-r from-black/10 to-transparent dark:from-white/10" />
-      </motion.div>
+      <SectionHeader title="Skills" />
 
-      {/* Floating Skills - Marquee Style */}
       <div className="relative overflow-hidden py-8">
         {/* Fade edges */}
         <div className="absolute left-0 top-0 bottom-0 w-20 bg-linear-to-r from-(--bg-main) to-transparent z-10" />
         <div className="absolute right-0 top-0 bottom-0 w-20 bg-linear-to-l from-(--bg-main) to-transparent z-10" />
 
-        {/* First row - scrolling left */}
+        {/* Row 1 — scrolling left */}
         <div className="flex gap-6 mb-6 animate-scroll-left">
-          {[...skills, ...skills].map((key, index) => {
-            const tech = TECH[key];
-            return (
-              <motion.div
-                key={`${key}-${index}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.3,
-                  delay: Math.min(index * 0.05, 0.5),
-                }}
-                className="group flex items-center gap-3 px-5 py-3 rounded-xl
-                           border border-black/10 dark:border-white/10
-                           bg-white/50 dark:bg-white/5
-                           hover:bg-white/80 dark:hover:bg-white/10
-                           hover:shadow-lg hover:scale-105
-                           transition-all duration-300 shrink-0"
-              >
-                <tech.Icon size={24} className="text-(--ultramarine)" />
-                <span className="text-sm font-medium text-(--ink)">
-                  {tech.name}
-                </span>
-              </motion.div>
-            );
-          })}
+          {[...skills, ...skills].map((key, i) => (
+            <SkillCard key={`${key}-a-${i}`} techKey={key} index={i} />
+          ))}
         </div>
 
-        {/* Second row - scrolling right */}
+        {/* Row 2 — scrolling right */}
         <div className="flex gap-6 animate-scroll-right">
-          {[...skills.slice().reverse(), ...skills.slice().reverse()].map(
-            (key, index) => {
-              const tech = TECH[key];
-              return (
-                <motion.div
-                  key={`${key}-rev-${index}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.3,
-                    delay: Math.min(index * 0.05, 0.5),
-                  }}
-                  className="group flex items-center gap-3 px-5 py-3 rounded-xl
-                           border border-black/10 dark:border-white/10
-                           bg-white/50 dark:bg-white/5
-                           hover:bg-white/80 dark:hover:bg-white/10
-                           hover:shadow-lg hover:scale-105
-                           transition-all duration-300 shrink-0"
-                >
-                  <tech.Icon size={24} className="text-(--ultramarine)" />
-                  <span className="text-sm font-medium text-(--ink)">
-                    {tech.name}
-                  </span>
-                </motion.div>
-              );
-            },
-          )}
+          {[...reversed, ...reversed].map((key, i) => (
+            <SkillCard key={`${key}-b-${i}`} techKey={key} index={i} />
+          ))}
         </div>
       </div>
     </section>
