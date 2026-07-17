@@ -10,28 +10,46 @@ export default function Hero() {
   return (
     <section id="hero" className={styles.section}>
       <div className={styles.content}>
-        <motion.p {...slideUp} transition={{ duration: 0.6 }} className={styles.subtitle}>
+        <motion.p
+          {...slideUp}
+          transition={{ duration: 0.6 }}
+          className={styles.subtitle}
+        >
           Data • AI • Physics • Math
         </motion.p>
 
-        <motion.h1 {...slideUp} transition={{ duration: 0.7, delay: 0.1 }} className={styles.heading}>
+        <motion.h1
+          {...slideUp}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className={styles.heading}
+        >
           Building the future
           <br />
           <span className={styles.headingGradient}>with AI</span>
         </motion.h1>
 
-        <motion.p {...slideUp} transition={{ duration: 0.8, delay: 0.2 }} className={styles.description}>
-          AI Researcher & Developer at{" "}
-          <span className={styles.highlight}>NYU</span>. Passionate about the
-          intersection of physics, mathematics, and machine learning.
+        <motion.p
+          {...slideUp}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className={styles.description}
+        >
+          AI Engineer at <span className={styles.highlight}>NYU</span>.
+          Passionate about the intersection of physics, mathematics, and machine
+          learning.
         </motion.p>
 
-        <motion.div {...slideUp} transition={{ duration: 0.8, delay: 0.3 }} className={styles.ctaRow}>
+        <motion.div
+          {...slideUp}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className={styles.ctaRow}
+        >
           <a
             href="#projects"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
+              document
+                .querySelector("#projects")
+                ?.scrollIntoView({ behavior: "smooth" });
             }}
             className={styles.btnPrimary}
           >
@@ -51,7 +69,11 @@ export default function Hero() {
       </div>
 
       {/* Skills — grouped */}
-      <motion.div {...slideUp} transition={{ duration: 0.8, delay: 0.5 }} className={styles.skills}>
+      <motion.div
+        {...slideUp}
+        transition={{ duration: 0.8, delay: 0.5 }}
+        className={styles.skills}
+      >
         <div className={styles.skillsDivider} />
 
         <div className={styles.skillsGrid}>
@@ -69,7 +91,11 @@ export default function Hero() {
                 {group.keys.map((key) => {
                   const tech = TECH[key];
                   return (
-                    <motion.span key={key} variants={staggerItem} className={styles.badge}>
+                    <motion.span
+                      key={key}
+                      variants={staggerItem}
+                      className={styles.badge}
+                    >
                       <tech.Icon size={14} style={{ color: tech.color }} />
                       {tech.name}
                     </motion.span>
