@@ -1,0 +1,81 @@
+.page {
+  position: relative;
+  overflow-x: hidden;
+}
+
+@media (min-width: 1024px) {
+  .page {
+    padding-left: 280px;
+  }
+}
+
+.section {
+  position: relative;
+}
+
+.sectionPadded {
+  position: relative;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.container {
+  position: relative;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.heroContainer {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+}
+
+/* About section decorative backgrounds */
+.aboutBg1 {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(20, 184, 166, 0.05), transparent, rgba(16, 185, 129, 0.05));
+}
+
+:global(.dark) .aboutBg1 {
+  background: linear-gradient(to right, rgba(20, 184, 166, 0.1), transparent, rgba(16, 185, 129, 0.1));
+}
+
+.aboutBg2 {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.5), transparent);
+}
+
+:global(.dark) .aboutBg2 {
+  background: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.2), transparent);
+}
+
+/* Projects section decorative backgrounds */
+.projectsBg1 {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom right,
+    rgba(59, 130, 246, 0.05),
+    rgba(6, 182, 212, 0.05),
+    rgba(20, 184, 166, 0.05)
+  );
+}
+
+:global(.dark) .projectsBg1 {
+  background: linear-gradient(
+    to bottom right,
+    rgba(59, 130, 246, 0.1),
+    rgba(6, 182, 212, 0.1),
+    rgba(20, 184, 166, 0.1)
+  );
+}
+
+.projectsBg2 {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(1px);
+}

@@ -5,6 +5,7 @@ import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { SidebarProfile } from "@/components/sidebar/SidebarProfile";
 import { SidebarNav, type NavItem } from "@/components/sidebar/SidebarNav";
 import { useSidebar } from "@/hooks/useSidebar";
+import styles from "./Sidebar.module.css";
 
 const navItems: NavItem[] = [
   { href: "#hero",       label: "Home"       },
@@ -14,30 +15,16 @@ const navItems: NavItem[] = [
 ];
 
 export default function Sidebar() {
-  const {
-    isOpen,
-    setIsOpen,
-    setIsHovered,
-    activeSection,
-    handleNavClick,
-    sidebarVisible,
-  } = useSidebar();
+  const { isOpen, setIsOpen, setIsHovered, activeSection, handleNavClick, sidebarVisible } = useSidebar();
 
   return (
     <>
       {/* Mobile burger */}
-      <button
-        onClick={() => setIsOpen((v) => !v)}
-        className="fixed top-6 left-6 z-50 lg:hidden w-12 h-12 rounded-2xl
-                   bg-white/80 dark:bg-(--bg-main)/80 backdrop-blur-xl
-                   border border-black/10 dark:border-white/10
-                   flex items-center justify-center
-                   shadow-lg hover:shadow-xl transition-shadow"
-      >
-        <div className="flex flex-col gap-1.5">
-          <span className={`w-5 h-0.5 bg-(--ink) transition-all duration-300 ${isOpen ? "rotate-45 translate-y-2"   : ""}`} />
-          <span className={`w-5 h-0.5 bg-(--ink) transition-all duration-300 ${isOpen ? "opacity-0"                  : ""}`} />
-          <span className={`w-5 h-0.5 bg-(--ink) transition-all duration-300 ${isOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+      <button onClick={() => setIsOpen((v) => !v)} className={styles.burgerBtn}>
+        <div className={styles.burgerLines}>
+          <span className={`${styles.burgerLine} ${isOpen ? styles.line1Open : ""}`} />
+          <span className={`${styles.burgerLine} ${isOpen ? styles.line2Open : ""}`} />
+          <span className={`${styles.burgerLine} ${isOpen ? styles.line3Open : ""}`} />
         </div>
       </button>
 
@@ -47,7 +34,7 @@ export default function Sidebar() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
+          className={styles.overlay}
           onClick={() => setIsOpen(false)}
         />
       )}
@@ -56,17 +43,11 @@ export default function Sidebar() {
       <aside
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={`fixed left-0 top-0 h-screen w-[280px] z-40
-                    bg-white/80 dark:bg-(--bg-main)/90 backdrop-blur-2xl
-                    border-r border-black/5 dark:border-white/10
-                    flex flex-col
-                    transition-transform duration-300 ease-out
-                    ${sidebarVisible ? "translate-x-0" : "-translate-x-full"}
-                    lg:translate-x-0`}
+        className={`${styles.panel} ${sidebarVisible ? styles.panelOpen : ""}`}
       >
         <SidebarProfile />
 
-        <div className="mx-6 h-px bg-linear-to-r from-transparent via-black/10 dark:via-white/10 to-transparent" />
+        <div className={styles.divider} />
 
         <SidebarNav
           items={navItems}
@@ -75,20 +56,12 @@ export default function Sidebar() {
           onNavClose={() => setIsOpen(false)}
         />
 
-        {/* Bottom */}
-        <div className="p-6 space-y-4">
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block w-full px-4 py-3 text-sm font-medium text-center rounded-xl
-                       bg-(--ink) text-(--bg-main)
-                       hover:opacity-90 hover:shadow-lg transition-all duration-300"
-          >
+        <div className={styles.bottom}>
+          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className={styles.resumeBtn}>
             Download Resume
           </a>
-          <div className="flex items-center justify-between px-2">
-            <span className="text-xs text-(--stone)">Theme</span>
+          <div className={styles.themeRow}>
+            <span className={styles.themeLabel}>Theme</span>
             <ThemeToggle />
           </div>
         </div>

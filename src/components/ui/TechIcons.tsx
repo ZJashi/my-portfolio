@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { TECH } from "@/lib/tech";
 import { staggerContainer, staggerItem } from "@/lib/animations";
+import styles from "./TechIcons.module.css";
 
 type Props = {
   tech: (keyof typeof TECH)[];
@@ -20,7 +21,7 @@ export function TechIcons({ tech, size = 20, showLabelsOnHover = false }: Props)
       whileInView="show"
       viewport={{ once: true }}
       variants={staggerContainer}
-      className="flex flex-wrap gap-3"
+      className={styles.container}
     >
       {tech.map((key, index) => {
         const entry = TECH[key];
@@ -33,7 +34,7 @@ export function TechIcons({ tech, size = 20, showLabelsOnHover = false }: Props)
           <motion.div
             key={key}
             variants={staggerItem}
-            className="group relative"
+            className={styles.item}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
@@ -46,13 +47,10 @@ export function TechIcons({ tech, size = 20, showLabelsOnHover = false }: Props)
                     animate={{ opacity: 1, width: "auto", scale: 1 }}
                     exit={{ opacity: 0, width: size, scale: 0.9 }}
                     transition={{ duration: 0.2 }}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg
-                               bg-(--ink)/10 border border-(--ink)/20"
+                    className={styles.expanded}
                   >
-                    <Icon size={size} style={{ color }} className="shrink-0" />
-                    <span className="text-sm font-medium text-(--ink) whitespace-nowrap">
-                      {name}
-                    </span>
+                    <Icon size={size} style={{ color }} className={styles.shrink0} />
+                    <span className={styles.expandedLabel}>{name}</span>
                   </motion.div>
                 ) : (
                   <motion.div
@@ -60,9 +58,9 @@ export function TechIcons({ tech, size = 20, showLabelsOnHover = false }: Props)
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="p-1.5"
+                    className={styles.iconOnly}
                   >
-                    <Icon size={size} style={{ color }} className="transition duration-200" />
+                    <Icon size={size} style={{ color }} />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -71,17 +69,9 @@ export function TechIcons({ tech, size = 20, showLabelsOnHover = false }: Props)
                 <Icon
                   size={size}
                   style={{ color }}
-                  className="transition duration-200 group-hover:-translate-y-0.5 group-hover:scale-110"
+                  className={styles.iconContainer}
                 />
-                <span
-                  className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2
-                             rounded-md bg-black/90 px-2 py-1
-                             text-xs text-white whitespace-nowrap
-                             opacity-0 group-hover:opacity-100
-                             transition-opacity duration-200"
-                >
-                  {name}
-                </span>
+                <span className={styles.tooltip}>{name}</span>
               </>
             )}
           </motion.div>

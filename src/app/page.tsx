@@ -1,3 +1,4 @@
+import styles from "./page.module.css";
 import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
 import Experience from "@/components/home/Experience";
@@ -11,35 +12,35 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <main className="relative overflow-x-hidden lg:pl-[280px]">
+    <main className={styles.page}>
       {/* Hero */}
-      <section className="relative">
-        <div className="max-w-5xl mx-auto px-6 pt-12 pb-24">
+      <section className={styles.section}>
+        <div className={styles.heroContainer}>
           <Hero />
         </div>
       </section>
 
       {/* About */}
-      <section className="relative py-20">
-        <div className="absolute inset-0 bg-linear-to-r from-teal-500/5 via-transparent to-emerald-500/5 dark:from-teal-500/10 dark:to-emerald-500/10" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-white/50 via-transparent to-transparent dark:from-black/20" />
-        <div className="relative max-w-5xl mx-auto px-6">
+      <section className={styles.sectionPadded}>
+        <div className={styles.aboutBg1} />
+        <div className={styles.aboutBg2} />
+        <div className={styles.container}>
           <About />
         </div>
       </section>
 
       {/* Experience */}
-      <section className="relative py-20">
-        <div className="max-w-5xl mx-auto px-6">
+      <section className={styles.sectionPadded}>
+        <div className={styles.container}>
           <Experience />
         </div>
       </section>
 
       {/* Projects */}
-      <section className="relative py-20">
-        <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 via-cyan-500/5 to-teal-500/5 dark:from-blue-500/10 dark:via-cyan-500/10 dark:to-teal-500/10" />
-        <div className="absolute inset-0 backdrop-blur-[1px]" />
-        <div className="relative max-w-5xl mx-auto px-6">
+      <section className={styles.sectionPadded}>
+        <div className={styles.projectsBg1} />
+        <div className={styles.projectsBg2} />
+        <div className={styles.container}>
           <Projects />
         </div>
       </section>

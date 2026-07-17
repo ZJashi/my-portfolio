@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { TechIcons } from "@/components/ui/TechIcons";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { useExperience } from "@/hooks/useExperience";
+import styles from "./Experience.module.css";
 
 export default function Experience() {
   const {
@@ -21,19 +22,17 @@ export default function Experience() {
   if (!activeItem) return null;
 
   return (
-    <section id="experience" className="space-y-8">
+    <section id="experience" className={styles.section}>
       <SectionHeader title="Experience" />
 
       {/* Category toggle */}
-      <div className="flex gap-2">
+      <div className={styles.categoryRow}>
         {(["work", "education"] as const).map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition capitalize ${
-              activeCategory === cat
-                ? "bg-(--ink) text-(--bg-main)"
-                : "text-(--stone) hover:text-(--ink) hover:bg-black/5 dark:hover:bg-white/5"
+            className={`${styles.catBtn} ${
+              activeCategory === cat ? styles.catBtnActive : styles.catBtnInactive
             }`}
           >
             {cat}
@@ -41,19 +40,17 @@ export default function Experience() {
         ))}
       </div>
 
-      <div className="flex flex-col md:flex-row gap-6">
-        {/* Tab list - vertical on desktop, horizontal scroll on mobile */}
-        <div className="relative md:w-48 shrink-0">
+      <div className={styles.layout}>
+        {/* Tab column */}
+        <div className={styles.tabCol}>
           {/* Mobile: horizontal scroll */}
-          <div className="flex md:hidden overflow-x-auto gap-1 pb-2 -mx-2 px-2 scrollbar-hide">
+          <div className={styles.mobileTabList}>
             {items.map((item, index) => (
               <button
                 key={`${item.shortName}-${index}`}
                 onClick={() => setActiveIndex(index)}
-                className={`whitespace-nowrap px-4 py-2 text-sm rounded-lg transition ${
-                  activeIndex === index
-                    ? "bg-(--ink)/10 text-(--ink) font-medium"
-                    : "text-(--stone) hover:bg-black/5 dark:hover:bg-white/10"
+                className={`${styles.mobileTab} ${
+                  activeIndex === index ? styles.mobileTabActive : styles.mobileTabInactive
                 }`}
               >
                 {item.shortName}
@@ -62,10 +59,9 @@ export default function Experience() {
           </div>
 
           {/* Desktop: vertical tabs */}
-          <div className="hidden md:block relative">
-            {/* Animated indicator */}
+          <div className={styles.desktopTabWrapper}>
             <motion.div
-              className="absolute left-0 w-0.5 bg-(--ink) rounded-full"
+              className={styles.indicator}
               initial={false}
               animate={{
                 top: indicatorStyle.top,
@@ -74,19 +70,14 @@ export default function Experience() {
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             />
 
-            {/* Tab buttons */}
-            <div className="flex flex-col border-l border-black/10 dark:border-white/10">
+            <div className={styles.desktopTabList}>
               {items.map((item, index) => (
                 <button
                   key={`${item.shortName}-${index}`}
-                  ref={(el) => {
-                    tabsRef.current[index] = el;
-                  }}
+                  ref={(el) => { tabsRef.current[index] = el; }}
                   onClick={() => setActiveIndex(index)}
-                  className={`text-left px-5 py-3 text-sm transition-colors ${
-                    safeIndex === index
-                      ? "text-(--ink) bg-(--ink)/5 font-medium"
-                      : "text-(--stone) hover:text-(--ink) hover:bg-(--ink)/5"
+                  className={`${styles.desktopTab} ${
+                    safeIndex === index ? styles.desktopTabActive : styles.desktopTabInactive
                   }`}
                 >
                   {item.shortName}
@@ -102,19 +93,18 @@ export default function Experience() {
           initial={{ opacity: 0, x: 10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.2 }}
-          className="flex-1 min-w-0"
+          className={styles.content}
         >
-          <h3 className="text-lg font-semibold text-(--ink)">
+          <h3 className={styles.role}>
             {activeItem.role}
-            <span className="text-(--stone)">
-              {" "}
-              @{" "}
+            <span className={styles.company}>
+              {" "}@{" "}
               {activeItem.url ? (
                 <a
                   href={activeItem.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:underline underline-offset-2"
+                  className={styles.companyLink}
                 >
                   {activeItem.company.split("—")[0].trim()}
                 </a>
@@ -124,23 +114,21 @@ export default function Experience() {
             </span>
           </h3>
 
-          <p className="mt-1 text-sm text-(--stone) font-mono">
-            {activeItem.time}
-          </p>
+          <p className={styles.time}>{activeItem.time}</p>
 
           {activeItem.bullets.length > 0 && (
-            <ul className="mt-4 space-y-3">
+            <ul className={styles.bullets}>
               {activeItem.bullets.map((bullet, i) => (
-                <li key={i} className="flex gap-3 text-(--stone)">
-                  <span className="text-(--stone) mt-1.5 shrink-0">▹</span>
-                  <span className="leading-relaxed">{bullet}</span>
+                <li key={i} className={styles.bullet}>
+                  <span className={styles.bulletMarker}>▹</span>
+                  <span className={styles.bulletText}>{bullet}</span>
                 </li>
               ))}
             </ul>
           )}
 
           {activeItem.tech && activeItem.tech.length > 0 && (
-            <div className="mt-6">
+            <div className={styles.techRow}>
               <TechIcons tech={activeItem.tech} />
             </div>
           )}

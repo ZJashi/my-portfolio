@@ -1,0 +1,30 @@
+.placeholder {
+  padding: 0.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.placeholderInner {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.button {
+  padding: 0.5rem;
+  border-radius: 9999px;
+  transition: background-color 0.15s;
+}
+
+.button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+:global(.dark) .button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--stone);
+}

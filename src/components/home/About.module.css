@@ -1,0 +1,30 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  color: var(--stone);
+  line-height: 1.625;
+}
+
+.highlight {
+  color: var(--ink);
+  font-weight: 500;
+}

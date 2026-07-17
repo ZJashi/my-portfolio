@@ -1,9 +1,10 @@
 "use client";
 
-import { useTheme } from "@/context/ThemeContext";
+import { useTheme } from "@/hooks/useTheme";
 import { motion } from "framer-motion";
 import { IoSunny, IoMoon } from "react-icons/io5";
 import { useEffect, useState } from "react";
+import styles from "./ThemeToggle.module.css";
 
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -13,11 +14,10 @@ export function ThemeToggle() {
     setMounted(true);
   }, []);
 
-  // Avoid hydration mismatch by rendering placeholder during SSR
   if (!mounted) {
     return (
-      <div className="p-2 w-9 h-9">
-        <div className="w-5 h-5" />
+      <div className={styles.placeholder}>
+        <div className={styles.placeholderInner} />
       </div>
     );
   }
@@ -25,7 +25,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-full transition-colors hover:bg-black/5 dark:hover:bg-white/10"
+      className={styles.button}
       aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
     >
       <motion.div
@@ -34,9 +34,9 @@ export function ThemeToggle() {
         transition={{ type: "spring", stiffness: 200, damping: 20 }}
       >
         {theme === "light" ? (
-          <IoSunny className="w-5 h-5 text-(--stone)" />
+          <IoSunny className={styles.icon} />
         ) : (
-          <IoMoon className="w-5 h-5 text-(--stone)" />
+          <IoMoon className={styles.icon} />
         )}
       </motion.div>
     </button>
