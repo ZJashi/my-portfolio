@@ -16,6 +16,6 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     label: "Frameworks",
-    keys: ["react", "fastapi", "springboot", "flask"],
+    keys: ["react", "fastapi", "springboot"],
   },
 ];
