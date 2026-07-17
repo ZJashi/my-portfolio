@@ -17,7 +17,6 @@ export default function Sidebar() {
   const {
     isOpen,
     setIsOpen,
-    isHovered,
     setIsHovered,
     activeSection,
     handleNavClick,

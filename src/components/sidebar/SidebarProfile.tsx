@@ -36,21 +36,24 @@ export function SidebarProfile() {
         transition={{ duration: 0.6, delay: 0.2 }}
         className="flex items-center justify-center gap-2 mt-5"
       >
-        {socialLinks.map((link) => (
-          <a
-            key={link.label}
-            href={link.href}
-            target={link.href.startsWith("http") ? "_blank" : undefined}
-            rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-            className="w-10 h-10 rounded-xl flex items-center justify-center
-                       bg-black/5 dark:bg-white/10
-                       hover:bg-black/10 dark:hover:bg-white/15 hover:scale-110
-                       text-(--stone) hover:text-(--ink)
-                       transition-all duration-300"
-          >
-            <link.icon size={18} />
-          </a>
-        ))}
+        {socialLinks.map(({ label, href, icon: Icon }) => {
+          const external = href.startsWith("http");
+          return (
+            <a
+              key={label}
+              href={href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
+              className="w-10 h-10 rounded-xl flex items-center justify-center
+                         bg-black/5 dark:bg-white/10
+                         hover:bg-black/10 dark:hover:bg-white/15 hover:scale-110
+                         text-(--stone) hover:text-(--ink)
+                         transition-all duration-300"
+            >
+              <Icon size={18} />
+            </a>
+          );
+        })}
       </motion.div>
     </div>
   );

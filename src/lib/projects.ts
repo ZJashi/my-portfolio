@@ -6,7 +6,6 @@ export type Project = {
   heroLabel?: string;
   preview: string;
   previewDark?: string;
-  tags: string[];
   tech?: TechKey[];
   github: string;
   company?: string;
@@ -20,7 +19,6 @@ export const projects: Project[] = [
       "End-to-end data pipeline for real-time offer processing and analytics.",
     heroLabel: "Data Engineering",
     preview: "/offers-hub.png",
-    tags: ["Python", "Spark", "PostgreSQL", "Kafka", "Airflow"],
     tech: ["python", "spark", "postgres", "kafka", "airflow"],
     github: "https://github.com/ZJashi",
     company: "Bank of Georgia",
@@ -32,7 +30,6 @@ export const projects: Project[] = [
     heroLabel: "Web Development",
     preview: "/portfolio-dark.png",
     previewDark: "/portfolio-light.png",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "React"],
     tech: ["nextjs", "typescript", "tailwind", "react"],
     github: "https://github.com/ZJashi/my-portfolio",
     isPersonal: true,

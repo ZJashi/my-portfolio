@@ -16,7 +16,6 @@ export function useSidebar() {
   return {
     isOpen,
     setIsOpen,
-    isHovered,
     setIsHovered,
     activeSection,
     handleNavClick,
