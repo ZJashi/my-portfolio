@@ -8,14 +8,14 @@ export type SkillGroup = {
 export const skillGroups: SkillGroup[] = [
   {
     label: "Languages",
-    keys: ["python", "java", "rust", "cpp"],
+    keys: ["python", "java", "typescript"],
   },
   {
     label: "Data",
     keys: ["spark", "kafka", "airflow", "hdfs"],
   },
   {
-    label: "Web",
+    label: "Frameworks",
     keys: ["react", "fastapi", "springboot", "flask"],
   },
 ];
