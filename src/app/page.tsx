@@ -5,9 +5,8 @@ import Experience from "@/components/home/Experience";
 import Projects from "@/components/home/Projects";
 
 export const metadata = {
-  title: "Zura Jashi | AI Researcher & Developer",
-  description:
-    "Personal portfolio of Zura Jashi - AI researcher at NYU, with expertise in data engineering, physics, and mathematics.",
+  title: "Zura Jashi | AI Engineer",
+  description: "Personal portfolio of Zura Jashi - AI Engineer at NYU",
 };
 
 export default function HomePage() {
