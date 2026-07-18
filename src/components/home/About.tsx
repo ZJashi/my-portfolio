@@ -19,8 +19,8 @@ export default function About() {
           <p>
             I&apos;m an AI engineer at{" "}
             <span className={styles.highlight}> CFG </span>
-            working to build, enhance and optimize business processes for varius
-            teams.
+            working to build, enhance and optimize business processes for
+            various teams.
           </p>
           <p>
             In past, I have held positions at NYU (AI Engineer) and Bank of
