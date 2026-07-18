@@ -137,6 +137,41 @@
   background-color: rgba(20, 184, 166, 0.05);
 }
 
+/* Einstein quote */
+.quote {
+  margin-top: 3rem;
+  max-width: 42rem;
+  padding: 1.5rem 2rem;
+  border-left: 3px solid;
+  border-image: linear-gradient(to bottom, #10b981, #06b6d4) 1;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
+  border-radius: 0 0.75rem 0.75rem 0;
+  text-align: left;
+}
+
+:global(.dark) .quote {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.quoteText {
+  font-size: 0.9375rem;
+  color: var(--stone);
+  line-height: 1.75;
+  font-style: italic;
+}
+
+.quoteAuthor {
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  background: linear-gradient(to right, #10b981, #06b6d4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 /* Skills section */
 .skills {
   margin-top: 5rem;

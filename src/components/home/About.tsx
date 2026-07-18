@@ -38,7 +38,10 @@ export default function About() {
             I have competitive Olympiad background, holding Silver Medal at
             International Physics Olympiad and International Math Competition.
           </p>
-          <p>I love problem solving, enjoy modern technology and </p>
+          <p>
+            I love problem solving, enjoy modern technology and love
+            learning.{" "}
+          </p>
         </motion.div>
       </div>
     </section>

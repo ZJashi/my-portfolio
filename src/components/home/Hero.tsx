@@ -68,6 +68,21 @@ export default function Hero() {
         </motion.div>
       </div>
 
+      <motion.blockquote
+        {...slideUp}
+        transition={{ duration: 0.8, delay: 0.45 }}
+        className={styles.quote}
+      >
+        <p className={styles.quoteText}>
+          "The important thing is not to stop questioning. Curiosity has its own
+          reason for existence. One cannot help but be in awe when he
+          contemplates the mysteries of eternity, of life, of the marvelous
+          structure of reality. It is enough if one tries merely to comprehend a
+          little of this mystery each day."
+        </p>
+        <footer className={styles.quoteAuthor}>— Albert Einstein</footer>
+      </motion.blockquote>
+
       {/* Skills — grouped */}
       <motion.div
         {...slideUp}
