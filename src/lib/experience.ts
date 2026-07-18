@@ -13,7 +13,7 @@ export type ExperienceItem = {
 export const workExperience: ExperienceItem[] = [
   {
     role: "AI Engineer",
-    company: "CFG — City Football Group",
+    company: "CFG - City Football Group",
     shortName: "CFG",
     url: "https://www.cityfootballgroup.com/",
     time: "Aug 2026 — Present",
@@ -24,7 +24,7 @@ export const workExperience: ExperienceItem[] = [
   },
   {
     role: "AI Engineer",
-    company: "NYU — Center of Artificial Intelligence & Data Science",
+    company: "NYU - Center of Artificial Intelligence & Data Science",
     shortName: "NYU",
     url: "https://cds.nyu.edu/",
     time: "Jan 2026 — Aug 2026",
@@ -37,8 +37,8 @@ export const workExperience: ExperienceItem[] = [
     tech: ["python", "react", "postgres"],
   },
   {
-    role: "Big Data Engineering Intern",
-    company: "Bank of Georgia — Customer Tribe",
+    role: "Big Data Engineer",
+    company: "Bank of Georgia - Customer Tribe",
     shortName: "Bank of Georgia",
     url: "https://bankofgeorgia.ge/",
     time: "Apr 2025 — Jan 2026",

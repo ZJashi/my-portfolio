@@ -29,7 +29,17 @@ export function SidebarProfile() {
         className={styles.nameBlock}
       >
         <h1 className={styles.name}>Zura Jashi</h1>
-        <p className={styles.role}>AI Engineer @ NYU</p>
+        <p className={styles.role}>
+          AI Engineer{" "}
+          <a
+            href="https://www.cityfootballgroup.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.companyLink}
+          >
+            @CFG
+          </a>
+        </p>
       </motion.div>
 
       <motion.div
