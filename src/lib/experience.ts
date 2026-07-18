@@ -59,7 +59,7 @@ export const education: ExperienceItem[] = [
     company: "Perimeter Institute for Theoretical Physics",
     shortName: "Perimeter Institute",
     url: "https://perimeterinstitute.ca/",
-    time: "Sep 2023 — May 2024",
+    time: "Sep 2023 — Apr 2025",
     bullets: [
       "Relevant coursework: Quantum Field Theory, Quantum Information, Statistical Physics, String Theory, Mathematical Physics, Quantum Physics, Standard Model, Condensed Matter, Gravitational Physics",
     ],
@@ -69,7 +69,7 @@ export const education: ExperienceItem[] = [
     company: "New York University",
     shortName: "NYU",
     url: "https://www.nyu.edu/",
-    time: "2019 — 2023",
+    time: "Aug 2019 — May 2023",
     bullets: [
       "GPA: 3.94",
       "Relevant coursework: Multivariable Calculus, Linear Algebra, Abstract Algebra, ODEs, PDEs, Chaos & Dynamics, Advanced Probability, Stochastic Calculus, Computational Physics, Topology, Differential Geometry, Theoretical Machine Learning, Applied Machine Learning",

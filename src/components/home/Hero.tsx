@@ -25,7 +25,9 @@ export default function Hero() {
         >
           &ldquo;Curiosity has its own
           <br />
-          <span className={styles.headingGradient}>reason for existence.&rdquo;</span>
+          <span className={styles.headingGradient}>
+            reason for existence.&rdquo;
+          </span>
         </motion.h1>
 
         <motion.p
@@ -41,9 +43,17 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className={styles.description}
         >
-          AI Engineer at <span className={styles.highlight}>NYU</span>.
-          Passionate about the intersection of physics, mathematics, and machine
-          learning.
+          AI Engineer at{" "}
+          <a
+            href="https://www.cityfootballgroup.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.highlight}
+          >
+            CFG
+          </a>
+          . Passionate about software engineering. Sometimes I also enjoy
+          reading about physics and mathematics.
         </motion.p>
 
         <motion.div
