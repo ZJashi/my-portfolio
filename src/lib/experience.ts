@@ -12,15 +12,27 @@ export type ExperienceItem = {
 
 export const workExperience: ExperienceItem[] = [
   {
-    role: "AI Researcher",
+    role: "AI Engineer",
+    company: "CFG — City Football Group",
+    shortName: "CFG",
+    url: "https://www.cityfootballgroup.com/",
+    time: "Aug 2026 — Present",
+    bullets: [
+      "Develop agentic workflows to optimize the daily business processes",
+    ],
+    tech: ["python", "react", "fastapi", "pydanticai", "azure"],
+  },
+  {
+    role: "AI Engineer",
     company: "NYU — Center of Artificial Intelligence & Data Science",
     shortName: "NYU",
     url: "https://cds.nyu.edu/",
-    time: "Jan 2025 — Present",
+    time: "Jan 2026 — Aug 2026",
     bullets: [
       "Conducting research on large language models and their applications",
-      "Developing novel AI architectures for scientific computing",
-      "Collaborating with faculty on cutting-edge machine learning research",
+      "Developing AI agentic workflows to assist mathematicians in their daily processes.",
+      "Designed, implemented and benchmarked agentic workflow to generate the new research level" +
+        "mathematical problem based on the existing paper.",
     ],
     tech: ["python", "react"],
   },
@@ -29,7 +41,7 @@ export const workExperience: ExperienceItem[] = [
     company: "Bank of Georgia — Customer Tribe",
     shortName: "Bank of Georgia",
     url: "https://bankofgeorgia.ge/",
-    time: "Apr 2024 — Jan 2025",
+    time: "Apr 2025 — Jan 2026",
     bullets: [
       "Developed Spark pipelines (batch + streaming) to calculate customer eligibility for cashback, discounts, and loyalty offers across 4M+ customers.",
       "Built real-time Kafka workflows that update customer eligibility instantly when their data changes.",
@@ -39,19 +51,6 @@ export const workExperience: ExperienceItem[] = [
     ],
     tech: ["spark", "kafka", "airflow", "hdfs", "python"],
   },
-  {
-    role: "Machine Learning Intern",
-    company: "Perimeter Institute for Theoretical Physics",
-    shortName: "Perimeter Institute",
-    url: "https://perimeterinstitute.ca/",
-    time: "2022 — 2023",
-    bullets: [
-      "Investigated, developed and implemented the twinned regression algorithm",
-      "Developed analytical and computational tools for theoretical physics",
-      "Produced research notes and technical write-ups with faculty",
-      "Extended existing theoretical frameworks with original contributions",
-    ],
-  },
 ];
 
 export const education: ExperienceItem[] = [
@@ -60,7 +59,7 @@ export const education: ExperienceItem[] = [
     company: "Perimeter Institute for Theoretical Physics",
     shortName: "Perimeter Institute",
     url: "https://perimeterinstitute.ca/",
-    time: "2023 — 2024",
+    time: "Sep 2023 — May 2024",
     bullets: [],
   },
   {

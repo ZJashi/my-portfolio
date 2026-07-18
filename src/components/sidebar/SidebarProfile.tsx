@@ -29,7 +29,7 @@ export function SidebarProfile() {
         className={styles.nameBlock}
       >
         <h1 className={styles.name}>Zura Jashi</h1>
-        <p className={styles.role}>AI Researcher @ NYU</p>
+        <p className={styles.role}>AI Engineer @ NYU</p>
       </motion.div>
 
       <motion.div

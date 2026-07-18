@@ -14,8 +14,10 @@ import {
   SiNextdotjs,
   SiTypescript,
   SiTailwindcss,
+  SiPydantic,
 } from "react-icons/si";
 import { DiJava } from "react-icons/di";
+import { VscAzure } from "react-icons/vsc";
 
 export const TECH = {
   react: { name: "React", Icon: SiReact, color: "#61DAFB" },
@@ -34,6 +36,8 @@ export const TECH = {
   nextjs: { name: "Next.js", Icon: SiNextdotjs, color: "#000000" },
   typescript: { name: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
   tailwind: { name: "Tailwind", Icon: SiTailwindcss, color: "#06B6D4" },
+  pydanticai: { name: "Pydantic AI", Icon: SiPydantic, color: "#E92063" },
+  azure: { name: "Azure", Icon: VscAzure, color: "#0078D4" },
 } as const;
 
 export type TechKey = keyof typeof TECH;
