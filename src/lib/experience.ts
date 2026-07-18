@@ -34,7 +34,7 @@ export const workExperience: ExperienceItem[] = [
       "Designed, implemented and benchmarked agentic workflow to generate the new research level" +
         "mathematical problem based on the existing paper.",
     ],
-    tech: ["python", "react"],
+    tech: ["python", "react", "postgres"],
   },
   {
     role: "Big Data Engineering Intern",
@@ -49,7 +49,7 @@ export const workExperience: ExperienceItem[] = [
       "Worked with Java and QA Engineers to investigate customer cases and fix logic issues in complex Spark code.",
       "Deployed updates from dev to prod using Git, Jenkins, Docker, and Kubernetes",
     ],
-    tech: ["spark", "kafka", "airflow", "hdfs", "python"],
+    tech: ["spark", "kafka", "airflow", "hdfs", "python", "postgres", "oracle"],
   },
 ];
 

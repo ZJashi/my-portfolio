@@ -15,6 +15,7 @@ import {
   SiTypescript,
   SiTailwindcss,
   SiPydantic,
+  SiOracle,
 } from "react-icons/si";
 import { DiJava } from "react-icons/di";
 import { VscAzure } from "react-icons/vsc";
@@ -38,6 +39,7 @@ export const TECH = {
   tailwind: { name: "Tailwind", Icon: SiTailwindcss, color: "#06B6D4" },
   pydanticai: { name: "Pydantic AI", Icon: SiPydantic, color: "#E92063" },
   azure: { name: "Azure", Icon: VscAzure, color: "#0078D4" },
+  oracle: { name: "Oracle PL/SQL", Icon: SiOracle, color: "#F80000" },
 } as const;
 
 export type TechKey = keyof typeof TECH;

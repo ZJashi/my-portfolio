@@ -12,7 +12,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     label: "Data",
-    keys: ["spark", "kafka", "airflow", "hdfs"],
+    keys: ["spark", "kafka", "airflow", "hdfs", "pydanticai"],
   },
   {
     label: "Frameworks",
