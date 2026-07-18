@@ -17,14 +17,15 @@ export default function About() {
           className={styles.column}
         >
           <p>
-            I&apos;m a researcher and engineer at the intersection of{" "}
-            <span className={styles.highlight}>artificial intelligence</span>,{" "}
-            <span className={styles.highlight}>physics</span>, and{" "}
-            <span className={styles.highlight}>mathematics</span>.
+            I&apos;m an AI engineer at{" "}
+            <span className={styles.highlight}> CFG </span>
+            working to build, enhance and optimize business processes for varius
+            teams.
           </p>
           <p>
-            Currently pursuing my Master&apos;s in Data Science at NYU while working
-            as an AI researcher at the Center for Data Science.
+            In past, I have held positions at NYU (AI Engineer) and Bank of
+            Georgia (Big Data Engineer). I hold MSc in Physics from esteemed
+            Perimeter Institute of Theoretical Physics and BSc in Math from NYU.
           </p>
         </motion.div>
 
@@ -34,13 +35,10 @@ export default function About() {
           className={styles.column}
         >
           <p>
-            My journey started with theoretical physics and pure mathematics,
-            giving me a strong foundation for understanding complex systems.
+            I have competitive Olympiad background, holding Silver Medal at
+            International Physics Olympiad and International Math Competition.
           </p>
-          <p>
-            This naturally led me to machine learning and data engineering—from
-            large-scale pipelines to cutting-edge AI research.
-          </p>
+          <p>I love problem solving, enjoy modern technology and </p>
         </motion.div>
       </div>
     </section>
