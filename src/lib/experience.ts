@@ -34,7 +34,7 @@ export const workExperience: ExperienceItem[] = [
       "Designed, implemented and benchmarked agentic workflow to generate the new research level" +
         "mathematical problem based on the existing paper.",
     ],
-    tech: ["python", "react", "postgres"],
+    tech: ["python", "fastapi", "react", "postgres"],
   },
   {
     role: "Big Data Engineer",
