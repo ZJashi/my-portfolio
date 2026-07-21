@@ -20,7 +20,15 @@ export const workExperience: ExperienceItem[] = [
     bullets: [
       "Develop agentic workflows to optimize the daily business processes",
     ],
-    tech: ["python", "react", "fastapi", "pydanticai", "azure"],
+    tech: [
+      "python",
+      "typescript",
+      "react",
+      "nextjs",
+      "fastapi",
+      "pydanticai",
+      "azure",
+    ],
   },
   {
     role: "AI Engineer",
@@ -34,7 +42,15 @@ export const workExperience: ExperienceItem[] = [
       "Designed, implemented and benchmarked agentic workflow to generate the new research level" +
         "mathematical problem based on the existing paper.",
     ],
-    tech: ["python", "fastapi", "react", "postgres"],
+    tech: [
+      "python",
+      "fastapi",
+      "typescript",
+      "nextjs",
+      "react",
+      "postgres",
+      "typescript",
+    ],
   },
   {
     role: "Big Data Engineer",
