@@ -27,6 +27,7 @@ export const workExperience: ExperienceItem[] = [
       "nextjs",
       "fastapi",
       "pydanticai",
+      "postgres",
       "azure",
     ],
   },
