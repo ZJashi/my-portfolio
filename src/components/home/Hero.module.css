@@ -75,12 +75,12 @@
 .btnPrimary {
   position: relative;
   padding: 1rem 2rem;
-  border-radius: 1rem;
+  border-radius: 10rem;
   font-weight: 600;
   overflow: hidden;
   background: linear-gradient(to right, #10b981, #14b8a6, #06b6d4);
   color: white;
-  box-shadow: 0 10px 15px -3px rgba(20, 184, 166, 0.25);
+  box-shadow: 0 10px 15px -3px rgba(2, 244, 216, 0.25);
   transition: all 0.3s;
 }
 
@@ -108,7 +108,7 @@
 
 .btnSecondary {
   padding: 1rem 2rem;
-  border-radius: 1rem;
+  border-radius: 10rem;
   font-weight: 600;
   border: 2px solid color-mix(in srgb, var(--ink) 20%, transparent);
   background-color: rgba(255, 255, 255, 0.5);
@@ -147,7 +147,7 @@
 .skills {
   margin-top: 5rem;
   width: 100%;
-  max-width: 48rem;
+  max-width: 60rem;
 }
 
 .skillsDivider {
@@ -168,7 +168,7 @@
 
 @media (min-width: 640px) {
   .skillsGrid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 

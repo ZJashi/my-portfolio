@@ -18,4 +18,8 @@ export const skillGroups: SkillGroup[] = [
     label: "Frameworks",
     keys: ["react", "fastapi", "springboot"],
   },
+  {
+    label: "Infra & CI/CD",
+    keys: ["azure", "githubactions", "cypress"],
+  },
 ];
