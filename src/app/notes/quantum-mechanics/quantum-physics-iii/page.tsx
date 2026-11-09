@@ -1,0 +1,6 @@
+import Link from "next/link";
+import { SubjectHeader } from "@/components/notes/SubjectHeader";
+import { QuantumSketch } from "@/components/notes/QuantumSketch";
+import styles from "../../notes.module.css";
+export const metadata = { title: "Quantum Physics III | Notes | Zura Jashi" };
+export default function CoursePage() { return <div className={styles.page}><nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes/physics">Physics</Link><span>/</span><Link href="/notes/quantum-mechanics">Quantum Mechanics</Link><span>/</span><span>Quantum Physics III</span></nav><SubjectHeader number="03" label="ZWIEBACH / COURSE NOTEBOOK" title="Quantum Physics III" description="Continue the quantum mechanics sequence with a new collection of worked notes." topics="Further study / Course notebook" caption="A new way to describe a physical state."><QuantumSketch /></SubjectHeader><div className={styles.callout}><strong>Notebook in preparation</strong><p>This course is part of the planned sequence. Begin with Quantum Physics I.</p><Link href="/notes/quantum-mechanics/quantum-physics-i">Explore Quantum Physics I</Link></div></div>; }

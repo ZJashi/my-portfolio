@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import type { MouseEvent } from "react";
 import styles from "./SidebarNav.module.css";
@@ -15,11 +17,14 @@ type Props = {
 };
 
 export function SidebarNav({ items, activeSection, onItemClick, onNavClose }: Props) {
+  const pathname = usePathname();
   return (
     <nav className={styles.nav}>
       <ul className={styles.list}>
         {items.map((item, index) => {
-          const active = activeSection === item.href.slice(1);
+          const active = item.href === "/notes"
+            ? pathname.startsWith("/notes")
+            : pathname === "/" && activeSection === item.href.slice(1);
           return (
             <motion.li
               key={item.href}
@@ -27,8 +32,9 @@ export function SidebarNav({ items, activeSection, onItemClick, onNavClose }: Pr
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 0.3 + index * 0.05 }}
             >
-              <a
-                href={item.href}
+              <Link
+                href={item.href.startsWith("#") && pathname !== "/" ? `/${item.href}` : item.href}
+                aria-current={active ? "location" : undefined}
                 onClick={(e) => { onItemClick(e, item); onNavClose(); }}
                 className={`${styles.link} ${active ? styles.linkActive : ""}`}
               >
@@ -41,7 +47,7 @@ export function SidebarNav({ items, activeSection, onItemClick, onNavClose }: Pr
                 )}
                 <span className={`${styles.dot} ${active ? styles.dotActive : ""}`} />
                 <span className={styles.label}>{item.label}</span>
-              </a>
+              </Link>
             </motion.li>
           );
         })}

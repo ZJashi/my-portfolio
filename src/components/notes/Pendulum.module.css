@@ -1,0 +1,15 @@
+.lab { border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); border-radius: 16px; overflow: hidden; margin: 28px 0; }
+.header { padding: 18px 24px; border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.header span { font-size: .7rem; color: var(--stone); letter-spacing: .12em; text-transform: uppercase; }
+.header button { font-size: .8rem; border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent); padding: 5px 14px; border-radius: 20px; }
+.diagram { display: block; width: 100%; height: auto; max-height: 340px; color: var(--ink); background: color-mix(in srgb, var(--ink) 2%, transparent); }
+.diagram text { font: 12px system-ui, sans-serif; fill: var(--stone); }
+.controls { padding: 22px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.control label { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: .78rem; }
+.control output { color: var(--stone); font-variant-numeric: tabular-nums; }
+.control input { width: 100%; display: block; accent-color: #659980; margin-top: 16px; }
+.results { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); padding: 18px 24px; gap: 18px; }
+.results span { display: block; font-size: .72rem; line-height: 1.5; color: var(--stone); }
+.results strong { display: block; font-size: 1.45rem; font-weight: 400; font-variant-numeric: tabular-nums; }
+.caption { font-size: .75rem; line-height: 1.7; color: var(--stone); padding: 0 24px 22px; }
+@media (max-width: 450px) { .controls { grid-template-columns: 1fr; } }

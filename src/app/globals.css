@@ -41,3 +41,12 @@ button {
   font: inherit;
   color: inherit;
 }
+
+@media (min-width: 1024px) {
+  body { --sidebar-width: 280px; }
+  body:has([data-collapsed="true"]) { --sidebar-width: 0px; }
+}
+
+/* Study-note surface palette belongs in global CSS. */
+body:has(.study-notes) { --bg-main: #f7f5ef; --ink: #292d28; --stone: #686c63; }
+html.dark body:has(.study-notes) { color-scheme: dark; --bg-main: #20231f; --ink: #e8eae2; --stone: #afb4a7; }

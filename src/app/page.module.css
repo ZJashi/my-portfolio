@@ -5,7 +5,7 @@
 
 @media (min-width: 1024px) {
   .page {
-    padding-left: 280px;
+    padding-left: var(--sidebar-width, 280px);
   }
 }
 

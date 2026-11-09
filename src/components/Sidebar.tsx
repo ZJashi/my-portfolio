@@ -12,20 +12,19 @@ const navItems: NavItem[] = [
   { href: "#about",      label: "About"      },
   { href: "#experience", label: "Experience" },
   { href: "#projects",   label: "Projects"   },
+  { href: "/notes",      label: "Notes"      },
 ];
 
 export default function Sidebar() {
-  const { isOpen, setIsOpen, setIsHovered, activeSection, handleNavClick, sidebarVisible } = useSidebar();
+  const { isOpen, setIsOpen, isCollapsed, setIsCollapsed, activeSection, handleNavClick, sidebarVisible } = useSidebar();
 
   return (
     <>
-      {/* Mobile burger */}
-      <button onClick={() => setIsOpen((v) => !v)} className={styles.burgerBtn}>
-        <div className={styles.burgerLines}>
-          <span className={`${styles.burgerLine} ${isOpen ? styles.line1Open : ""}`} />
-          <span className={`${styles.burgerLine} ${isOpen ? styles.line2Open : ""}`} />
-          <span className={`${styles.burgerLine} ${isOpen ? styles.line3Open : ""}`} />
-        </div>
+      <button aria-label={isOpen ? "Close sidebar" : "Open sidebar"} aria-controls="site-sidebar" aria-expanded={isOpen} onClick={() => setIsOpen((v) => !v)} className={styles.mobileToggle}>
+        <WindowIcon />
+      </button>
+      <button aria-label={isCollapsed ? "Open sidebar" : "Close sidebar"} title={isCollapsed ? "Open sidebar" : "Close sidebar"} aria-controls="site-sidebar" aria-expanded={!isCollapsed} onClick={() => setIsCollapsed((v) => !v)} className={`${styles.desktopToggle} ${isCollapsed ? styles.toggleCollapsed : ""}`}>
+        <WindowIcon />
       </button>
 
       {/* Mobile overlay */}
@@ -41,9 +40,9 @@ export default function Sidebar() {
 
       {/* Sidebar panel */}
       <aside
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        className={`${styles.panel} ${sidebarVisible ? styles.panelOpen : ""}`}
+        id="site-sidebar"
+        data-collapsed={isCollapsed}
+        className={`${styles.panel} ${sidebarVisible ? styles.panelOpen : ""} ${isCollapsed ? styles.panelCollapsed : ""}`}
       >
         <SidebarProfile />
 
@@ -67,5 +66,14 @@ export default function Sidebar() {
         </div>
       </aside>
     </>
+  );
+}
+
+function WindowIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M9 4v16M5.5 8h1M5.5 11h1" />
+    </svg>
   );
 }
