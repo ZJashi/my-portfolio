@@ -61,7 +61,7 @@ export default function NotesPage() {
  <path d="M105 164C116 157 126 145 140 120V173H105Z" fill="currentColor" fillOpacity=".09" stroke="none" />
  <g fill="currentColor" stroke="none" fontFamily="Georgia" fontStyle="italic" fontSize="18"><text x="184" y="40">f(x)</text><text x="236" y="195">x</text><text x="42" y="36">y</text></g>
  </svg><span className={styles.drawingCaption}>Patterns worth following.</span></div>
-   <div className={styles.notebookBody}><div className={styles.cardTop}><span>SUBJECT 02</span></div><h2>Mathematics</h2><p>The language behind the ideas. Exploring structure, change, and the patterns that make a proof click.</p><div className={styles.notebookFoot}><span>Notebooks in preparation</span><span className={styles.openNotebook}>Explore subject</span></div></div>
+   <div className={styles.notebookBody}><div className={styles.cardTop}><span>SUBJECT 02</span></div><h2>Mathematics</h2><p>The language behind the ideas. Exploring structure, change, and the patterns that make a proof click.</p><div className={styles.notebookFoot}><span>Functional Analysis · Course notebook</span><span className={styles.openNotebook}>Explore subject</span></div></div>
   </Link>
   <Link href="/notes/computer-science" className={styles.notebook}>
    <div className={styles.notebookDrawing} aria-hidden="true"><span className={styles.drawingNumber}>03 / COMPUTER SCIENCE</span><svg viewBox="0 0 280 240" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -90,7 +90,7 @@ export default function NotesPage() {
  <circle cx="121" cy="125" r="3" fill="currentColor" /><circle cx="195" cy="109" r="3" fill="currentColor" />
  <g fill="currentColor" stroke="none" fontFamily="Georgia" fontStyle="italic" fontSize="16"><text x="49" y="30">value</text><text x="228" y="212">t</text><text x="76" y="228">Risk · return · time</text></g>
  </svg><span className={styles.drawingCaption}>Uncertainty, put into perspective.</span></div>
-   <div className={styles.notebookBody}><div className={styles.cardTop}><span>SUBJECT 05</span></div><h2>Finance</h2><p>Risk, return, and the value of time. Exploring markets, portfolios, and the mathematics behind financial decisions.</p><div className={styles.notebookFoot}><span>Notebooks in preparation</span><span className={styles.openNotebook}>Explore subject</span></div></div>
+   <div className={styles.notebookBody}><div className={styles.cardTop}><span>SUBJECT 05</span></div><h2>Finance</h2><p>Risk, return, and the value of time. Exploring markets, portfolios, and the mathematics behind financial decisions.</p><div className={styles.notebookFoot}><span>MIT 18.642 · Course notebook</span><span className={styles.openNotebook}>Explore subject</span></div></div>
   </Link>
  </div>;
 }
