@@ -27,9 +27,9 @@ export default function ShootingLab() {
   const [odd, setOdd] = useState(false);
   const points = shootOscillator(energy, odd);
   const scale = Math.max(...points.map(p => Math.abs(p.value)));
-  const path = points.map((p, i) => `${i ? "L" : "M"}${30 + p.q * 135},${130 - p.value * 90 / scale}`).join(" ");
+  const path = points.map((p, i) => `${i ? "L" : "M"}${(30 + p.q * 135).toFixed(4)},${(130 - p.value * 90 / scale).toFixed(4)}`).join(" ");
   const referenceScale = odd ? Math.exp(-0.5) : 1;
-  const reference = points.map((p, i) => `${i ? "L" : "M"}${30 + p.q * 135},${130 - (odd ? p.q : 1) * Math.exp(-p.q * p.q / 2) * 90 / referenceScale}`).join(" ");
+  const reference = points.map((p, i) => `${i ? "L" : "M"}${(30 + p.q * 135).toFixed(4)},${(130 - (odd ? p.q : 1) * Math.exp(-p.q * p.q / 2) * 90 / referenceScale).toFixed(4)}`).join(" ");
   return <div className={styles.energyLab} aria-label="Oscillator shooting lab">
     <div className={styles.labHeading}><span>EXPLORE / TRIAL-ENERGY SHOOTING</span><button type="button" onClick={() => { setOdd(false); setEnergy(0.5); }}>Reset</button></div>
     <p>Integrate from q = 0 to 4 at a trial energy ε. The solid curve is the numerical solution; the dashed curve is the lowest exact oscillator state of the selected parity. Each curve is separately rescaled to unit maximum magnitude for display, not probability normalization.</p>

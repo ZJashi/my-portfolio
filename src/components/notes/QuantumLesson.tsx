@@ -26,16 +26,23 @@ export const quantumChapterTwoLessons = [
  ["2.10", "Scattering Phase Shifts & Time Delay", "phase-shifts-and-time-delay"],
  ["2.11", "Resonances, Lifetimes & Bound-State Counting", "resonances-lifetimes-and-bound-states"],
 ];
-const allLessons = [...quantumLessons, ...quantumChapterTwoLessons];
+export const quantumChapterThreeLessons = [
+ ["3.1", "Quantum Mechanics in 3D & Central Potentials", "three-dimensions-and-central-potentials"],
+ ["3.2", "Angular Momentum & Spherical Harmonics", "angular-momentum-and-spherical-harmonics"],
+ ["3.3", "The Hydrogen Atom & Coulomb Energy Levels", "hydrogen-atom-and-energy-levels"],
+ ["3.4", "Hydrogen Orbitals & the Atomic Spectrum", "hydrogen-orbitals-and-spectrum"],
+];
+const allLessons = [...quantumLessons, ...quantumChapterTwoLessons, ...quantumChapterThreeLessons];
+export const quantumCourseLessonCount = allLessons.length;
 function lessonHref(lesson: string[]) { return `${courseBase}/chapter-${lesson[0].split(".")[0]}/${lesson[2]}`; }
 export function QuantumLesson({number,title,description,sections,children}:{number:string;title:string;description:string;sections:string[][];children:ReactNode}) {
  const chapter = number.split(".")[0];
  const base = `${courseBase}/chapter-${chapter}`;
- const chapterTitle = chapter === "1" ? "BASIC CONCEPTS" : "ENERGY EIGENSTATES";
+ const chapterTitle = ({ "1": "BASIC CONCEPTS", "2": "ENERGY EIGENSTATES", "3": "ANGULAR MOMENTUM & CENTRAL POTENTIALS" } as Record<string, string>)[chapter];
  const index = allLessons.findIndex(([id]) => id === number);
  const previous = allLessons[index - 1];
  const next = allLessons[index + 1];
  return <div className={styles.page}><nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes/physics">Physics</Link><span>/</span><Link href="/notes/quantum-mechanics">Quantum Mechanics</Link><span>/</span><Link href="/notes/quantum-mechanics/quantum-physics-i">Quantum Physics I</Link><span>/</span><Link href={base}>Chapter {chapter}</Link><span>/</span><span>{number}</span></nav>
- <header className={styles.readingHeader}><p className={styles.subjectKicker}><span>{number}</span> QUANTUM PHYSICS I / {chapterTitle}</p><h1 className={styles.subjectTitle}>{title}</h1><p className={styles.subjectDescription}>{description}</p><div className={styles.readingMeta}><span>20–30 min + exercises</span><span>Complex numbers · Vectors · Basic calculus</span></div></header>
+ <header className={styles.readingHeader}><p className={styles.subjectKicker}><span>{number}</span> QUANTUM PHYSICS I / {chapterTitle}</p><h1 className={styles.subjectTitle}>{title}</h1><p className={styles.subjectDescription}>{description}</p><div className={styles.readingMeta}><span>20–30 min + exercises</span><span>{chapter === "3" ? "Spherical coordinates · Operators · Multivariable calculus" : "Complex numbers · Vectors · Basic calculus"}</span></div></header>
  <div className={styles.lessonLayout}><article className={styles.article}>{children}<nav className={styles.lessonEnd} aria-label="Lesson navigation">{previous && <Link href={lessonHref(previous)}>Previous: {previous[1]}</Link>}<Link href={base}>Chapter contents</Link>{next && <Link href={lessonHref(next)}>Next: {next[1]}</Link>}</nav></article><aside className={styles.toc}><nav aria-label="On this page"><p className={styles.label}>In this lesson</p><ol>{sections.map(([id,label])=><li key={id}><a href={`#${id}`}>{label}</a></li>)}</ol></nav></aside></div></div>;
 }
