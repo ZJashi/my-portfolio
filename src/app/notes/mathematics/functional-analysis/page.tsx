@@ -101,9 +101,7 @@ export const metadata = { title: "Functional Analysis | Mathematics | Zura Jashi
 export default function FunctionalAnalysisPage() {
 return <div className={styles.page}>
 <nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes">Notes</Link><span>/</span><Link href="/notes/mathematics">Mathematics</Link><span>/</span><span>Functional Analysis</span></nav>
-<SubjectHeader number="01" label="MATHEMATICS / LECTURE NOTES" title="Functional Analysis" description="Spaces of functions, built from their algebraic foundations. Lecture notes following the IMPA Functional Analysis video series, with definitions, examples and proofs." topics="Spaces / Operators / Analysis" caption="Finite combinations. A space of possibilities.">
-<svg viewBox="0 0 280 240" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M35 190h210M60 210V30" opacity=".4"/><path d="M60 190 170 55M60 190 230 135M170 55 230 135" /><path d="m170 55-3 14m3-14-13 5m73 75-14-1m14 1-10 10" /><path d="M115 123 200 95" strokeDasharray="4 5" opacity=".5"/><g fill="currentColor" stroke="none" fontFamily="Georgia" fontSize="18" fontStyle="italic"><text x="155" y="40">x</text><text x="236" y="136">y</text><text x="125" y="220">span S</text></g></svg>
-</SubjectHeader>
+<SubjectHeader title="Functional Analysis" description="Spaces of functions, built from their algebraic foundations, with definitions, examples, and proofs." credit={<> Based on <a href="https://www.youtube.com/playlist?list=PLo4jXE-LdDTTIIIRwqK35CbFJieSJEcVR">Claudio Landim’s IMPA lectures</a>. </>} />
 <p className={styles.label}>Lectures</p>
 <div className={courseStyles.groups}>
 {Array.from({ length: Math.ceil(lectures.length / 5) }, (_, groupIndex) => {
@@ -111,11 +109,11 @@ const start = groupIndex * 5;
 return <details className={courseStyles.group} key={start} open={groupIndex === Math.floor((lectures.length - 1) / 5)}>
 <summary className={courseStyles.summary}><div><span className={courseStyles.range}>Lectures {lectures[start].number}–{lectures[Math.min(start + 4, lectures.length - 1)].number}</span><h2>{groupTitles[groupIndex] ?? "Further lectures"}</h2></div><span className={courseStyles.chevron} aria-hidden="true">⌄</span></summary>
 <ol className={courseStyles.lectures} start={start + 1}>
-{lectures.slice(start, start + 5).map((lecture) => <li key={lecture.slug}><Link className={courseStyles.lecture} href={`/notes/mathematics/functional-analysis/${lecture.slug}`}><span className={courseStyles.number}>{lecture.number.padStart(2, "0")}</span><div><h3>{lecture.title}</h3><p>{lecture.description}</p><span className={courseStyles.read}>Read lecture notes <span aria-hidden="true">↗</span></span></div></Link></li>)}
+{lectures.slice(start, start + 5).map((lecture) => <li key={lecture.slug}><Link className={courseStyles.lecture} href={`/notes/mathematics/functional-analysis/${lecture.slug}`}><span className={courseStyles.number}>{lecture.number.padStart(2, "0")}</span><div><h3>{lecture.title}</h3><p>{lecture.description}</p></div></Link></li>)}
 </ol></details>;
 })}
 </div>
-<p className={styles.reference}>Course source: <a href="https://www.youtube.com/playlist?list=PLo4jXE-LdDTTIIIRwqK35CbFJieSJEcVR">Functional Analysis</a>, taught by Claudio Landim at IMPA.</p>
+
 </div>;
 }
 
