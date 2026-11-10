@@ -12,7 +12,11 @@ type Props = {
   showLabelsOnHover?: boolean;
 };
 
-export function TechIcons({ tech, size = 20, showLabelsOnHover = false }: Props) {
+export function TechIcons({
+  tech,
+  size = 20,
+  showLabelsOnHover = false,
+}: Props) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
@@ -49,7 +53,11 @@ export function TechIcons({ tech, size = 20, showLabelsOnHover = false }: Props)
                     transition={{ duration: 0.2 }}
                     className={styles.expanded}
                   >
-                    <Icon size={size} style={{ color }} className={styles.shrink0} />
+                    <Icon
+                      size={size}
+                      style={{ color }}
+                      className={styles.shrink0}
+                    />
                     <span className={styles.expandedLabel}>{name}</span>
                   </motion.div>
                 ) : (

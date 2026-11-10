@@ -1,5 +1,9 @@
 import { useState, useRef, useEffect, type RefObject } from "react";
-import { workExperience, education, type ExperienceItem } from "@/lib/experience";
+import {
+  workExperience,
+  education,
+  type ExperienceItem,
+} from "@/lib/experience";
 
 type TabCategory = "work" | "education";
 
@@ -22,7 +26,8 @@ export function useExperience(): UseExperienceReturn {
   const [indicatorStyle, setIndicatorStyle] = useState({ top: 0, height: 0 });
 
   const items = activeCategory === "work" ? workExperience : education;
-  const safeIndex = items.length > 0 ? Math.min(activeIndex, items.length - 1) : 0;
+  const safeIndex =
+    items.length > 0 ? Math.min(activeIndex, items.length - 1) : 0;
   const activeItem = items[safeIndex];
 
   useEffect(() => {

@@ -1,21 +1,198 @@
 import { FinanceLesson } from "@/components/notes/FinanceLesson";
 import { Equation, MathText } from "@/components/notes/Equation";
-import { NoteBox } from "@/components/notes/NoteBox";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
+import { course, sections } from "./lesson-data";
+import { HedgeSection } from "./hedge-section";
+import { DataSection } from "./data-section";
+import { ValidationSection } from "./validation-section";
 
-export const metadata = { title: "PCA in Finance | MIT 18.642 Lecture 9 | Zura Jashi", description: "Preparing financial data for PCA, yield curve factors, factor neutral portfolios and out of sample validation." };
-const course = "https://ocw.mit.edu/courses/18-642-topics-in-mathematics-with-applications-in-finance-fall-2024/";
-const sections = [["data","Choose the data"],["pca","Estimate the factor model"],["curve","Yield curve factors"],["hedge","Factor neutral portfolios"],["validation","Out of sample risk"],["research","Research workflow"],["practice","Practice"]] as const;
+export const metadata = {
+  title: "PCA in Finance | MIT 18.642 Lecture 9 | Zura Jashi",
+  description:
+    "Preparing financial data for PCA, yield curve factors, factor neutral portfolios and out of sample validation.",
+};
 
 export default function LectureNine() {
-return <FinanceLesson number={9} title="PCA in finance" description="Turn correlated financial observations into a few risk factors, then test whether those factors remain useful beyond the estimation window." instructor="Stefan Andreev" topics="Guest lecture · Two Sigma Investments · Fall 2024" sections={sections} previous={{slug:"regression-inference-and-diagnostics",title:"Regression inference and diagnostics"}} next={{slug:"counterparty-risk-optimization",title:"Counterparty risk optimisation"}} sources={<p>Sources: <a href={`${course}resources/18642-lecture-9-version-2_mp4/`}>Lecture 9 recording</a>, <a href={`${course}mit18_642_f24_lec09.pdf`}>PCA Applications in Finance slides</a>, and the <a href={`${course}pages/week-5/`}>accompanying Fed data notebook and CSV</a>. These notes use original synthetic examples; numerical factor results below are not estimates from the course dataset. The lecture also illustrates equity index applications.</p>}>
-<div className={styles.lessonOverview}><p>The guest lecture applies PCA to bond markets and equity indices, including factor portfolios, residuals and estimation stability. The main practical connection is between the coordinates of the data and the risk units of a tradable portfolio. A large in sample explained variance does not by itself establish a useful hedge or trading strategy.</p></div>
-<section id="data" className={styles.section}><span className={styles.sectionNumber}>01 / THE INPUT DEFINES THE QUESTION</span><h2>Choose the data</h2><p><MathText>{"Let observations be rows of $X\\in\\mathbb R^{T\\times m}$, with dates in rows and assets or maturities in columns. For positive prices, log returns are $r_{t,j}=\\log P_{t,j}-\\log P_{t-1,j}$. For yields, changes $\\Delta y_{t,j}=y_{t,j}-y_{t-1,j}$ often better represent local price risk than yield levels."}</MathText></p><p>A price level model, a yield level model and a change model answer different questions. Align observation times, currency treatment, holidays and missing values before calculating covariance. A shared calendar does not guarantee that every closing price reflects information at the same instant.</p><NoteBox title="Centre and choose a scaling convention"><Equation>{"X_c=X-\\mathbf1\\bar x^T,\\qquad S=\\frac{X_c^TX_c}{T-1}."}</Equation><p>Covariance PCA preserves the original relative variances. Dividing each column by its training standard deviation gives correlation PCA, which changes the metric and the meaning of the loadings.</p></NoteBox><p><strong>Original scale example.</strong> Two independent variables have variances 100 and 1. Covariance PCA assigns 100/101 ≈ 99.01% of total variance to the first coordinate. After standardisation both eigenvalues are 1: there is no uniquely preferred first direction. Scaling has changed the objective, rather than uncovered the same answer in different notation.</p><p>PCA itself needs finite covariance, not normal observations. Normality is a separate modelling assumption; a coordinate rotation does not remove heavy tails or nonlinear dependence.</p></section>
-<section id="pca" className={styles.section}><span className={styles.sectionNumber}>02 / SCORES AND RECONSTRUCTION</span><h2>Estimate the factor model</h2><p><MathText>{"Diagonalise the sample covariance as $S=Q\\Lambda Q^T$, with orthonormal columns $q_i$ and descending eigenvalues $\\lambda_i$. Scores are $Z=X_cQ$, and the rank K reconstruction is $\\widehat X_K=\\mathbf1\\bar x^T+Z_KQ_K^T$."}</MathText></p><Equation>{"\\operatorname{Cov}_{\\mathrm{sample}}(Z)=\\Lambda,\\qquad\\mathrm{EVR}_K=\\frac{\\sum_{i=1}^K\\lambda_i}{\\sum_{i=1}^m\\lambda_i}."}</Equation><p><MathText>{"For reduced SVD $X_c=UDV^T$, the loading directions are columns of V and $\\lambda_i=d_i^2/(T-1)$. The squared reconstruction error is $\\|X_c-X_cQ_KQ_K^T\\|_F^2=(T-1)\\sum_{i>K}\\lambda_i$."}</MathText></p><p>Ordinary least squares chooses a response and minimises its prediction residuals. PCA approximates the joint cloud in a chosen metric. Neither procedure, by itself, establishes causality. A low variance component may be economically important even when a variance compression objective discards it.</p></section>
-<section id="curve" className={styles.section}><span className={styles.sectionNumber}>03 / A THREE MATURITY MODEL</span><h2>Yield curve factors</h2><p>Yield change loadings often admit descriptions such as level, slope and curvature. These are empirical interpretations, not fixed definitions of the first three principal components. Signs are arbitrary: changing the sign of both a loading and its score leaves the reconstruction unchanged.</p><h3>Original orthonormal example</h3><Equation>{"q_L=\\frac1{\\sqrt3}\\begin{pmatrix}1\\\\1\\\\1\\end{pmatrix},\\quad q_S=\\frac1{\\sqrt2}\\begin{pmatrix}-1\\\\0\\\\1\\end{pmatrix},\\quad q_C=\\frac1{\\sqrt6}\\begin{pmatrix}1\\\\-2\\\\1\\end{pmatrix}."}</Equation><p><MathText>{"Assign variances $\\lambda_L=9$, $\\lambda_S=4$, $\\lambda_C=1$, in squared basis point units. The covariance is $S=9q_Lq_L^T+4q_Sq_S^T+q_Cq_C^T$. Its total variance is 14; the first two directions explain 13/14 ≈ 92.86%."}</MathText></p><p><MathText>{"A centred move $\\Delta y=(2,1,0)^T$ bp has scores $z_L=\\sqrt3$, $z_S=-\\sqrt2$, $z_C=0$. Thus a sloping move can lie entirely inside the level and slope plane. A pure belly move is different: it contains curvature."}</MathText></p><p>The data determines whether these idealised directions resemble estimated factors. When eigenvalues are close, individual eigenvectors can rotate substantially while their combined subspace remains stable.</p></section>
-<section id="hedge" className={styles.section}><span className={styles.sectionNumber}>04 / LOADINGS BECOME RISK EXPOSURES</span><h2>Factor neutral portfolios</h2><NoteBox kind="definition" title="Use signed price sensitivity, not raw notional"><p><MathText>{"Let $d_j$ be portfolio PnL for a +1 bp yield change at maturity j, in currency per bp. For a small yield move measured in bp, $\\Delta V\\approx d^T\\Delta y$. Under the factor decomposition, exposure to factor i is $d^Tq_i$."}</MathText></p><Equation>{"d^Tq_i=0\\quad\\text{means local neutrality to factor i}."}</Equation></NoteBox><p>A long conventional bond normally has negative signed sensitivity to an upward yield change. Some desks quote positive DV01 as a loss magnitude. State the convention before converting loadings into positions.</p><h3>Original butterfly hedge</h3><p><MathText>{"To retain a belly exposure of $d_2=-2$ currency/bp while eliminating level and slope in the synthetic example, solve $d_1+d_2+d_3=0$ and $-d_1+d_3=0$. The answer is $d=(1,-2,1)^T$."}</MathText></p><Equation>{"d^Tq_L=0,\\qquad d^Tq_S=0,\\qquad d^Tq_C=\\sqrt6,\\qquad\\operatorname{Var}(\\Delta V)=d^TSd=6."}</Equation><p>If the signed sensitivities per unit notional are −0.02, −0.05 and −0.08 currency/bp, the required notionals are −50, +40 and −12.5. Equal factor risk weights are generally not equal notionals.</p><p>Neutrality applies to the fitted directions and the local linear approximation. Curve model changes, convexity, financing, liquidity and changing loadings remain. A quiet residual portfolio can require large notionals for a given target volatility.</p></section>
-<section id="validation" className={styles.section}><span className={styles.sectionNumber}>05 / FREEZE THE ESTIMATED DIRECTIONS</span><h2>Out of sample risk</h2><p><MathText>{"Let $Q_K$ come from a training window and $S_{\\mathrm{new}}$ be a later covariance. The fraction of later variance captured by those frozen directions is:"}</MathText></p><Equation>{"\\mathrm{EVR}_{\\mathrm{new}}=\\frac{\\operatorname{tr}(Q_K^TS_{\\mathrm{new}}Q_K)}{\\operatorname{tr}(S_{\\mathrm{new}})}."}</Equation><p><strong>Original regime example.</strong> Training covariance diag(9,1) makes the first coordinate explain 90%. Later covariance diag(1,9) gives that same frozen direction only 10%. Recomputing the best direction on the later data and reporting its 90% would measure a refitted model, not validate the earlier one.</p><p>Old scores can become correlated out of sample because the new covariance need not be diagonal in the old basis. Changing lookback length or weighting changes the estimator. Align eigenvector signs when comparing rolling loadings; for nearly tied eigenvalues, compare subspaces as well as individual vectors.</p><p><MathText>{"A compact measure of variance concentration is $D_{\\mathrm{eff}}=(\\sum_i\\lambda_i)^2/\\sum_i\\lambda_i^2$, when total variance is positive. For eigenvalues 9, 4, 1 it is $196/98=2$. This is an effective dimension of the covariance spectrum, not a literal count of independent assets or economic causes."}</MathText></p></section>
-<section id="research" className={styles.section}><span className={styles.sectionNumber}>06 / AN ACTIONABLE EXPERIMENT</span><h2>Research workflow</h2><ol><li>Choose returns or changes with consistent units and observation times.</li><li>Estimate means, scales and loadings on a training window only.</li><li>Translate factor exposures into instrument sensitivities, then notionals.</li><li>Freeze those quantities for the next evaluation period; record later risk and reconstruction errors.</li><li>Include transaction costs, funding, constraints and rebalancing when evaluating a strategy.</li></ol><p>A residual is a component outside the retained factor space. It is not automatically a mispricing, a stationary process or a profitable mean reversion signal. Any lagged signal must be available before the position it determines; a cumulative chart alone does not establish predictive power.</p></section>
-<section id="practice" className={styles.section}><span className={styles.sectionNumber}>07 / PRACTICE</span><h2>Check your understanding</h2><p>Original exercises, separate from MIT’s assignments.</p><ol><li>What share of variance does the synthetic level factor explain?</li><li>Is the portfolio (1,0,−1) neutral to the synthetic level and slope factors?</li><li>Why should training scales remain fixed during an out of sample test?</li></ol><details><summary>Compare your answers</summary><p>1. 9/14 ≈ 64.29%.</p><p>2. It is level neutral but has slope exposure −√2.</p><p>3. Using later observations to choose preprocessing leaks future information and changes the model being evaluated.</p></details></section>
-</FinanceLesson>;
+  return (
+    <FinanceLesson
+      number={9}
+      title="PCA in finance"
+      description="Turn correlated financial observations into a few risk factors, then test whether those factors remain useful beyond the estimation window."
+      instructor="Stefan Andreev"
+      topics="Guest lecture · Two Sigma Investments · Fall 2024"
+      sections={sections}
+      previous={{
+        slug: "regression-inference-and-diagnostics",
+        title: "Regression inference and diagnostics",
+      }}
+      next={{
+        slug: "counterparty-risk-optimization",
+        title: "Counterparty risk optimisation",
+      }}
+      sources={
+        <p>
+          Sources:{" "}
+          <a href={`${course}resources/18642-lecture-9-version-2_mp4/`}>
+            Lecture 9 recording
+          </a>
+          ,{" "}
+          <a href={`${course}mit18_642_f24_lec09.pdf`}>
+            PCA Applications in Finance slides
+          </a>
+          , and the{" "}
+          <a href={`${course}pages/week-5/`}>
+            accompanying Fed data notebook and CSV
+          </a>
+          . These notes use original synthetic examples; numerical factor
+          results below are not estimates from the course dataset. The lecture
+          also illustrates equity index applications.
+        </p>
+      }
+    >
+      <div className={styles.lessonOverview}>
+        <p>
+          The guest lecture applies PCA to bond markets and equity indices,
+          including factor portfolios, residuals and estimation stability. The
+          main practical connection is between the coordinates of the data and
+          the risk units of a tradable portfolio. A large in sample explained
+          variance does not by itself establish a useful hedge or trading
+          strategy.
+        </p>
+      </div>
+      <DataSection />
+      <section id="pca" className={styles.section}>
+        <span className={styles.sectionNumber}>
+          02 / SCORES AND RECONSTRUCTION
+        </span>
+        <h2>Estimate the factor model</h2>
+        <p>
+          <MathText>
+            {
+              "Diagonalise the sample covariance as $S=Q\\Lambda Q^T$, with orthonormal columns $q_i$ and descending eigenvalues $\\lambda_i$. Scores are $Z=X_cQ$, and the rank K reconstruction is $\\widehat X_K=\\mathbf1\\bar x^T+Z_KQ_K^T$."
+            }
+          </MathText>
+        </p>
+        <Equation>
+          {
+            "\\operatorname{Cov}_{\\mathrm{sample}}(Z)=\\Lambda,\\qquad\\mathrm{EVR}_K=\\frac{\\sum_{i=1}^K\\lambda_i}{\\sum_{i=1}^m\\lambda_i}."
+          }
+        </Equation>
+        <p>
+          <MathText>
+            {
+              "For reduced SVD $X_c=UDV^T$, the loading directions are columns of V and $\\lambda_i=d_i^2/(T-1)$. The squared reconstruction error is $\\|X_c-X_cQ_KQ_K^T\\|_F^2=(T-1)\\sum_{i>K}\\lambda_i$."
+            }
+          </MathText>
+        </p>
+        <p>
+          Ordinary least squares chooses a response and minimises its prediction
+          residuals. PCA approximates the joint cloud in a chosen metric.
+          Neither procedure, by itself, establishes causality. A low variance
+          component may be economically important even when a variance
+          compression objective discards it.
+        </p>
+      </section>
+      <section id="curve" className={styles.section}>
+        <span className={styles.sectionNumber}>
+          03 / A THREE MATURITY MODEL
+        </span>
+        <h2>Yield curve factors</h2>
+        <p>
+          Yield change loadings often admit descriptions such as level, slope
+          and curvature. These are empirical interpretations, not fixed
+          definitions of the first three principal components. Signs are
+          arbitrary: changing the sign of both a loading and its score leaves
+          the reconstruction unchanged.
+        </p>
+        <h3>Original orthonormal example</h3>
+        <Equation>
+          {
+            "q_L=\\frac1{\\sqrt3}\\begin{pmatrix}1\\\\1\\\\1\\end{pmatrix},\\quad q_S=\\frac1{\\sqrt2}\\begin{pmatrix}-1\\\\0\\\\1\\end{pmatrix},\\quad q_C=\\frac1{\\sqrt6}\\begin{pmatrix}1\\\\-2\\\\1\\end{pmatrix}."
+          }
+        </Equation>
+        <p>
+          <MathText>
+            {
+              "Assign variances $\\lambda_L=9$, $\\lambda_S=4$, $\\lambda_C=1$, in squared basis point units. The covariance is $S=9q_Lq_L^T+4q_Sq_S^T+q_Cq_C^T$. Its total variance is 14; the first two directions explain 13/14 ≈ 92.86%."
+            }
+          </MathText>
+        </p>
+        <p>
+          <MathText>
+            {
+              "A centred move $\\Delta y=(2,1,0)^T$ bp has scores $z_L=\\sqrt3$, $z_S=-\\sqrt2$, $z_C=0$. Thus a sloping move can lie entirely inside the level and slope plane. A pure belly move is different: it contains curvature."
+            }
+          </MathText>
+        </p>
+        <p>
+          The data determines whether these idealised directions resemble
+          estimated factors. When eigenvalues are close, individual eigenvectors
+          can rotate substantially while their combined subspace remains stable.
+        </p>
+      </section>
+      <HedgeSection />
+      <ValidationSection />
+      <section id="research" className={styles.section}>
+        <span className={styles.sectionNumber}>
+          06 / AN ACTIONABLE EXPERIMENT
+        </span>
+        <h2>Research workflow</h2>
+        <ol>
+          <li>
+            Choose returns or changes with consistent units and observation
+            times.
+          </li>
+          <li>
+            Estimate means, scales and loadings on a training window only.
+          </li>
+          <li>
+            Translate factor exposures into instrument sensitivities, then
+            notionals.
+          </li>
+          <li>
+            Freeze those quantities for the next evaluation period; record later
+            risk and reconstruction errors.
+          </li>
+          <li>
+            Include transaction costs, funding, constraints and rebalancing when
+            evaluating a strategy.
+          </li>
+        </ol>
+        <p>
+          A residual is a component outside the retained factor space. It is not
+          automatically a mispricing, a stationary process or a profitable mean
+          reversion signal. Any lagged signal must be available before the
+          position it determines; a cumulative chart alone does not establish
+          predictive power.
+        </p>
+      </section>
+      <section id="practice" className={styles.section}>
+        <span className={styles.sectionNumber}>07 / PRACTICE</span>
+        <h2>Check your understanding</h2>
+        <p>Original exercises, separate from MIT’s assignments.</p>
+        <ol>
+          <li>
+            What share of variance does the synthetic level factor explain?
+          </li>
+          <li>
+            Is the portfolio (1,0,−1) neutral to the synthetic level and slope
+            factors?
+          </li>
+          <li>
+            Why should training scales remain fixed during an out of sample
+            test?
+          </li>
+        </ol>
+        <details>
+          <summary>Compare your answers</summary>
+          <p>1. 9/14 ≈ 64.29%.</p>
+          <p>2. It is level neutral but has slope exposure −√2.</p>
+          <p>
+            3. Using later observations to choose preprocessing leaks future
+            information and changes the model being evaluated.
+          </p>
+        </details>
+      </section>
+    </FinanceLesson>
+  );
 }

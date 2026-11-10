@@ -1,0 +1,187 @@
+.card {
+  display: block;
+  border-bottom: 1px solid var(--notes-line);
+  padding: 26px 0 28px;
+  margin-top: 12px;
+  transition: background 0.2s;
+}
+.card:hover {
+  background: color-mix(in srgb, var(--notes-accent) 4%, transparent);
+}
+.card:focus-visible {
+  outline: 2px solid var(--notes-accent);
+  outline-offset: 8px;
+}
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  color: var(--stone);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+}
+.card h2 {
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.35;
+  margin: 16px 0 12px;
+}
+.card p {
+  color: var(--stone);
+  max-width: 570px;
+  font-size: 0.94rem;
+  line-height: 1.8;
+}
+.cardFoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 28px;
+  font-size: 0.78rem;
+}
+.cardFoot > :last-child {
+  color: var(--notes-accent);
+}
+.tag {
+  color: var(--stone);
+}
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--stone);
+  margin-bottom: 40px;
+}
+.breadcrumb a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  color: var(--stone);
+  font-size: 0.8rem;
+  margin-top: 26px;
+}
+.lessonLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  gap: 54px;
+  align-items: start;
+}
+.section {
+  padding: 36px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 13%, transparent);
+  scroll-margin-top: 32px;
+}
+
+@media (max-width: 1150px) {
+  .lessonLayout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+}
+@media (max-width: 600px) {
+  .card {
+    padding: 24px 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}
+.notebook {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.8fr) minmax(0, 1.4fr);
+  margin-top: 22px;
+  border: 1px solid var(--notes-line);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.notebook:hover {
+  border-color: var(--notes-accent);
+}
+.notebook:focus-visible {
+  outline: 2px solid var(--notes-accent);
+  outline-offset: 5px;
+}
+.openNotebook {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  font-size: 0.76rem;
+}
+.notebook:hover .openNotebook {
+  color: var(--notes-accent);
+}
+@media (max-width: 700px) {
+  .notebook {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chapterCard {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 24px;
+  padding: 30px 0;
+  margin-top: 16px;
+  border-bottom: 1px solid var(--notes-line);
+}
+.chapterCard h2 {
+  font:
+    400 clamp(1.5rem, 2.5vw, 2rem)/1.25 Georgia,
+    serif;
+  margin: 14px 0;
+  letter-spacing: -0.025em;
+}
+.chapterCard div > p:not(.cardTop) {
+  color: var(--stone);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+.chapterCard .openNotebook {
+  margin-top: 22px;
+  border-bottom: 1px solid var(--notes-line);
+  padding-bottom: 4px;
+}
+.chapterCard:hover .openNotebook {
+  border-color: var(--notes-accent);
+  color: var(--notes-accent);
+}
+.chapterCard:focus-visible {
+  outline: 2px solid var(--notes-accent);
+  outline-offset: 6px;
+}
+@media (max-width: 600px) {
+  .chapterCard {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 16px;
+  }
+}
+.availableLesson {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: baseline;
+}
+.availableLesson:hover h3 {
+  color: var(--notes-accent);
+}
+.availableLesson:focus-visible {
+  outline: 2px solid var(--notes-accent);
+  outline-offset: 6px;
+}
+@media (max-width: 600px) {
+  .availableLesson .openNotebook {
+    grid-column: 2;
+  }
+}

@@ -1,44 +1,191 @@
 import { QuantumLesson } from "@/components/notes/QuantumLesson";
 import { NoteBox } from "@/components/notes/NoteBox";
 import { Equation, MathParagraph as P } from "@/components/notes/Equation";
-import styles from "../../../../notes.module.css";
+import styles from "../../../../notes.styles";
 import FiniteWellLab from "@/components/notes/FiniteWellLab";
-export const metadata = { title: "The Finite Square Well | Quantum Physics I | Zura Jashi" };
-export default function Lesson() { return <QuantumLesson number="2.3" title="The Finite Square Well" description="Match oscillating interiors to exponential tails, classify bound states by parity, and calculate energies with a dimensionless matching condition." sections={[["model","Potential & bound states"],["matching","Parity & matching"],["roots","Allowed energies"],["lab","Ground-state lab"],["limits","Penetration & limits"],["practice","Practice"]]}>
-
-<P>{String.raw`Infinite walls made the wavefunction exactly zero outside the box. A finite barrier changes the boundary condition: a bound state can extend into a region where its energy lies below the potential. It decays there rather than oscillating. Requiring the interior and exterior pieces to join smoothly determines the allowed energies.`}</P>
-<section id="model" className={styles.section}><h2>Choose an energy zero and a symmetric well.</h2>
-<NoteBox kind="definition" title="Finite square well · Width 2a and barrier height V₀"><Equation>{String.raw`V(x)=\begin{cases}0,&|x|<a,\\V_0,&|x|\ge a,\end{cases}\qquad V_0>0.`}</Equation><p>Here a is the <strong>half-width</strong>, so the full width is 2a. With this energy convention, normalizable bound states have <strong>0 &lt; E &lt; V₀</strong>.</p></NoteBox>
-<P>{String.raw`The Hamiltonian is nonnegative, and a normalizable E = 0 state does not occur for this well. States at or above the exterior potential do not decay at infinity and belong to the scattering sector rather than the normalizable bound spectrum. Choosing the exterior energy as zero would shift every quoted energy by $-V_0$ without changing the wavefunctions.`}</P>
-<NoteBox kind="result" title="Interior oscillation and exterior decay"><Equation>{String.raw`k=\frac{\sqrt{2mE}}{\hbar},\qquad\kappa=\frac{\sqrt{2m(V_0-E)}}{\hbar}.`}</Equation><p>Both are positive for a bound state. Keep only decaying exponentials as x tends to either infinity. The <strong>amplitude decay length</strong> is 1/κ; the density decays twice as rapidly in its exponent.</p></NoteBox>
-</section>
-<section id="matching" className={styles.section}><h2>Parity cuts the matching problem in half.</h2>
-<P>{String.raw`The potential is symmetric under $x\mapsto-x$, so bound eigenfunctions can be chosen even or odd. In fact, the bound energies of this one-dimensional well are nondegenerate. For even parity choose $\phi=A\cos kx$ inside; for odd parity choose $\phi=A\sin kx$. Work at the right interface and obtain the left side by parity.`}</P>
-<P>{String.raw`For x greater than a, write the exterior as $B e^{-\kappa(x-a)}$. At a finite step, both the wavefunction and its first derivative are continuous. The mass is the same throughout this model.`}</P>
-<Equation>{String.raw`\begin{array}{lll}\text{Even:}&A\cos ka=B,&-Ak\sin ka=-\kappa B,\\\text{Odd:}&A\sin ka=B,&Ak\cos ka=-\kappa B.\end{array}`}</Equation>
-<NoteBox kind="result" title="Finite-well bound-state matching conditions"><Equation>{String.raw`k\tan(ka)=\kappa\quad\text{(even)},\qquad-k\cot(ka)=\kappa\quad\text{(odd)}.`}</Equation><p>These are the quantization conditions for <strong>finite barriers</strong>. Do not impose a zero wavefunction at ±a: that would replace the problem by an infinite well.</p></NoteBox>
-<P>{String.raw`Dividing the derivative equation by the value equation eliminates the amplitude. A zero boundary value would force the exterior coefficient to vanish, and derivative continuity would then make the interior solution trivial. Physical bound roots therefore avoid those singular divisions.`}</P>
-</section>
-<section id="roots" className={styles.section}><h2>Make the energy search dimensionless.</h2>
-<NoteBox kind="definition" title="Dimensionless depth and wave numbers"><Equation>{String.raw`z=ka,\qquad w=\kappa a,\qquad z_0=\frac{a\sqrt{2mV_0}}{\hbar},\qquad z^2+w^2=z_0^2.`}</Equation><Equation>{String.raw`z\tan z=\sqrt{z_0^2-z^2}\quad\text{(even)},\qquad-z\cot z=\sqrt{z_0^2-z^2}\quad\text{(odd)}.`}</Equation><p>Search only for <strong>0 &lt; z &lt; z₀</strong>, with a positive right-hand side. Once a root is found, E/V₀ = z²/z₀².</p></NoteBox>
-<ol className={styles.cycleSteps}><li><strong>Compute the depth:</strong> form z₀ from the mass, half-width, and barrier height.</li><li><strong>Separate branches:</strong> isolate intervals between tangent or cotangent poles.</li><li><strong>Find valid roots:</strong> solve the appropriate even or odd equation on intervals with a positive left side.</li><li><strong>Recover the state:</strong> compute energy, join the pieces, and normalize over the entire line.</li></ol>
-<P>{String.raw`The ground-state even root lies between zero and the smaller of $z_0$ and $\pi/2$. The left side starts at zero and increases; the right side decreases to either zero or a finite value before the tangent pole. There is exactly one intersection in that interval. In this one-dimensional attractive well, a bound ground state exists for every positive depth, however shallow.`}</P>
-<div className={styles.workedExample}><h3>Worked example · Dimensionless depth z₀ = 2</h3><P>{String.raw`Solving the first even branch gives $z\approx1.0299$ and $w\approx1.7145$. Hence`}</P><Equation>{String.raw`\frac{E}{V_0}\approx0.2652,\qquad\frac{1}{\kappa a}=\frac1w\approx0.5832.`}</Equation><p>The amplitude extends a substantial fraction of the half-width beyond each edge. Normalization must include those tails. This well also has an odd excited bound state; the lab below intentionally follows only the ground state.</p></div>
-</section>
-<section id="lab" className={styles.section}><h2>Watch a bound state penetrate the barrier.</h2><FiniteWellLab />
-<P>{String.raw`For the even state, a convenient complete expression is`}</P><Equation>{String.raw`\phi(x)=A\begin{cases}\cos(kx),&|x|\le a,\\\cos(ka)e^{-\kappa(|x|-a)},&|x|>a.\end{cases}`}</Equation>
-<P>{String.raw`Integrate its square inside and outside. The interior contributes $A^2[a+\sin(2ka)/(2k)]$ and the two tails together contribute $A^2\cos^2(ka)/\kappa$. Thus`}</P>
-<NoteBox kind="result" title="Normalize the even bound state on the whole line"><Equation>{String.raw`A^{-2}=a+\frac{\sin(2ka)}{2k}+\frac{\cos^2(ka)}{\kappa},\qquad P_{\mathrm{outside}}=\frac{A^2\cos^2(ka)}{\kappa}.`}</Equation><p>A is chosen real and positive. The tail probability counts both sides of the well and is dimensionless.</p></NoteBox>
-</section>
-<section id="limits" className={styles.section}><h2>Finite tails do not imply a steady escape.</h2>
-<P>{String.raw`A bound eigenfunction can be chosen real, with time dependence confined to a common phase. Its current is zero everywhere. The nonzero density outside the well is barrier penetration in a stationary state, not a continuing loss of particles or a transmitted current through the semi-infinite exterior.`}</P>
-<ul className={styles.takeaways}><li><strong>Deep-well limit:</strong> at fixed width, increasing the barrier drives low-lying energies toward the infinite-well values for full width 2a.</li><li><strong>Shallow-well limit:</strong> the ground state lies just below the exterior threshold and has long tails.</li><li><strong>Excited states:</strong> only finitely many bound roots fit below a finite barrier; more appear as depth or width increases.</li></ul>
-<P>{String.raw`The first odd bound state appears only for $z_0>\pi/2$. At the threshold itself the exterior decay constant vanishes, and the limiting solution is not square-normalizable on the line. Similar thresholds mark the appearance of higher states. A numerical root at the threshold must not be counted as an ordinary bound state.`}</P>
-</section>
-<section id="practice" className={styles.section}><h2>Check the energy convention and the tails.</h2>
-<div className={styles.exercise}><h3>1. Shift the energy zero</h3><P>{String.raw`The example has $E/V_0=0.2652$. If the exterior potential is redefined to be zero, what is the bound-state energy in units of V₀?`}</P><details><summary>Show solution</summary><P>{String.raw`Subtract $V_0$ from both potential and energy. The new ratio is $E'/V_0=0.2652-1=-0.7348$. Energy below the exterior threshold, rather than the sign in an arbitrary convention, identifies the bound state.`}</P></details></div>
-<div className={styles.exercise}><h3>2. Density decay length</h3><p>An exterior amplitude decays as exp(−κd), where d is distance from the edge. Over what distance does the density fall by a factor of e?</p><details><summary>Show solution</summary><P>{String.raw`The density decays as $e^{-2\kappa d}$, so its e-folding length is $1/(2\kappa)$, half the amplitude decay length.`}</P></details></div>
-<div className={styles.exercise}><h3>3. Is an odd bound state guaranteed?</h3><p>Take z₀ = 1. Does the well have a bound state? Does it have an odd bound state?</p><details><summary>Show reasoning</summary><P>{String.raw`It has the even ground state because every positive depth supports one in this model. It has no odd bound state because $1<\pi/2$. A shallow well need not support an excited bound state.`}</P></details></div>
-</section>
-<div className={styles.lessonSources}><p>Original explanations, derivations, and exercises. Topic sequence follows <a href="https://ocw.mit.edu/courses/8-04-quantum-physics-i-spring-2016/pages/lecture-notes/">Barton Zwiebach’s MIT 8.04 lecture notes, Spring 2016</a>, lecture-note set 11. Lesson numbering and the division into two lessons are local to this notebook.</p></div>
-</QuantumLesson>; }
+export const metadata = {
+  title: "The Finite Square Well | Quantum Physics I | Zura Jashi",
+};
+export default function Lesson() {
+  return (
+    <QuantumLesson
+      number="2.3"
+      title="The Finite Square Well"
+      description="Match oscillating interiors to exponential tails, classify bound states by parity, and calculate energies with a dimensionless matching condition."
+      sections={[
+        ["model", "Potential & bound states"],
+        ["matching", "Parity & matching"],
+        ["roots", "Allowed energies"],
+        ["lab", "Ground-state lab"],
+        ["limits", "Penetration & limits"],
+        ["practice", "Practice"],
+      ]}
+    >
+      <P>{String.raw`Infinite walls made the wavefunction exactly zero outside the box. A finite barrier changes the boundary condition: a bound state can extend into a region where its energy lies below the potential. It decays there rather than oscillating. Requiring the interior and exterior pieces to join smoothly determines the allowed energies.`}</P>
+      <section id="model" className={styles.section}>
+        <h2>Choose an energy zero and a symmetric well.</h2>
+        <NoteBox
+          kind="definition"
+          title="Finite square well · Width 2a and barrier height V₀"
+        >
+          <Equation>{String.raw`V(x)=\begin{cases}0,&|x|<a,\\V_0,&|x|\ge a,\end{cases}\qquad V_0>0.`}</Equation>
+          <p>
+            Here a is the <strong>half-width</strong>, so the full width is 2a.
+            With this energy convention, normalizable bound states have{" "}
+            <strong>0 &lt; E &lt; V₀</strong>.
+          </p>
+        </NoteBox>
+        <P>{String.raw`The Hamiltonian is nonnegative, and a normalizable E = 0 state does not occur for this well. States at or above the exterior potential do not decay at infinity and belong to the scattering sector rather than the normalizable bound spectrum. Choosing the exterior energy as zero would shift every quoted energy by $-V_0$ without changing the wavefunctions.`}</P>
+        <NoteBox kind="result" title="Interior oscillation and exterior decay">
+          <Equation>{String.raw`k=\frac{\sqrt{2mE}}{\hbar},\qquad\kappa=\frac{\sqrt{2m(V_0-E)}}{\hbar}.`}</Equation>
+          <p>
+            Both are positive for a bound state. Keep only decaying exponentials
+            as x tends to either infinity. The{" "}
+            <strong>amplitude decay length</strong> is 1/κ; the density decays
+            twice as rapidly in its exponent.
+          </p>
+        </NoteBox>
+      </section>
+      <section id="matching" className={styles.section}>
+        <h2>Parity cuts the matching problem in half.</h2>
+        <P>{String.raw`The potential is symmetric under $x\mapsto-x$, so bound eigenfunctions can be chosen even or odd. In fact, the bound energies of this one-dimensional well are nondegenerate. For even parity choose $\phi=A\cos kx$ inside; for odd parity choose $\phi=A\sin kx$. Work at the right interface and obtain the left side by parity.`}</P>
+        <P>{String.raw`For x greater than a, write the exterior as $B e^{-\kappa(x-a)}$. At a finite step, both the wavefunction and its first derivative are continuous. The mass is the same throughout this model.`}</P>
+        <Equation>{String.raw`\begin{array}{lll}\text{Even:}&A\cos ka=B,&-Ak\sin ka=-\kappa B,\\\text{Odd:}&A\sin ka=B,&Ak\cos ka=-\kappa B.\end{array}`}</Equation>
+        <NoteBox
+          kind="result"
+          title="Finite-well bound-state matching conditions"
+        >
+          <Equation>{String.raw`k\tan(ka)=\kappa\quad\text{(even)},\qquad-k\cot(ka)=\kappa\quad\text{(odd)}.`}</Equation>
+          <p>
+            These are the quantization conditions for{" "}
+            <strong>finite barriers</strong>. Do not impose a zero wavefunction
+            at ±a: that would replace the problem by an infinite well.
+          </p>
+        </NoteBox>
+        <P>{String.raw`Dividing the derivative equation by the value equation eliminates the amplitude. A zero boundary value would force the exterior coefficient to vanish, and derivative continuity would then make the interior solution trivial. Physical bound roots therefore avoid those singular divisions.`}</P>
+      </section>
+      <section id="roots" className={styles.section}>
+        <h2>Make the energy search dimensionless.</h2>
+        <NoteBox kind="definition" title="Dimensionless depth and wave numbers">
+          <Equation>{String.raw`z=ka,\qquad w=\kappa a,\qquad z_0=\frac{a\sqrt{2mV_0}}{\hbar},\qquad z^2+w^2=z_0^2.`}</Equation>
+          <Equation>{String.raw`z\tan z=\sqrt{z_0^2-z^2}\quad\text{(even)},\qquad-z\cot z=\sqrt{z_0^2-z^2}\quad\text{(odd)}.`}</Equation>
+          <p>
+            Search only for <strong>0 &lt; z &lt; z₀</strong>, with a positive
+            right-hand side. Once a root is found, E/V₀ = z²/z₀².
+          </p>
+        </NoteBox>
+        <ol className={styles.cycleSteps}>
+          <li>
+            <strong>Compute the depth:</strong> form z₀ from the mass,
+            half-width, and barrier height.
+          </li>
+          <li>
+            <strong>Separate branches:</strong> isolate intervals between
+            tangent or cotangent poles.
+          </li>
+          <li>
+            <strong>Find valid roots:</strong> solve the appropriate even or odd
+            equation on intervals with a positive left side.
+          </li>
+          <li>
+            <strong>Recover the state:</strong> compute energy, join the pieces,
+            and normalize over the entire line.
+          </li>
+        </ol>
+        <P>{String.raw`The ground-state even root lies between zero and the smaller of $z_0$ and $\pi/2$. The left side starts at zero and increases; the right side decreases to either zero or a finite value before the tangent pole. There is exactly one intersection in that interval. In this one-dimensional attractive well, a bound ground state exists for every positive depth, however shallow.`}</P>
+        <div className={styles.workedExample}>
+          <h3>Worked example · Dimensionless depth z₀ = 2</h3>
+          <P>{String.raw`Solving the first even branch gives $z\approx1.0299$ and $w\approx1.7145$. Hence`}</P>
+          <Equation>{String.raw`\frac{E}{V_0}\approx0.2652,\qquad\frac{1}{\kappa a}=\frac1w\approx0.5832.`}</Equation>
+          <p>
+            The amplitude extends a substantial fraction of the half-width
+            beyond each edge. Normalization must include those tails. This well
+            also has an odd excited bound state; the lab below intentionally
+            follows only the ground state.
+          </p>
+        </div>
+      </section>
+      <section id="lab" className={styles.section}>
+        <h2>Watch a bound state penetrate the barrier.</h2>
+        <FiniteWellLab />
+        <P>{String.raw`For the even state, a convenient complete expression is`}</P>
+        <Equation>{String.raw`\phi(x)=A\begin{cases}\cos(kx),&|x|\le a,\\\cos(ka)e^{-\kappa(|x|-a)},&|x|>a.\end{cases}`}</Equation>
+        <P>{String.raw`Integrate its square inside and outside. The interior contributes $A^2[a+\sin(2ka)/(2k)]$ and the two tails together contribute $A^2\cos^2(ka)/\kappa$. Thus`}</P>
+        <NoteBox
+          kind="result"
+          title="Normalize the even bound state on the whole line"
+        >
+          <Equation>{String.raw`A^{-2}=a+\frac{\sin(2ka)}{2k}+\frac{\cos^2(ka)}{\kappa},\qquad P_{\mathrm{outside}}=\frac{A^2\cos^2(ka)}{\kappa}.`}</Equation>
+          <p>
+            A is chosen real and positive. The tail probability counts both
+            sides of the well and is dimensionless.
+          </p>
+        </NoteBox>
+      </section>
+      <section id="limits" className={styles.section}>
+        <h2>Finite tails do not imply a steady escape.</h2>
+        <P>{String.raw`A bound eigenfunction can be chosen real, with time dependence confined to a common phase. Its current is zero everywhere. The nonzero density outside the well is barrier penetration in a stationary state, not a continuing loss of particles or a transmitted current through the semi-infinite exterior.`}</P>
+        <ul className={styles.takeaways}>
+          <li>
+            <strong>Deep-well limit:</strong> at fixed width, increasing the
+            barrier drives low-lying energies toward the infinite-well values
+            for full width 2a.
+          </li>
+          <li>
+            <strong>Shallow-well limit:</strong> the ground state lies just
+            below the exterior threshold and has long tails.
+          </li>
+          <li>
+            <strong>Excited states:</strong> only finitely many bound roots fit
+            below a finite barrier; more appear as depth or width increases.
+          </li>
+        </ul>
+        <P>{String.raw`The first odd bound state appears only for $z_0>\pi/2$. At the threshold itself the exterior decay constant vanishes, and the limiting solution is not square-normalizable on the line. Similar thresholds mark the appearance of higher states. A numerical root at the threshold must not be counted as an ordinary bound state.`}</P>
+      </section>
+      <section id="practice" className={styles.section}>
+        <h2>Check the energy convention and the tails.</h2>
+        <div className={styles.exercise}>
+          <h3>1. Shift the energy zero</h3>
+          <P>{String.raw`The example has $E/V_0=0.2652$. If the exterior potential is redefined to be zero, what is the bound-state energy in units of V₀?`}</P>
+          <details>
+            <summary>Show solution</summary>
+            <P>{String.raw`Subtract $V_0$ from both potential and energy. The new ratio is $E'/V_0=0.2652-1=-0.7348$. Energy below the exterior threshold, rather than the sign in an arbitrary convention, identifies the bound state.`}</P>
+          </details>
+        </div>
+        <div className={styles.exercise}>
+          <h3>2. Density decay length</h3>
+          <p>
+            An exterior amplitude decays as exp(−κd), where d is distance from
+            the edge. Over what distance does the density fall by a factor of e?
+          </p>
+          <details>
+            <summary>Show solution</summary>
+            <P>{String.raw`The density decays as $e^{-2\kappa d}$, so its e-folding length is $1/(2\kappa)$, half the amplitude decay length.`}</P>
+          </details>
+        </div>
+        <div className={styles.exercise}>
+          <h3>3. Is an odd bound state guaranteed?</h3>
+          <p>
+            Take z₀ = 1. Does the well have a bound state? Does it have an odd
+            bound state?
+          </p>
+          <details>
+            <summary>Show reasoning</summary>
+            <P>{String.raw`It has the even ground state because every positive depth supports one in this model. It has no odd bound state because $1<\pi/2$. A shallow well need not support an excited bound state.`}</P>
+          </details>
+        </div>
+      </section>
+      <div className={styles.lessonSources}>
+        <p>
+          Original explanations, derivations, and exercises. Topic sequence
+          follows{" "}
+          <a href="https://ocw.mit.edu/courses/8-04-quantum-physics-i-spring-2016/pages/lecture-notes/">
+            Barton Zwiebach’s MIT 8.04 lecture notes, Spring 2016
+          </a>
+          , lecture-note set 11. Lesson numbering and the division into two
+          lessons are local to this notebook.
+        </p>
+      </div>
+    </QuantumLesson>
+  );
+}

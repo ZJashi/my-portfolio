@@ -2,93 +2,173 @@ import { LessonNavigation } from "@/components/notes/LessonNavigation";
 import Link from "next/link";
 import { Equation, MathText } from "@/components/notes/Equation";
 import { NoteBox } from "@/components/notes/NoteBox";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
+import { RememberSection } from "./remember-section";
+import { VariationSection } from "./variation-section";
+import { SeparatedSequenceSection } from "./separated-sequence-section";
+import { RieszSection } from "./riesz-section";
+import { ApproximationSection } from "./approximation-section";
+import { ClosedSpansSection } from "./closed-spans-section";
+import { NonseparableSection } from "./nonseparable-section";
+import { NoncompactnessSection } from "./noncompactness-section";
+import { DiracSection } from "./dirac-section";
+import { UnitBallSection } from "./unit-ball-section";
 
-export const metadata = { title: "Noncompact Unit Balls and Separability | Functional Analysis | Zura Jashi", description: "Lecture 7: Riesz’s lemma, closed finite dimensional subspaces, separated unit vectors, noncompactness of infinite dimensional unit balls, and nonseparability in total variation." };
+export const metadata = {
+  title:
+    "Noncompact Unit Balls and Separability | Functional Analysis | Zura Jashi",
+  description:
+    "Lecture 7: Riesz’s lemma, closed finite dimensional subspaces, separated unit vectors, noncompactness of infinite dimensional unit balls, and nonseparability in total variation.",
+};
 
 export default function NoncompactUnitBallLesson() {
-return <div className={styles.page}>
-<nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes">Notes</Link><span>/</span><Link href="/notes/mathematics">Mathematics</Link><span>/</span><Link href="/notes/mathematics/functional-analysis">Functional Analysis</Link><span>/</span><span>Lecture 7</span></nav>
-<header className={styles.readingHeader}><p className={styles.subjectKicker}>07 / FUNCTIONAL ANALYSIS</p><h1 className={styles.subjectTitle}>Noncompact unit balls and separability</h1><p className={styles.subjectDescription}>Use Riesz’s lemma to separate unit vectors in infinite dimensions, then use Dirac measures to show how separability can fail.</p><div className={styles.readingMeta}><span>Lecture 7</span><span>Finite spans · Compactness · Dense sets · Signed measures</span></div><p className={styles.lessonSourceCredit}>Source: <a href="https://www.youtube.com/watch?v=Wmi4woYpmL0">Claudio Landim · IMPA lecture 7</a>. Adapted from captions; board notation unverified.</p></header>
-<div className={styles.lessonLayout}><article className={styles.article}><div className={styles.lessonOverview}><p><MathText>{"Infinite dimensional normed spaces contain bounded sequences with no convergent subsequence. The proof builds unit vectors separated from all previous finite spans. A related separation argument shows that the space of finite signed measures, with its total variation norm, is not separable."}</MathText></p></div>
-<section id="unit-ball" className={styles.section}><span className={styles.sectionNumber}>01 / LECTURE 7</span><h2>The closed unit ball in infinite dimensions</h2><p><MathText>{"Let $X$ be an infinite dimensional normed linear space over $\\mathbb R$ or $\\mathbb C$. In finite dimensions, the closed unit ball is compact. Infinite dimension changes this conclusion even when the space is complete."}</MathText></p>
-<NoteBox kind="result" title="Noncompactness of the unit ball"><p><MathText>{"If $X$ is infinite dimensional, its closed unit ball is not compact in the norm topology."}</MathText></p><Equation>{"\\overline B_X(0,1)=\\{x\\in X:\\|x\\|\\leq1\\}."}</Equation></NoteBox>
-<p><MathText>{"We will construct a sequence of unit vectors with pairwise distances bounded below by a fixed positive constant. No subsequence can then be Cauchy, and hence no subsequence can converge. Since compact metric spaces have convergent subsequences for all sequences, the ball cannot be compact."}</MathText></p>
-<p><MathText>{"The proof does not assume that $X$ is Banach. It relies on a separation statement for proper closed subspaces, often called Riesz’s lemma."}</MathText></p></section>
-<section id="riesz" className={styles.section}><span className={styles.sectionNumber}>02 / LECTURE 7</span><h2>Riesz’s lemma</h2><NoteBox kind="result" title="A unit vector separated from a subspace"><p><MathText>{"Let $Y$ be a proper closed linear subspace of a normed space $X$. For every $0<\\varepsilon<1$, there is a vector $z\\in X$ such that"}</MathText></p><Equation>{"\\|z\\|=1,\\qquad \\inf_{y\\in Y}\\|z-y\\|>1-\\varepsilon."}</Equation></NoteBox>
-<p><MathText>{"Proper means $Y\\ne X$. Closedness prevents a vector outside $Y$ from having distance zero to $Y$. The conclusion is separation from the whole subspace, not merely from a chosen finite collection of its points."}</MathText></p>
-<h3>Distance from an exterior point is positive</h3>
-<p><MathText>{"Choose $w\\in X\\setminus Y$ and define"}</MathText></p>
-<Equation>{"d=\\operatorname{dist}(w,Y)=\\inf_{y\\in Y}\\|w-y\\|."}</Equation>
-<p><MathText>{"This infimum is finite because $0\\in Y$. If $d=0$, we could choose $y_n\\in Y$ with $\\|w-y_n\\|\\to0$. Then $y_n\\to w$, and closedness would imply $w\\in Y$, a contradiction. Thus $d>0$."}</MathText></p>
-<h3>First consider an attained infimum</h3>
-<p><MathText>{"If a point $y_0\\in Y$ happened to satisfy $\\|w-y_0\\|=d$, normalize the displacement by setting $z=(w-y_0)/d$. For every $y\\in Y$,"}</MathText></p>
-<Equation>{"\\|z-y\\|=\\frac{\\|w-(y_0+dy)\\|}{d}\\geq\\frac d d=1."}</Equation>
-<p><MathText>{"The inequality holds because $y_0+dy\\in Y$ and $d$ is the infimum of the distances from $w$ to all points of $Y$. This explains the normalization, but such a minimizing point need not exist."}</MathText></p></section>
-<section id="approximation" className={styles.section}><span className={styles.sectionNumber}>03 / LECTURE 7</span><h2>The proof without a nearest point</h2><p><MathText>{"To avoid assuming attainment, choose a small multiplicative error. For the prescribed $\\varepsilon$, put"}</MathText></p>
-<Equation>{"\\delta=\\frac{\\varepsilon}{1-\\varepsilon}>0,\\qquad \\frac1{1+\\delta}=1-\\varepsilon."}</Equation>
-<p><MathText>{"Because $d>0$ is the infimum, there exists $y_0\\in Y$ with"}</MathText></p>
-<Equation>{"d\\leq r:=\\|w-y_0\\|<(1+\\delta)d."}</Equation>
-<p><MathText>{"Define $z=(w-y_0)/r$, so $\\|z\\|=1$. For any $y\\in Y$,"}</MathText></p>
-<Equation>{"\\begin{aligned}\\|z-y\\|&=\\frac1r\\|w-y_0-ry\\|\\\\&=\\frac1r\\|w-(y_0+ry)\\|\\\\&\\geq\\frac d r\\\\&>\\frac1{1+\\delta}=1-\\varepsilon.\\end{aligned}"}</Equation>
-<p><MathText>{"The lower bound $d/r$ is independent of $y$, so taking the infimum over $Y$ preserves a bound strictly larger than $1-\\varepsilon$. This proves Riesz’s lemma."}</MathText></p>
-<NoteBox kind="definition" title="Approximate minimizers are enough"><p><MathText>{"The proof uses $y_0$ whose distance is arbitrarily close to the infimum. It does not require a closest point, an inner product or an orthogonal projection. The parameter $\\varepsilon$ accounts for the possible failure of attainment."}</MathText></p></NoteBox></section>
-<section id="closed-spans" className={styles.section}><span className={styles.sectionNumber}>04 / LECTURE 7</span><h2>Finite dimensional subspaces are closed</h2><p><MathText>{"To apply the lemma repeatedly, we need to know that the span of finitely many selected vectors is closed in the ambient space. Let $z_1,\\ldots,z_n$ be linearly independent and set"}</MathText></p>
-<Equation>{"Y_n=\\operatorname{span}\\{z_1,\\ldots,z_n\\}."}</Equation>
-<p><MathText>{"Suppose $x_k\\in Y_n$ converges in $X$ to $x$. Express each term in the basis of $Y_n$:"}</MathText></p>
-<Equation>{"x_k=\\sum_{j=1}^{n}\\alpha_j(x_k)z_j."}</Equation>
-<p><MathText>{"The convergent sequence is bounded. The finite dimensional coordinate estimate from Lecture 5 gives"}</MathText></p>
-<Equation>{"\\sum_{j=1}^{n}|\\alpha_j(x_k)|\\leq C\\|x_k\\|."}</Equation>
-<p><MathText>{"Hence each scalar coordinate sequence is bounded. Extract a common subsequence $k_\\ell$ for which all coordinates converge, say $\\alpha_j(x_{k_\\ell})\\to a_j$. Then"}</MathText></p>
-<Equation>{"\\left\\|x_{k_\\ell}-\\sum_{j=1}^{n}a_jz_j\\right\\|\\leq\\sum_{j=1}^{n}|\\alpha_j(x_{k_\\ell})-a_j|\\,\\|z_j\\|\\longrightarrow0."}</Equation>
-<p><MathText>{"The same subsequence also converges to $x$. Uniqueness of limits implies $x=\\sum_j a_jz_j\\in Y_n$. Thus $Y_n$ contains all its limits in $X$, so it is closed. No completeness assumption on the ambient space was needed."}</MathText></p></section>
-<section id="separated-sequence" className={styles.section}><span className={styles.sectionNumber}>05 / LECTURE 7</span><h2>Constructing separated unit vectors</h2><p><MathText>{"We construct vectors $z_1,z_2,\\ldots$ inductively, maintaining three properties: each has norm one, distinct vectors are separated by more than $1/2$, and every initial finite family is linearly independent."}</MathText></p>
-<h3>Start with one unit vector</h3>
-<p><MathText>{"Choose $w\\ne0$ and set $z_1=w/\\|w\\|$. The single vector has norm one and is linearly independent."}</MathText></p>
-<h3>Apply the lemma to the previous span</h3>
-<p><MathText>{"Suppose $z_1,\\ldots,z_n$ have been chosen. Their span $Y_n$ is a finite dimensional closed subspace. Since $X$ is infinite dimensional, $Y_n\\ne X$. Apply Riesz’s lemma with $\\varepsilon=1/2$ to obtain $z_{n+1}$ satisfying"}</MathText></p>
-<Equation>{"\\|z_{n+1}\\|=1,\\qquad \\operatorname{dist}(z_{n+1},Y_n)>\\frac12."}</Equation>
-<p><MathText>{"Each earlier vector lies in $Y_n$, so $\\|z_{n+1}-z_j\\|>1/2$ for $1\\leq j\\leq n$. Also $z_{n+1}\\notin Y_n$."}</MathText></p>
-<h3>Verify independence after the new choice</h3>
-<p><MathText>{"Consider a relation"}</MathText></p>
-<Equation>{"a z_{n+1}+\\sum_{j=1}^{n}a_jz_j=0."}</Equation>
-<p><MathText>{"If $a\\ne0$, division by $a$ expresses $z_{n+1}$ as a linear combination of the previous vectors, contradicting $z_{n+1}\\notin Y_n$. Thus $a=0$, after which independence of $z_1,\\ldots,z_n$ forces every $a_j=0$. The enlarged family is independent, completing the induction."}</MathText></p>
-<NoteBox kind="result" title="A uniformly separated sequence on the unit sphere"><Equation>{"\\|z_j\\|=1,\\qquad \\|z_j-z_k\\|>\\frac12\\quad(j\\ne k)."}</Equation></NoteBox></section>
-<section id="noncompactness" className={styles.section}><span className={styles.sectionNumber}>06 / LECTURE 7</span><h2>Why no subsequence can converge</h2><p><MathText>{"Every vector $z_j$ belongs to the closed unit ball. Suppose a subsequence converged to some $x\\in X$. Any convergent sequence is Cauchy: the triangle inequality bounds the distance between two late terms by the sum of their distances to $x$."}</MathText></p>
-<p><MathText>{"But any two distinct terms of this subsequence remain more than $1/2$ apart. Taking a Cauchy tolerance of $1/4$ gives an immediate contradiction. Thus the sequence has no convergent subsequence, and the closed unit ball is not compact."}</MathText></p>
-<NoteBox kind="result" title="Compact unit balls characterize finite dimension"><p><MathText>{"Combining this result with the finite dimensional compactness theorem gives"}</MathText></p><Equation>{"\\overline B_X(0,1)\\text{ is norm compact}\\quad\\Longleftrightarrow\\quad\\dim X<\\infty."}</Equation></NoteBox>
-<p><MathText>{"Closedness and boundedness alone therefore do not guarantee compactness in an infinite dimensional normed space. This is a statement about the norm topology."}</MathText></p></section>
-<section id="separability" className={styles.section}><span className={styles.sectionNumber}>07 / LECTURE 7</span><h2>Separable normed spaces</h2><NoteBox kind="definition" title="Separable space"><p><MathText>{"A normed linear space is separable if it contains a countable dense subset $D$. Density means that every vector can be approximated arbitrarily closely by elements of $D$."}</MathText></p><Equation>{"\\forall x\\in X\\ \\forall\\varepsilon>0\\ \\exists d\\in D:\\quad\\|x-d\\|<\\varepsilon."}</Equation></NoteBox>
-<p><MathText>{"Separability concerns how many points are needed to approximate the space. It is different from finite dimension, and it is not implied merely by choosing a real or complex scalar field. The following measure-space example shows how an uncountable family of uniformly separated points rules it out."}</MathText></p></section>
-<section id="variation" className={styles.section}><span className={styles.sectionNumber}>08 / LECTURE 7</span><h2>Finite signed measures and total variation</h2><p><MathText>{"Let $\\Omega=(-1,1)$ with its Borel sigma algebra. Work over the real field and let $\\mathcal M(\\Omega)$ be the vector space of finite signed Borel measures. Addition and multiplication by a real scalar are defined on each Borel set."}</MathText></p>
-<p><MathText>{"The Jordan decomposition writes a signed measure uniquely as $\\mu=\\mu^+-\\mu^-$, where $\\mu^+$ and $\\mu^-$ are nonnegative finite measures that are mutually singular. Mutual singularity means their masses can be concentrated on disjoint measurable sets."}</MathText></p>
-<NoteBox kind="definition" title="Total variation norm"><Equation>{"\\|\\mu\\|_{\\mathrm{TV}}=\\mu^+(\\Omega)+\\mu^-(\\Omega)=|\\mu|(\\Omega)."}</Equation></NoteBox>
-<p><MathText>{"The Jordan condition matters: an arbitrary expression as a difference of two positive measures would not determine this sum uniquely. Finiteness matters too, since a norm must have finite values on its domain."}</MathText></p>
-<h3>Verification that this is a norm</h3>
-<p><MathText>{"An equivalent description uses finite Borel partitions $\\{A_1,\\ldots,A_r\\}$ of $\\Omega$:"}</MathText></p>
-<Equation>{"\\|\\mu\\|_{\\mathrm{TV}}=\\sup_{\\{A_i\\}}\\sum_{i=1}^{r}|\\mu(A_i)|."}</Equation>
-<p><MathText>{"Each partition sum is at most $\\mu^+(\\Omega)+\\mu^-(\\Omega)$. A partition into a positive and a negative set for the Jordan decomposition attains that sum, proving equivalence."}</MathText></p>
-<p><MathText>{"The formula is nonnegative. If it is zero, applying it to the partition $\\{A,\\Omega\\setminus A\\}$ shows $\\mu(A)=0$ for every Borel $A$, so $\\mu=0$. Absolute homogeneity follows from $|a\\mu(A)|=|a|\\,|\\mu(A)|$. Finally, the scalar triangle inequality on each partition gives"}</MathText></p>
-<Equation>{"\\sum_i|(\\mu+\\nu)(A_i)|\\leq\\sum_i|\\mu(A_i)|+\\sum_i|\\nu(A_i)|\\leq\\|\\mu\\|_{\\mathrm{TV}}+\\|\\nu\\|_{\\mathrm{TV}}."}</Equation>
-<p><MathText>{"Taking the supremum proves $\\|\\mu+\\nu\\|_{\\mathrm{TV}}\\leq\\|\\mu\\|_{\\mathrm{TV}}+\\|\\nu\\|_{\\mathrm{TV}}$. Thus the signed measures form a normed real linear space."}</MathText></p></section>
-<section id="dirac" className={styles.section}><span className={styles.sectionNumber}>09 / LECTURE 7</span><h2>An uncountable separated family of measures</h2><p><MathText>{"For every $x\\in\\Omega$, the Dirac measure $\\delta_x$ places unit mass at $x$. On a Borel set $A$,"}</MathText></p>
-<Equation>{"\\delta_x(A)=\\begin{cases}1,&x\\in A,\\\\0,&x\\notin A.\\end{cases}"}</Equation>
-<p><MathText>{"For distinct points $x\\ne y$, the signed measure $\\delta_x-\\delta_y$ has Jordan positive part $\\delta_x$ and negative part $\\delta_y$. Their supports are disjoint, so"}</MathText></p>
-<NoteBox kind="result" title="Distance between distinct Dirac measures"><Equation>{"\\|\\delta_x-\\delta_y\\|_{\\mathrm{TV}}=\\delta_x(\\Omega)+\\delta_y(\\Omega)=2\\qquad(x\\ne y)."}</Equation></NoteBox>
-<p><MathText>{"The interval contains uncountably many points, so it supplies uncountably many measures, all separated by the same distance two. The topology here is total variation; this distance calculation does not assert anything about a weaker topology on measures."}</MathText></p></section>
-<section id="nonseparable" className={styles.section}><span className={styles.sectionNumber}>10 / LECTURE 7</span><h2>Why the signed measure space is not separable</h2><p><MathText>{"Assume for contradiction that $D\\subseteq\\mathcal M(\\Omega)$ is countable and dense. Enumerate $D=\\{\\mu_1,\\mu_2,\\ldots\\}$. For each $x\\in\\Omega$, density provides an element within distance $1/2$ of $\\delta_x$. Choose the first such element in the enumeration and call it $F(x)$. This defines a map $F:\\Omega\\to D$."}</MathText></p>
-<Equation>{"\\|\\delta_x-F(x)\\|_{\\mathrm{TV}}<\\frac12."}</Equation>
-<h3>The approximating measure determines the point</h3>
-<p><MathText>{"Suppose $F(x)=F(y)$. By the triangle inequality,"}</MathText></p>
-<Equation>{"\\begin{aligned}\\|\\delta_x-\\delta_y\\|_{\\mathrm{TV}}&\\leq\\|\\delta_x-F(x)\\|_{\\mathrm{TV}}\\\\&\\quad+\\|F(x)-F(y)\\|_{\\mathrm{TV}}\\\\&\\quad+\\|F(y)-\\delta_y\\|_{\\mathrm{TV}}\\\\&<\\frac12+0+\\frac12=1.\\end{aligned}"}</Equation>
-<p><MathText>{"If $x\\ne y$, the left side equals two. Therefore $x=y$, proving that $F$ is injective. This is impossible: an uncountable interval cannot inject into a countable set. Equivalently, $F$ would give a bijection from the interval onto the countable subset $F(\\Omega)\\subseteq D$."}</MathText></p>
-<NoteBox kind="result" title="Nonseparability in total variation"><p><MathText>{"The space of finite signed Borel measures on $(-1,1)$ has no countable dense subset under the total variation norm."}</MathText></p></NoteBox>
-<p><MathText>{"The mechanism is general: if a metric space contains an uncountable family whose pairwise distances are bounded below by a fixed positive constant, sufficiently small balls around those points are disjoint. A dense set must supply distinct approximating points for all of them, so it cannot be countable."}</MathText></p></section>
-<section id="remember" className={styles.section}><span className={styles.sectionNumber}>11 / REVISION</span><h2>Main results to remember</h2><NoteBox kind="definition" title="Separation from a closed subspace"><ul className={styles.takeaways}><li><strong>Riesz’s lemma.</strong> <MathText>{"For proper closed $Y\\subset X$ and $0<\\varepsilon<1$, a unit vector can be chosen at distance greater than $1-\\varepsilon$ from $Y$."}</MathText></li><li><strong>Positive distance.</strong> <MathText>{"If $w\\notin Y$ and $Y$ is closed, then $\\operatorname{dist}(w,Y)>0$."}</MathText></li><li><strong>No nearest point needed.</strong> <MathText>{"An approximate minimizer and normalization give the bound; the infimum need not be attained."}</MathText></li></ul></NoteBox>
-<NoteBox kind="result" title="The compactness divide"><ul className={styles.takeaways}><li><strong>Closed finite spans.</strong> <MathText>{"Every finite dimensional subspace of a normed space is closed."}</MathText></li><li><strong>Separated unit vectors.</strong> <MathText>{"In infinite dimensions, construct $\\|z_j\\|=1$ with $\\|z_j-z_k\\|>1/2$ for distinct indices."}</MathText></li><li><strong>No compact unit ball.</strong> <MathText>{"This sequence has no convergent subsequence. The closed unit ball is norm compact exactly in finite dimensions."}</MathText></li></ul></NoteBox>
-<NoteBox kind="definition" title="Separability and total variation"><ul className={styles.takeaways}><li><strong>Separable.</strong> <MathText>{"A space has a countable dense subset."}</MathText></li><li><strong>Measure norm.</strong> <MathText>{"For finite signed measures, use the Jordan decomposition and $\\|\\mu\\|_{\\mathrm{TV}}=\\mu^+(\\Omega)+\\mu^-(\\Omega)$."}</MathText></li><li><strong>Dirac separation.</strong> <MathText>{"Distinct Dirac measures are distance two apart. Their uncountable family prevents a countable dense subset in total variation."}</MathText></li></ul></NoteBox></section>
+  return (
+    <div className={styles.page}>
+      <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
+        <Link href="/notes">Notes</Link>
+        <span>/</span>
+        <Link href="/notes/mathematics">Mathematics</Link>
+        <span>/</span>
+        <Link href="/notes/mathematics/functional-analysis">
+          Functional Analysis
+        </Link>
+        <span>/</span>
+        <span>Lecture 7</span>
+      </nav>
+      <header className={styles.readingHeader}>
+        <p className={styles.subjectKicker}>07 / FUNCTIONAL ANALYSIS</p>
+        <h1 className={styles.subjectTitle}>
+          Noncompact unit balls and separability
+        </h1>
+        <p className={styles.subjectDescription}>
+          Use Riesz’s lemma to separate unit vectors in infinite dimensions,
+          then use Dirac measures to show how separability can fail.
+        </p>
+        <div className={styles.readingMeta}>
+          <span>Lecture 7</span>
+          <span>Finite spans · Compactness · Dense sets · Signed measures</span>
+        </div>
+        <p className={styles.lessonSourceCredit}>
+          Source:{" "}
+          <a href="https://www.youtube.com/watch?v=Wmi4woYpmL0">
+            Claudio Landim · IMPA lecture 7
+          </a>
+          . Adapted from captions; board notation unverified.
+        </p>
+      </header>
+      <div className={styles.lessonLayout}>
+        <article className={styles.article}>
+          <div className={styles.lessonOverview}>
+            <p>
+              <MathText>
+                {
+                  "Infinite dimensional normed spaces contain bounded sequences with no convergent subsequence. The proof builds unit vectors separated from all previous finite spans. A related separation argument shows that the space of finite signed measures, with its total variation norm, is not separable."
+                }
+              </MathText>
+            </p>
+          </div>
+          <UnitBallSection />
+          <RieszSection />
+          <ApproximationSection />
+          <ClosedSpansSection />
+          <SeparatedSequenceSection />
+          <NoncompactnessSection />
+          <section id="separability" className={styles.section}>
+            <span className={styles.sectionNumber}>07 / LECTURE 7</span>
+            <h2>Separable normed spaces</h2>
+            <NoteBox kind="definition" title="Separable space">
+              <p>
+                <MathText>
+                  {
+                    "A normed linear space is separable if it contains a countable dense subset $D$. Density means that every vector can be approximated arbitrarily closely by elements of $D$."
+                  }
+                </MathText>
+              </p>
+              <Equation>
+                {
+                  "\\forall x\\in X\\ \\forall\\varepsilon>0\\ \\exists d\\in D:\\quad\\|x-d\\|<\\varepsilon."
+                }
+              </Equation>
+            </NoteBox>
+            <p>
+              <MathText>
+                {
+                  "Separability concerns how many points are needed to approximate the space. It is different from finite dimension, and it is not implied merely by choosing a real or complex scalar field. The following measure-space example shows how an uncountable family of uniformly separated points rules it out."
+                }
+              </MathText>
+            </p>
+          </section>
+          <VariationSection />
+          <DiracSection />
+          <NonseparableSection />
+          <RememberSection />
 
-<LessonNavigation contents={{ href: "/notes/mathematics/functional-analysis", title: "Functional Analysis" }} previous={{"href":"/notes/mathematics/functional-analysis/examples-of-normed-linear-spaces","title":"Examples of normed linear spaces"}} next={{"href":"/notes/mathematics/functional-analysis/zorns-lemma","title":"Zorn’s lemma"}} />
-</article><aside className={styles.toc}><nav aria-label="On this page"><p className={styles.label}>In this lecture</p><ol><li><a href="#unit-ball">The closed unit ball in infinite dimensions</a></li><li><a href="#riesz">Riesz’s lemma</a></li><li><a href="#approximation">The proof without a nearest point</a></li><li><a href="#closed-spans">Finite dimensional subspaces are closed</a></li><li><a href="#separated-sequence">Constructing separated unit vectors</a></li><li><a href="#noncompactness">Why no subsequence can converge</a></li><li><a href="#separability">Separable normed spaces</a></li><li><a href="#variation">Finite signed measures and total variation</a></li><li><a href="#dirac">An uncountable separated family of measures</a></li><li><a href="#nonseparable">Why the signed measure space is not separable</a></li><li><a href="#remember">Main results to remember</a></li></ol></nav></aside></div></div>;
+          <LessonNavigation
+            contents={{
+              href: "/notes/mathematics/functional-analysis",
+              title: "Functional Analysis",
+            }}
+            previous={{
+              href: "/notes/mathematics/functional-analysis/examples-of-normed-linear-spaces",
+              title: "Examples of normed linear spaces",
+            }}
+            next={{
+              href: "/notes/mathematics/functional-analysis/zorns-lemma",
+              title: "Zorn’s lemma",
+            }}
+          />
+        </article>
+        <aside className={styles.toc}>
+          <nav aria-label="On this page">
+            <p className={styles.label}>In this lecture</p>
+            <ol>
+              <li>
+                <a href="#unit-ball">
+                  The closed unit ball in infinite dimensions
+                </a>
+              </li>
+              <li>
+                <a href="#riesz">Riesz’s lemma</a>
+              </li>
+              <li>
+                <a href="#approximation">The proof without a nearest point</a>
+              </li>
+              <li>
+                <a href="#closed-spans">
+                  Finite dimensional subspaces are closed
+                </a>
+              </li>
+              <li>
+                <a href="#separated-sequence">
+                  Constructing separated unit vectors
+                </a>
+              </li>
+              <li>
+                <a href="#noncompactness">Why no subsequence can converge</a>
+              </li>
+              <li>
+                <a href="#separability">Separable normed spaces</a>
+              </li>
+              <li>
+                <a href="#variation">
+                  Finite signed measures and total variation
+                </a>
+              </li>
+              <li>
+                <a href="#dirac">An uncountable separated family of measures</a>
+              </li>
+              <li>
+                <a href="#nonseparable">
+                  Why the signed measure space is not separable
+                </a>
+              </li>
+              <li>
+                <a href="#remember">Main results to remember</a>
+              </li>
+            </ol>
+          </nav>
+        </aside>
+      </div>
+    </div>
+  );
 }
-

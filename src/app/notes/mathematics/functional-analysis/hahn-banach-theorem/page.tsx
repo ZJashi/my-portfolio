@@ -1,85 +1,154 @@
+import { LessonContents } from "./LessonContents";
 import { LessonNavigation } from "@/components/notes/LessonNavigation";
 import Link from "next/link";
 import { Equation, MathText } from "@/components/notes/Equation";
 import { NoteBox } from "@/components/notes/NoteBox";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
+import { RememberSection } from "./remember-section";
+import { ExtensionPosetSection } from "./extension-poset-section";
+import { CompatibleSection } from "./compatible-section";
+import { ChainDomainSection } from "./chain-domain-section";
+import { LowerBoundSection } from "./lower-bound-section";
+import { SublinearSection } from "./sublinear-section";
+import { MaximalSection } from "./maximal-section";
+import { OneDirectionSection } from "./one-direction-section";
+import { UpperBoundSection } from "./upper-bound-section";
+import { FunctionalsSection } from "./functionals-section";
 
-export const metadata = { title: "The Hahn–Banach theorem | Functional Analysis | Zura Jashi", description: "Extend a dominated real linear functional one direction at a time, then use Zorn’s lemma to reach the whole space." };
+export const metadata = {
+  title: "The Hahn–Banach theorem | Functional Analysis | Zura Jashi",
+  description:
+    "Extend a dominated real linear functional one direction at a time, then use Zorn’s lemma to reach the whole space.",
+};
 export default function Lesson() {
-return <div className={styles.page}>
-<nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes">Notes</Link><span>/</span><Link href="/notes/mathematics">Mathematics</Link><span>/</span><Link href="/notes/mathematics/functional-analysis">Functional Analysis</Link><span>/</span><span>Lecture 9</span></nav>
-<header className={styles.readingHeader}><p className={styles.subjectKicker}>09 / FUNCTIONAL ANALYSIS</p><h1 className={styles.subjectTitle}>The Hahn–Banach theorem</h1><p className={styles.subjectDescription}>Extend a dominated real linear functional one direction at a time, then use Zorn’s lemma to reach the whole space.</p><div className={styles.readingMeta}><span>Lecture 9</span><span>Sublinear functions · Real linear functionals · Zorn’s lemma</span></div><p className={styles.lessonSourceCredit}>Source: <a href="https://www.youtube.com/watch?v=qm4C2cnB-FE">Claudio Landim · IMPA lecture 9</a>. Adapted from captions; board notation unverified.</p></header>
-<div className={styles.lessonLayout}><article className={styles.article}><div className={styles.lessonOverview}><p><MathText>{"The Hahn–Banach theorem extends a linear functional without losing a sublinear upper bound. The local step reduces extension to choosing a real number in a nonempty interval. The global step combines compatible partial extensions and uses maximality to force a full domain."}</MathText></p></div>
-<section id="functionals" className={styles.section}><span className={styles.sectionNumber}>01 / LECTURE 9</span><h2>Real linear functionals</h2><p><MathText>{"Work over the real field. A linear functional on a real vector space $X$ is a linear map from $X$ to $\\mathbb R$. It preserves addition and real scalar multiplication:"}</MathText></p>
-<Equation>{"\\ell(x+u)=\\ell(x)+\\ell(u),\\qquad \\ell(a x)=a\\ell(x)\\quad(a\\in\\mathbb R)."}</Equation>
-<p><MathText>{"The extension problem starts with a functional defined only on a linear subspace $Y\\subseteq X$. We seek a functional on all of $X$ that agrees with the given one on $Y$, preserves linearity, and stays below a prescribed function. This is the real, sublinear-domination form of the Hahn–Banach theorem."}</MathText></p>
-<p><MathText>{"The argument is algebraic. A norm can supply the dominating function, but no topology, completeness or closedness assumption on $Y$ is required for this form of the theorem."}</MathText></p></section>
-<section id="sublinear" className={styles.section}><span className={styles.sectionNumber}>02 / LECTURE 9</span><h2>The dominating sublinear function</h2><NoteBox kind="definition" title="Sublinear function"><p><MathText>{"A real-valued function $p:X\\to\\mathbb R$ is sublinear when it is positively homogeneous and subadditive."}</MathText></p><Equation>{"p(t x)=t\\,p(x)\\quad(t\\geq0),\\qquad p(x+u)\\leq p(x)+p(u)."}</Equation></NoteBox>
-<p><MathText>{"Positive homogeneity only applies to nonnegative scalars. It does not assert $p(-x)=-p(x)$, nor does it assert $p(-x)=p(x)$. The function need not be nonnegative. In particular, a real linear functional is itself sublinear."}</MathText></p>
-<p><MathText>{"We have $p(0)=0$. Subadditivity also gives $0=p(x+(-x))\\leq p(x)+p(-x)$. These elementary facts are compatible with a function that is not symmetric."}</MathText></p>
-<h3>A norm is a sublinear example</h3>
-<p><MathText>{"If $X$ has a norm, then $p(x)=\\|x\\|$ satisfies positive homogeneity and subadditivity. More generally, a nonnegative multiple of a norm is sublinear. This makes domination useful for controlling the size of linear functionals."}</MathText></p></section>
-<section id="statement" className={styles.section}><span className={styles.sectionNumber}>03 / LECTURE 9</span><h2>The real Hahn–Banach theorem</h2><NoteBox kind="result" title="Hahn–Banach extension theorem"><p><MathText>{"Let $X$ be a real vector space, $Y\\subseteq X$ a linear subspace, and $p:X\\to\\mathbb R$ a finite-valued sublinear function. Suppose $\\ell:Y\\to\\mathbb R$ is linear and $\\ell(y)\\leq p(y)$ for all $y\\in Y$. Then there exists a linear $L:X\\to\\mathbb R$ such that"}</MathText></p><Equation>{"L|_Y=\\ell,\\qquad L(x)\\leq p(x)\\quad(x\\in X)."}</Equation></NoteBox>
-<p><MathText>{"There are three requirements on the extension: linearity, agreement on the original domain, and domination on the enlarged domain. The upper bound is initially one-sided. Linearity also yields the companion lower bound $L(x)=-L(-x)\\geq-p(-x)$."}</MathText></p>
-<p><MathText>{"The proof has two parts. First, extend across one new direction. Then order all dominated extensions and use Zorn’s lemma to obtain an extension whose domain cannot be enlarged further."}</MathText></p></section>
-<section id="one-direction" className={styles.section}><span className={styles.sectionNumber}>04 / LECTURE 9</span><h2>Extending across one new direction</h2><p><MathText>{"Assume $Y\\ne X$ and choose $z\\in X\\setminus Y$. Form the larger subspace"}</MathText></p>
-<Equation>{"Y_z=Y+\\mathbb R z=\\{y+t z:y\\in Y,\\ t\\in\\mathbb R\\}."}</Equation>
-<h3>The decomposition is unique</h3>
-<p><MathText>{"If $y_1+t_1z=y_2+t_2z$, then $(t_1-t_2)z=y_2-y_1\\in Y$. If $t_1\\ne t_2$, division would put $z$ in $Y$, a contradiction. Therefore $t_1=t_2$ and $y_1=y_2$."}</MathText></p>
-<h3>Only one new value needs to be chosen</h3>
-<p><MathText>{"Any linear extension must have the form"}</MathText></p>
-<Equation>{"L_a(y+t z)=\\ell(y)+t a,\\qquad a=L_a(z)."}</Equation>
-<p><MathText>{"Conversely, every real choice of $a$ gives a well-defined linear map by this formula, because the decomposition is unique. It agrees with $\\ell$ when $t=0$. The remaining question is which values of $a$ preserve domination."}</MathText></p></section>
-<section id="upper-bound" className={styles.section}><span className={styles.sectionNumber}>05 / LECTURE 9</span><h2>The restriction from positive coefficients</h2><p><MathText>{"We need $\\ell(y)+t a\\leq p(y+t z)$ for all $y\\in Y$ and $t\\in\\mathbb R$. The case $t=0$ is already covered by $\\ell\\leq p$ on $Y$. For $t>0$, divide by $t$ and use positive homogeneity of $p$ and linearity of $\\ell$:"}</MathText></p>
-<Equation>{"\\ell(y/t)+a\\leq p(y/t+z)."}</Equation>
-<p><MathText>{"As $y$ ranges over $Y$, so does $v=y/t$. Thus domination for all positive $t$ is equivalent to"}</MathText></p>
-<Equation>{"a\\leq p(v+z)-\\ell(v)\\qquad(v\\in Y)."}</Equation>
-<p><MathText>{"The constant $a$ must satisfy all these upper bounds at once. Therefore"}</MathText></p>
-<Equation>{"a\\leq B,\\qquad B:=\\inf_{v\\in Y}\\bigl(p(v+z)-\\ell(v)\\bigr)."}</Equation></section>
-<section id="lower-bound" className={styles.section}><span className={styles.sectionNumber}>06 / LECTURE 9</span><h2>The restriction from negative coefficients</h2><p><MathText>{"For $t<0$, write $t=-s$ with $s>0$. The required inequality is $\\ell(y)-s a\\leq p(y-s z)$. Divide by the positive scalar $s$ and write $v=y/s$:"}</MathText></p>
-<Equation>{"\\ell(v)-a\\leq p(v-z)."}</Equation>
-<p><MathText>{"Equivalently, $a\\geq\\ell(v)-p(v-z)$ for every $v\\in Y$. Hence"}</MathText></p>
-<Equation>{"A\\leq a,\\qquad A:=\\sup_{v\\in Y}\\bigl(\\ell(v)-p(v-z)\\bigr)."}</Equation>
-<NoteBox kind="result" title="The admissible extension interval"><p><MathText>{"Domination on the new subspace is possible precisely when the new value can be chosen between the two bounds."}</MathText></p><Equation>{"A\\leq a\\leq B."}</Equation></NoteBox>
-<p><MathText>{"The positive and negative cases must be treated separately: the function $p$ is homogeneous for positive scalars, so pulling an arbitrary negative scalar through it would be invalid."}</MathText></p></section>
-<section id="compatible" className={styles.section}><span className={styles.sectionNumber}>07 / LECTURE 9</span><h2>Why the extension interval is nonempty</h2><p><MathText>{"Take arbitrary $u,v\\in Y$. By linearity, domination on $Y$, and subadditivity on $X$,"}</MathText></p>
-<Equation>{"\\begin{aligned}\\ell(u)+\\ell(v)&=\\ell(u+v)\\\\&\\leq p(u+v)\\\\&=p((u-z)+(v+z))\\\\&\\leq p(u-z)+p(v+z).\\end{aligned}"}</Equation>
-<p><MathText>{"Rearranging gives"}</MathText></p>
-<Equation>{"\\ell(u)-p(u-z)\\leq p(v+z)-\\ell(v)."}</Equation>
-<p><MathText>{"This holds for every $u$ and every $v$. Taking the supremum on the left and the infimum on the right yields $A\\leq B$. The endpoints are finite real numbers: evaluating the expressions at zero gives the outer bounds"}</MathText></p>
-<Equation>{"-p(-z)\\leq A\\leq B\\leq p(z)."}</Equation>
-<p><MathText>{"More explicitly, the compatibility inequality with $v=0$ bounds every lower expression above by $p(z)$, and with $u=0$ bounds every upper expression below by $-p(-z)$. Thus neither endpoint is an inadmissible infinity."}</MathText></p>
-<p><MathText>{"Choose any $a\\in[A,B]$. The preceding positive, negative and zero cases show $L_a\\leq p$ throughout $Y_z$. This completes the one-dimensional extension step."}</MathText></p>
-<NoteBox kind="definition" title="Keep track of domains"><p><MathText>{"The proof evaluates $\\ell$ only at points of $Y$, such as $u+v$. It inserts $z$ only inside $p$, which is defined on all of $X$. Writing $\\ell(u-z)$ before extending would be undefined."}</MathText></p></NoteBox></section>
-<section id="extension-poset" className={styles.section}><span className={styles.sectionNumber}>08 / LECTURE 9</span><h2>Order all dominated extensions</h2><p><MathText>{"To extend to the whole space, consider the set $\\mathcal E$ of pairs $(V,f)$ where $V$ is a linear subspace with $Y\\subseteq V\\subseteq X$, and $f:V\\to\\mathbb R$ satisfies"}</MathText></p>
-<ul className={styles.takeaways}><li><strong>Linearity.</strong> <MathText>{"$f$ is real linear."}</MathText></li><li><strong>Agreement.</strong> <MathText>{"$f|_Y=\\ell$."}</MathText></li><li><strong>Domination.</strong> <MathText>{"$f(v)\\leq p(v)$ for all $v\\in V$."}</MathText></li></ul>
-<p><MathText>{"This set is nonempty because $(Y,\\ell)\\in\\mathcal E$. Order it by extension:"}</MathText></p>
-<Equation>{"(V_1,f_1)\\preceq(V_2,f_2)\\quad\\Longleftrightarrow\\quad V_1\\subseteq V_2\\text{ and }f_2|_{V_1}=f_1."}</Equation>
-<p><MathText>{"The agreement condition is as important as domain inclusion. A larger domain with inconsistent values is not an extension."}</MathText></p>
-<h3>Verification of the partial order</h3>
-<p><MathText>{"Every pair extends itself. If each pair extends the other, their domains coincide and the functions agree, so the pairs are equal. If a third pair extends the second and the second extends the first, restriction shows that the third extends the first. Thus the relation is reflexive, antisymmetric and transitive."}</MathText></p></section>
-<section id="chain-domain" className={styles.section}><span className={styles.sectionNumber}>09 / LECTURE 9</span><h2>An upper bound for a chain of extensions</h2><p><MathText>{"Let $\\mathcal C=\\{(V_\\gamma,f_\\gamma):\\gamma\\in I\\}$ be a nonempty chain in $\\mathcal E$. Form"}</MathText></p>
-<Equation>{"V=\\bigcup_{\\gamma\\in I}V_\\gamma."}</Equation>
-<h3>The union is a linear subspace</h3>
-<p><MathText>{"If $u,v\\in V$, each lies in some chain domain. One of these two domains contains the other, so both vectors lie in the larger domain. That domain contains every real linear combination of $u$ and $v$, hence so does $V$. Each domain contains $Y$, so $V$ does too."}</MathText></p>
-<h3>Define a functional on the union</h3>
-<Equation>{"f(v)=f_\\gamma(v)\\qquad\\text{whenever }v\\in V_\\gamma."}</Equation>
-<p><MathText>{"If $v$ belongs to two domains, comparability puts one domain inside the other and the extension order says that the two functionals agree on the smaller one. Hence the value is independent of the chosen domain. The function $f$ is well defined."}</MathText></p>
-<h3>Verify all the admissibility conditions</h3>
-<p><MathText>{"To prove linearity, place any two selected vectors in one common chain domain, then compute with the linear functional on that domain. Agreement with $\\ell$ follows because every $f_\\gamma$ extends it. For domination, choose a domain containing $v$ and use $f(v)=f_\\gamma(v)\\leq p(v)$."}</MathText></p>
-<p><MathText>{"Thus $(V,f)\\in\\mathcal E$. It extends every chain member by construction, so it is an upper bound in the same ordered set. The empty chain is bounded above by the original pair $(Y,\\ell)$. All of Zorn’s hypotheses are now verified."}</MathText></p></section>
-<section id="maximal" className={styles.section}><span className={styles.sectionNumber}>10 / LECTURE 9</span><h2>The maximal extension has full domain</h2><p><MathText>{"By Zorn’s lemma, $\\mathcal E$ has a maximal element $(V_*,f_*)$. Suppose $V_*\\ne X$. Choose $z\\in X\\setminus V_*$. Apply the one-dimensional extension step with $V_*$ in place of $Y$ and $f_*$ in place of $\\ell$."}</MathText></p>
-<p><MathText>{"It produces a linear functional on $V_*+\\mathbb R z$, agreeing with $f_*$ and still dominated by $p$. This is another member of $\\mathcal E$, strictly larger than $(V_*,f_*)$ because its domain contains $z$. That contradicts maximality."}</MathText></p>
-<NoteBox kind="result" title="The global extension"><p><MathText>{"The maximal domain must equal $X$. Setting $L=f_*$ gives the required functional."}</MathText></p><Equation>{"L:X\\to\\mathbb R,\\qquad L\\text{ linear},\\qquad L|_Y=\\ell,\\qquad L\\leq p."}</Equation></NoteBox>
-<p><MathText>{"The two parts of the proof play different roles. Zorn’s lemma yields an extension with no strict enlargement in the admissible family. The one-dimensional construction shows that any proper domain would still permit such an enlargement. Together they force a full-domain extension."}</MathText></p></section>
-<section id="interpretation" className={styles.section}><span className={styles.sectionNumber}>11 / LECTURE 9</span><h2>What the theorem preserves</h2><p><MathText>{"The theorem preserves the values already assigned on $Y$ and a common sublinear upper bound on the entire space. It asserts existence; it does not generally assert uniqueness. The one-dimensional interval may contain more than one admissible value."}</MathText></p>
-<p><MathText>{"When $p(x)=C\\|x\\|$ for $C\\geq0$, the one-sided domination implies a two-sided bound: applying it to $x$ gives $L(x)\\leq C\\|x\\|$, while applying it to $-x$ gives $-L(x)\\leq C\\|x\\|$. Thus $|L(x)|\\leq C\\|x\\|$. This explains the link between sublinear domination and size control of functionals."}</MathText></p>
-<p><MathText>{"The result proved here is over the real field. The inequalities compare real values; no ordering of complex numbers is being used."}</MathText></p></section>
-<section id="remember" className={styles.section}><span className={styles.sectionNumber}>12 / REVISION</span><h2>Main results to remember</h2><NoteBox kind="definition" title="Hypotheses and conclusion"><ul className={styles.takeaways}><li><strong>Data.</strong> <MathText>{"A real linear $\\ell:Y\\to\\mathbb R$ and a finite sublinear $p:X\\to\\mathbb R$ with $\\ell\\leq p$ on $Y$."}</MathText></li><li><strong>Extension.</strong> <MathText>{"A linear $L:X\\to\\mathbb R$ exists with $L|_Y=\\ell$ and $L\\leq p$ everywhere."}</MathText></li><li><strong>No completeness requirement.</strong> <MathText>{"This algebraic form does not need a Banach space or a closed subspace."}</MathText></li></ul></NoteBox>
-<NoteBox kind="result" title="The one-dimensional step"><ul className={styles.takeaways}><li><strong>Unique decomposition.</strong> <MathText>{"If $z\\notin Y$, every point of $Y+\\mathbb Rz$ has a unique form $y+t z$."}</MathText></li><li><strong>One free value.</strong> <MathText>{"Set $L_a(y+t z)=\\ell(y)+t a$. Positive $t$ gives an upper bound on $a$; negative $t$ gives a lower bound."}</MathText></li><li><strong>Compatibility.</strong> <MathText>{"Subadditivity and $\\ell\\leq p$ show $\\sup_y(\\ell(y)-p(y-z))\\leq\\inf_y(p(y+z)-\\ell(y))$."}</MathText></li></ul></NoteBox>
-<NoteBox kind="definition" title="The Zorn argument"><ul className={styles.takeaways}><li><strong>Order.</strong> <MathText>{"Order pairs of domains and dominated functionals by genuine extension, including agreement of values."}</MathText></li><li><strong>Chains.</strong> <MathText>{"The union of a chain’s domains is a subspace, and its compatible functionals define a dominated linear functional there."}</MathText></li><li><strong>Maximality.</strong> <MathText>{"A proper maximal domain would allow one more extension, a contradiction. Its domain is therefore all of $X$."}</MathText></li></ul></NoteBox></section>
+  return (
+    <div className={styles.page}>
+      <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
+        <Link href="/notes">Notes</Link>
+        <span>/</span>
+        <Link href="/notes/mathematics">Mathematics</Link>
+        <span>/</span>
+        <Link href="/notes/mathematics/functional-analysis">
+          Functional Analysis
+        </Link>
+        <span>/</span>
+        <span>Lecture 9</span>
+      </nav>
+      <header className={styles.readingHeader}>
+        <p className={styles.subjectKicker}>09 / FUNCTIONAL ANALYSIS</p>
+        <h1 className={styles.subjectTitle}>The Hahn–Banach theorem</h1>
+        <p className={styles.subjectDescription}>
+          Extend a dominated real linear functional one direction at a time,
+          then use Zorn’s lemma to reach the whole space.
+        </p>
+        <div className={styles.readingMeta}>
+          <span>Lecture 9</span>
+          <span>
+            Sublinear functions · Real linear functionals · Zorn’s lemma
+          </span>
+        </div>
+        <p className={styles.lessonSourceCredit}>
+          Source:{" "}
+          <a href="https://www.youtube.com/watch?v=qm4C2cnB-FE">
+            Claudio Landim · IMPA lecture 9
+          </a>
+          . Adapted from captions; board notation unverified.
+        </p>
+      </header>
+      <div className={styles.lessonLayout}>
+        <article className={styles.article}>
+          <div className={styles.lessonOverview}>
+            <p>
+              <MathText>
+                {
+                  "The Hahn–Banach theorem extends a linear functional without losing a sublinear upper bound. The local step reduces extension to choosing a real number in a nonempty interval. The global step combines compatible partial extensions and uses maximality to force a full domain."
+                }
+              </MathText>
+            </p>
+          </div>
+          <FunctionalsSection />
+          <SublinearSection />
+          <section id="statement" className={styles.section}>
+            <span className={styles.sectionNumber}>03 / LECTURE 9</span>
+            <h2>The real Hahn–Banach theorem</h2>
+            <NoteBox kind="result" title="Hahn–Banach extension theorem">
+              <p>
+                <MathText>
+                  {
+                    "Let $X$ be a real vector space, $Y\\subseteq X$ a linear subspace, and $p:X\\to\\mathbb R$ a finite-valued sublinear function. Suppose $\\ell:Y\\to\\mathbb R$ is linear and $\\ell(y)\\leq p(y)$ for all $y\\in Y$. Then there exists a linear $L:X\\to\\mathbb R$ such that"
+                  }
+                </MathText>
+              </p>
+              <Equation>
+                {"L|_Y=\\ell,\\qquad L(x)\\leq p(x)\\quad(x\\in X)."}
+              </Equation>
+            </NoteBox>
+            <p>
+              <MathText>
+                {
+                  "There are three requirements on the extension: linearity, agreement on the original domain, and domination on the enlarged domain. The upper bound is initially one-sided. Linearity also yields the companion lower bound $L(x)=-L(-x)\\geq-p(-x)$."
+                }
+              </MathText>
+            </p>
+            <p>
+              <MathText>
+                {
+                  "The proof has two parts. First, extend across one new direction. Then order all dominated extensions and use Zorn’s lemma to obtain an extension whose domain cannot be enlarged further."
+                }
+              </MathText>
+            </p>
+          </section>
+          <OneDirectionSection />
+          <UpperBoundSection />
+          <LowerBoundSection />
+          <CompatibleSection />
+          <ExtensionPosetSection />
+          <ChainDomainSection />
+          <MaximalSection />
+          <section id="interpretation" className={styles.section}>
+            <span className={styles.sectionNumber}>11 / LECTURE 9</span>
+            <h2>What the theorem preserves</h2>
+            <p>
+              <MathText>
+                {
+                  "The theorem preserves the values already assigned on $Y$ and a common sublinear upper bound on the entire space. It asserts existence; it does not generally assert uniqueness. The one-dimensional interval may contain more than one admissible value."
+                }
+              </MathText>
+            </p>
+            <p>
+              <MathText>
+                {
+                  "When $p(x)=C\\|x\\|$ for $C\\geq0$, the one-sided domination implies a two-sided bound: applying it to $x$ gives $L(x)\\leq C\\|x\\|$, while applying it to $-x$ gives $-L(x)\\leq C\\|x\\|$. Thus $|L(x)|\\leq C\\|x\\|$. This explains the link between sublinear domination and size control of functionals."
+                }
+              </MathText>
+            </p>
+            <p>
+              <MathText>
+                {
+                  "The result proved here is over the real field. The inequalities compare real values; no ordering of complex numbers is being used."
+                }
+              </MathText>
+            </p>
+          </section>
+          <RememberSection />
 
-<LessonNavigation contents={{ href: "/notes/mathematics/functional-analysis", title: "Functional Analysis" }} previous={{"href":"/notes/mathematics/functional-analysis/zorns-lemma","title":"Zorn’s lemma"}} next={{"href":"/notes/mathematics/functional-analysis/convex-sets-and-gauge-functions","title":"Convex sets and gauge functions"}} />
-</article><aside className={styles.toc}><nav aria-label="On this page"><p className={styles.label}>In this lecture</p><ol><li><a href="#functionals">Real linear functionals</a></li><li><a href="#sublinear">The dominating sublinear function</a></li><li><a href="#statement">The real Hahn–Banach theorem</a></li><li><a href="#one-direction">Extending across one new direction</a></li><li><a href="#upper-bound">The restriction from positive coefficients</a></li><li><a href="#lower-bound">The restriction from negative coefficients</a></li><li><a href="#compatible">Why the extension interval is nonempty</a></li><li><a href="#extension-poset">Order all dominated extensions</a></li><li><a href="#chain-domain">An upper bound for a chain of extensions</a></li><li><a href="#maximal">The maximal extension has full domain</a></li><li><a href="#interpretation">What the theorem preserves</a></li><li><a href="#remember">Main results to remember</a></li></ol></nav></aside></div></div>;
+          <LessonNavigation
+            contents={{
+              href: "/notes/mathematics/functional-analysis",
+              title: "Functional Analysis",
+            }}
+            previous={{
+              href: "/notes/mathematics/functional-analysis/zorns-lemma",
+              title: "Zorn’s lemma",
+            }}
+            next={{
+              href: "/notes/mathematics/functional-analysis/convex-sets-and-gauge-functions",
+              title: "Convex sets and gauge functions",
+            }}
+          />
+        </article>
+        <LessonContents />
+      </div>
+    </div>
+  );
 }
-

@@ -1,5 +1,42 @@
 import Link from "next/link";
 import { SubjectHeader } from "@/components/notes/SubjectHeader";
-import styles from "../../notes.module.css";
-export const metadata={title:"Statistical Mechanics II | Notes | Zura Jashi"};
-export default function CoursePage(){return <div className={styles.page}><nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes/physics">Physics</Link><span>/</span><Link href="/notes/statistical-mechanics">Statistical Mechanics</Link><span>/</span><span>Course II</span></nav><SubjectHeader title="Statistical Mechanics II" description="Statistical Physics of Fields. The second part of the sequence, with a dedicated notebook for further study." credit={<> Mehran Kardar’s <a href="https://ocw.mit.edu/courses/8-334-statistical-mechanics-ii-statistical-physics-of-fields-spring-2014/">MIT 8.334</a> </>} /><div className={styles.callout}><strong>Notebook in preparation</strong><p>This second course is reserved for the statistical physics of fields. Start with the thermodynamics chapter in Statistical Mechanics I.</p><Link href="/notes/statistical-mechanics/statistical-mechanics-i">Explore Statistical Mechanics I</Link></div></div>;}
+import styles from "../../notes.styles";
+export const metadata = {
+  title: "Statistical Mechanics II | Notes | Zura Jashi",
+};
+export default function CoursePage() {
+  return (
+    <div className={styles.page}>
+      <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
+        <Link href="/notes/physics">Physics</Link>
+        <span>/</span>
+        <Link href="/notes/statistical-mechanics">Statistical Mechanics</Link>
+        <span>/</span>
+        <span>Course II</span>
+      </nav>
+      <SubjectHeader
+        title="Statistical Mechanics II"
+        description="Statistical Physics of Fields. The second part of the sequence, with a dedicated notebook for further study."
+        credit={
+          <>
+            {" "}
+            Mehran Kardar’s{" "}
+            <a href="https://ocw.mit.edu/courses/8-334-statistical-mechanics-ii-statistical-physics-of-fields-spring-2014/">
+              MIT 8.334
+            </a>{" "}
+          </>
+        }
+      />
+      <div className={styles.callout}>
+        <strong>Notebook in preparation</strong>
+        <p>
+          This second course is reserved for the statistical physics of fields.
+          Start with the thermodynamics chapter in Statistical Mechanics I.
+        </p>
+        <Link href="/notes/statistical-mechanics/statistical-mechanics-i">
+          Explore Statistical Mechanics I
+        </Link>
+      </div>
+    </div>
+  );
+}

@@ -2,112 +2,186 @@ import { LessonNavigation } from "@/components/notes/LessonNavigation";
 import Link from "next/link";
 import { Equation, MathText } from "@/components/notes/Equation";
 import { NoteBox } from "@/components/notes/NoteBox";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
+import { DoubleIndicesSection } from "./double-indices-section";
+import { RowBandsSection } from "./row-bands-section";
+import { RememberSection } from "./remember-section";
+import { NullSequencesSection } from "./null-sequences-section";
+import { LimitNormSection } from "./limit-norm-section";
+import { ConvergenceSection } from "./convergence-section";
+import { CompletionSection } from "./completion-section";
+import { NormAxiomsSection } from "./norm-axioms-section";
+import { CauchySpaceSection } from "./cauchy-space-section";
+import { EmbeddingSection } from "./embedding-section";
+import { DiagonalSection } from "./diagonal-section";
 
-export const metadata = { title: "Completing a Normed Linear Space | Functional Analysis | Zura Jashi", description: "Lecture 4: constructing a completion from Cauchy sequences, the limit norm, the full diagonal completeness proof, isometric embedding and density." };
+export const metadata = {
+  title: "Completing a Normed Linear Space | Functional Analysis | Zura Jashi",
+  description:
+    "Lecture 4: constructing a completion from Cauchy sequences, the limit norm, the full diagonal completeness proof, isometric embedding and density.",
+};
 
 export default function CompletionLesson() {
-return <div className={styles.page}>
-<nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes">Notes</Link><span>/</span><Link href="/notes/mathematics">Mathematics</Link><span>/</span><Link href="/notes/mathematics/functional-analysis">Functional Analysis</Link><span>/</span><span>Lecture 4</span></nav>
-<header className={styles.readingHeader}><p className={styles.subjectKicker}>04 / FUNCTIONAL ANALYSIS</p><h1 className={styles.subjectTitle}>Completing a normed linear space</h1><p className={styles.subjectDescription}>Build the missing limits from Cauchy sequences, prove the resulting space is complete, and recover the original space as a dense isometric copy.</p><div className={styles.readingMeta}><span>Lecture 4</span><span>Cauchy sequences · Quotients · Norms · Geometric series</span></div><p className={styles.lessonSourceCredit}>Source: <a href="https://www.youtube.com/watch?v=9_0S3O23Caw">Claudio Landim · IMPA lecture 4</a>. Adapted from captions; board notation unverified.</p></header>
-<div className={styles.lessonLayout}><article className={styles.article}><div className={styles.lessonOverview}><p><MathText>{"The completion construction turns an incomplete normed space into a Banach space. Its points are equivalence classes of Cauchy sequences. The central proof uses a carefully selected diagonal sequence and summable error bounds to show that this new space has every required limit."}</MathText></p></div>
-<section id="completion" className={styles.section}><span className={styles.sectionNumber}>01 / LECTURE 4</span><h2>What it means to complete a space</h2><p><MathText>{"A normed linear space need not be complete: a sequence can be Cauchy without converging to a point of the space. A completion adds the missing limits while preserving the original linear structure and norm."}</MathText></p>
-<NoteBox kind="result" title="Completion theorem"><p><MathText>{"Every normed linear space $X$ has a Banach space $\\widehat X$ and a linear isometric embedding $\\iota:X\\to\\widehat X$ whose image is dense."}</MathText></p><Equation>{"\\|\\iota(x)\\|_{\\widehat X}=\\|x\\|_X,\\qquad \\overline{\\iota(X)}^{\\,\\widehat X}=\\widehat X."}</Equation></NoteBox>
-<p><MathText>{"An isometric embedding preserves distances and is injective. Density means every point of $\\widehat X$ can be approximated by points from the embedded copy of $X$. We use $\\widehat X$ for the completion, reserving a bar for closure."}</MathText></p>
-<h3>Why additional points may be needed</h3>
-<p><MathText>{"For example, continuous functions can fail to form a complete space under an integral norm. On $C([0,1])$, take $\\|f\\|_1=\\int_0^1|f(t)|\\,dt$. Continuous ramps can approximate the step function that is zero below $1/2$ and one above $1/2$. Their transition intervals shrink, so the integral of the difference between sufficiently late ramps is arbitrarily small."}</MathText></p>
-<p><MathText>{"The ramps are Cauchy in this norm, but no continuous function is their limit. Any such limit would equal zero almost everywhere below $1/2$ and one almost everywhere above it; continuity forces these values throughout each open half-interval, making continuity at $1/2$ impossible. The completion construction works without already knowing what the missing functions or points should be."}</MathText></p></section>
-<section id="cauchy-space" className={styles.section}><span className={styles.sectionNumber}>02 / LECTURE 4</span><h2>The vector space of Cauchy sequences</h2><p><MathText>{"Fix a normed linear space $X$ over $\\mathbb K=\\mathbb R$ or $\\mathbb C$. Form a new space $Z$ whose elements are Cauchy sequences in $X$:"}</MathText></p>
-<Equation>{"Z=\\{(x_j)_{j\\geq1}:x_j\\in X,\\ (x_j)\\text{ is Cauchy in }X\\}."}</Equation>
-<p><MathText>{"Addition and scalar multiplication act term by term. To verify closure, take $(x_j),(u_j)\\in Z$ and $\\alpha\\in\\mathbb K$. For large $j,k$,"}</MathText></p>
-<Equation>{"\\|(\\alpha x_j+u_j)-(\\alpha x_k+u_k)\\|\\leq|\\alpha|\\,\\|x_j-x_k\\|+\\|u_j-u_k\\|."}</Equation>
-<p><MathText>{"Both terms on the right tend to zero as $j,k\\to\\infty$. Thus $(\\alpha x_j+u_j)$ is Cauchy, so $Z$ is a linear space."}</MathText></p>
-<h3>Constant sequences represent the original vectors</h3>
-<p><MathText>{"Associate $x\\in X$ with the constant sequence $c(x)=(x,x,x,\\ldots)$. Constant sequences are Cauchy and form a subspace $X_0\\subseteq Z$. The map $c:X\\to X_0$ is a linear bijection. This is the first step toward embedding $X$ into its completion."}</MathText></p></section>
-<section id="null-sequences" className={styles.section}><span className={styles.sectionNumber}>03 / LECTURE 4</span><h2>Null sequences and the quotient</h2><p><MathText>{"Different Cauchy sequences may describe the same missing limit. They should be identified when their difference tends to zero."}</MathText></p>
-<NoteBox kind="definition" title="The subspace of null sequences"><Equation>{"Y=\\{(x_j)\\in Z:\\|x_j\\|_X\\longrightarrow0\\}."}</Equation></NoteBox>
-<p><MathText>{"The set $Y$ is a linear subspace: if $x_j\\to0$ and $u_j\\to0$, then $\\|\\alpha x_j+u_j\\|\\leq|\\alpha|\\,\\|x_j\\|+\\|u_j\\|\\to0$. Its elements need not be zero term by term; they only need to tend to zero."}</MathText></p>
-<NoteBox kind="definition" title="Equivalent Cauchy sequences"><Equation>{"(x_j)\\sim(u_j)\\quad\\Longleftrightarrow\\quad(x_j-u_j)\\in Y\\quad\\Longleftrightarrow\\quad\\|x_j-u_j\\|_X\\to0."}</Equation></NoteBox>
-<p><MathText>{"This is the equivalence relation induced by the subspace $Y$. Reflexivity uses the zero sequence, symmetry uses closure under negation, and transitivity follows by adding two differences tending to zero."}</MathText></p>
-<Equation>{"\\widehat X=Z/Y."}</Equation>
-<p><MathText>{"Write $[(x_j)]$ for the equivalence class of a Cauchy sequence. The zero class is $Y$, and the operations on the quotient are"}</MathText></p>
-<Equation>{"[(x_j)]+[(u_j)]=[(x_j+u_j)],\\qquad \\alpha[(x_j)]=[(\\alpha x_j)]."}</Equation>
-<p><MathText>{"These operations are well defined by the quotient-space construction. At this stage $Z$ is a linear space; we have not assumed it carries a norm or is complete."}</MathText></p></section>
-<section id="limit-norm" className={styles.section}><span className={styles.sectionNumber}>04 / LECTURE 4</span><h2>Defining the norm by a limit</h2><NoteBox kind="definition" title="Norm on the completion"><Equation>{"\\bigl\\|[(x_j)]\\bigr\\|_{\\widehat X}=\\lim_{j\\to\\infty}\\|x_j\\|_X."}</Equation></NoteBox>
-<p><MathText>{"Two facts must be established before this formula is usable: the real limit must exist, and it must be independent of the representative sequence."}</MathText></p>
-<h3>Existence of the limit</h3>
-<p><MathText>{"For a Cauchy sequence $(x_j)$, the reverse triangle inequality gives"}</MathText></p>
-<Equation>{"\\bigl|\\|x_j\\|_X-\\|x_k\\|_X\\bigr|\\leq\\|x_j-x_k\\|_X."}</Equation>
-<p><MathText>{"The right side is arbitrarily small for sufficiently large $j,k$. Hence $(\\|x_j\\|_X)$ is a Cauchy sequence of real numbers. Completeness of $\\mathbb R$ guarantees a finite limit. This does not require $X$ to be complete."}</MathText></p>
-<h3>Independence of representatives</h3>
-<p><MathText>{"If $(x_j)\\sim(u_j)$, the same inequality gives"}</MathText></p>
-<Equation>{"\\bigl|\\|x_j\\|_X-\\|u_j\\|_X\\bigr|\\leq\\|x_j-u_j\\|_X\\longrightarrow0."}</Equation>
-<p><MathText>{"Both real limits exist and their difference is zero, so they coincide. The proposed norm therefore depends only on the equivalence class."}</MathText></p></section>
-<section id="norm-axioms" className={styles.section}><span className={styles.sectionNumber}>05 / LECTURE 4</span><h2>Verifying the norm axioms</h2><h3>Nonnegativity and definiteness</h3>
-<p><MathText>{"Every term $\\|x_j\\|_X$ is nonnegative, so its limit is nonnegative. The norm of $[(x_j)]$ is zero exactly when $\\|x_j\\|_X\\to0$, which means $(x_j)\\in Y$. In the quotient, this is exactly the zero class. Conversely, every representative of the zero class is a null sequence and has norm zero."}</MathText></p>
-<h3>Absolute homogeneity</h3>
-<Equation>{"\\begin{aligned}\\bigl\\|\\alpha[(x_j)]\\bigr\\|_{\\widehat X}&=\\lim_j\\|\\alpha x_j\\|_X\\\\&=|\\alpha|\\lim_j\\|x_j\\|_X\\\\&=|\\alpha|\\,\\bigl\\|[(x_j)]\\bigr\\|_{\\widehat X}.\\end{aligned}"}</Equation>
-<p><MathText>{"This includes $\\alpha=0$; no division by the scalar is needed."}</MathText></p>
-<h3>Triangle inequality</h3>
-<Equation>{"\\begin{aligned}\\bigl\\|[(x_j)]+[(u_j)]\\bigr\\|_{\\widehat X}&=\\lim_j\\|x_j+u_j\\|_X\\\\&\\leq\\lim_j\\bigl(\\|x_j\\|_X+\\|u_j\\|_X\\bigr)\\\\&=\\bigl\\|[(x_j)]\\bigr\\|_{\\widehat X}+\\bigl\\|[(u_j)]\\bigr\\|_{\\widehat X}.\\end{aligned}"}</Equation>
-<p><MathText>{"All three axioms hold, so $\\widehat X$ is a normed linear space."}</MathText></p>
-<NoteBox kind="definition" title="Why the quotient is necessary"><p><MathText>{"On $Z$ itself, $(x_j)\\mapsto\\lim_j\\|x_j\\|_X$ is only a seminorm: a nonzero sequence can converge to zero. For example, $(x/j)$ has limiting norm zero even when $x\\ne0$. Passing to $Z/Y$ identifies all such null sequences with zero and restores definiteness."}</MathText></p></NoteBox></section>
-<section id="double-indices" className={styles.section}><span className={styles.sectionNumber}>06 / LECTURE 4</span><h2>Completeness and the two sequence indices</h2><p><MathText>{"To prove completeness, start with a Cauchy sequence $(\\xi_n)$ in $\\widehat X$. Choose one representative $(x_j^{(n)})_{j\\geq1}$ for each class:"}</MathText></p>
-<Equation>{"\\xi_n=[(x_j^{(n)})_{j\\geq1}]."}</Equation>
-<p><MathText>{"There are two distinct indices. The outer index $n$ selects a point of $\\widehat X$; the inner index $j$ selects an entry of the representative sequence in $X$. For each fixed $n$, the row $(x_j^{(n)})_j$ is Cauchy in $X$. The sequence of row classes $(\\xi_n)_n$ is Cauchy in $\\widehat X$."}</MathText></p>
-<Equation>{"\\|\\xi_n-\\xi_m\\|_{\\widehat X}=\\lim_{j\\to\\infty}\\|x_j^{(n)}-x_j^{(m)}\\|_X."}</Equation>
-<p><MathText>{"Our task is to construct a Cauchy sequence $(a_p)$ in $X$ such that its class $\\eta=[(a_p)]$ satisfies $\\xi_n\\to\\eta$. We cannot assume any individual row has a limit in $X$, since that is precisely what may fail in an incomplete space."}</MathText></p>
-<figure className={styles.lessonFigure}><svg viewBox="0 0 620 290" role="img" aria-labelledby="diagonal-title diagonal-desc"><title id="diagonal-title">Selecting a diagonal sequence from Cauchy rows</title><desc id="diagonal-desc">Each horizontal row is a Cauchy sequence in the original space. Select an entry from row n one, a later entry from row n two, and a still later entry from row n three. Tail estimates make the selected entries a Cauchy sequence.</desc><g fill="currentColor" fontFamily="Georgia" fontSize="20"><text x="18" y="55">row n₁</text><text x="18" y="125">row n₂</text><text x="18" y="195">row n₃</text><text x="470" y="270">j increases →</text></g><g stroke="currentColor" strokeWidth="1.5" opacity=".35"><path d="M125 48H580M125 118H580M125 188H580" strokeDasharray="4 6"/></g><g fill="currentColor"><circle cx="150" cy="48" r="3"/><circle cx="220" cy="48" r="3"/><circle cx="290" cy="48" r="3"/><circle cx="360" cy="48" r="3"/><circle cx="430" cy="48" r="3"/><circle cx="500" cy="48" r="3"/><circle cx="570" cy="48" r="3"/><circle cx="150" cy="118" r="3"/><circle cx="220" cy="118" r="3"/><circle cx="290" cy="118" r="3"/><circle cx="360" cy="118" r="3"/><circle cx="430" cy="118" r="3"/><circle cx="500" cy="118" r="3"/><circle cx="570" cy="118" r="3"/><circle cx="150" cy="188" r="3"/><circle cx="220" cy="188" r="3"/><circle cx="290" cy="188" r="3"/><circle cx="360" cy="188" r="3"/><circle cx="430" cy="188" r="3"/><circle cx="500" cy="188" r="3"/><circle cx="570" cy="188" r="3"/></g><g stroke="currentColor" fill="none" strokeWidth="2"><path d="M220 48 360 118 500 188" strokeDasharray="5 5"/><circle cx="220" cy="48" r="12"/><circle cx="360" cy="118" r="12"/><circle cx="500" cy="188" r="12"/></g><g fill="currentColor" fontFamily="Georgia" fontSize="18"><text x="200" y="28">a₁</text><text x="340" y="98">a₂</text><text x="480" y="168">a₃</text></g></svg><figcaption>Schematic diagonal selection. The row and column indices are chosen using tail estimates; the ordinary diagonal need not work.</figcaption></figure></section>
-<section id="row-bands" className={styles.section}><span className={styles.sectionNumber}>07 / LECTURE 4</span><h2>Choosing rows and uniform tail bounds</h2><h3>Step 1 — Choose increasingly late rows</h3>
-<p><MathText>{"For each integer $p\\geq1$, put $\\delta_p=2^{-p}$. Since $(\\xi_n)$ is Cauchy, choose a strictly increasing sequence of integers $n_p$ such that"}</MathText></p>
-<Equation>{"\\|\\xi_n-\\xi_m\\|_{\\widehat X}\\leq\\frac{\\delta_p}{2}\\qquad(n,m\\geq n_p)."}</Equation>
-<p><MathText>{"Strict increase is possible because increasing a valid threshold preserves the estimate. In particular, for every $m\\geq n_p$,"}</MathText></p>
-<Equation>{"\\lim_{j\\to\\infty}\\|x_j^{(n_p)}-x_j^{(m)}\\|_X\\leq\\frac{\\delta_p}{2}."}</Equation>
-<h3>Step 2 — Control entries in the same column</h3>
-<p><MathText>{"Restrict attention to the finite band $n_p\\leq m\\leq n_{p+1}$. For each row $m$ in this band, the preceding limit lets us choose a column threshold $r_{p,m}$ such that"}</MathText></p>
-<Equation>{"\\|x_j^{(n_p)}-x_j^{(m)}\\|_X\\leq\\delta_p\\qquad(j\\geq r_{p,m})."}</Equation>
-<p><MathText>{"There is room between the limiting bound $\\delta_p/2$ and the target bound $\\delta_p$. Since there are only finitely many rows in the band, their thresholds have a finite maximum $r_p=\\max_{n_p\\leq m\\leq n_{p+1}}r_{p,m}$. The estimate then holds for all these rows whenever $j\\geq r_p$."}</MathText></p>
-<h3>Step 3 — Control entries in the same row</h3>
-<p><MathText>{"Each row is Cauchy in $X$. For every $m$ in the same finite band, choose $s_{p,m}$ so that"}</MathText></p>
-<Equation>{"\\|x_j^{(m)}-x_k^{(m)}\\|_X\\leq\\delta_p\\qquad(j,k\\geq s_{p,m})."}</Equation>
-<p><MathText>{"Take $s_p$ to be the maximum of these finitely many thresholds. Choose strictly increasing integers $t_p$ with $t_p\\geq\\max\\{r_p,s_p\\}$."}</MathText></p>
-<h3>Step 4 — Compare any two entries in a band tail</h3>
-<p><MathText>{"For $n_p\\leq m,n\\leq n_{p+1}$ and $j,k\\geq t_p$, first move within row $m$, then compare rows in column $k$ through the reference row $n_p$:"}</MathText></p>
-<Equation>{"\\begin{aligned}\\|x_j^{(m)}-x_k^{(n)}\\|_X&\\leq\\|x_j^{(m)}-x_k^{(m)}\\|_X\\\\&\\quad+\\|x_k^{(m)}-x_k^{(n_p)}\\|_X\\\\&\\quad+\\|x_k^{(n_p)}-x_k^{(n)}\\|_X\\\\&\\leq3\\delta_p\\leq4\\delta_p.\\end{aligned}"}</Equation>
-<NoteBox kind="result" title="Uniform band estimate"><p><MathText>{"The same estimate controls different rows and different columns, provided both rows lie in the chosen band and both columns lie sufficiently far to the right."}</MathText></p><Equation>{"\\|x_j^{(m)}-x_k^{(n)}\\|_X\\leq4\\,2^{-p}\\quad\\begin{gathered}n_p\\leq m,n\\leq n_{p+1},\\\\j,k\\geq t_p.\\end{gathered}"}</Equation></NoteBox>
-<p><MathText>{"The finite band is essential: it permits a single maximum of the row thresholds. No uniform threshold over infinitely many rows has been assumed."}</MathText></p></section>
-<section id="diagonal" className={styles.section}><span className={styles.sectionNumber}>08 / LECTURE 4</span><h2>Constructing the candidate limit</h2><p><MathText>{"Select the entry in row $n_p$ and column $t_p$:"}</MathText></p>
-<Equation>{"a_p=x_{t_p}^{(n_p)}."}</Equation>
-<p><MathText>{"The adjacent selections $a_p$ and $a_{p+1}$ use rows at the two endpoints of the $p$th band. Their columns are both at least $t_p$, since $(t_p)$ is increasing. The uniform band estimate therefore gives"}</MathText></p>
-<Equation>{"\\|a_{p+1}-a_p\\|_X\\leq4\\,2^{-p}."}</Equation>
-<p><MathText>{"For $q>p$, telescope through the intermediate selected points and apply the triangle inequality:"}</MathText></p>
-<Equation>{"\\|a_q-a_p\\|_X\\leq\\sum_{\\ell=p}^{q-1}\\|a_{\\ell+1}-a_\\ell\\|_X\\leq4\\sum_{\\ell=p}^{q-1}2^{-\\ell}\\leq8\\,2^{-p}."}</Equation>
-<p><MathText>{"The final bound tends to zero as $p\\to\\infty$. Thus $(a_p)$ is Cauchy in $X$ and defines a valid point $\\eta=[(a_p)]$ of $\\widehat X$. We have constructed a class without needing the selected points to converge in $X$."}</MathText></p></section>
-<section id="convergence" className={styles.section}><span className={styles.sectionNumber}>09 / LECTURE 4</span><h2>Proving convergence to the candidate</h2><p><MathText>{"It remains to show $\\|\\xi_k-\\eta\\|_{\\widehat X}\\to0$ as $k\\to\\infty$. For sufficiently large $k$, choose the unique band index $p$ satisfying $n_p\\leq k<n_{p+1}$. By definition,"}</MathText></p>
-<Equation>{"\\|\\xi_k-\\eta\\|_{\\widehat X}=\\lim_{j\\to\\infty}\\|x_j^{(k)}-a_j\\|_X."}</Equation>
-<p><MathText>{"For $j\\geq\\max\\{t_p,p\\}$, insert the selected point $a_p=x_{t_p}^{(n_p)}$:"}</MathText></p>
-<Equation>{"\\|x_j^{(k)}-a_j\\|_X\\leq\\|x_j^{(k)}-a_p\\|_X+\\|a_p-a_j\\|_X."}</Equation>
-<p><MathText>{"The first term compares two entries in the same band tail, so it is at most $4\\,2^{-p}$. The telescoping estimate bounds the second term by $8\\,2^{-p}$. Taking the limit in $j$ gives"}</MathText></p>
-<Equation>{"\\|\\xi_k-\\eta\\|_{\\widehat X}\\leq12\\,2^{-p}."}</Equation>
-<p><MathText>{"As $k\\to\\infty$, the band index $p$ also tends to infinity, so this bound tends to zero. Every Cauchy sequence in $\\widehat X$ therefore converges to a point of $\\widehat X$."}</MathText></p>
-<NoteBox kind="result" title="The constructed space is complete"><p><MathText>{"The quotient $\\widehat X=Z/Y$, equipped with the limit norm, is a Banach space. The original space $X$ was not assumed complete."}</MathText></p></NoteBox></section>
-<section id="embedding" className={styles.section}><span className={styles.sectionNumber}>10 / LECTURE 4</span><h2>Embedding the original space isometrically</h2><p><MathText>{"Return to the constant-sequence map $c(x)=(x,x,\\ldots)$ and let $q:Z\\to Z/Y$ be the quotient map. Define"}</MathText></p>
-<Equation>{"\\iota(x)=q(c(x))=[(x,x,x,\\ldots)]."}</Equation>
-<p><MathText>{"The map is linear because constant sequences add and scale term by term. Its norm is exactly the original norm:"}</MathText></p>
-<Equation>{"\\|\\iota(x)\\|_{\\widehat X}=\\lim_{j\\to\\infty}\\|x\\|_X=\\|x\\|_X."}</Equation>
-<p><MathText>{"If $\\iota(x)=\\iota(u)$, then $\\|\\iota(x-u)\\|_{\\widehat X}=0$, so $\\|x-u\\|_X=0$ and $x=u$. Thus $\\iota$ is injective. It also preserves every distance:"}</MathText></p>
-<Equation>{"\\|\\iota(x)-\\iota(u)\\|_{\\widehat X}=\\|x-u\\|_X."}</Equation>
-<p><MathText>{"Consequently the original norm and its topology are unchanged on the embedded copy. More precisely, that copy is $q(X_0)=\\iota(X)$ inside $Z/Y$. We use this image notation because $Y$ is not generally a subspace of $X_0$, so writing $X_0/Y$ as an ordinary quotient would be inappropriate."}</MathText></p></section>
-<section id="density" className={styles.section}><span className={styles.sectionNumber}>11 / LECTURE 4</span><h2>The original space is dense in its completion</h2><p><MathText>{"Take an arbitrary $\\xi=[(x_j)]\\in\\widehat X$. For each $n$, the constant sequence with value $x_n$ defines the point $\\iota(x_n)$ of the embedded original space. Compare it with $\\xi$:"}</MathText></p>
-<Equation>{"\\|\\iota(x_n)-\\xi\\|_{\\widehat X}=\\lim_{j\\to\\infty}\\|x_n-x_j\\|_X."}</Equation>
-<p><MathText>{"Because $(x_j)$ is Cauchy, for every $\\varepsilon>0$ there is $N$ such that $\\|x_n-x_j\\|_X\\leq\\varepsilon$ whenever $n,j\\geq N$. For each fixed $n\\geq N$, taking the limit in $j$ preserves this bound. Hence $\\|\\iota(x_n)-\\xi\\|_{\\widehat X}\\to0$ as $n\\to\\infty$."}</MathText></p>
-<NoteBox kind="result" title="Density of the embedded copy"><Equation>{"\\iota(x_n)\\longrightarrow[(x_j)],\\qquad \\overline{\\iota(X)}^{\\,\\widehat X}=\\widehat X."}</Equation></NoteBox>
-<p><MathText>{"This completes the construction: $\\widehat X$ is complete, $\\iota$ preserves the linear structure and norm, and every added point is a limit of original points. In particular, each original Cauchy sequence converges in the completion to its own equivalence class."}</MathText></p></section>
-<section id="remember" className={styles.section}><span className={styles.sectionNumber}>12 / REVISION</span><h2>Main results to remember</h2><NoteBox kind="definition" title="The construction"><ul className={styles.takeaways}><li><strong>Start with sequences.</strong> <MathText>{"$Z$ is the linear space of all Cauchy sequences in $X$."}</MathText></li><li><strong>Identify zero differences.</strong> <MathText>{"$Y$ consists of sequences tending to zero; $(x_j)\\sim(u_j)$ when $\\|x_j-u_j\\|_X\\to0$."}</MathText></li><li><strong>Take the quotient.</strong> <MathText>{"$\\widehat X=Z/Y$ turns equivalent descriptions of a missing limit into one point."}</MathText></li></ul></NoteBox>
-<NoteBox kind="definition" title="The norm and completeness proof"><ul className={styles.takeaways}><li><strong>Limit norm.</strong> <MathText>{"$\\|[(x_j)]\\|_{\\widehat X}=\\lim_j\\|x_j\\|_X$. The reverse triangle inequality proves existence and independence of representatives."}</MathText></li><li><strong>Why quotient.</strong> <MathText>{"A sequence tending to zero need not be the zero sequence. The quotient makes the limiting seminorm definite."}</MathText></li><li><strong>Diagonal selection.</strong> <MathText>{"Choose row bands and column thresholds, then set $a_p=x_{t_p}^{(n_p)}$. Summable bounds make $(a_p)$ Cauchy and give a limit for the original sequence of classes."}</MathText></li></ul></NoteBox>
-<NoteBox kind="result" title="What the completion preserves"><ul className={styles.takeaways}><li><strong>Isometry.</strong> <MathText>{"$\\iota(x)=[(x,x,\\ldots)]$ is linear, injective and norm preserving."}</MathText></li><li><strong>Density.</strong> <MathText>{"Every $[(x_j)]$ is the limit of $\\iota(x_n)$, so the embedded copy of $X$ is dense."}</MathText></li><li><strong>Banach space.</strong> <MathText>{"The resulting $\\widehat X$ is complete, even when $X$ is not."}</MathText></li></ul></NoteBox></section>
+  return (
+    <div className={styles.page}>
+      <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
+        <Link href="/notes">Notes</Link>
+        <span>/</span>
+        <Link href="/notes/mathematics">Mathematics</Link>
+        <span>/</span>
+        <Link href="/notes/mathematics/functional-analysis">
+          Functional Analysis
+        </Link>
+        <span>/</span>
+        <span>Lecture 4</span>
+      </nav>
+      <header className={styles.readingHeader}>
+        <p className={styles.subjectKicker}>04 / FUNCTIONAL ANALYSIS</p>
+        <h1 className={styles.subjectTitle}>
+          Completing a normed linear space
+        </h1>
+        <p className={styles.subjectDescription}>
+          Build the missing limits from Cauchy sequences, prove the resulting
+          space is complete, and recover the original space as a dense isometric
+          copy.
+        </p>
+        <div className={styles.readingMeta}>
+          <span>Lecture 4</span>
+          <span>Cauchy sequences · Quotients · Norms · Geometric series</span>
+        </div>
+        <p className={styles.lessonSourceCredit}>
+          Source:{" "}
+          <a href="https://www.youtube.com/watch?v=9_0S3O23Caw">
+            Claudio Landim · IMPA lecture 4
+          </a>
+          . Adapted from captions; board notation unverified.
+        </p>
+      </header>
+      <div className={styles.lessonLayout}>
+        <article className={styles.article}>
+          <div className={styles.lessonOverview}>
+            <p>
+              <MathText>
+                {
+                  "The completion construction turns an incomplete normed space into a Banach space. Its points are equivalence classes of Cauchy sequences. The central proof uses a carefully selected diagonal sequence and summable error bounds to show that this new space has every required limit."
+                }
+              </MathText>
+            </p>
+          </div>
+          <CompletionSection />
+          <CauchySpaceSection />
+          <NullSequencesSection />
+          <LimitNormSection />
+          <NormAxiomsSection />
+          <DoubleIndicesSection />
+          <RowBandsSection />
+          <DiagonalSection />
+          <ConvergenceSection />
+          <EmbeddingSection />
+          <section id="density" className={styles.section}>
+            <span className={styles.sectionNumber}>11 / LECTURE 4</span>
+            <h2>The original space is dense in its completion</h2>
+            <p>
+              <MathText>
+                {
+                  "Take an arbitrary $\\xi=[(x_j)]\\in\\widehat X$. For each $n$, the constant sequence with value $x_n$ defines the point $\\iota(x_n)$ of the embedded original space. Compare it with $\\xi$:"
+                }
+              </MathText>
+            </p>
+            <Equation>
+              {
+                "\\|\\iota(x_n)-\\xi\\|_{\\widehat X}=\\lim_{j\\to\\infty}\\|x_n-x_j\\|_X."
+              }
+            </Equation>
+            <p>
+              <MathText>
+                {
+                  "Because $(x_j)$ is Cauchy, for every $\\varepsilon>0$ there is $N$ such that $\\|x_n-x_j\\|_X\\leq\\varepsilon$ whenever $n,j\\geq N$. For each fixed $n\\geq N$, taking the limit in $j$ preserves this bound. Hence $\\|\\iota(x_n)-\\xi\\|_{\\widehat X}\\to0$ as $n\\to\\infty$."
+                }
+              </MathText>
+            </p>
+            <NoteBox kind="result" title="Density of the embedded copy">
+              <Equation>
+                {
+                  "\\iota(x_n)\\longrightarrow[(x_j)],\\qquad \\overline{\\iota(X)}^{\\,\\widehat X}=\\widehat X."
+                }
+              </Equation>
+            </NoteBox>
+            <p>
+              <MathText>
+                {
+                  "This completes the construction: $\\widehat X$ is complete, $\\iota$ preserves the linear structure and norm, and every added point is a limit of original points. In particular, each original Cauchy sequence converges in the completion to its own equivalence class."
+                }
+              </MathText>
+            </p>
+          </section>
+          <RememberSection />
 
-<LessonNavigation contents={{ href: "/notes/mathematics/functional-analysis", title: "Functional Analysis" }} previous={{"href":"/notes/mathematics/functional-analysis/normed-linear-spaces","title":"Normed linear spaces"}} next={{"href":"/notes/mathematics/functional-analysis/finite-dimensional-linear-spaces","title":"Finite dimensional linear spaces"}} />
-</article><aside className={styles.toc}><nav aria-label="On this page"><p className={styles.label}>In this lecture</p><ol><li><a href="#completion">What it means to complete a space</a></li><li><a href="#cauchy-space">The vector space of Cauchy sequences</a></li><li><a href="#null-sequences">Null sequences and the quotient</a></li><li><a href="#limit-norm">Defining the norm by a limit</a></li><li><a href="#norm-axioms">Verifying the norm axioms</a></li><li><a href="#double-indices">Completeness and the two sequence indices</a></li><li><a href="#row-bands">Choosing rows and uniform tail bounds</a></li><li><a href="#diagonal">Constructing the candidate limit</a></li><li><a href="#convergence">Proving convergence to the candidate</a></li><li><a href="#embedding">Embedding the original space isometrically</a></li><li><a href="#density">The original space is dense in its completion</a></li><li><a href="#remember">Main results to remember</a></li></ol></nav></aside></div></div>;
+          <LessonNavigation
+            contents={{
+              href: "/notes/mathematics/functional-analysis",
+              title: "Functional Analysis",
+            }}
+            previous={{
+              href: "/notes/mathematics/functional-analysis/normed-linear-spaces",
+              title: "Normed linear spaces",
+            }}
+            next={{
+              href: "/notes/mathematics/functional-analysis/finite-dimensional-linear-spaces",
+              title: "Finite dimensional linear spaces",
+            }}
+          />
+        </article>
+        <aside className={styles.toc}>
+          <nav aria-label="On this page">
+            <p className={styles.label}>In this lecture</p>
+            <ol>
+              <li>
+                <a href="#completion">What it means to complete a space</a>
+              </li>
+              <li>
+                <a href="#cauchy-space">The vector space of Cauchy sequences</a>
+              </li>
+              <li>
+                <a href="#null-sequences">Null sequences and the quotient</a>
+              </li>
+              <li>
+                <a href="#limit-norm">Defining the norm by a limit</a>
+              </li>
+              <li>
+                <a href="#norm-axioms">Verifying the norm axioms</a>
+              </li>
+              <li>
+                <a href="#double-indices">
+                  Completeness and the two sequence indices
+                </a>
+              </li>
+              <li>
+                <a href="#row-bands">Choosing rows and uniform tail bounds</a>
+              </li>
+              <li>
+                <a href="#diagonal">Constructing the candidate limit</a>
+              </li>
+              <li>
+                <a href="#convergence">Proving convergence to the candidate</a>
+              </li>
+              <li>
+                <a href="#embedding">
+                  Embedding the original space isometrically
+                </a>
+              </li>
+              <li>
+                <a href="#density">
+                  The original space is dense in its completion
+                </a>
+              </li>
+              <li>
+                <a href="#remember">Main results to remember</a>
+              </li>
+            </ol>
+          </nav>
+        </aside>
+      </div>
+    </div>
+  );
 }
-

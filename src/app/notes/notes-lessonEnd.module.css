@@ -1,0 +1,164 @@
+.lessonEnd {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--notes-line);
+  font-size: 0.78rem;
+}
+.lessonEnd a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.lessonEnd > span {
+  color: var(--stone);
+  max-width: 250px;
+}
+.lessonEnd small {
+  display: block;
+  margin-top: 6px;
+}
+.inlineMath {
+  white-space: normal;
+}
+.inlineMath :global(.katex) {
+  font-size: 1.04em;
+}
+.lawBox {
+  --box-tone: #8b5628;
+}
+.resultBox {
+  --box-tone: #376b83;
+}
+.definitionBox {
+  --box-tone: var(--notes-accent);
+}
+:global(.dark) .lawBox {
+  --box-tone: #e2b17b;
+}
+:global(.dark) .resultBox {
+  --box-tone: #91c8df;
+}
+.carnotDiagram {
+  margin: 28px 0;
+  padding: 22px;
+  border: 1px solid var(--notes-line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--notes-accent) 4%, var(--bg-main));
+  color: var(--notes-accent);
+}
+.carnotDiagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.carnotDiagram figcaption {
+  margin-top: 18px;
+  color: var(--stone);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+@media (max-width: 600px) {
+  .carnotDiagram {
+    padding: 12px;
+  }
+}
+
+.wellDepthControl {
+  display: grid;
+  gap: 12px;
+  font-size: 0.85rem;
+}
+.wellDepthControl input {
+  width: 100%;
+  min-height: 28px;
+  accent-color: var(--notes-accent);
+  cursor: pointer;
+}
+.wellDepthControl input:focus-visible {
+  outline: 2px solid var(--notes-accent);
+  outline-offset: 4px;
+}
+.fieldIndexHeader {
+  padding: 0 0 28px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--notes-line);
+}
+.fieldIndexKicker {
+  color: var(--notes-accent);
+  font: 0.62rem/1.6 monospace;
+  letter-spacing: 0.12em;
+  margin: 0 0 20px;
+}
+.fieldIndexHeader h1 {
+  font:
+    400 clamp(2.5rem, 4vw, 3.3rem)/1.1 Georgia,
+    serif;
+  letter-spacing: -0.04em;
+  margin: 0 0 16px;
+}
+.fieldIndexDescription {
+  color: var(--stone);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0;
+}
+.fieldIndexNav {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  gap: 8px;
+  margin-top: 28px;
+}
+.fieldIndexNav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 10px;
+  border: 1px solid var(--notes-line);
+  border-radius: 4px;
+  font-size: 0.76rem;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+.fieldIndexNav a > svg {
+  width: 1.25em;
+  height: 1.25em;
+  flex-shrink: 0;
+  color: var(--notes-accent);
+}
+.fieldIndexNav a:hover {
+  border-color: var(--notes-accent);
+  background: color-mix(in srgb, var(--notes-accent) 5%, transparent);
+}
+.fieldIndexNav a:focus-visible {
+  outline: 2px solid var(--notes-accent);
+  outline-offset: 4px;
+}
+.refinedDrawing {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--notes-accent) 19%, transparent) 0.7px,
+    transparent 0.7px
+  );
+  background-size: 16px 16px;
+}
+@media (max-width: 700px) {
+  .fieldIndexHeader {
+    margin-bottom: 22px;
+    padding-bottom: 22px;
+  }
+  .fieldIndexNav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 22px;
+  }
+  .fieldIndexNav a {
+    justify-content: flex-start;
+    padding: 11px 12px;
+  }
+  .fieldIndexNav a:last-child {
+    grid-column: 1 / -1;
+  }
+}

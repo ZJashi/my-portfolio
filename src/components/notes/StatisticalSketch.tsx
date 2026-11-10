@@ -1,1 +1,42 @@
-export function StatisticalSketch() { return <svg viewBox="0 0 280 240" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="52" y="38" width="176" height="150" rx="2"/><g fill="currentColor">{[[80,75],[91,117],[143,62],[174,99],[151,149],[108,160],[202,141],[116,99],[191,62]].map(([x,y])=><circle key={`${x}-${y}`} cx={x} cy={y} r="4"/>)}</g><path d="m80 75 13-6m-2 48 9 10m43-65-7 12m38 25 14-3m-37 51 7 11m-43 1-13 5m94-23 8-10" opacity=".5"/><text x="96" y="222" fill="currentColor" stroke="none" fontFamily="Georgia" fontStyle="italic" fontSize="18">S = k ln Ω</text></svg>; }
+export function StatisticalSketch() {
+  return (
+    <svg
+      viewBox="0 0 280 240"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    >
+      <rect x="52" y="38" width="176" height="150" rx="2" />
+      <g fill="currentColor">
+        {[
+          [80, 75],
+          [91, 117],
+          [143, 62],
+          [174, 99],
+          [151, 149],
+          [108, 160],
+          [202, 141],
+          [116, 99],
+          [191, 62],
+        ].map(([x, y]) => (
+          <circle key={`${x}-${y}`} cx={x} cy={y} r="4" />
+        ))}
+      </g>
+      <path
+        d="m80 75 13-6m-2 48 9 10m43-65-7 12m38 25 14-3m-37 51 7 11m-43 1-13 5m94-23 8-10"
+        opacity=".5"
+      />
+      <text
+        x="96"
+        y="222"
+        fill="currentColor"
+        stroke="none"
+        fontFamily="Georgia"
+        fontStyle="italic"
+        fontSize="18"
+      >
+        S = k ln Ω
+      </text>
+    </svg>
+  );
+}

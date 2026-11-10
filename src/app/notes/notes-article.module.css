@@ -1,0 +1,161 @@
+.label {
+  color: var(--stone);
+  font-size: 0.8rem;
+}
+.article {
+  min-width: 0;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+.article p {
+  margin: 16px 0;
+}
+.article h2 {
+  font:
+    400 2rem/1.2 Georgia,
+    serif;
+  letter-spacing: -0.025em;
+  margin-bottom: 24px;
+}
+.article h3 {
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin: 24px 0 10px;
+}
+.equation {
+  overflow-x: auto;
+  padding: 16px 8px;
+  margin: 20px 0;
+  font-size: 1.05rem;
+  text-align: center;
+}
+.equation :global(.katex-display) {
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .article h2 {
+    font-size: 1.8rem;
+  }
+  .equation {
+    font-size: 0.9rem;
+  }
+}
+.lessonOverview {
+  padding: 28px 0 10px;
+}
+.lessonOverview > p:not(.label) {
+  color: var(--stone);
+}
+.lessonOverview .equation {
+  font-size: 0.85rem;
+}
+.proseLesson {
+  font-size: 1rem;
+  line-height: 1.95;
+}
+.proseLesson > section {
+  padding: 30px 0;
+  border-bottom: 0;
+}
+.proseLesson > section + section {
+  border-top: 1px solid var(--notes-line);
+}
+.proseLesson > section h2 {
+  font-size: clamp(1.65rem, 2.5vw, 2rem);
+  margin: 0 0 24px;
+}
+.proseLesson p {
+  margin: 20px 0;
+}
+.proseLesson .equation {
+  font-size: 0.96rem;
+  margin: 24px 0;
+  padding: 16px 4px;
+  scrollbar-width: thin;
+}
+@media (max-width: 600px) {
+  .proseLesson {
+    font-size: 0.96rem;
+    line-height: 1.9;
+  }
+  .proseLesson .equation {
+    font-size: 0.85rem;
+  }
+}
+.noteBox {
+  --box-tone: var(--notes-accent);
+  margin: 30px 0;
+  padding: 24px 28px;
+  border: 1px solid color-mix(in srgb, var(--box-tone) 32%, var(--notes-line));
+  border-left: 4px solid var(--box-tone);
+  border-radius: 0 12px 12px 0;
+  background: color-mix(in srgb, var(--box-tone) 7%, var(--bg-main));
+}
+.proseLesson .noteBoxLabel {
+  color: var(--box-tone);
+  margin: 0 0 10px;
+  font: 600 0.65rem/1.5 monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+.noteBox h3 {
+  margin: 0 0 14px;
+  font:
+    600 1.18rem/1.45 Georgia,
+    serif;
+  color: var(--ink);
+}
+.proseLesson .noteBox p:not(.noteBoxLabel) {
+  margin: 12px 0 0;
+}
+.proseLesson .noteBox .equation {
+  margin: 12px 0;
+  padding: 12px 0;
+}
+.noteBox ul,
+.cycleSteps {
+  padding-left: 1.4em;
+  margin: 14px 0 0;
+}
+.noteBox li,
+.cycleSteps li {
+  padding-left: 6px;
+  margin: 10px 0;
+}
+.noteBox li::marker,
+.cycleSteps li::marker {
+  color: var(--notes-accent);
+  font-weight: 600;
+}
+@media (max-width: 600px) {
+  .noteBox {
+    padding: 20px 18px;
+  }
+}
+.article .noteBoxLabel {
+  color: var(--box-tone);
+  margin: 0 0 10px;
+  font: 600 0.65rem/1.5 monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+.article .noteBox h3 {
+  margin: 0 0 14px;
+  font:
+    600 1.18rem/1.45 Georgia,
+    serif;
+  color: var(--ink);
+}
+.article .noteBox p:not(.noteBoxLabel) {
+  margin: 12px 0 0;
+}
+.article .noteBox .equation {
+  margin: 12px 0;
+  padding: 12px 0;
+}
+.noteBox ul {
+  list-style: disc;
+}
+.cycleSteps {
+  list-style: decimal;
+}

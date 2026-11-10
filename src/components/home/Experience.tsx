@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { TechIcons } from "@/components/ui/TechIcons";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { useExperience } from "@/hooks/useExperience";
-import styles from "./Experience.module.css";
+import styles from "./Experience.styles";
 
 export default function Experience() {
   const {
@@ -32,7 +32,9 @@ export default function Experience() {
             key={cat}
             onClick={() => setActiveCategory(cat)}
             className={`${styles.catBtn} ${
-              activeCategory === cat ? styles.catBtnActive : styles.catBtnInactive
+              activeCategory === cat
+                ? styles.catBtnActive
+                : styles.catBtnInactive
             }`}
           >
             {cat}
@@ -50,7 +52,9 @@ export default function Experience() {
                 key={`${item.shortName}-${index}`}
                 onClick={() => setActiveIndex(index)}
                 className={`${styles.mobileTab} ${
-                  activeIndex === index ? styles.mobileTabActive : styles.mobileTabInactive
+                  activeIndex === index
+                    ? styles.mobileTabActive
+                    : styles.mobileTabInactive
                 }`}
               >
                 {item.shortName}
@@ -74,10 +78,14 @@ export default function Experience() {
               {items.map((item, index) => (
                 <button
                   key={`${item.shortName}-${index}`}
-                  ref={(el) => { tabsRef.current[index] = el; }}
+                  ref={(el) => {
+                    tabsRef.current[index] = el;
+                  }}
                   onClick={() => setActiveIndex(index)}
                   className={`${styles.desktopTab} ${
-                    safeIndex === index ? styles.desktopTabActive : styles.desktopTabInactive
+                    safeIndex === index
+                      ? styles.desktopTabActive
+                      : styles.desktopTabInactive
                   }`}
                 >
                   {item.shortName}
@@ -98,7 +106,8 @@ export default function Experience() {
           <h3 className={styles.role}>
             {activeItem.role}
             <span className={styles.company}>
-              {" "}@{" "}
+              {" "}
+              @{" "}
               {activeItem.url ? (
                 <a
                   href={activeItem.url}

@@ -1,0 +1,182 @@
+.lessonNumber {
+  font: 0.75rem monospace;
+  color: var(--notes-accent);
+}
+.readingMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: 0.72rem;
+  color: var(--stone);
+  margin-top: 24px;
+}
+.lessonFigure {
+  margin: 28px 0;
+  padding: 20px;
+  border: 1px solid var(--notes-line);
+  border-radius: 3px;
+  color: var(--notes-accent);
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--notes-accent) 20%, transparent) 0.6px,
+    transparent 0.6px
+  );
+  background-size: 16px 16px;
+}
+.lessonFigure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.lessonFigure figcaption,
+.labPlots figcaption {
+  font-size: 0.76rem;
+  line-height: 1.7;
+  color: var(--stone);
+  margin-top: 12px;
+}
+.workedExample {
+  padding: 24px;
+  margin: 28px 0;
+  border-left: 2px solid var(--notes-accent);
+  background: color-mix(in srgb, var(--notes-accent) 5%, transparent);
+}
+.workedExample h3 {
+  margin-top: 8px;
+}
+.energyLab {
+  padding: 24px;
+  margin: 28px 0;
+  border: 1px solid var(--notes-line);
+  border-radius: 4px;
+}
+.labHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font: 0.64rem/1.6 monospace;
+  color: var(--notes-accent);
+}
+.labHeading button {
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+  border: 1px solid var(--notes-line);
+  border-radius: 4px;
+}
+.energyLab > p {
+  font-size: 0.85rem;
+  color: var(--stone);
+}
+.labPlots {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 24px 0;
+}
+.labPlots figure {
+  min-width: 0;
+}
+.labPlots svg {
+  display: block;
+  width: 100%;
+  color: var(--notes-accent);
+}
+.labControls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 24px;
+  border-top: 1px solid var(--notes-line);
+  padding-top: 24px;
+}
+.labControls label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  gap: 6px;
+}
+.labControls output {
+  color: var(--stone);
+  font-variant-numeric: tabular-nums;
+}
+.labControls input {
+  width: 100%;
+  accent-color: var(--notes-accent);
+  cursor: pointer;
+  min-height: 24px;
+}
+.labControls input:focus-visible,
+.labHeading button:focus-visible {
+  outline: 2px solid var(--notes-accent);
+  outline-offset: 4px;
+}
+.labReadings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--notes-line);
+  border-bottom: 1px solid var(--notes-line);
+  font-variant-numeric: tabular-nums;
+}
+.labReadings dt {
+  color: var(--stone);
+  font-size: 0.7rem;
+}
+.labReadings dd {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.energyLab > .labNote {
+  font-size: 0.73rem;
+  line-height: 1.8;
+}
+.lessonSources {
+  margin: 32px 0;
+  font-size: 0.78rem;
+  color: var(--stone);
+}
+.lessonSources a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .energyLab,
+  .workedExample,
+  .lessonFigure {
+    padding: 16px;
+  }
+  .labControls {
+    grid-template-columns: 1fr;
+  }
+}
+.labControls input[type="checkbox"] {
+  width: 18px;
+  min-height: 18px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+.labControls input:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.labControls select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin-top: 12px;
+  padding: 8px;
+  border: 1px solid var(--notes-line);
+  border-radius: 4px;
+  color: var(--ink);
+  background: var(--bg-main);
+  font: inherit;
+}
+.labControls select:focus-visible {
+  outline: 2px solid var(--notes-accent);
+  outline-offset: 4px;
+}

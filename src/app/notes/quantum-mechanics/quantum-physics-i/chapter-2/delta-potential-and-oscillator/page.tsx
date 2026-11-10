@@ -1,47 +1,190 @@
 import { QuantumLesson } from "@/components/notes/QuantumLesson";
 import { NoteBox } from "@/components/notes/NoteBox";
 import { Equation, MathParagraph as P } from "@/components/notes/Equation";
-import styles from "../../../../notes.module.css";
+import styles from "../../../../notes.styles";
 
-export const metadata = { title: "Delta Potentials, Nodes & the Harmonic Oscillator | Quantum Physics I | Zura Jashi" };
-export default function Lesson() { return <QuantumLesson number="2.5" title="Delta Potentials, Nodes & the Harmonic Oscillator" description="Derive the jump condition of a point attraction, solve its unique bound state, and use nodes and Gaussian decay to introduce oscillator eigenstates." sections={[["delta","Point interaction"],["bound","Delta bound state"],["nodes","Node theorem"],["oscillator","Oscillator ground state"],["spectrum","Excited oscillator states"],["practice","Practice"]]}>
-
-<P>{String.raw`Finite steps preserve the slope of a wavefunction, but a point interaction can produce a finite slope jump. That makes the delta potential a useful exact model and a warning against applying one interface rule everywhere. We will solve its bound state, connect the number of nodes to energy ordering, then meet the Gaussian ground state of a smooth harmonic potential.`}</P>
-<section id="delta" className={styles.section}><h2>A point attraction has finite integrated strength.</h2>
-<NoteBox kind="definition" title="Attractive delta potential"><Equation>{String.raw`V(x)=-g\,\delta(x),\qquad g>0,\qquad\int_{-\infty}^{\infty}\delta(x)f(x)\,dx=f(0).`}</Equation><p>The delta is a <strong>distribution</strong>, not an ordinary function with a large numerical value at zero. Its integrated strength g has units of energy times length. The exterior potential is zero in this convention.</p></NoteBox>
-<P>{String.raw`Integrate Schrödinger’s equation from −ε to +ε and let ε tend to zero. For the standard delta point interaction, the wavefunction remains continuous, while its derivative may jump. The energy integral vanishes in the limit for a finite continuous wavefunction, leaving`}</P>
-<NoteBox kind="result" title="Delta matching condition · A derivative jump"><Equation>{String.raw`\phi(0^+)=\phi(0^-),\qquad\phi'(0^+)-\phi'(0^-)=-\frac{2mg}{\hbar^2}\phi(0).`}</Equation><p>This replaces slope continuity at the interaction. It follows from the integrated equation, not from a finite-step matching rule.</p></NoteBox>
-<P>{String.raw`Continuity also prevents a delta-prime contribution from the second derivative, which would have no matching term in this Hamiltonian. Other point interactions can impose different conditions; these are the conditions specifically for a single delta potential.`}</P>
-</section>
-<section id="bound" className={styles.section}><h2>Decay and the jump select exactly one bound state.</h2>
-<P>{String.raw`A bound state has E below the exterior threshold, so E is negative. Define $\kappa=\sqrt{-2mE}/\hbar$. Normalizability gives $Ae^{-\kappa x}$ on the right and $Be^{\kappa x}$ on the left. Continuity sets A = B. The right slope is $-\kappa A$ and the left slope is $+\kappa A$.`}</P>
-<Equation>{String.raw`-2\kappa A=-\frac{2mg}{\hbar^2}A\quad\Rightarrow\quad\kappa=\frac{mg}{\hbar^2}.`}</Equation>
-<NoteBox kind="result" title="Unique bound state of one attractive delta"><Equation>{String.raw`\phi(x)=\sqrt\kappa\,e^{-\kappa|x|},\qquad E=-\frac{\hbar^2\kappa^2}{2m}=-\frac{mg^2}{2\hbar^2}.`}</Equation><p>The state is <strong>even and nodeless</strong>. It is normalized because the squared exponential integrates to 1/κ. Every positive g supports this one bound state.</p></NoteBox>
-<P>{String.raw`An odd state would have zero value at the origin and thus no derivative jump. A decaying odd candidate on the two sides cannot also be continuous and nonzero with the required matching. More directly, the general decaying solution above leaves only one positive κ. Reversing the sign of the interaction to a repulsive delta would require negative κ, so it has no bound state on the line.`}</P>
-<div className={styles.workedExample}><h3>Worked example · A measurable localization scale</h3><P>{String.raw`Let $a=1/\kappa$ denote the amplitude decay length. Then`}</P><Equation>{String.raw`P(|x|\le a)=1-e^{-2}\approx0.865,\qquad\Delta x=\frac{a}{\sqrt2},\qquad E=-\frac{\hbar^2}{2ma^2}.`}</Equation><P>{String.raw`For an electron with $a=1.00\,\mathrm{nm}$, the binding energy magnitude is about $0.0381\,\mathrm{eV}$. Doubling g halves a and increases the binding-energy magnitude by a factor of four. The negative energy is measured relative to zero potential far from the interaction.`}</P></div>
-</section>
-<section id="nodes" className={styles.section}><h2>Higher bound states have more internal zeros.</h2>
-<NoteBox kind="law" title="Node theorem · Ordinary one-dimensional bound states"><P>{String.raw`For a regular connected one-dimensional problem with separated bound-state boundary conditions, order the discrete energies $E_0<E_1<E_2<\cdots$. The n-th eigenfunction has n internal nodes. The ground state has none.`}</P><p>Here n starts at zero. Endpoint zeros at hard walls are not counted as internal nodes. Periodic ring states and singular interactions require attention to their own domains and hypotheses.</p></NoteBox>
-<P>{String.raw`The theorem gives a diagnostic for sketches and numerical solutions. The box ground state has no internal node; its second state has one. In a symmetric regular potential, bound states have definite parity and their ordering alternates between even and odd. The delta bound state is also nodeless, but we established its uniqueness directly from the point-interaction matching condition rather than assuming every regular-potential theorem applies unchanged to a singular model.`}</P>
-<p>Normalization does not remove a node, and multiplying a state by a common phase does not change its zeros. Nodes are properties of the eigenfunction, while the overall sign of a real eigenfunction has no physical significance.</p>
-</section>
-<section id="oscillator" className={styles.section}><h2>A smooth restoring force produces a Gaussian ground state.</h2>
-<NoteBox kind="definition" title="Quantum harmonic oscillator"><Equation>{String.raw`\hat H=-\frac{\hbar^2}{2m}\frac{d^2}{dx^2}+\frac12m\omega^2x^2,\qquad\ell=\sqrt{\frac{\hbar}{m\omega}}.`}</Equation><p>The potential is defined on the whole line with ω &gt; 0. The length ℓ sets the natural spatial scale; it is not itself the ground-state position standard deviation.</p></NoteBox>
-<P>{String.raw`At large |x|, the quadratic potential makes Gaussian decay plausible. Try $\phi_0=Ae^{-x^2/(2\ell^2)}$. Differentiation gives`}</P><Equation>{String.raw`\phi_0''=\left(\frac{x^2}{\ell^4}-\frac1{\ell^2}\right)\phi_0.`}</Equation>
-<P>{String.raw`Insert this into the Hamiltonian. The kinetic term proportional to $-x^2$ cancels the potential term because $\ell^2=\hbar/(m\omega)$. The remaining constant is $\hbar\omega/2$. Normalize the Gaussian on the line to get`}</P>
-<NoteBox kind="result" title="Oscillator ground state & zero-point energy"><Equation>{String.raw`\phi_0(x)=\frac1{\pi^{1/4}\sqrt\ell}e^{-x^2/(2\ell^2)},\qquad E_0=\frac12\hbar\omega.`}</Equation><Equation>{String.raw`\Delta x=\frac\ell{\sqrt2},\qquad\Delta p=\frac{\hbar}{\sqrt2\ell},\qquad\Delta x\Delta p=\frac\hbar2.`}</Equation><p>This nodeless normalizable eigenfunction is the ground state. Its positive energy is the <strong>zero-point energy</strong>, even though the potential minimum is zero.</p></NoteBox>
-<P>{String.raw`Its average kinetic and potential energies are each $\hbar\omega/4$. The state cannot simultaneously have zero position spread and zero momentum spread. Zero-point energy describes the lowest eigenvalue, not a classical particle following a hidden oscillatory trajectory.`}</P>
-</section>
-<section id="spectrum" className={styles.section}><h2>Excited states add polynomial structure and nodes.</h2>
-<P>{String.raw`In the scaled coordinate $q=x/\ell$, write $\phi=e^{-q^2/2}u(q)$ and $\epsilon=E/(\hbar\omega)$. Substitute and cancel the Gaussian factor to find`}</P><Equation>{String.raw`u''-2qu'+(2\epsilon-1)u=0.`}</Equation>
-<P>{String.raw`A power-series ansatz $u=\sum_{r=0}^\infty c_rq^r$ gives the recurrence below. For a normalizable oscillator eigenfunction, the growing large-|q| component must be absent. In the power-series construction this selects a terminating polynomial, with highest degree n and $2\epsilon-1=2n$.`}</P><Equation>{String.raw`c_{r+2}=\frac{2r+1-2\epsilon}{(r+2)(r+1)}c_r.`}</Equation>
-<NoteBox kind="result" title="Harmonic oscillator spectrum"><Equation>{String.raw`E_n=\hbar\omega\left(n+\frac12\right),\qquad\phi_n(x)\propto H_n(x/\ell)e^{-x^2/(2\ell^2)},\qquad n=0,1,2,\ldots`}</Equation><p>The polynomial H<sub>n</sub> is a Hermite polynomial. The first three are 1, 2q, and 4q² − 2. The eigenstate has n internal nodes, and adjacent energies are equally spaced.</p></NoteBox>
-<P>{String.raw`For example, the normalized first excited state is $\phi_1=\sqrt2(x/\ell)\phi_0$, with energy $3\hbar\omega/2$ and one node at zero. These are the exact even and odd reference curves used in the previous lesson’s shooting lab. The next step will derive the complete spectrum using ladder operators rather than a differential-equation series.`}</P>
-</section>
-<section id="practice" className={styles.section}><h2>Compare the point attraction with smooth confinement.</h2>
-<div className={styles.exercise}><h3>1. A cusp is not a node</h3><p>Does the cusp at the origin of the attractive-delta bound state count as a node?</p><details><summary>Show reasoning</summary><p>No. A node is a zero of the wavefunction. The delta ground state is largest at the origin and is continuous there; its derivative has a jump.</p></details></div>
-<div className={styles.exercise}><h3>2. Increase oscillator frequency</h3><p>At fixed mass, double ω. How do the ground-state energy and position standard deviation change?</p><details><summary>Show solution</summary><P>{String.raw`The energy doubles because $E_0=\hbar\omega/2$. The position spread decreases by $1/\sqrt2$ because $\Delta x=\sqrt{\hbar/(2m\omega)}$. The momentum spread increases by $\sqrt2$.`}</P></details></div>
-<div className={styles.exercise}><h3>3. Find the second excited nodes</h3><P>{String.raw`Use $H_2(q)=4q^2-2$ to locate the nodes and energy of the n = 2 oscillator state.`}</P><details><summary>Show solution</summary><Equation>{String.raw`q=\pm\frac1{\sqrt2},\qquad x=\pm\frac\ell{\sqrt2},\qquad E_2=\frac52\hbar\omega.`}</Equation><p>The Gaussian factor never vanishes at finite x, so the two nodes come entirely from the polynomial.</p></details></div>
-</section>
-<div className={styles.lessonSources}><p>Original explanations, derivations, calculations, and exercises. Topic sequence follows <a href="https://ocw.mit.edu/courses/8-04-quantum-physics-i-spring-2016/pages/lecture-notes/">Barton Zwiebach’s MIT 8.04 lecture notes, Spring 2016</a>, lecture-note sets 12–13. Numbering is local to this notebook.</p></div>
-</QuantumLesson>; }
+export const metadata = {
+  title:
+    "Delta Potentials, Nodes & the Harmonic Oscillator | Quantum Physics I | Zura Jashi",
+};
+export default function Lesson() {
+  return (
+    <QuantumLesson
+      number="2.5"
+      title="Delta Potentials, Nodes & the Harmonic Oscillator"
+      description="Derive the jump condition of a point attraction, solve its unique bound state, and use nodes and Gaussian decay to introduce oscillator eigenstates."
+      sections={[
+        ["delta", "Point interaction"],
+        ["bound", "Delta bound state"],
+        ["nodes", "Node theorem"],
+        ["oscillator", "Oscillator ground state"],
+        ["spectrum", "Excited oscillator states"],
+        ["practice", "Practice"],
+      ]}
+    >
+      <P>{String.raw`Finite steps preserve the slope of a wavefunction, but a point interaction can produce a finite slope jump. That makes the delta potential a useful exact model and a warning against applying one interface rule everywhere. We will solve its bound state, connect the number of nodes to energy ordering, then meet the Gaussian ground state of a smooth harmonic potential.`}</P>
+      <section id="delta" className={styles.section}>
+        <h2>A point attraction has finite integrated strength.</h2>
+        <NoteBox kind="definition" title="Attractive delta potential">
+          <Equation>{String.raw`V(x)=-g\,\delta(x),\qquad g>0,\qquad\int_{-\infty}^{\infty}\delta(x)f(x)\,dx=f(0).`}</Equation>
+          <p>
+            The delta is a <strong>distribution</strong>, not an ordinary
+            function with a large numerical value at zero. Its integrated
+            strength g has units of energy times length. The exterior potential
+            is zero in this convention.
+          </p>
+        </NoteBox>
+        <P>{String.raw`Integrate Schrödinger’s equation from −ε to +ε and let ε tend to zero. For the standard delta point interaction, the wavefunction remains continuous, while its derivative may jump. The energy integral vanishes in the limit for a finite continuous wavefunction, leaving`}</P>
+        <NoteBox
+          kind="result"
+          title="Delta matching condition · A derivative jump"
+        >
+          <Equation>{String.raw`\phi(0^+)=\phi(0^-),\qquad\phi'(0^+)-\phi'(0^-)=-\frac{2mg}{\hbar^2}\phi(0).`}</Equation>
+          <p>
+            This replaces slope continuity at the interaction. It follows from
+            the integrated equation, not from a finite-step matching rule.
+          </p>
+        </NoteBox>
+        <P>{String.raw`Continuity also prevents a delta-prime contribution from the second derivative, which would have no matching term in this Hamiltonian. Other point interactions can impose different conditions; these are the conditions specifically for a single delta potential.`}</P>
+      </section>
+      <section id="bound" className={styles.section}>
+        <h2>Decay and the jump select exactly one bound state.</h2>
+        <P>{String.raw`A bound state has E below the exterior threshold, so E is negative. Define $\kappa=\sqrt{-2mE}/\hbar$. Normalizability gives $Ae^{-\kappa x}$ on the right and $Be^{\kappa x}$ on the left. Continuity sets A = B. The right slope is $-\kappa A$ and the left slope is $+\kappa A$.`}</P>
+        <Equation>{String.raw`-2\kappa A=-\frac{2mg}{\hbar^2}A\quad\Rightarrow\quad\kappa=\frac{mg}{\hbar^2}.`}</Equation>
+        <NoteBox
+          kind="result"
+          title="Unique bound state of one attractive delta"
+        >
+          <Equation>{String.raw`\phi(x)=\sqrt\kappa\,e^{-\kappa|x|},\qquad E=-\frac{\hbar^2\kappa^2}{2m}=-\frac{mg^2}{2\hbar^2}.`}</Equation>
+          <p>
+            The state is <strong>even and nodeless</strong>. It is normalized
+            because the squared exponential integrates to 1/κ. Every positive g
+            supports this one bound state.
+          </p>
+        </NoteBox>
+        <P>{String.raw`An odd state would have zero value at the origin and thus no derivative jump. A decaying odd candidate on the two sides cannot also be continuous and nonzero with the required matching. More directly, the general decaying solution above leaves only one positive κ. Reversing the sign of the interaction to a repulsive delta would require negative κ, so it has no bound state on the line.`}</P>
+        <div className={styles.workedExample}>
+          <h3>Worked example · A measurable localization scale</h3>
+          <P>{String.raw`Let $a=1/\kappa$ denote the amplitude decay length. Then`}</P>
+          <Equation>{String.raw`P(|x|\le a)=1-e^{-2}\approx0.865,\qquad\Delta x=\frac{a}{\sqrt2},\qquad E=-\frac{\hbar^2}{2ma^2}.`}</Equation>
+          <P>{String.raw`For an electron with $a=1.00\,\mathrm{nm}$, the binding energy magnitude is about $0.0381\,\mathrm{eV}$. Doubling g halves a and increases the binding-energy magnitude by a factor of four. The negative energy is measured relative to zero potential far from the interaction.`}</P>
+        </div>
+      </section>
+      <section id="nodes" className={styles.section}>
+        <h2>Higher bound states have more internal zeros.</h2>
+        <NoteBox
+          kind="law"
+          title="Node theorem · Ordinary one-dimensional bound states"
+        >
+          <P>{String.raw`For a regular connected one-dimensional problem with separated bound-state boundary conditions, order the discrete energies $E_0<E_1<E_2<\cdots$. The n-th eigenfunction has n internal nodes. The ground state has none.`}</P>
+          <p>
+            Here n starts at zero. Endpoint zeros at hard walls are not counted
+            as internal nodes. Periodic ring states and singular interactions
+            require attention to their own domains and hypotheses.
+          </p>
+        </NoteBox>
+        <P>{String.raw`The theorem gives a diagnostic for sketches and numerical solutions. The box ground state has no internal node; its second state has one. In a symmetric regular potential, bound states have definite parity and their ordering alternates between even and odd. The delta bound state is also nodeless, but we established its uniqueness directly from the point-interaction matching condition rather than assuming every regular-potential theorem applies unchanged to a singular model.`}</P>
+        <p>
+          Normalization does not remove a node, and multiplying a state by a
+          common phase does not change its zeros. Nodes are properties of the
+          eigenfunction, while the overall sign of a real eigenfunction has no
+          physical significance.
+        </p>
+      </section>
+      <section id="oscillator" className={styles.section}>
+        <h2>A smooth restoring force produces a Gaussian ground state.</h2>
+        <NoteBox kind="definition" title="Quantum harmonic oscillator">
+          <Equation>{String.raw`\hat H=-\frac{\hbar^2}{2m}\frac{d^2}{dx^2}+\frac12m\omega^2x^2,\qquad\ell=\sqrt{\frac{\hbar}{m\omega}}.`}</Equation>
+          <p>
+            The potential is defined on the whole line with ω &gt; 0. The length
+            ℓ sets the natural spatial scale; it is not itself the ground-state
+            position standard deviation.
+          </p>
+        </NoteBox>
+        <P>{String.raw`At large |x|, the quadratic potential makes Gaussian decay plausible. Try $\phi_0=Ae^{-x^2/(2\ell^2)}$. Differentiation gives`}</P>
+        <Equation>{String.raw`\phi_0''=\left(\frac{x^2}{\ell^4}-\frac1{\ell^2}\right)\phi_0.`}</Equation>
+        <P>{String.raw`Insert this into the Hamiltonian. The kinetic term proportional to $-x^2$ cancels the potential term because $\ell^2=\hbar/(m\omega)$. The remaining constant is $\hbar\omega/2$. Normalize the Gaussian on the line to get`}</P>
+        <NoteBox
+          kind="result"
+          title="Oscillator ground state & zero-point energy"
+        >
+          <Equation>{String.raw`\phi_0(x)=\frac1{\pi^{1/4}\sqrt\ell}e^{-x^2/(2\ell^2)},\qquad E_0=\frac12\hbar\omega.`}</Equation>
+          <Equation>{String.raw`\Delta x=\frac\ell{\sqrt2},\qquad\Delta p=\frac{\hbar}{\sqrt2\ell},\qquad\Delta x\Delta p=\frac\hbar2.`}</Equation>
+          <p>
+            This nodeless normalizable eigenfunction is the ground state. Its
+            positive energy is the <strong>zero-point energy</strong>, even
+            though the potential minimum is zero.
+          </p>
+        </NoteBox>
+        <P>{String.raw`Its average kinetic and potential energies are each $\hbar\omega/4$. The state cannot simultaneously have zero position spread and zero momentum spread. Zero-point energy describes the lowest eigenvalue, not a classical particle following a hidden oscillatory trajectory.`}</P>
+      </section>
+      <section id="spectrum" className={styles.section}>
+        <h2>Excited states add polynomial structure and nodes.</h2>
+        <P>{String.raw`In the scaled coordinate $q=x/\ell$, write $\phi=e^{-q^2/2}u(q)$ and $\epsilon=E/(\hbar\omega)$. Substitute and cancel the Gaussian factor to find`}</P>
+        <Equation>{String.raw`u''-2qu'+(2\epsilon-1)u=0.`}</Equation>
+        <P>{String.raw`A power-series ansatz $u=\sum_{r=0}^\infty c_rq^r$ gives the recurrence below. For a normalizable oscillator eigenfunction, the growing large-|q| component must be absent. In the power-series construction this selects a terminating polynomial, with highest degree n and $2\epsilon-1=2n$.`}</P>
+        <Equation>{String.raw`c_{r+2}=\frac{2r+1-2\epsilon}{(r+2)(r+1)}c_r.`}</Equation>
+        <NoteBox kind="result" title="Harmonic oscillator spectrum">
+          <Equation>{String.raw`E_n=\hbar\omega\left(n+\frac12\right),\qquad\phi_n(x)\propto H_n(x/\ell)e^{-x^2/(2\ell^2)},\qquad n=0,1,2,\ldots`}</Equation>
+          <p>
+            The polynomial H<sub>n</sub> is a Hermite polynomial. The first
+            three are 1, 2q, and 4q² − 2. The eigenstate has n internal nodes,
+            and adjacent energies are equally spaced.
+          </p>
+        </NoteBox>
+        <P>{String.raw`For example, the normalized first excited state is $\phi_1=\sqrt2(x/\ell)\phi_0$, with energy $3\hbar\omega/2$ and one node at zero. These are the exact even and odd reference curves used in the previous lesson’s shooting lab. The next step will derive the complete spectrum using ladder operators rather than a differential-equation series.`}</P>
+      </section>
+      <section id="practice" className={styles.section}>
+        <h2>Compare the point attraction with smooth confinement.</h2>
+        <div className={styles.exercise}>
+          <h3>1. A cusp is not a node</h3>
+          <p>
+            Does the cusp at the origin of the attractive-delta bound state
+            count as a node?
+          </p>
+          <details>
+            <summary>Show reasoning</summary>
+            <p>
+              No. A node is a zero of the wavefunction. The delta ground state
+              is largest at the origin and is continuous there; its derivative
+              has a jump.
+            </p>
+          </details>
+        </div>
+        <div className={styles.exercise}>
+          <h3>2. Increase oscillator frequency</h3>
+          <p>
+            At fixed mass, double ω. How do the ground-state energy and position
+            standard deviation change?
+          </p>
+          <details>
+            <summary>Show solution</summary>
+            <P>{String.raw`The energy doubles because $E_0=\hbar\omega/2$. The position spread decreases by $1/\sqrt2$ because $\Delta x=\sqrt{\hbar/(2m\omega)}$. The momentum spread increases by $\sqrt2$.`}</P>
+          </details>
+        </div>
+        <div className={styles.exercise}>
+          <h3>3. Find the second excited nodes</h3>
+          <P>{String.raw`Use $H_2(q)=4q^2-2$ to locate the nodes and energy of the n = 2 oscillator state.`}</P>
+          <details>
+            <summary>Show solution</summary>
+            <Equation>{String.raw`q=\pm\frac1{\sqrt2},\qquad x=\pm\frac\ell{\sqrt2},\qquad E_2=\frac52\hbar\omega.`}</Equation>
+            <p>
+              The Gaussian factor never vanishes at finite x, so the two nodes
+              come entirely from the polynomial.
+            </p>
+          </details>
+        </div>
+      </section>
+      <div className={styles.lessonSources}>
+        <p>
+          Original explanations, derivations, calculations, and exercises. Topic
+          sequence follows{" "}
+          <a href="https://ocw.mit.edu/courses/8-04-quantum-physics-i-spring-2016/pages/lecture-notes/">
+            Barton Zwiebach’s MIT 8.04 lecture notes, Spring 2016
+          </a>
+          , lecture-note sets 12–13. Numbering is local to this notebook.
+        </p>
+      </div>
+    </QuantumLesson>
+  );
+}

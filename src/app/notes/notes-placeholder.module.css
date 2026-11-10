@@ -1,0 +1,173 @@
+.notebookBody {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.notebookBody h2 {
+  font:
+    400 clamp(1.8rem, 3vw, 2.6rem)/1.1 Georgia,
+    serif;
+  letter-spacing: -0.025em;
+  margin: 24px 0 18px;
+}
+.notebookBody p {
+  color: var(--stone);
+  font-size: 0.88rem;
+  line-height: 1.8;
+  max-width: 390px;
+}
+.notebookFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-top: 1px solid var(--notes-line);
+  padding-top: 20px;
+  margin-top: 30px;
+  color: var(--stone);
+  font-size: 0.7rem;
+}
+@media (max-width: 700px) {
+  .notebookBody {
+    padding: 24px;
+  }
+}
+
+.placeholder:hover {
+  border-color: var(--notes-line);
+}
+.placeholder .notebookFoot {
+  margin-top: auto;
+  padding-top: 20px;
+}
+.placeholder .notebookBody p {
+  margin-bottom: 30px;
+}
+.comingSoon {
+  color: var(--notes-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.comingSoon::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.notebookHero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(200px, 1fr);
+  gap: 28px;
+  padding: 4px 0 42px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--notes-line);
+}
+.heroEdition {
+  font: 0.62rem/1.6 monospace;
+  letter-spacing: 0.11em;
+  color: var(--notes-accent);
+  margin-bottom: 22px;
+}
+.heroTitle {
+  font:
+    400 clamp(2.5rem, 4vw, 4rem)/1.08 Georgia,
+    serif;
+  letter-spacing: -0.045em;
+  margin-bottom: 24px;
+}
+.heroTitle em {
+  color: var(--notes-accent);
+  font-weight: 400;
+}
+.heroDescription {
+  color: var(--stone);
+  font-size: 0.91rem;
+  line-height: 1.85;
+  max-width: 420px;
+}
+.heroSubjects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin-top: 30px;
+  max-width: 440px;
+}
+.heroSubjects a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  font-size: 0.73rem;
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+}
+.heroSubjects a span {
+  font: 0.6rem monospace;
+  color: var(--notes-accent);
+}
+.heroSubjects a:hover {
+  border-bottom-color: var(--notes-accent);
+}
+.heroSubjects a:focus-visible {
+  outline: 2px solid var(--notes-accent);
+  outline-offset: 4px;
+}
+@media (max-width: 700px) {
+  .notebookHero {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .heroTitle {
+    font-size: clamp(2.5rem, 8vw, 3.6rem);
+  }
+}
+.chapterLessons {
+  list-style: none;
+}
+.chapterLessons li {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: baseline;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--notes-line);
+}
+.chapterLessons h3 {
+  font:
+    400 1.15rem/1.5 Georgia,
+    serif;
+}
+.chapterLessons .comingSoon {
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .chapterLessons li {
+    grid-template-columns: 30px minmax(0, 1fr);
+    gap: 10px;
+  }
+  .chapterLessons .comingSoon {
+    grid-column: 2;
+  }
+}
+.notebookBody .fieldTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.fieldTitle > svg {
+  width: 0.85em;
+  height: 0.85em;
+  flex-shrink: 0;
+  color: var(--notes-accent);
+}
+.heroSubjects a > svg {
+  width: 1.15em;
+  height: 1.15em;
+  flex-shrink: 0;
+  align-self: center;
+  color: var(--notes-accent);
+}

@@ -1,0 +1,188 @@
+.heroSketch {
+  color: var(--notes-accent);
+  align-self: start;
+  padding: 0 16px 20px 24px;
+  border-left: 1px solid var(--notes-line);
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--notes-accent) 24%, transparent) 0.7px,
+    transparent 0.7px
+  );
+  background-size: 16px 16px;
+}
+.heroSketch svg {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+}
+.sketchLabel {
+  display: block;
+  font: 0.57rem monospace;
+  letter-spacing: 0.12em;
+  margin-left: 18px;
+}
+.sketchNote {
+  display: block;
+  text-align: right;
+  font:
+    italic 0.75rem Georgia,
+    serif;
+  margin-top: 16px;
+}
+@media (max-width: 700px) {
+  .heroSketch {
+    width: 100%;
+    max-width: 310px;
+    justify-self: center;
+    border-left: 0;
+  }
+}
+
+.subjectHeader {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(180px, 0.85fr);
+  align-items: center;
+  gap: 36px;
+  padding: 30px 0 36px;
+  margin-bottom: 30px;
+  border-top: 1px solid var(--notes-line);
+  border-bottom: 1px solid var(--notes-line);
+}
+.subjectKicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--notes-accent);
+  font: 0.62rem/1.5 monospace;
+  letter-spacing: 0.12em;
+  margin-bottom: 22px;
+}
+.subjectKicker span {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--notes-line);
+  border-radius: 50%;
+  letter-spacing: 0;
+}
+.subjectTitle {
+  font:
+    400 clamp(2.6rem, 4.5vw, 4.3rem)/1.05 Georgia,
+    serif;
+  letter-spacing: -0.045em;
+  margin-bottom: 22px;
+  text-wrap: balance;
+}
+.subjectDescription {
+  max-width: 470px;
+  font-size: 0.91rem;
+  line-height: 1.85;
+  color: var(--stone);
+}
+.subjectTopics {
+  margin-top: 28px;
+  color: var(--notes-accent);
+  font:
+    italic 0.85rem/1.7 Georgia,
+    serif;
+  word-spacing: 0.15em;
+}
+.subjectFigure {
+  margin: 0;
+  padding: 18px;
+  color: var(--notes-accent);
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--notes-accent) 25%, transparent) 0.7px,
+    transparent 0.7px
+  );
+  background-size: 16px 16px;
+  border-left: 1px solid var(--notes-line);
+}
+.subjectFigure svg {
+  display: block;
+  width: 100%;
+  max-height: 230px;
+}
+.subjectFigure figcaption {
+  text-align: center;
+  font:
+    italic 0.78rem/1.6 Georgia,
+    serif;
+  margin-top: 12px;
+}
+@media (max-width: 700px) {
+  .subjectHeader {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-top: 24px;
+  }
+  .subjectFigure {
+    border-left: 0;
+    width: 100%;
+    max-width: 320px;
+    justify-self: center;
+  }
+  .subjectTitle {
+    font-size: clamp(2.6rem, 9vw, 3.6rem);
+  }
+}
+.chapterNumber {
+  font:
+    italic 2.5rem/1 Georgia,
+    serif;
+  color: var(--notes-accent);
+}
+.chapterHeader {
+  padding: 28px 0 36px;
+  border-top: 1px solid var(--notes-line);
+}
+.chapterHeader .subjectTitle {
+  font-size: clamp(2rem, 3.8vw, 3.4rem);
+}
+.chapterHeader em {
+  color: var(--notes-accent);
+}
+.chapterListHeading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--notes-line);
+}
+.chapterListHeading h2 {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.chapterListHeading > span {
+  color: var(--stone);
+  font-size: 0.73rem;
+}
+@media (max-width: 600px) {
+  .chapterNumber {
+    font-size: 2rem;
+  }
+}
+
+.readingHeader {
+  padding: 26px 0 36px;
+  border-top: 1px solid var(--notes-line);
+  border-bottom: 1px solid var(--notes-line);
+  margin-bottom: 20px;
+}
+.readingHeader .subjectTitle {
+  font-size: clamp(2.4rem, 4.8vw, 4.4rem);
+}
+.readingHeader em {
+  color: var(--notes-accent);
+}
+.readingHeader .subjectDescription {
+  max-width: 600px;
+}
+@media (max-width: 600px) {
+  .readingHeader .subjectKicker {
+    font-size: 0.56rem;
+    letter-spacing: 0.04em;
+  }
+}

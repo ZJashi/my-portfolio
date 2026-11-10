@@ -2,21 +2,171 @@ import Link from "next/link";
 import { FinanceLesson } from "@/components/notes/FinanceLesson";
 import { Equation, MathText } from "@/components/notes/Equation";
 import { NoteBox } from "@/components/notes/NoteBox";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
+import { course, sections } from "./lesson-data";
+import { ExitSection } from "./exit-section";
+import { StoppingSection } from "./stopping-section";
+import { MarkovSection } from "./markov-section";
+import { BiasSection } from "./bias-section";
 
-export const metadata = { title: "Stopping Times and Regression | MIT 18.642 Lecture 6 | Zura Jashi", description: "Stopped martingales, fair and biased exit problems, Markov transitions and the introduction of linear regression." };
-const course = "https://ocw.mit.edu/courses/18-642-topics-in-mathematics-with-applications-in-finance-fall-2024/";
-const sections = [["stopping", "Stopping a martingale"], ["exit", "Exit probabilities and times"], ["bias", "Biased walks"], ["markov", "Markov chains"], ["regression", "From processes to regression"], ["fit", "An original least squares fit"], ["practice", "Practice"]] as const;
+export const metadata = {
+  title: "Stopping Times and Regression | MIT 18.642 Lecture 6 | Zura Jashi",
+  description:
+    "Stopped martingales, fair and biased exit problems, Markov transitions and the introduction of linear regression.",
+};
 
 export default function LectureSix() {
-return <FinanceLesson number={6} title="Stopping times and regression" description="Use martingales to solve exit problems, describe transitions with a Markov chain, and build a linear regression model from observations." instructor="Peter Kempthorne" topics="Stochastic Processes I continued · Regression foundations" sections={sections} previous={{slug:"stochastic-processes-i",title:"Probability and stochastic processes"}} next={{slug:"linear-rates-products-and-models",title:"Linear rates, products and models"}} sources={<p>Course references: <a href={`${course}resources/18642-lecture-6-version-3_mp4/`}>Lecture 6 recording</a>, <a href={`${course}mit18_642_f24_lec05.pdf`}>Stochastic Processes I slides</a> and <a href={`${course}mit18_642_f24_lec06_1.pdf`}>Regression Analysis slides</a>. <a href={`${course}pages/week-4/`}>Week 4</a> also provides high yield spread fits and an ETF case study. These independent notes use original calculations and proofs; regression inference continues in Lecture 8.</p>}>
-<div className={styles.lessonOverview}><p>Lecture 6 turns the martingale definitions from Lecture 5 into tools for stopping and hitting problems. It then develops Markov transitions and introduces regression. The proofs below make the limiting steps explicit: stopping at a finite horizon is different from taking an expectation at an unbounded random time.</p></div>
-<section id="stopping" className={styles.section}><span className={styles.sectionNumber}>01 / USING PRESENT INFORMATION</span><h2>Stopping a martingale</h2><p><MathText>{"Let $M_n$ be an integrable martingale adapted to $\\mathcal F_n$. A stopping time $\\tau$ satisfies $\\{\\tau\\le n\\}\\in\\mathcal F_n$. By step n we can tell whether stopping has occurred, without observing later steps."}</MathText></p><NoteBox kind="result" title="The stopped process remains a martingale"><Equation>{"M_{n\\wedge\\tau}=M_0+\\sum_{k=1}^{n}\\mathbf1_{\\{\\tau\\ge k\\}}(M_k-M_{k-1}),\\qquad\\mathbb E[M_{n\\wedge\\tau}]=\\mathbb E[M_0]."}</Equation><p>The indicator is known at step k−1 because it says that stopping has not occurred by then. Its product with the next martingale increment has conditional mean zero.</p></NoteBox><p><MathText>{"For each finite n this needs no assumption that $\\tau$ is bounded. To replace $n\\wedge\\tau$ by $\\tau$, however, we need a justified passage to the limit. Uniform integrability is one sufficient condition; a common integrable bound also works through dominated convergence."}</MathText></p><h3>Why almost sure stopping is not enough</h3><p><MathText>{"As a supporting example, let a symmetric unit walk start at zero and stop when it first reaches +1. This time is almost surely finite, yet $S_\\tau=1$ while $\\mathbb E[S_0]=0$. The expectation identity at finite horizons cannot be passed to this limit. The expected hitting time is infinite."}</MathText></p></section>
-<section id="exit" className={styles.section}><span className={styles.sectionNumber}>02 / TWO ABSORBING BARRIERS</span><h2>Exit probabilities and times</h2><p><MathText>{"Take independent symmetric steps $X_k\\in\\{-1,1\\}$ and $S_n=\\sum_{k=1}^nX_k$, starting at zero. For positive integer barriers A and B, set $\\tau=\\inf\\{n:S_n=A\\text{ or }S_n=-B\\}$. No overshoot occurs with unit steps and integer barriers."}</MathText></p><p><MathText>{"Exit is almost sure: a block of $A+B$ upward steps forces exit from any interior location and has positive probability $2^{-(A+B)}$. Independence bounds survival across successive blocks by a geometrically decaying probability. Also $|S_{n\\wedge\\tau}|\\le\\max(A,B)$."}</MathText></p><Equation>{"0=\\lim_{n\\to\\infty}\\mathbb E[S_{n\\wedge\\tau}]=\\mathbb E[S_\\tau]=Au-B(1-u)."}</Equation><NoteBox kind="result" title="The fair walk exit formulas"><Equation>{"u=\\Pr(S_\\tau=A)=\\frac{B}{A+B},\\qquad\\mathbb E[\\tau]=AB."}</Equation></NoteBox><p><MathText>{"For the duration formula, $S_n^2-n$ is a martingale. Finite stopping gives $\\mathbb E[n\\wedge\\tau]=\\mathbb E[S_{n\\wedge\\tau}^2]$. Monotone convergence on the left and bounded convergence on the right yield $\\mathbb E[\\tau]=A^2u+B^2(1-u)=AB$. This also establishes integrability of the exit time."}</MathText></p><h3>Original example</h3><p>With upper barrier +5 and lower barrier −3, the upper exit probability is 3/8 and the expected exit time is 15 steps. The closer lower barrier is hit more often. The terminal mean still balances: 5(3/8) − 3(5/8) = 0.</p></section>
-<section id="bias" className={styles.section}><span className={styles.sectionNumber}>03 / A NONZERO DRIFT</span><h2>Biased walks</h2><p><MathText>{"Now let the up probability be p, down probability $q=1-p$, with $0<p<1$ and $p\\ne q$. The walk itself has drift $p-q$. Put $r=q/p$ and observe $\\mathbb E[r^{X_k}]=pr+q/r=q+p=1$. Consequently $r^{S_n}$ is a martingale."}</MathText></p><Equation>{"1=\\mathbb E[r^{S_\\tau}]=u r^A+(1-u)r^{-B}."}</Equation><NoteBox kind="result" title="Upper exit probability with bias"><Equation>{"u=\\frac{1-r^B}{1-r^{A+B}},\\qquad r=\\frac qp,\\qquad p\\ne\\frac12."}</Equation><p>The stopped exponential is bounded on the finite interval, making the limit legitimate. The fair case is the limit B/(A+B), rather than direct substitution into a zero divided by zero expression.</p></NoteBox><p><strong>Original example.</strong><MathText>{" For $p=0.6$, $A=B=2$, $r=2/3$ and $u=(1-r^2)/(1-r^4)=9/13\\approx69.23\\%$. A symmetric pair of barriers does not give a 50% exit probability when the walk is biased."}</MathText></p><p><MathText>{"A companion calculation uses $S_n-(p-q)n$. Finite stopping gives $\\mathbb E[S_{n\\wedge\\tau}]=(p-q)\\mathbb E[n\\wedge\\tau]$. The bounded left side and monotone convergence give $\\mathbb E[\\tau]=[Au-B(1-u)]/(p-q)$. In this example it is $50/13\\approx3.846$ steps."}</MathText></p></section>
-<section id="markov" className={styles.section}><span className={styles.sectionNumber}>04 / TRANSITION MODELS</span><h2>Markov chains</h2><NoteBox title="The current state determines the conditional transition law"><Equation>{"\\Pr(X_{n+1}=j\\mid X_0,\\ldots,X_n)=\\Pr(X_{n+1}=j\\mid X_n)."}</Equation><p>This does not say successive states are independent. A martingale condition concerns a conditional mean; the Markov condition concerns the whole conditional distribution.</p></NoteBox><p><MathText>{"Use row transitions $P_{ij}=\\Pr(X_{n+1}=j\\mid X_n=i)$ and row probability vectors. Then $\\pi_{n+1}=\\pi_nP$ and $\\Pr(X_{n+k}=j\\mid X_n=i)=(P^k)_{ij}$. This transposes the column convention in Lecture 2. A time homogeneous matrix is constant over time; a stationary distribution additionally satisfies $\\pi P=\\pi$."}</MathText></p><h3>Original credit state example</h3><Equation>{"P=\\begin{pmatrix}0.9&0.08&0.02\\\\0.1&0.8&0.1\\\\0&0&1\\end{pmatrix}\\quad\\text{for states good, weak, default}."}</Equation><p>The probability of default by two steps, starting good, is 0.046: remain good then default, weaken then default, or default immediately and stay there. Default is absorbing.</p><Equation>{"(P^2)_{1,3}=0.9(0.02)+0.08(0.1)+0.02(1)=0.046."}</Equation><p><MathText>{"A specific path probability is $\\Pr(X_0=i_0)\\prod_{k=1}^nP_{i_{k-1},i_k}$. Summing over intermediate states gives matrix multiplication and the Chapman–Kolmogorov relation. Credit transitions here are hypothetical; a fitted transition model needs a stated sampling horizon and treatment of defaults."}</MathText></p></section>
-<section id="regression" className={styles.section}><span className={styles.sectionNumber}>05 / EXPLAINING AN OBSERVED RESPONSE</span><h2>From processes to regression</h2><NoteBox title="Linear means linear in the coefficients"><Equation>{"y=X\\beta+\\varepsilon,\\qquad X\\in\\mathbb R^{n\\times p},\\quad\\beta\\in\\mathbb R^p,\\quad y,\\varepsilon\\in\\mathbb R^n."}</Equation><p>Rows are observations, columns are explanatory variables. Count an intercept column of ones among the p parameters. The error is the unobserved difference from the model mean; a fitted residual is computed after estimation.</p></NoteBox><p><MathText>{"A model $y_i=\\beta_0+\\beta_1t_i+\\beta_2t_i^2+\\varepsilon_i$ is still linear regression. So is a fixed frequency Fourier basis or an autoregression on observed lags. The response need not be linear in time; it must be linear in the unknown coefficients."}</MathText></p><p>The model building cycle is to specify the response and predictors, choose an estimation criterion, fit, inspect residuals, and revise when the assumptions fail. Least squares is one criterion. It does not by itself establish causality or validate error assumptions.</p><p><MathText>{"For inference conditional on X, $\\mathbb E[\\varepsilon\\mid X]=0$ is an exogeneity assumption. Serially dependent outcomes, changing variance and nonstationary regressors need particular care in finance. For prediction, any lagged feature must have been observable at the forecast date."}</MathText></p></section>
-<section id="fit" className={styles.section}><span className={styles.sectionNumber}>06 / FITTING A LINE</span><h2>An original least squares fit</h2><p><MathText>{"Take $x=(-2,-1,0,1,2)^T$ and $y=(0,0,1,2,2)^T$. Fit $y_i=a+bx_i+e_i$. The means are $\\bar x=0$ and $\\bar y=1$. Differentiating the sum of squared residuals with respect to a and b yields:"}</MathText></p><Equation>{"\\widehat b=\\frac{\\sum_i(x_i-\\bar x)(y_i-\\bar y)}{\\sum_i(x_i-\\bar x)^2}=\\frac6{10}=0.6,\\qquad\\widehat a=\\bar y-\\widehat b\\bar x=1."}</Equation><Equation>{"\\widehat y=(-0.2,0.4,1,1.6,2.2)^T,\\quad e=(0.2,-0.4,0,0.4,-0.2)^T,\\quad\\mathrm{RSS}=0.4."}</Equation><p><MathText>{"Both $\\sum_i e_i=0$ and $\\sum_i x_ie_i=0$: the residual is orthogonal to the intercept and predictor columns. This is the geometric property of least squares, regardless of whether the errors are Gaussian. Lecture 8 uses this same example to calculate uncertainty and diagnostics."}</MathText></p><p><Link href="/notes/finance/mathematics-in-finance/regression-inference-and-diagnostics">Continue the worked fit in Lecture 8</Link>.</p></section>
-<section id="practice" className={styles.section}><span className={styles.sectionNumber}>07 / PRACTICE</span><h2>Check your understanding</h2><p>Original exercises, separate from MIT’s assignments.</p><ol><li>For a fair walk stopped at +2 or −4, find the upper exit probability and expected duration.</li><li>In the credit example, what is the two step probability of being weak when starting good?</li><li>Is a polynomial in x necessarily a nonlinear regression model?</li></ol><details><summary>Compare your answers</summary><p>1. Probability 4/6 = 2/3; expected duration 8 steps.</p><p>2. 0.9(0.08) + 0.08(0.8) + 0.02(0) = 0.136.</p><p>3. No. Fixed polynomial terms can be columns of a linear design matrix. Nonlinearity in unknown parameters is the relevant distinction.</p></details></section>
-</FinanceLesson>;
+  return (
+    <FinanceLesson
+      number={6}
+      title="Stopping times and regression"
+      description="Use martingales to solve exit problems, describe transitions with a Markov chain, and build a linear regression model from observations."
+      instructor="Peter Kempthorne"
+      topics="Stochastic Processes I continued · Regression foundations"
+      sections={sections}
+      previous={{
+        slug: "stochastic-processes-i",
+        title: "Probability and stochastic processes",
+      }}
+      next={{
+        slug: "linear-rates-products-and-models",
+        title: "Linear rates, products and models",
+      }}
+      sources={
+        <p>
+          Course references:{" "}
+          <a href={`${course}resources/18642-lecture-6-version-3_mp4/`}>
+            Lecture 6 recording
+          </a>
+          ,{" "}
+          <a href={`${course}mit18_642_f24_lec05.pdf`}>
+            Stochastic Processes I slides
+          </a>{" "}
+          and{" "}
+          <a href={`${course}mit18_642_f24_lec06_1.pdf`}>
+            Regression Analysis slides
+          </a>
+          . <a href={`${course}pages/week-4/`}>Week 4</a> also provides high
+          yield spread fits and an ETF case study. These independent notes use
+          original calculations and proofs; regression inference continues in
+          Lecture 8.
+        </p>
+      }
+    >
+      <div className={styles.lessonOverview}>
+        <p>
+          Lecture 6 turns the martingale definitions from Lecture 5 into tools
+          for stopping and hitting problems. It then develops Markov transitions
+          and introduces regression. The proofs below make the limiting steps
+          explicit: stopping at a finite horizon is different from taking an
+          expectation at an unbounded random time.
+        </p>
+      </div>
+      <StoppingSection />
+      <ExitSection />
+      <BiasSection />
+      <MarkovSection />
+      <section id="regression" className={styles.section}>
+        <span className={styles.sectionNumber}>
+          05 / EXPLAINING AN OBSERVED RESPONSE
+        </span>
+        <h2>From processes to regression</h2>
+        <NoteBox title="Linear means linear in the coefficients">
+          <Equation>
+            {
+              "y=X\\beta+\\varepsilon,\\qquad X\\in\\mathbb R^{n\\times p},\\quad\\beta\\in\\mathbb R^p,\\quad y,\\varepsilon\\in\\mathbb R^n."
+            }
+          </Equation>
+          <p>
+            Rows are observations, columns are explanatory variables. Count an
+            intercept column of ones among the p parameters. The error is the
+            unobserved difference from the model mean; a fitted residual is
+            computed after estimation.
+          </p>
+        </NoteBox>
+        <p>
+          <MathText>
+            {
+              "A model $y_i=\\beta_0+\\beta_1t_i+\\beta_2t_i^2+\\varepsilon_i$ is still linear regression. So is a fixed frequency Fourier basis or an autoregression on observed lags. The response need not be linear in time; it must be linear in the unknown coefficients."
+            }
+          </MathText>
+        </p>
+        <p>
+          The model building cycle is to specify the response and predictors,
+          choose an estimation criterion, fit, inspect residuals, and revise
+          when the assumptions fail. Least squares is one criterion. It does not
+          by itself establish causality or validate error assumptions.
+        </p>
+        <p>
+          <MathText>
+            {
+              "For inference conditional on X, $\\mathbb E[\\varepsilon\\mid X]=0$ is an exogeneity assumption. Serially dependent outcomes, changing variance and nonstationary regressors need particular care in finance. For prediction, any lagged feature must have been observable at the forecast date."
+            }
+          </MathText>
+        </p>
+      </section>
+      <section id="fit" className={styles.section}>
+        <span className={styles.sectionNumber}>06 / FITTING A LINE</span>
+        <h2>An original least squares fit</h2>
+        <p>
+          <MathText>
+            {
+              "Take $x=(-2,-1,0,1,2)^T$ and $y=(0,0,1,2,2)^T$. Fit $y_i=a+bx_i+e_i$. The means are $\\bar x=0$ and $\\bar y=1$. Differentiating the sum of squared residuals with respect to a and b yields:"
+            }
+          </MathText>
+        </p>
+        <Equation>
+          {
+            "\\widehat b=\\frac{\\sum_i(x_i-\\bar x)(y_i-\\bar y)}{\\sum_i(x_i-\\bar x)^2}=\\frac6{10}=0.6,\\qquad\\widehat a=\\bar y-\\widehat b\\bar x=1."
+          }
+        </Equation>
+        <Equation>
+          {
+            "\\widehat y=(-0.2,0.4,1,1.6,2.2)^T,\\quad e=(0.2,-0.4,0,0.4,-0.2)^T,\\quad\\mathrm{RSS}=0.4."
+          }
+        </Equation>
+        <p>
+          <MathText>
+            {
+              "Both $\\sum_i e_i=0$ and $\\sum_i x_ie_i=0$: the residual is orthogonal to the intercept and predictor columns. This is the geometric property of least squares, regardless of whether the errors are Gaussian. Lecture 8 uses this same example to calculate uncertainty and diagnostics."
+            }
+          </MathText>
+        </p>
+        <p>
+          <Link href="/notes/finance/mathematics-in-finance/regression-inference-and-diagnostics">
+            Continue the worked fit in Lecture 8
+          </Link>
+          .
+        </p>
+      </section>
+      <section id="practice" className={styles.section}>
+        <span className={styles.sectionNumber}>07 / PRACTICE</span>
+        <h2>Check your understanding</h2>
+        <p>Original exercises, separate from MIT’s assignments.</p>
+        <ol>
+          <li>
+            For a fair walk stopped at +2 or −4, find the upper exit probability
+            and expected duration.
+          </li>
+          <li>
+            In the credit example, what is the two step probability of being
+            weak when starting good?
+          </li>
+          <li>
+            Is a polynomial in x necessarily a nonlinear regression model?
+          </li>
+        </ol>
+        <details>
+          <summary>Compare your answers</summary>
+          <p>1. Probability 4/6 = 2/3; expected duration 8 steps.</p>
+          <p>2. 0.9(0.08) + 0.08(0.8) + 0.02(0) = 0.136.</p>
+          <p>
+            3. No. Fixed polynomial terms can be columns of a linear design
+            matrix. Nonlinearity in unknown parameters is the relevant
+            distinction.
+          </p>
+        </details>
+      </section>
+    </FinanceLesson>
+  );
 }

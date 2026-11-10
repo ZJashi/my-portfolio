@@ -1,21 +1,167 @@
 import { FinanceLesson } from "@/components/notes/FinanceLesson";
-import { Equation, MathText } from "@/components/notes/Equation";
 import { NoteBox } from "@/components/notes/NoteBox";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
+import { course, sections } from "./lesson-data";
+import { RiskSection } from "./risk-section";
+import { EsSection } from "./es-section";
+import { ScalingSection } from "./scaling-section";
+import { NetworkSection } from "./network-section";
 
-export const metadata = { title: "Counterparty Risk Optimisation | MIT 18.642 Lecture 10 | Zura Jashi", description: "Loss conventions, VaR, expected shortfall, margin, convex scenario optimisation and risk preserving network trades." };
-const course = "https://ocw.mit.edu/courses/18-642-topics-in-mathematics-with-applications-in-finance-fall-2024/";
-const sections = [["exposure","Exposure and collateral"],["risk","VaR and expected shortfall"],["scaling","Horizon and model risk"],["es","Optimising expected shortfall"],["network","Network margin optimisation"],["implementation","Feasibility and fairness"],["practice","Practice"]] as const;
+export const metadata = {
+  title: "Counterparty Risk Optimisation | MIT 18.642 Lecture 10 | Zura Jashi",
+  description:
+    "Loss conventions, VaR, expected shortfall, margin, convex scenario optimisation and risk preserving network trades.",
+};
 
 export default function LectureTen() {
-return <FinanceLesson number={10} title="Counterparty risk optimisation" description="Measure potential losses, distinguish current exposure from future margin risk, and reduce network costs while preserving agreed portfolio constraints." instructor="James Shepherd" topics="Guest lecture · Quantile Technologies, LSEG · Fall 2024" sections={sections} previous={{slug:"pca-in-finance",title:"PCA in finance"}} next={{slug:"regression-regularization-and-regime-changes",title:"Regression, regularisation and regime changes"}} sources={<p>Sources: <a href={`${course}resources/18642-lecture-10-version-2_mp4/`}>Lecture 10 recording</a> and <a href={`${course}mit18_642_f24_lec10.pdf`}>Counterparty Risk Optimization slides</a>. Independent study notes with original discrete loss and network examples. The lecture’s margin and regulatory discussion is historical course context; the simplified objectives here are not implementations of a current CCP margin model or ISDA SIMM.</p>}>
-<div className={styles.lessonOverview}><p>The lecture connects risk measures with initial margin and constrained optimisation across counterparties. The worked examples below use an explicit loss sign convention and discrete distributions. This matters because a quantile is not an upper bound on losses, and a tail average needs care when probability mass sits exactly at the quantile.</p></div>
-<section id="exposure" className={styles.section}><span className={styles.sectionNumber}>01 / WHAT CAN BE LOST?</span><h2>Exposure and collateral</h2><p>Market risk concerns changing prices; counterparty risk concerns loss when a trading partner fails to perform. Netting, collateral and central clearing can change exposure, but they do not make all market, liquidity or operational risk disappear.</p><NoteBox title="Variation margin and initial margin cover different intervals"><p><strong>Variation margin</strong> addresses current mark to market exposure under the agreement. <strong>Initial margin</strong> addresses possible adverse changes during the interval needed to close or replace a position after default, the margin period of risk.</p></NoteBox><p><strong>Original example.</strong> A derivative is worth +5 million to a bank, which holds 5 million of variation margin. If its replacement value rises to 7 million before closeout after a counterparty default, the simplified incremental exposure is 2 million. An initial margin buffer may cover some of that change. Actual recovery depends on the closeout and collateral arrangements.</p><p>Current PV, future exposure and notional are different quantities. A large notional can have near zero PV at inception while retaining substantial risk. Netting applies within the relevant enforceable netting set, rather than automatically across every trade a bank holds.</p></section>
-<section id="risk" className={styles.section}><span className={styles.sectionNumber}>02 / FIX A LOSS CONVENTION</span><h2>VaR and expected shortfall</h2><p><MathText>{"Let L be loss over a stated horizon, with larger positive values worse. Use confidence $\\alpha\\in(0,1)$ and define the lower quantile and tail average:"}</MathText></p><NoteBox kind="definition" title="Quantile versus worst tail average"><Equation>{"\\operatorname{VaR}_\\alpha(L)=\\inf\\{\\ell:\\Pr(L\\le\\ell)\\ge\\alpha\\},\\qquad\\operatorname{ES}_\\alpha(L)=\\frac1{1-\\alpha}\\int_\\alpha^1\\operatorname{VaR}_u(L)\\,du."}</Equation><p>Expected shortfall assumes an integrable loss here. For a continuous distribution it matches the average loss in the worst 1−α fraction. The quantile integral also handles atoms correctly.</p></NoteBox><p>VaR does not bound the worst possible loss. Neither is it the mean of losses. With atoms, conditioning simply on L greater than or equal to VaR can average the wrong amount of probability mass.</p><h3>Original discrete counterexample to VaR diversification</h3><p>Each of two independent portfolios loses 100 with probability 3%, otherwise zero. At 95% confidence each has VaR 0 and ES 60: its 3% mass at 100 is averaged with 2% zero losses to form the worst 5%.</p><Equation>{"\\Pr(L_A+L_B=0)=0.97^2=0.9409,\\quad\\Pr(L_A+L_B=100)=0.0582,\\quad\\Pr(L_A+L_B=200)=0.0009."}</Equation><p>The combined VaR is 100, greater than the sum of the separate VaRs, which is zero. Its ES is 101.8, below the sum of the separate ES values, 120.</p><Equation>{"\\operatorname{ES}_{0.95}(L_A+L_B)=\\frac{0.0009(200)+0.0491(100)}{0.05}=101.8."}</Equation><p><MathText>{"For losses, coherence includes monotonicity, positive homogeneity, cash translation $\\rho(L+c)=\\rho(L)+c$ and subadditivity $\\rho(L_1+L_2)\\le\\rho(L_1)+\\rho(L_2)$. ES has these properties on the appropriate integrable domain; VaR can violate subadditivity, as this example shows."}</MathText></p></section>
-<section id="scaling" className={styles.section}><span className={styles.sectionNumber}>03 / HOW MUCH HISTORY AND HOW MUCH TIME?</span><h2>Horizon and model risk</h2><p><MathText>{"For normally distributed loss $L\\sim N(\\mu,\\sigma^2)$, write $z_\\alpha=\\Phi^{-1}(\\alpha)$. Then:"}</MathText></p><Equation>{"\\operatorname{VaR}_\\alpha=\\mu+\\sigma z_\\alpha,\\qquad\\operatorname{ES}_\\alpha=\\mu+\\sigma\\frac{\\phi(z_\\alpha)}{1-\\alpha}."}</Equation><p>Historical simulation instead revalues the current portfolio under selected past shocks. Choices of history window, shock scaling, weights and revaluation method affect the estimate. A model is not validated merely by reproducing losses on its training period.</p><h3>Original time scaling check</h3><p><MathText>{"If daily losses are independent normal with mean $\\mu$ and variance $\\sigma^2$, a T day sum has mean $T\\mu$ and variance $T\\sigma^2$. Square root scaling applies to the standard deviation term; a nonzero mean scales linearly. With two daily losses correlated at 0.25, their total variance is $2\\sigma^2(1+0.25)=2.5\\sigma^2$, rather than $2\\sigma^2$."}</MathText></p><p><MathText>{"For a stationary sequence with autocovariance $\\gamma_k$, $\\operatorname{Var}(\\sum_{t=1}^T L_t)=T\\gamma_0+2\\sum_{k=1}^{T-1}(T-k)\\gamma_k$. Dependence, fat tails and changing volatility can all undermine naive horizon extrapolation."}</MathText></p><p>For linear exposure δ and factor covariance C, loss variance is δᵀCδ. With material nonlinear payoffs, a Gaussian factor model plus a quadratic payoff is generally not itself Gaussian; moment matching is an approximation.</p></section>
-<section id="es" className={styles.section}><span className={styles.sectionNumber}>04 / A TAIL MEASURE AS AN OBJECTIVE</span><h2>Optimising expected shortfall</h2><NoteBox kind="result" title="Expected shortfall through a threshold variable"><Equation>{"\\operatorname{ES}_\\alpha(L(x))=\\min_{\\eta\\in\\mathbb R}\\left[\\eta+\\frac{\\mathbb E[(L(x)-\\eta)^+]}{1-\\alpha}\\right]."}</Equation><p>The threshold η is an optimisation variable. With discrete scenarios the objective is convex but can have kinks; differentiability is not required.</p></NoteBox><p><MathText>{"For affine scenario losses $\\ell_s(x)$ and probabilities $p_s$, introduce nonnegative excess variables $u_s$. The optimisation becomes:"}</MathText></p><Equation>{"\\min_{x,\\eta,u}\\;\\eta+\\frac1{1-\\alpha}\\sum_s p_su_s,\\qquad u_s\\ge\\ell_s(x)-\\eta,\\quad u_s\\ge0."}</Equation><p>With linear constraints on x this is a linear program. More generally, convex scenario loss functions preserve convexity with a convex feasible set. Transaction lots or discrete choices can turn it into a mixed integer problem.</p><h3>Original two asset example</h3><p><MathText>{"Allocate fractions x and $1-x$, with $0\\le x\\le1$. In two equally likely scenarios, the loss is $10x$ or $10(1-x)$. At confidence 50%, ES is the larger of those losses. Minimise $\\max(10x,10(1-x))$ by equalising them: $x=1/2$, ES = 5. At either endpoint ES = 10."}</MathText></p><p>This demonstrates convex optimisation, not a universal diversification recommendation. The model’s scenarios, feasible allocations and loss definition determine the result.</p></section>
-<section id="network" className={styles.section}><span className={styles.sectionNumber}>05 / KEEP NET RISK, CHANGE ITS DISTRIBUTION</span><h2>Network margin optimisation</h2><p>The lecture considers trades that reduce aggregate initial margin while preserving agreed participant exposures. A trade seen from one party has the opposite sign from the other. Preserving each party’s aggregate risk still allows exposures to be redistributed among counterparties.</p><Equation>{"x_{ab}=-x_{ba},\\qquad\\sum_b x_{ab}=0,\\qquad d_{ab}=d^0_{ab}+B_{ab}x_{ab}."}</Equation><p><MathText>{"A simplified objective is $\\min_x\\sum_{a,b}\\mathrm{IM}_{ab}(d_{ab})$, with the summation convention stated to avoid counting the same collateral obligation twice. Add risk tolerances, counterparty limits, eligibility and no worse off constraints as needed. A nonlinear margin model does not automatically make the problem convex."}</MathText></p><h3>Original three party circulation</h3><p>Measure one synthetic exposure on oriented edges A→B, B→C and C→A as 8, 5 and 2. Subtracting the same t from every edge preserves each node’s outgoing minus incoming net. The illustrative gross exposure objective is:</p><Equation>{"g(t)=|8-t|+|5-t|+|2-t|."}</Equation><p>The median t = 5 minimises this objective. Edges become 3, 0 and −3, reducing gross exposure from 15 to 6. Net exposures remain A: +6, B: −3, C: −3. The negative last edge represents the reversed direction.</p><p>Absolute exposure is only a toy margin proxy. Actual netting sets, risk buckets, concentration terms and collateral rules can change both the objective and feasibility. Reduced collateral requirements do not by themselves mean that all economic or systemic risk has fallen.</p></section>
-<section id="implementation" className={styles.section}><span className={styles.sectionNumber}>06 / A SOLUTION MUST SURVIVE IMPLEMENTATION</span><h2>Feasibility and fairness</h2><p>Practical optimisation also needs executable trade sizes, reliable sensitivities, acceptable counterparty changes and an allocation of savings. Sparse structure can make a large problem tractable; nearly dependent risk factors can make small data perturbations produce unstable trades.</p><p><strong>Original rounding example.</strong> A continuous solution requests 0.49 million units on an edge. Rounding it to zero and rounding a paired offset to 1 million can break net risk constraints. Rounding is a new constrained problem, not a cosmetic formatting step.</p><ol><li>Verify trade symmetry, risk tolerances and net exposure preservation after implementation adjustments.</li><li>Recompute margin using the intended model, rather than relying only on a local proxy.</li><li>Separate aggregate savings from each participant’s savings.</li><li>Among solutions with comparable cost, consider trade count, concentration and fairness objectives.</li></ol><p>A two stage approach can first minimise total margin and then choose among equally good solutions using a fairness criterion. The second stage must retain the first stage’s feasibility and agreed cost tolerance.</p></section>
-<section id="practice" className={styles.section}><span className={styles.sectionNumber}>07 / PRACTICE</span><h2>Check your understanding</h2><p>Original exercises, separate from MIT’s assignments.</p><ol><li>For losses 0, 1, 2, 3 and 10, each with probability 20%, find 80% VaR and ES.</li><li>Why does expected shortfall use slack variables in the scenario formulation?</li><li>In the three party example, what is node A’s net after the circulation?</li></ol><details><summary>Compare your answers</summary><p>1. VaR is 3 under the stated lower quantile convention; ES is 10, the worst 20% loss.</p><p>2. The inequalities represent the positive part as a linear epigraph, avoiding a nonsmooth maximum in the objective.</p><p>3. 3 − (−3) = 6, unchanged.</p></details></section>
-</FinanceLesson>;
+  return (
+    <FinanceLesson
+      number={10}
+      title="Counterparty risk optimisation"
+      description="Measure potential losses, distinguish current exposure from future margin risk, and reduce network costs while preserving agreed portfolio constraints."
+      instructor="James Shepherd"
+      topics="Guest lecture · Quantile Technologies, LSEG · Fall 2024"
+      sections={sections}
+      previous={{ slug: "pca-in-finance", title: "PCA in finance" }}
+      next={{
+        slug: "regression-regularization-and-regime-changes",
+        title: "Regression, regularisation and regime changes",
+      }}
+      sources={
+        <p>
+          Sources:{" "}
+          <a href={`${course}resources/18642-lecture-10-version-2_mp4/`}>
+            Lecture 10 recording
+          </a>{" "}
+          and{" "}
+          <a href={`${course}mit18_642_f24_lec10.pdf`}>
+            Counterparty Risk Optimization slides
+          </a>
+          . Independent study notes with original discrete loss and network
+          examples. The lecture’s margin and regulatory discussion is historical
+          course context; the simplified objectives here are not implementations
+          of a current CCP margin model or ISDA SIMM.
+        </p>
+      }
+    >
+      <div className={styles.lessonOverview}>
+        <p>
+          The lecture connects risk measures with initial margin and constrained
+          optimisation across counterparties. The worked examples below use an
+          explicit loss sign convention and discrete distributions. This matters
+          because a quantile is not an upper bound on losses, and a tail average
+          needs care when probability mass sits exactly at the quantile.
+        </p>
+      </div>
+      <section id="exposure" className={styles.section}>
+        <span className={styles.sectionNumber}>01 / WHAT CAN BE LOST?</span>
+        <h2>Exposure and collateral</h2>
+        <p>
+          Market risk concerns changing prices; counterparty risk concerns loss
+          when a trading partner fails to perform. Netting, collateral and
+          central clearing can change exposure, but they do not make all market,
+          liquidity or operational risk disappear.
+        </p>
+        <NoteBox title="Variation margin and initial margin cover different intervals">
+          <p>
+            <strong>Variation margin</strong> addresses current mark to market
+            exposure under the agreement. <strong>Initial margin</strong>{" "}
+            addresses possible adverse changes during the interval needed to
+            close or replace a position after default, the margin period of
+            risk.
+          </p>
+        </NoteBox>
+        <p>
+          <strong>Original example.</strong> A derivative is worth +5 million to
+          a bank, which holds 5 million of variation margin. If its replacement
+          value rises to 7 million before closeout after a counterparty default,
+          the simplified incremental exposure is 2 million. An initial margin
+          buffer may cover some of that change. Actual recovery depends on the
+          closeout and collateral arrangements.
+        </p>
+        <p>
+          Current PV, future exposure and notional are different quantities. A
+          large notional can have near zero PV at inception while retaining
+          substantial risk. Netting applies within the relevant enforceable
+          netting set, rather than automatically across every trade a bank
+          holds.
+        </p>
+      </section>
+      <RiskSection />
+      <ScalingSection />
+      <EsSection />
+      <NetworkSection />
+      <section id="implementation" className={styles.section}>
+        <span className={styles.sectionNumber}>
+          06 / A SOLUTION MUST SURVIVE IMPLEMENTATION
+        </span>
+        <h2>Feasibility and fairness</h2>
+        <p>
+          Practical optimisation also needs executable trade sizes, reliable
+          sensitivities, acceptable counterparty changes and an allocation of
+          savings. Sparse structure can make a large problem tractable; nearly
+          dependent risk factors can make small data perturbations produce
+          unstable trades.
+        </p>
+        <p>
+          <strong>Original rounding example.</strong> A continuous solution
+          requests 0.49 million units on an edge. Rounding it to zero and
+          rounding a paired offset to 1 million can break net risk constraints.
+          Rounding is a new constrained problem, not a cosmetic formatting step.
+        </p>
+        <ol>
+          <li>
+            Verify trade symmetry, risk tolerances and net exposure preservation
+            after implementation adjustments.
+          </li>
+          <li>
+            Recompute margin using the intended model, rather than relying only
+            on a local proxy.
+          </li>
+          <li>Separate aggregate savings from each participant’s savings.</li>
+          <li>
+            Among solutions with comparable cost, consider trade count,
+            concentration and fairness objectives.
+          </li>
+        </ol>
+        <p>
+          A two stage approach can first minimise total margin and then choose
+          among equally good solutions using a fairness criterion. The second
+          stage must retain the first stage’s feasibility and agreed cost
+          tolerance.
+        </p>
+      </section>
+      <section id="practice" className={styles.section}>
+        <span className={styles.sectionNumber}>07 / PRACTICE</span>
+        <h2>Check your understanding</h2>
+        <p>Original exercises, separate from MIT’s assignments.</p>
+        <ol>
+          <li>
+            For losses 0, 1, 2, 3 and 10, each with probability 20%, find 80%
+            VaR and ES.
+          </li>
+          <li>
+            Why does expected shortfall use slack variables in the scenario
+            formulation?
+          </li>
+          <li>
+            In the three party example, what is node A’s net after the
+            circulation?
+          </li>
+        </ol>
+        <details>
+          <summary>Compare your answers</summary>
+          <p>
+            1. VaR is 3 under the stated lower quantile convention; ES is 10,
+            the worst 20% loss.
+          </p>
+          <p>
+            2. The inequalities represent the positive part as a linear
+            epigraph, avoiding a nonsmooth maximum in the objective.
+          </p>
+          <p>3. 3 − (−3) = 6, unchanged.</p>
+        </details>
+      </section>
+    </FinanceLesson>
+  );
 }

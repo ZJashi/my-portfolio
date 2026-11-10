@@ -2,25 +2,185 @@ import { LessonNavigation } from "@/components/notes/LessonNavigation";
 import Link from "next/link";
 import { Equation, MathText } from "@/components/notes/Equation";
 import { NoteBox } from "@/components/notes/NoteBox";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
+import { RememberSection } from "./remember-section";
+import { ContinuousExampleSection } from "./continuous-example-section";
+import { ClosedSubspacesSection } from "./closed-subspaces-section";
+import { SeparableDualSection } from "./separable-dual-section";
+import { EmbeddingSection } from "./embedding-section";
+import { ReflexivitySection } from "./reflexivity-section";
+import { NonseparableDualSection } from "./nonseparable-dual-section";
 
-export const metadata = { title: "Reflexive spaces | Functional Analysis | Zura Jashi", description: "The canonical bidual embedding, reflexivity, norm attainment, separability, and closed subspaces of reflexive spaces." };
+export const metadata = {
+  title: "Reflexive spaces | Functional Analysis | Zura Jashi",
+  description:
+    "The canonical bidual embedding, reflexivity, norm attainment, separability, and closed subspaces of reflexive spaces.",
+};
 export default function Lesson() {
-return <div className={styles.page}>
-<nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes">Notes</Link><span>/</span><Link href="/notes/mathematics">Mathematics</Link><span>/</span><Link href="/notes/mathematics/functional-analysis">Functional Analysis</Link><span>/</span><span>Lecture 14</span></nav>
-<header className={styles.readingHeader}><p className={styles.subjectKicker}>14 / FUNCTIONAL ANALYSIS</p><h1 className={styles.subjectTitle}>Reflexive spaces</h1><p className={styles.subjectDescription}>The canonical bidual embedding, reflexivity, norm attainment, separability, and closed subspaces of reflexive spaces.</p><div className={styles.readingMeta}><span>Lecture 14</span><span>Duality / Hahn–Banach</span></div><p className={styles.lessonSourceCredit}>Source: <a href="https://www.youtube.com/watch?v=I-yCusXR_24">Claudio Landim · IMPA lecture 14</a>. Adapted from captions; board notation unverified.</p></header>
-<div className={styles.lessonLayout}><article className={styles.article}><div className={styles.lessonOverview}><p><MathText>{"A vector $x$ determines an evaluation functional on $X'$. Reflexivity asks whether this accounts for every element of the bidual. The answer connects norm attainment, separability, and the behavior of closed subspaces."}</MathText></p></div>
-<section id="bidual" className={styles.section}><span className={styles.sectionNumber}>01 / LECTURE 14</span><h2>The dual of the dual</h2><p><MathText>{"For a normed linear space $X$ over $\\mathbb K$, its dual $X'$ consists of bounded linear functionals $\\ell:X\\to\\mathbb K$. Since $X'$ is itself normed, we may take its dual again. The resulting bidual $X''=(X')'$ consists of bounded linear maps $F:X'\\to\\mathbb K$, with norm"}</MathText></p><Equation>{"\\|F\\|=\\sup_{\\|\\ell\\|\\leq1}|F(\\ell)|."}</Equation><p><MathText>{"Keep the domains separate: $x\\in X$ is a vector, $\\ell\\in X'$ acts on vectors, and $F\\in X''$ acts on functionals. Both $X'$ and $X''$ are Banach spaces, even when $X$ is incomplete."}</MathText></p></section>
-<section id="embedding" className={styles.section}><span className={styles.sectionNumber}>02 / LECTURE 14</span><h2>Evaluation embeds X into its bidual</h2><p><MathText>{"Fix $x\\in X$ and define $Jx$ by evaluating each functional at that vector:"}</MathText></p><Equation>{"(Jx)(\\ell)=\\ell(x)\\qquad(\\ell\\in X')."}</Equation><p><MathText>{"This is linear in $\\ell$, because $(Jx)(\\alpha\\ell+\\beta m)=\\alpha\\ell(x)+\\beta m(x)$. It is bounded since $|\\ell(x)|\\leq\\|\\ell\\|\\|x\\|$, giving $\\|Jx\\|\\leq\\|x\\|$. The reverse inequality is exactly the dual formula for the vector norm from Lecture 13:"}</MathText></p><Equation>{"\\|Jx\\|=\\sup_{\\|\\ell\\|\\leq1}|\\ell(x)|=\\|x\\|."}</Equation><NoteBox kind="result" title="Canonical isometric embedding"><p><MathText>{"The map $J:X\\to X''$ is linear, injective and preserves all distances."}</MathText></p><Equation>{"J(\\alpha x+\\beta y)=\\alpha Jx+\\beta Jy,\\qquad \\|Jx-Jy\\|=\\|x-y\\|."}</Equation></NoteBox><p><MathText>{"Linearity in $x$ follows by testing against every $\\ell$. Injectivity follows from $\\|Jx\\|=\\|x\\|$. Thus $X$ can always be identified with the particular subspace $J(X)$ of $X''$. This identification is canonical: it involves no choice of basis."}</MathText></p></section>
-<section id="reflexivity" className={styles.section}><span className={styles.sectionNumber}>03 / LECTURE 14</span><h2>Reflexivity and basic examples</h2><NoteBox kind="definition" title="Reflexive space"><p><MathText>{"A normed space is reflexive if the canonical embedding is onto. Every bounded linear functional on $X'$ must therefore be evaluation at a vector of $X$."}</MathText></p><Equation>{"J(X)=X''\\quad\\Longleftrightarrow\\quad \\forall F\\in X''\\ \\exists x\\in X:\\ F(\\ell)=\\ell(x)\\ \\forall\\ell\\in X'."}</Equation></NoteBox><p><MathText>{"Writing $X=X''$ is shorthand for this canonical identification, rather than an arbitrary isomorphism between the spaces. Reflexivity implies completeness, because $J$ is an onto isometry to the Banach space $X''$."}</MathText></p><p><MathText>{"Every finite dimensional normed space is reflexive. If $\\dim X=n$, every linear functional is continuous and $\\dim X'=\\dim X''=n$. The injective map $J:X\\to X''$ is consequently onto."}</MathText></p><p><MathText>{"A central infinite dimensional example is $L^p(\\Omega,\\mu)$ for $1<p<\\infty$. In the usual measure-theoretic setting where the integral duality theorem applies, for example a sigma-finite measure space, $(L^p)'$ is isometrically $L^q$ with $1/p+1/q=1$, through $\\ell_g(f)=\\int fg\\,d\\mu$ in the real case. Applying the same theorem to $L^q$ recovers $L^p$, and the recovery agrees with $J$. This uses the measure-theory duality theorem, rather than proving it here. The endpoints $p=1$ and $p=\\infty$ are not included."}</MathText></p></section>
-<section id="attainment" className={styles.section}><span className={styles.sectionNumber}>04 / LECTURE 14</span><h2>A consequence: functionals attain their norms</h2><p><MathText>{"Assume $X$ is a nonzero real reflexive space. Apply the norming-functional result to the normed space $X'$: for a nonzero $\\ell\\in X'$, there exists $F\\in X''$ with $\\|F\\|=1$ and $F(\\ell)=\\|\\ell\\|$. By reflexivity, $F=Jx$ for some $x\\in X$, and the isometry gives $\\|x\\|=1$. Hence"}</MathText></p><NoteBox kind="result" title="Norm attainment in a reflexive space"><p><MathText>{"Every nonzero continuous linear functional on a reflexive real normed space attains its norm at a unit vector."}</MathText></p><Equation>{"\\ell(x)=\\|\\ell\\|\\qquad\\text{for some }x\\in X,\\ \\|x\\|=1."}</Equation></NoteBox><p><MathText>{"This is a necessary consequence of reflexivity. To prove a space is not reflexive, it is enough to produce one bounded functional whose supremum over unit vectors is never attained. The zero functional is harmless: on a nonzero space any unit vector attains its zero norm."}</MathText></p></section>
-<section id="continuous-example" className={styles.section}><span className={styles.sectionNumber}>05 / LECTURE 14</span><h2>A functional on C([-1,1]) that never attains its norm</h2><p><MathText>{"Let $C=C([-1,1];\\mathbb R)$ with the supremum norm, and define"}</MathText></p><Equation>{"\\ell(g)=\\int_{-1}^{0}g(t)\\,dt-\\int_0^1g(t)\\,dt."}</Equation><p><MathText>{"It is linear, and $|\\ell(g)|\\leq2\\|g\\|_\\infty$, so $\\|\\ell\\|\\leq2$. To obtain the matching lower bound, for $0<\\varepsilon<1$ use the continuous function"}</MathText></p><Equation>{"g_\\varepsilon(t)=\\begin{cases}1,&-1\\leq t\\leq-\\varepsilon,\\\\-t/\\varepsilon,&|t|\\leq\\varepsilon,\\\\-1,&\\varepsilon\\leq t\\leq1.\\end{cases}"}</Equation><p><MathText>{"It has supremum norm one. The outer intervals alone give $\\ell(g_\\varepsilon)\\geq2(1-\\varepsilon)$; evaluating the two triangular pieces more precisely gives $\\ell(g_\\varepsilon)=2-\\varepsilon$. Letting $\\varepsilon\\downarrow0$ proves $\\|\\ell\\|=2$."}</MathText></p><p><MathText>{"Now suppose $\\|g\\|_\\infty\\leq1$ and $\\ell(g)=2$. Then"}</MathText></p><Equation>{"0=2-\\ell(g)=\\int_{-1}^{0}(1-g(t))\\,dt+\\int_0^1(1+g(t))\\,dt."}</Equation><p><MathText>{"Both integrands are nonnegative and continuous. Zero integral forces $g=1$ throughout $[-1,0]$ and $g=-1$ throughout $[0,1]$, giving contradictory values at zero. Thus the positive value $2$ is never attained. Replacing $g$ by $-g$ rules out $-2$ as well."}</MathText></p><NoteBox kind="result" title="The continuous-function space is not reflexive"><p><MathText>{"The functional has norm two but $|\\ell(g)|<2$ for every unit vector $g$. Therefore $C([-1,1])$ is not reflexive."}</MathText></p></NoteBox></section>
-<section id="separable-dual" className={styles.section}><span className={styles.sectionNumber}>06 / LECTURE 14</span><h2>A separable dual forces the original space to be separable</h2><NoteBox kind="result" title="Separability theorem"><p><MathText>{"If the continuous dual $X'$ of a real normed space is separable in its norm, then $X$ is separable in its norm. Completeness is unnecessary."}</MathText></p></NoteBox><p><MathText>{"The zero-space case is immediate, so assume $X\\neq\\{0\\}$. Choose a countable norm-dense family $(\\ell_n)$ in $X'$. For each nonzero $\\ell_n$, choose $z_n\\in X$ with $\\|z_n\\|=1$ and $\\ell_n(z_n)\\geq\\frac12\\|\\ell_n\\|$. Such a vector exists by the definition of the supremum, with its sign reversed if necessary. For $\\ell_n=0$, choose any unit vector."}</MathText></p><p><MathText>{"Let $Y=\\overline{\\operatorname{span}}\\{z_n:n\\geq1\\}$. Suppose $Y\\neq X$. Separation from a proper closed subspace gives a functional $\\ell\\in X'$ that vanishes on $Y$ and has norm one. Choose $n$ such that $\\|\\ell_n-\\ell\\|<\\varepsilon$. The triangle inequality gives the lower bound $\\|\\ell_n\\|>1-\\varepsilon$. On the other hand, $\\ell(z_n)=0$, so"}</MathText></p><Equation>{"\\|\\ell_n\\|\\leq2\\ell_n(z_n)=2(\\ell_n-\\ell)(z_n)\\leq2\\|\\ell_n-\\ell\\|<2\\varepsilon."}</Equation><p><MathText>{"These inequalities contradict each other when $\\varepsilon<1/3$. Therefore $Y=X$. It remains to turn the countable generators into a countable dense set: take all finite rational linear combinations"}</MathText></p><Equation>{"D=\\left\\{\\sum_{j=1}^m q_jz_{n_j}:m\\geq1,\\ q_j\\in\\mathbb Q,\\ n_j\\in\\mathbb N\\right\\}."}</Equation><p><MathText>{"This is countable, since it is a countable union of sets indexed by finite tuples from countable sets. Approximate each coefficient in a finite real linear combination by rationals; the error is at most the sum of coefficient errors because $\\|z_n\\|=1$. Thus $\\overline D=Y=X$."}</MathText></p></section>
-<section id="nonseparable-dual" className={styles.section}><span className={styles.sectionNumber}>07 / LECTURE 14</span><h2>A separable space can have a nonseparable dual</h2><p><MathText>{"The space $C([-1,1])$ is separable. One explicit dense family consists of piecewise linear functions on uniform rational grids with rational values at the grid points. Uniform continuity and rational approximation give density, and the collection is countable."}</MathText></p><p><MathText>{"Its dual is not separable. For each $t\\in[-1,1]$, let $\\delta_t(g)=g(t)$. Each evaluation functional has norm one. For $s\\neq t$,"}</MathText></p><Equation>{"\\|\\delta_s-\\delta_t\\|=2."}</Equation><p><MathText>{"The upper bound follows from $|g(s)-g(t)|\\leq2\\|g\\|_\\infty$. For the lower bound, choose a continuous function bounded by one with $g(s)=1$ and $g(t)=-1$, for example linear between the two points and constant outside them. This gives an uncountable family whose distinct members are distance two apart."}</MathText></p><p><MathText>{"The open balls of radius $1/2$ about these functionals are disjoint. A dense set would need a distinct point in each ball, so no countable dense set exists. This also gives a second proof of nonreflexivity: if $C$ were reflexive, $C''$ would be separable because $C$ is; the separability theorem applied to $C'$ would force $C'$ to be separable, a contradiction."}</MathText></p></section>
-<section id="closed-subspaces" className={styles.section}><span className={styles.sectionNumber}>08 / LECTURE 14</span><h2>Closed subspaces of reflexive spaces are reflexive</h2><NoteBox kind="result" title="Inheritance by closed subspaces"><p><MathText>{"Let $X$ be a reflexive real normed space and $Y\\subseteq X$ a closed linear subspace. Then $Y$ is reflexive."}</MathText></p></NoteBox><p><MathText>{"Fix $F\\in Y''$. We need to find $z\\in Y$ such that $F(m)=m(z)$ for every $m\\in Y'$. Restriction is the bounded linear map $R:X'\\to Y'$ defined by $R\\ell=\\ell|_Y$, with $\\|R\\ell\\|\\leq\\|\\ell\\|$. Define"}</MathText></p><Equation>{"F_0(\\ell)=F(R\\ell)\\qquad(\\ell\\in X')."}</Equation><p><MathText>{"It is linear, and $|F_0(\\ell)|\\leq\\|F\\|\\|R\\ell\\|\\leq\\|F\\|\\|\\ell\\|$, so $F_0\\in X''$. Reflexivity of $X$ gives $z\\in X$ such that $F_0(\\ell)=\\ell(z)$ for all $\\ell\\in X'$."}</MathText></p><p><MathText>{"The crucial step is to show $z\\in Y$. If not, closedness of $Y$ and Hahn–Banach separation supply $\\ell\\in X'$ with $\\ell|_Y=0$ but $\\ell(z)\\neq0$. Yet $F_0(\\ell)=F(0)=0$, while the representation gives $F_0(\\ell)=\\ell(z)\\neq0$, a contradiction."}</MathText></p><p><MathText>{"Finally, take any $m\\in Y'$. Extend it by Hahn–Banach to $\\widehat m\\in X'$. Since $z\\in Y$,"}</MathText></p><Equation>{"F(m)=F(R\\widehat m)=F_0(\\widehat m)=\\widehat m(z)=m(z)."}</Equation><p><MathText>{"The result does not depend on which extension is chosen: all extensions restrict to $m$, and all agree at $z\\in Y$. Thus every $F\\in Y''$ is evaluation at a vector of $Y$, proving reflexivity. Closedness entered exactly where separation forced the representing vector back into $Y$."}</MathText></p></section>
-<section id="remember" className={styles.section}><span className={styles.sectionNumber}>09 / REVISION</span><h2>Main results to remember</h2><NoteBox kind="definition" title="Bidual and reflexivity"><ul className={styles.takeaways}><li><strong>Canonical embedding.</strong> <MathText>{"$(Jx)(\\ell)=\\ell(x)$ and $\\|Jx\\|=\\|x\\|$."}</MathText></li><li><strong>Reflexivity.</strong> <MathText>{"$J$ is onto: every element of $X''$ comes from a vector of $X$. Reflexive spaces are complete."}</MathText></li><li><strong>Examples.</strong> <MathText>{"Finite dimensional spaces and $L^p$ for $1<p<\\infty$ are reflexive; the latter uses integral duality."}</MathText></li></ul></NoteBox><NoteBox kind="result" title="Consequences and counterexamples"><ul className={styles.takeaways}><li><strong>Norm attainment.</strong> <MathText>{"In a real reflexive space every nonzero bounded functional attains its norm at a unit vector."}</MathText></li><li><strong>Continuous functions.</strong> <MathText>{"$C([-1,1])$ is not reflexive: the signed integral example has norm two but never attains it."}</MathText></li><li><strong>Separability.</strong> <MathText>{"$X'$ separable implies $X$ separable. The converse fails, as the evaluation functionals in $C([-1,1])'$ demonstrate."}</MathText></li><li><strong>Closed subspaces.</strong> <MathText>{"A closed linear subspace of a reflexive space is reflexive. Use restriction, ambient reflexivity, separation, and Hahn–Banach extension."}</MathText></li></ul></NoteBox></section>
+  return (
+    <div className={styles.page}>
+      <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
+        <Link href="/notes">Notes</Link>
+        <span>/</span>
+        <Link href="/notes/mathematics">Mathematics</Link>
+        <span>/</span>
+        <Link href="/notes/mathematics/functional-analysis">
+          Functional Analysis
+        </Link>
+        <span>/</span>
+        <span>Lecture 14</span>
+      </nav>
+      <header className={styles.readingHeader}>
+        <p className={styles.subjectKicker}>14 / FUNCTIONAL ANALYSIS</p>
+        <h1 className={styles.subjectTitle}>Reflexive spaces</h1>
+        <p className={styles.subjectDescription}>
+          The canonical bidual embedding, reflexivity, norm attainment,
+          separability, and closed subspaces of reflexive spaces.
+        </p>
+        <div className={styles.readingMeta}>
+          <span>Lecture 14</span>
+          <span>Duality / Hahn–Banach</span>
+        </div>
+        <p className={styles.lessonSourceCredit}>
+          Source:{" "}
+          <a href="https://www.youtube.com/watch?v=I-yCusXR_24">
+            Claudio Landim · IMPA lecture 14
+          </a>
+          . Adapted from captions; board notation unverified.
+        </p>
+      </header>
+      <div className={styles.lessonLayout}>
+        <article className={styles.article}>
+          <div className={styles.lessonOverview}>
+            <p>
+              <MathText>
+                {
+                  "A vector $x$ determines an evaluation functional on $X'$. Reflexivity asks whether this accounts for every element of the bidual. The answer connects norm attainment, separability, and the behavior of closed subspaces."
+                }
+              </MathText>
+            </p>
+          </div>
+          <section id="bidual" className={styles.section}>
+            <span className={styles.sectionNumber}>01 / LECTURE 14</span>
+            <h2>The dual of the dual</h2>
+            <p>
+              <MathText>
+                {
+                  "For a normed linear space $X$ over $\\mathbb K$, its dual $X'$ consists of bounded linear functionals $\\ell:X\\to\\mathbb K$. Since $X'$ is itself normed, we may take its dual again. The resulting bidual $X''=(X')'$ consists of bounded linear maps $F:X'\\to\\mathbb K$, with norm"
+                }
+              </MathText>
+            </p>
+            <Equation>
+              {"\\|F\\|=\\sup_{\\|\\ell\\|\\leq1}|F(\\ell)|."}
+            </Equation>
+            <p>
+              <MathText>
+                {
+                  "Keep the domains separate: $x\\in X$ is a vector, $\\ell\\in X'$ acts on vectors, and $F\\in X''$ acts on functionals. Both $X'$ and $X''$ are Banach spaces, even when $X$ is incomplete."
+                }
+              </MathText>
+            </p>
+          </section>
+          <EmbeddingSection />
+          <ReflexivitySection />
+          <section id="attainment" className={styles.section}>
+            <span className={styles.sectionNumber}>04 / LECTURE 14</span>
+            <h2>A consequence: functionals attain their norms</h2>
+            <p>
+              <MathText>
+                {
+                  "Assume $X$ is a nonzero real reflexive space. Apply the norming-functional result to the normed space $X'$: for a nonzero $\\ell\\in X'$, there exists $F\\in X''$ with $\\|F\\|=1$ and $F(\\ell)=\\|\\ell\\|$. By reflexivity, $F=Jx$ for some $x\\in X$, and the isometry gives $\\|x\\|=1$. Hence"
+                }
+              </MathText>
+            </p>
+            <NoteBox kind="result" title="Norm attainment in a reflexive space">
+              <p>
+                <MathText>
+                  {
+                    "Every nonzero continuous linear functional on a reflexive real normed space attains its norm at a unit vector."
+                  }
+                </MathText>
+              </p>
+              <Equation>
+                {
+                  "\\ell(x)=\\|\\ell\\|\\qquad\\text{for some }x\\in X,\\ \\|x\\|=1."
+                }
+              </Equation>
+            </NoteBox>
+            <p>
+              <MathText>
+                {
+                  "This is a necessary consequence of reflexivity. To prove a space is not reflexive, it is enough to produce one bounded functional whose supremum over unit vectors is never attained. The zero functional is harmless: on a nonzero space any unit vector attains its zero norm."
+                }
+              </MathText>
+            </p>
+          </section>
+          <ContinuousExampleSection />
+          <SeparableDualSection />
+          <NonseparableDualSection />
+          <ClosedSubspacesSection />
+          <RememberSection />
 
-<LessonNavigation contents={{ href: "/notes/mathematics/functional-analysis", title: "Functional Analysis" }} previous={{"href":"/notes/mathematics/functional-analysis/extensions-of-bounded-linear-functionals","title":"Extensions of bounded linear functionals"}} next={{"href":"/notes/mathematics/functional-analysis/dual-of-continuous-functions","title":"The dual space of C([a,b])"}} />
-</article><aside className={styles.toc}><nav aria-label="On this page"><p className={styles.label}>In this lecture</p><ol><li><a href="#bidual">The dual of the dual</a></li><li><a href="#embedding">Evaluation embeds X into its bidual</a></li><li><a href="#reflexivity">Reflexivity and basic examples</a></li><li><a href="#attainment">A consequence: functionals attain their norms</a></li><li><a href="#continuous-example">A functional on C([-1,1]) that never attains its norm</a></li><li><a href="#separable-dual">A separable dual forces the original space to be separable</a></li><li><a href="#nonseparable-dual">A separable space can have a nonseparable dual</a></li><li><a href="#closed-subspaces">Closed subspaces of reflexive spaces are reflexive</a></li><li><a href="#remember">Main results to remember</a></li></ol></nav></aside></div></div>;
+          <LessonNavigation
+            contents={{
+              href: "/notes/mathematics/functional-analysis",
+              title: "Functional Analysis",
+            }}
+            previous={{
+              href: "/notes/mathematics/functional-analysis/extensions-of-bounded-linear-functionals",
+              title: "Extensions of bounded linear functionals",
+            }}
+            next={{
+              href: "/notes/mathematics/functional-analysis/dual-of-continuous-functions",
+              title: "The dual space of C([a,b])",
+            }}
+          />
+        </article>
+        <aside className={styles.toc}>
+          <nav aria-label="On this page">
+            <p className={styles.label}>In this lecture</p>
+            <ol>
+              <li>
+                <a href="#bidual">The dual of the dual</a>
+              </li>
+              <li>
+                <a href="#embedding">Evaluation embeds X into its bidual</a>
+              </li>
+              <li>
+                <a href="#reflexivity">Reflexivity and basic examples</a>
+              </li>
+              <li>
+                <a href="#attainment">
+                  A consequence: functionals attain their norms
+                </a>
+              </li>
+              <li>
+                <a href="#continuous-example">
+                  A functional on C([-1,1]) that never attains its norm
+                </a>
+              </li>
+              <li>
+                <a href="#separable-dual">
+                  A separable dual forces the original space to be separable
+                </a>
+              </li>
+              <li>
+                <a href="#nonseparable-dual">
+                  A separable space can have a nonseparable dual
+                </a>
+              </li>
+              <li>
+                <a href="#closed-subspaces">
+                  Closed subspaces of reflexive spaces are reflexive
+                </a>
+              </li>
+              <li>
+                <a href="#remember">Main results to remember</a>
+              </li>
+            </ol>
+          </nav>
+        </aside>
+      </div>
+    </div>
+  );
 }
-

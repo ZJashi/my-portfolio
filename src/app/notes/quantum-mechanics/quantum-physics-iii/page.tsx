@@ -1,5 +1,40 @@
 import Link from "next/link";
 import { SubjectHeader } from "@/components/notes/SubjectHeader";
-import styles from "../../notes.module.css";
+import styles from "../../notes.styles";
 export const metadata = { title: "Quantum Physics III | Notes | Zura Jashi" };
-export default function CoursePage() { return <div className={styles.page}><nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes/physics">Physics</Link><span>/</span><Link href="/notes/quantum-mechanics">Quantum Mechanics</Link><span>/</span><span>Quantum Physics III</span></nav><SubjectHeader title="Quantum Physics III" description="Continue the quantum mechanics sequence with a new collection of worked notes." credit={<> Barton Zwiebach’s <a href="https://ocw.mit.edu/courses/8-06-quantum-physics-iii-spring-2018/">MIT 8.06</a> </>} /><div className={styles.callout}><strong>Notebook in preparation</strong><p>This course is part of the planned sequence. Begin with Quantum Physics I.</p><Link href="/notes/quantum-mechanics/quantum-physics-i">Explore Quantum Physics I</Link></div></div>; }
+export default function CoursePage() {
+  return (
+    <div className={styles.page}>
+      <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
+        <Link href="/notes/physics">Physics</Link>
+        <span>/</span>
+        <Link href="/notes/quantum-mechanics">Quantum Mechanics</Link>
+        <span>/</span>
+        <span>Quantum Physics III</span>
+      </nav>
+      <SubjectHeader
+        title="Quantum Physics III"
+        description="Continue the quantum mechanics sequence with a new collection of worked notes."
+        credit={
+          <>
+            {" "}
+            Barton Zwiebach’s{" "}
+            <a href="https://ocw.mit.edu/courses/8-06-quantum-physics-iii-spring-2018/">
+              MIT 8.06
+            </a>{" "}
+          </>
+        }
+      />
+      <div className={styles.callout}>
+        <strong>Notebook in preparation</strong>
+        <p>
+          This course is part of the planned sequence. Begin with Quantum
+          Physics I.
+        </p>
+        <Link href="/notes/quantum-mechanics/quantum-physics-i">
+          Explore Quantum Physics I
+        </Link>
+      </div>
+    </div>
+  );
+}

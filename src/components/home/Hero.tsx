@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { TECH } from "@/lib/tech";
 import { skillGroups } from "@/lib/skills";
 import { slideUp, staggerContainer, staggerItem } from "@/lib/animations";
-import styles from "./Hero.module.css";
+import styles from "./Hero.styles";
 
 export default function Hero() {
   return (

@@ -43,7 +43,11 @@ export const TECH = {
   azure: { name: "Azure", Icon: VscAzure, color: "#0078D4" },
   oracle: { name: "Oracle PL/SQL", Icon: SiOracle, color: "#F80000" },
   cypress: { name: "Cypress", Icon: SiCypress, color: "#17202C" },
-  githubactions: { name: "GitHub Actions", Icon: SiGithubactions, color: "#2088FF" },
+  githubactions: {
+    name: "GitHub Actions",
+    Icon: SiGithubactions,
+    color: "#2088FF",
+  },
 } as const;
 
 export type TechKey = keyof typeof TECH;

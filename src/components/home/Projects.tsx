@@ -14,7 +14,12 @@ import styles from "./Projects.module.css";
 function ProjectCard({ project }: { project: Project }) {
   const inner = <ProjectCardContent project={project} />;
   return project.isPersonal ? (
-    <a href={project.github} target="_blank" rel="noopener noreferrer" className={styles.card}>
+    <a
+      href={project.github}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={styles.card}
+    >
       {inner}
     </a>
   ) : (
@@ -25,7 +30,9 @@ function ProjectCard({ project }: { project: Project }) {
 function ProjectCardContent({ project }: { project: Project }) {
   const { theme } = useTheme();
   const previewSrc =
-    theme === "dark" && project.previewDark ? project.previewDark : project.preview;
+    theme === "dark" && project.previewDark
+      ? project.previewDark
+      : project.preview;
 
   return (
     <>

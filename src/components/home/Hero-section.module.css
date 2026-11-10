@@ -56,8 +56,6 @@
   color: var(--ink);
   font-weight: 600;
 }
-
-/* CTA buttons */
 .ctaRow {
   margin-top: 2.5rem;
   display: flex;
@@ -142,8 +140,6 @@
   background-clip: text;
   color: transparent;
 }
-
-/* Skills section */
 .skills {
   margin-top: 5rem;
   width: 100%;
@@ -152,12 +148,22 @@
 
 .skillsDivider {
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 0, 0, 0.1),
+    transparent
+  );
   margin-bottom: 2.5rem;
 }
 
 :global(.dark) .skillsDivider {
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
 }
 
 .skillsGrid {
@@ -179,36 +185,4 @@
   text-transform: uppercase;
   color: var(--stone);
   margin-bottom: 0.75rem;
-}
-
-.badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.badge {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.375rem 0.75rem;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: rgba(255, 255, 255, 0.5);
-  color: var(--ink);
-  transition: background-color 0.2s;
-}
-
-.badge:hover {
-  background-color: rgba(255, 255, 255, 0.8);
-}
-
-:global(.dark) .badge {
-  border-color: rgba(255, 255, 255, 0.1);
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-:global(.dark) .badge:hover {
-  background-color: rgba(255, 255, 255, 0.1);
 }

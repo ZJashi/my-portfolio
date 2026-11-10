@@ -2,66 +2,157 @@ import { NoteBox } from "@/components/notes/NoteBox";
 import { StatisticalLesson } from "@/components/notes/StatisticalLesson";
 import { Equation, MathParagraph as P } from "@/components/notes/Equation";
 import { GasWorkLab } from "@/components/notes/ThermodynamicsLabs";
-import styles from "../../../../notes.module.css";
-export const metadata={title:'Equilibrium, Temperature & the First Law | Statistical Mechanics I | Zura Jashi'};
-export default function Lesson(){return <StatisticalLesson number="1.1" title="Equilibrium, Temperature & the First Law" description="Describe a macroscopic state, define thermal equilibrium, and keep an exact account of energy crossing the system boundary." sections={[["state","Equilibrium & state"],["temperature","Temperature"],["energy","First law"],["work","Work & paths"],["response","Response functions"],["practice","Practice"]]}>
-<P>{String.raw`Thermodynamics begins with a practical question: how much can we predict about a gas without following its molecules? Imagine a sealed cylinder fitted with a movable piston. We can measure its volume, the force on the piston, and its response to heating. Those measurements already let us build a useful theory. Our task in this lesson is to understand what a thermodynamic state describes, and then to distinguish changes of that state from the processes used to produce them.`}</P>
-<section id="state" className={styles.section}>
-<h2>From moving molecules to an equilibrium state</h2>
-<NoteBox kind="definition" title="System boundaries"><ul><li><strong>Closed:</strong> no matter crosses the boundary; energy may cross.</li><li><strong>Isolated:</strong> neither matter nor energy crosses.</li><li><strong>Adiabatic:</strong> no heat crosses; work may still transfer energy.</li></ul></NoteBox>
-<P>{String.raw`The gas is never microscopically still. Its molecules move and collide, but after the cylinder has been left undisturbed, its measured pressure and temperature can settle to steady values. Equilibrium refers to this macroscopic behavior over the timescale of observation. It does not require molecular motion to cease.`}</P>
-<P>{String.raw`We must also say what the system is allowed to exchange with its surroundings. Here we call a system closed if no matter crosses its boundary, and isolated if neither matter nor energy crosses. An adiabatic wall prevents heat transfer, but a piston in that wall can still move and transfer energy mechanically. Keeping these distinctions explicit will prevent us from mistaking “no heat transfer” for “no energy transfer.”`}</P>
-<P>{String.raw`For a simple fluid of fixed composition, pressure $P$, volume $V$, temperature $T$, and amount of matter $n$ are useful state variables. They are not all independent. An equation of state relates them; specifying enough independent coordinates fixes the equilibrium state within the phase and regime we are considering.`}</P>
-<P>{String.raw`To see a second distinction, imagine making two independent copies of our cylinder in the same state. Their combined volume and internal energy are twice those of one copy, whereas their pressure and temperature are unchanged. We call the first kind of quantity extensive and the second intensive. Later, this scaling will help us connect the macroscopic description to a system containing many particles.`}</P>
-</section>
-<section id="temperature" className={styles.section}>
-<h2>Why a thermometer can measure another system</h2>
-<NoteBox kind="law" title="Zeroth law · Thermal equilibrium"><p>If two systems are each in <strong>thermal equilibrium</strong> with a third, they are in thermal equilibrium with each other. This makes a shared <strong>temperature</strong> meaningful.</p></NoteBox>
-<P>{String.raw`Pressure and volume can be measured mechanically, but temperature needs an additional physical principle. Put a thermometer in thermal contact with the cylinder and wait. When there is no continuing thermal change, we say the two are in thermal equilibrium. The zeroth law says that if two systems are separately in thermal equilibrium with a third, they are in thermal equilibrium with each other.`}</P>
-<P>{String.raw`This transitivity is what makes a shared temperature meaningful. The thermometer does not have to be made of the same material as the gas: its reading labels an equilibrium class that other systems can share. Assigning numbers to those classes requires a scale. For a sufficiently dilute gas, experiments give the ideal-gas equation:`}</P>
-<NoteBox kind="result" title="Ideal-gas equation of state"><Equation>{String.raw`PV=nRT=Nk_B T.`}</Equation></NoteBox>
-<P>{String.raw`Here $n$ counts moles, $N$ counts particles, and $R=N_Ak_B$. We will use absolute temperature in kelvin. This equation is a model of dilute gases, rather than a universal law for every fluid at every density.`}</P>
-<P>{String.raw`For example, keep the cylinder sealed and lock the piston. Since $n$ and $V$ are fixed, dividing the equation of state at two temperatures gives`}</P>
-<Equation>{String.raw`\frac{P_f}{P_i}=\frac{T_f}{T_i}.`}</Equation>
-<P>{String.raw`Heating from $300\,\mathrm K$ to $450\,\mathrm K$ therefore raises a pressure of $100\,\mathrm{kPa}$ to $150\,\mathrm{kPa}$. The ratio must use absolute temperatures. A Celsius reading has an offset, so its numerical ratio does not describe this physical scaling.`}</P>
-<P>{String.raw`Temperature now lets us identify and compare equilibrium states. The next question is how a system moves between them when we heat it or push on it.`}</P>
-</section>
-<section id="energy" className={styles.section}>
-<h2>What the first law actually keeps track of</h2>
-<P>{String.raw`Return to the cylinder and unlock the piston. We can supply energy by heating the gas, by compressing it, or by combining both operations. The first law asserts that these transfers can be accounted for by a state function, the internal energy $E$. Whatever route we take between the same two equilibrium states, the total energy supplied is the same.`}</P>
-<P>{String.raw`Following Kardar, let $Q$ be heat added to the system and $W_{\mathrm{on}}$ be work done on it. The energy balance is`}</P>
-<NoteBox kind="law" title="First law · Conservation of energy"><Equation>{String.raw`\Delta E=Q+W_{\mathrm{on}}.`}</Equation><p><strong>Sign convention:</strong> heat into the system and work done on it are positive.</p></NoteBox>
-<P>{String.raw`This sign convention deserves a concrete check. If the gas absorbs $500\,\mathrm J$ while doing $200\,\mathrm J$ of work on the piston, then $W_{\mathrm{on}}=-200\,\mathrm J$. Its internal energy increases by $300\,\mathrm J$, because some of the incoming energy has left as work.`}</P>
-<P>{String.raw`Although their sum fixes the endpoint change, heat and work separately depend on the process. A system stores internal energy; it does not store a uniquely identifiable amount of “heat” waiting to be measured. For an infinitesimal process we emphasize the distinction by writing`}</P>
-<Equation>{String.raw`dE=\delta Q+\delta W_{\mathrm{on}}.`}</Equation>
-<P>{String.raw`The ordinary differential $dE$ belongs to a state function. The symbol $\delta$ reminds us that heat and work are process increments. Around a complete cycle the internal energy returns to its starting value, so the net heat input equals the net work delivered to the surroundings. An adiabatic process, by contrast, only sets $Q=0$; compression can still raise $E$ through positive work.`}</P>
-</section>
-<section id="work" className={styles.section}>
-<h2>Deriving the work of a gas expansion</h2>
-<P>{String.raw`We can calculate piston work directly from force and displacement. Let the piston have area $A$ and move outward a small distance $dx$. The gas volume increases by $dV=A\,dx$. If the opposing external pressure is $P_{\mathrm{ext}}$, the gas does work $P_{\mathrm{ext}}A\,dx$ on its surroundings. Work on the gas has the opposite sign:`}</P>
-<Equation>{String.raw`\delta W_{\mathrm{on}}=-P_{\mathrm{ext}}\,dV.`}</Equation>
-<P>{String.raw`For a frictionless, mechanically reversible expansion, the gas pressure differs from the external pressure only infinitesimally. We may then use the gas’s equilibrium pressure $P$ and integrate along its pressure–volume path. This is why work appears as an area beneath a curve, and why changing the curve can change the work even when its endpoints stay fixed.`}</P>
-<P>{String.raw`Now let a thermal reservoir keep the temperature fixed while an ideal gas expands reversibly. The equation of state supplies $P=nRT/V$. Since $n$, $R$, and $T$ are constant along this particular path, we can take them outside the integral:`}</P>
-<Equation>{String.raw`\begin{aligned}W_{\mathrm{on}}&=-\int_{V_i}^{V_f}\frac{nRT}{V}\,dV\\&=-nRT\,\left[\ln(V/V_i)\right]_{V_i}^{V_f}\\&=-nRT\ln\!\left(\frac{V_f}{V_i}\right).\end{aligned}`}</Equation>
-<P>{String.raw`The logarithm is positive for expansion, so the sign is negative as expected. For an ideal gas at fixed amount, internal energy depends only on temperature. Consequently this isothermal process has $\Delta E=0$, and the first law requires`}</P>
-<NoteBox kind="result" title="Reversible isothermal expansion · Ideal gas"><Equation>{String.raw`Q=-W_{\mathrm{on}}=nRT\ln\!\left(\frac{V_f}{V_i}\right).`}</Equation></NoteBox>
-<P>{String.raw`The gas is doing work without cooling because heat from the reservoir replaces the energy transferred to the piston. Use the model below to follow that balance. Increasing the final volume increases both the work delivered and the heat required; it does not change the internal energy.`}</P>
-<GasWorkLab />
-<P>{String.raw`It is tempting to apply the same calculation whenever a gas expands, but that would discard the assumptions that made it possible. Suppose instead that a partition is removed inside an insulated rigid enclosure, allowing the gas to expand into a vacuum. There is no opposing external pressure and no heat transfer. Thus both $Q$ and $W_{\mathrm{on}}$ vanish, and $\Delta E=0$.`}</P>
-<P>{String.raw`For an ideal gas, the final temperature again equals the initial temperature. The two experiments can therefore connect the same equilibrium endpoints while transferring different amounts of heat and work. During free expansion there is no sequence of uniform equilibrium pressures to integrate. The reversible calculation was a statement about a particular path, not a formula determined by volume endpoints alone.`}</P>
-</section>
-<section id="response" className={styles.section}>
-<h2>Deriving heat capacities from the same balance</h2>
-<P>{String.raw`The path dependence of heat raises a useful experimental question: how much heat is required for a small temperature change if we specify what is held fixed? This leads to heat capacity. For a closed simple fluid with no work other than volume work, locking the piston gives $dV=0$. Then $\delta Q=dE$, so`}</P>
-<Equation>{String.raw`C_V=\left(\frac{\partial E}{\partial T}\right)_V.`}</Equation>
-<P>{String.raw`At constant pressure, the piston can move. The first law instead gives $\delta Q=dE+P\,dV$. For an ideal gas, $E=E(T)$ at fixed amount, so $dE=C_V\,dT$. Differentiating $PV=nRT$ at fixed pressure also gives $P\,dV=nR\,dT$. Substituting these two results makes the extra energy requirement explicit:`}</P>
-<Equation>{String.raw`\begin{aligned}\delta Q\big|_P&=C_V\,dT+nR\,dT,\\C_P&=C_V+nR.\end{aligned}`}</Equation>
-<P>{String.raw`Constant-pressure heating requires additional heat because the gas also does expansion work. These are total heat capacities for the amount of gas present. For molar heat capacities, the corresponding difference is $R$.`}</P>
-<P>{String.raw`The same idea of specifying a constraint applies to mechanical responses. Isothermal compressibility measures the fractional volume change caused by a pressure change at fixed temperature; the expansion coefficient measures the fractional volume change caused by heating at fixed pressure:`}</P>
-<Equation>{String.raw`\begin{aligned}\kappa_T&=-\frac1V\left(\frac{\partial V}{\partial P}\right)_T,\\\alpha_P&=\frac1V\left(\frac{\partial V}{\partial T}\right)_P.\end{aligned}`}</Equation>
-<P>{String.raw`For the ideal gas, differentiating $V=nRT/P$ gives $\kappa_T=1/P$ and $\alpha_P=1/T$. The minus sign in the first definition makes compressibility positive for a gas whose volume falls when pressure rises.`}</P>
-<P>{String.raw`We have now used one energy balance to understand piston work, distinguish two expansions, and derive a measurable response relation. What we have not established is whether every energy-balanced process can actually occur. That missing restriction is the subject of the next lesson.`}</P>
-</section>
-<section id="practice" className={styles.section}><span className={styles.sectionNumber}>06 / PRACTICE</span><h2>Separate the state from the process.</h2><div className={styles.exercise}><h3>1. Adiabatic compression</h3><P>{String.raw`A closed insulated gas receives 80 J of work. Find $\Delta E$.`}</P><details><summary>Show solution</summary><P>{String.raw`$Q=0$, $W_{\mathrm{on}}=+80\,\mathrm J$, and $\Delta E=+80\,\mathrm J$. Insulation prevents heat transfer, not work.`}</P></details></div><div className={styles.exercise}><h3>2. Work around a cycle</h3><P>{String.raw`An engine returns to its initial state after taking in net heat of 120 J. What is its net work output?`}</P><details><summary>Show solution</summary><P>{String.raw`$\Delta E=0$, so $W_{\mathrm{on}}=-120\,\mathrm J$ and $W_{\mathrm{out}}=+120\,\mathrm J$.`}</P></details></div><div className={styles.exercise}><h3>3. Double the volume</h3><P>{String.raw`Compare reversible isothermal expansion and insulated free expansion of an ideal gas between equal-temperature endpoints.`}</P><details><summary>Show reasoning</summary><P>{String.raw`Both have $\Delta E=0$. Reversible isothermal expansion has $W_{\mathrm{on}}=-nRT\ln2$ and $Q_{\mathrm{in}}=+nRT\ln2$. Free expansion has $Q=W=0$. Equal endpoints do not imply equal heat or work.`}</P></details></div></section>
-<div className={styles.lessonSources}><p>Original explanations, calculations, and diagrams organized around <a href="https://ocw.mit.edu/courses/8-333-statistical-mechanics-i-statistical-mechanics-of-particles-fall-2013/resources/lecture-1/">Mehran Kardar’s MIT 8.333 Lecture Note 1</a> and <a href="https://ocw.mit.edu/courses/8-333-statistical-mechanics-i-statistical-mechanics-of-particles-fall-2013/resources/lecture-1-thermodynamics-part-1/">Thermodynamics Part 1</a>. Work is positive on the system. These are independent study notes.</p></div>
-</StatisticalLesson>;}
+import styles from "../../../../notes.styles";
+export const metadata = {
+  title:
+    "Equilibrium, Temperature & the First Law | Statistical Mechanics I | Zura Jashi",
+};
+export default function Lesson() {
+  return (
+    <StatisticalLesson
+      number="1.1"
+      title="Equilibrium, Temperature & the First Law"
+      description="Describe a macroscopic state, define thermal equilibrium, and keep an exact account of energy crossing the system boundary."
+      sections={[
+        ["state", "Equilibrium & state"],
+        ["temperature", "Temperature"],
+        ["energy", "First law"],
+        ["work", "Work & paths"],
+        ["response", "Response functions"],
+        ["practice", "Practice"],
+      ]}
+    >
+      <P>{String.raw`Thermodynamics begins with a practical question: how much can we predict about a gas without following its molecules? Imagine a sealed cylinder fitted with a movable piston. We can measure its volume, the force on the piston, and its response to heating. Those measurements already let us build a useful theory. Our task in this lesson is to understand what a thermodynamic state describes, and then to distinguish changes of that state from the processes used to produce them.`}</P>
+      <section id="state" className={styles.section}>
+        <h2>From moving molecules to an equilibrium state</h2>
+        <NoteBox kind="definition" title="System boundaries">
+          <ul>
+            <li>
+              <strong>Closed:</strong> no matter crosses the boundary; energy
+              may cross.
+            </li>
+            <li>
+              <strong>Isolated:</strong> neither matter nor energy crosses.
+            </li>
+            <li>
+              <strong>Adiabatic:</strong> no heat crosses; work may still
+              transfer energy.
+            </li>
+          </ul>
+        </NoteBox>
+        <P>{String.raw`The gas is never microscopically still. Its molecules move and collide, but after the cylinder has been left undisturbed, its measured pressure and temperature can settle to steady values. Equilibrium refers to this macroscopic behavior over the timescale of observation. It does not require molecular motion to cease.`}</P>
+        <P>{String.raw`We must also say what the system is allowed to exchange with its surroundings. Here we call a system closed if no matter crosses its boundary, and isolated if neither matter nor energy crosses. An adiabatic wall prevents heat transfer, but a piston in that wall can still move and transfer energy mechanically. Keeping these distinctions explicit will prevent us from mistaking “no heat transfer” for “no energy transfer.”`}</P>
+        <P>{String.raw`For a simple fluid of fixed composition, pressure $P$, volume $V$, temperature $T$, and amount of matter $n$ are useful state variables. They are not all independent. An equation of state relates them; specifying enough independent coordinates fixes the equilibrium state within the phase and regime we are considering.`}</P>
+        <P>{String.raw`To see a second distinction, imagine making two independent copies of our cylinder in the same state. Their combined volume and internal energy are twice those of one copy, whereas their pressure and temperature are unchanged. We call the first kind of quantity extensive and the second intensive. Later, this scaling will help us connect the macroscopic description to a system containing many particles.`}</P>
+      </section>
+      <section id="temperature" className={styles.section}>
+        <h2>Why a thermometer can measure another system</h2>
+        <NoteBox kind="law" title="Zeroth law · Thermal equilibrium">
+          <p>
+            If two systems are each in <strong>thermal equilibrium</strong> with
+            a third, they are in thermal equilibrium with each other. This makes
+            a shared <strong>temperature</strong> meaningful.
+          </p>
+        </NoteBox>
+        <P>{String.raw`Pressure and volume can be measured mechanically, but temperature needs an additional physical principle. Put a thermometer in thermal contact with the cylinder and wait. When there is no continuing thermal change, we say the two are in thermal equilibrium. The zeroth law says that if two systems are separately in thermal equilibrium with a third, they are in thermal equilibrium with each other.`}</P>
+        <P>{String.raw`This transitivity is what makes a shared temperature meaningful. The thermometer does not have to be made of the same material as the gas: its reading labels an equilibrium class that other systems can share. Assigning numbers to those classes requires a scale. For a sufficiently dilute gas, experiments give the ideal-gas equation:`}</P>
+        <NoteBox kind="result" title="Ideal-gas equation of state">
+          <Equation>{String.raw`PV=nRT=Nk_B T.`}</Equation>
+        </NoteBox>
+        <P>{String.raw`Here $n$ counts moles, $N$ counts particles, and $R=N_Ak_B$. We will use absolute temperature in kelvin. This equation is a model of dilute gases, rather than a universal law for every fluid at every density.`}</P>
+        <P>{String.raw`For example, keep the cylinder sealed and lock the piston. Since $n$ and $V$ are fixed, dividing the equation of state at two temperatures gives`}</P>
+        <Equation>{String.raw`\frac{P_f}{P_i}=\frac{T_f}{T_i}.`}</Equation>
+        <P>{String.raw`Heating from $300\,\mathrm K$ to $450\,\mathrm K$ therefore raises a pressure of $100\,\mathrm{kPa}$ to $150\,\mathrm{kPa}$. The ratio must use absolute temperatures. A Celsius reading has an offset, so its numerical ratio does not describe this physical scaling.`}</P>
+        <P>{String.raw`Temperature now lets us identify and compare equilibrium states. The next question is how a system moves between them when we heat it or push on it.`}</P>
+      </section>
+      <section id="energy" className={styles.section}>
+        <h2>What the first law actually keeps track of</h2>
+        <P>{String.raw`Return to the cylinder and unlock the piston. We can supply energy by heating the gas, by compressing it, or by combining both operations. The first law asserts that these transfers can be accounted for by a state function, the internal energy $E$. Whatever route we take between the same two equilibrium states, the total energy supplied is the same.`}</P>
+        <P>{String.raw`Following Kardar, let $Q$ be heat added to the system and $W_{\mathrm{on}}$ be work done on it. The energy balance is`}</P>
+        <NoteBox kind="law" title="First law · Conservation of energy">
+          <Equation>{String.raw`\Delta E=Q+W_{\mathrm{on}}.`}</Equation>
+          <p>
+            <strong>Sign convention:</strong> heat into the system and work done
+            on it are positive.
+          </p>
+        </NoteBox>
+        <P>{String.raw`This sign convention deserves a concrete check. If the gas absorbs $500\,\mathrm J$ while doing $200\,\mathrm J$ of work on the piston, then $W_{\mathrm{on}}=-200\,\mathrm J$. Its internal energy increases by $300\,\mathrm J$, because some of the incoming energy has left as work.`}</P>
+        <P>{String.raw`Although their sum fixes the endpoint change, heat and work separately depend on the process. A system stores internal energy; it does not store a uniquely identifiable amount of “heat” waiting to be measured. For an infinitesimal process we emphasize the distinction by writing`}</P>
+        <Equation>{String.raw`dE=\delta Q+\delta W_{\mathrm{on}}.`}</Equation>
+        <P>{String.raw`The ordinary differential $dE$ belongs to a state function. The symbol $\delta$ reminds us that heat and work are process increments. Around a complete cycle the internal energy returns to its starting value, so the net heat input equals the net work delivered to the surroundings. An adiabatic process, by contrast, only sets $Q=0$; compression can still raise $E$ through positive work.`}</P>
+      </section>
+      <section id="work" className={styles.section}>
+        <h2>Deriving the work of a gas expansion</h2>
+        <P>{String.raw`We can calculate piston work directly from force and displacement. Let the piston have area $A$ and move outward a small distance $dx$. The gas volume increases by $dV=A\,dx$. If the opposing external pressure is $P_{\mathrm{ext}}$, the gas does work $P_{\mathrm{ext}}A\,dx$ on its surroundings. Work on the gas has the opposite sign:`}</P>
+        <Equation>{String.raw`\delta W_{\mathrm{on}}=-P_{\mathrm{ext}}\,dV.`}</Equation>
+        <P>{String.raw`For a frictionless, mechanically reversible expansion, the gas pressure differs from the external pressure only infinitesimally. We may then use the gas’s equilibrium pressure $P$ and integrate along its pressure–volume path. This is why work appears as an area beneath a curve, and why changing the curve can change the work even when its endpoints stay fixed.`}</P>
+        <P>{String.raw`Now let a thermal reservoir keep the temperature fixed while an ideal gas expands reversibly. The equation of state supplies $P=nRT/V$. Since $n$, $R$, and $T$ are constant along this particular path, we can take them outside the integral:`}</P>
+        <Equation>{String.raw`\begin{aligned}W_{\mathrm{on}}&=-\int_{V_i}^{V_f}\frac{nRT}{V}\,dV\\&=-nRT\,\left[\ln(V/V_i)\right]_{V_i}^{V_f}\\&=-nRT\ln\!\left(\frac{V_f}{V_i}\right).\end{aligned}`}</Equation>
+        <P>{String.raw`The logarithm is positive for expansion, so the sign is negative as expected. For an ideal gas at fixed amount, internal energy depends only on temperature. Consequently this isothermal process has $\Delta E=0$, and the first law requires`}</P>
+        <NoteBox
+          kind="result"
+          title="Reversible isothermal expansion · Ideal gas"
+        >
+          <Equation>{String.raw`Q=-W_{\mathrm{on}}=nRT\ln\!\left(\frac{V_f}{V_i}\right).`}</Equation>
+        </NoteBox>
+        <P>{String.raw`The gas is doing work without cooling because heat from the reservoir replaces the energy transferred to the piston. Use the model below to follow that balance. Increasing the final volume increases both the work delivered and the heat required; it does not change the internal energy.`}</P>
+        <GasWorkLab />
+        <P>{String.raw`It is tempting to apply the same calculation whenever a gas expands, but that would discard the assumptions that made it possible. Suppose instead that a partition is removed inside an insulated rigid enclosure, allowing the gas to expand into a vacuum. There is no opposing external pressure and no heat transfer. Thus both $Q$ and $W_{\mathrm{on}}$ vanish, and $\Delta E=0$.`}</P>
+        <P>{String.raw`For an ideal gas, the final temperature again equals the initial temperature. The two experiments can therefore connect the same equilibrium endpoints while transferring different amounts of heat and work. During free expansion there is no sequence of uniform equilibrium pressures to integrate. The reversible calculation was a statement about a particular path, not a formula determined by volume endpoints alone.`}</P>
+      </section>
+      <section id="response" className={styles.section}>
+        <h2>Deriving heat capacities from the same balance</h2>
+        <P>{String.raw`The path dependence of heat raises a useful experimental question: how much heat is required for a small temperature change if we specify what is held fixed? This leads to heat capacity. For a closed simple fluid with no work other than volume work, locking the piston gives $dV=0$. Then $\delta Q=dE$, so`}</P>
+        <Equation>{String.raw`C_V=\left(\frac{\partial E}{\partial T}\right)_V.`}</Equation>
+        <P>{String.raw`At constant pressure, the piston can move. The first law instead gives $\delta Q=dE+P\,dV$. For an ideal gas, $E=E(T)$ at fixed amount, so $dE=C_V\,dT$. Differentiating $PV=nRT$ at fixed pressure also gives $P\,dV=nR\,dT$. Substituting these two results makes the extra energy requirement explicit:`}</P>
+        <Equation>{String.raw`\begin{aligned}\delta Q\big|_P&=C_V\,dT+nR\,dT,\\C_P&=C_V+nR.\end{aligned}`}</Equation>
+        <P>{String.raw`Constant-pressure heating requires additional heat because the gas also does expansion work. These are total heat capacities for the amount of gas present. For molar heat capacities, the corresponding difference is $R$.`}</P>
+        <P>{String.raw`The same idea of specifying a constraint applies to mechanical responses. Isothermal compressibility measures the fractional volume change caused by a pressure change at fixed temperature; the expansion coefficient measures the fractional volume change caused by heating at fixed pressure:`}</P>
+        <Equation>{String.raw`\begin{aligned}\kappa_T&=-\frac1V\left(\frac{\partial V}{\partial P}\right)_T,\\\alpha_P&=\frac1V\left(\frac{\partial V}{\partial T}\right)_P.\end{aligned}`}</Equation>
+        <P>{String.raw`For the ideal gas, differentiating $V=nRT/P$ gives $\kappa_T=1/P$ and $\alpha_P=1/T$. The minus sign in the first definition makes compressibility positive for a gas whose volume falls when pressure rises.`}</P>
+        <P>{String.raw`We have now used one energy balance to understand piston work, distinguish two expansions, and derive a measurable response relation. What we have not established is whether every energy-balanced process can actually occur. That missing restriction is the subject of the next lesson.`}</P>
+      </section>
+      <section id="practice" className={styles.section}>
+        <span className={styles.sectionNumber}>06 / PRACTICE</span>
+        <h2>Separate the state from the process.</h2>
+        <div className={styles.exercise}>
+          <h3>1. Adiabatic compression</h3>
+          <P>{String.raw`A closed insulated gas receives 80 J of work. Find $\Delta E$.`}</P>
+          <details>
+            <summary>Show solution</summary>
+            <P>{String.raw`$Q=0$, $W_{\mathrm{on}}=+80\,\mathrm J$, and $\Delta E=+80\,\mathrm J$. Insulation prevents heat transfer, not work.`}</P>
+          </details>
+        </div>
+        <div className={styles.exercise}>
+          <h3>2. Work around a cycle</h3>
+          <P>{String.raw`An engine returns to its initial state after taking in net heat of 120 J. What is its net work output?`}</P>
+          <details>
+            <summary>Show solution</summary>
+            <P>{String.raw`$\Delta E=0$, so $W_{\mathrm{on}}=-120\,\mathrm J$ and $W_{\mathrm{out}}=+120\,\mathrm J$.`}</P>
+          </details>
+        </div>
+        <div className={styles.exercise}>
+          <h3>3. Double the volume</h3>
+          <P>{String.raw`Compare reversible isothermal expansion and insulated free expansion of an ideal gas between equal-temperature endpoints.`}</P>
+          <details>
+            <summary>Show reasoning</summary>
+            <P>{String.raw`Both have $\Delta E=0$. Reversible isothermal expansion has $W_{\mathrm{on}}=-nRT\ln2$ and $Q_{\mathrm{in}}=+nRT\ln2$. Free expansion has $Q=W=0$. Equal endpoints do not imply equal heat or work.`}</P>
+          </details>
+        </div>
+      </section>
+      <div className={styles.lessonSources}>
+        <p>
+          Original explanations, calculations, and diagrams organized around{" "}
+          <a href="https://ocw.mit.edu/courses/8-333-statistical-mechanics-i-statistical-mechanics-of-particles-fall-2013/resources/lecture-1/">
+            Mehran Kardar’s MIT 8.333 Lecture Note 1
+          </a>{" "}
+          and{" "}
+          <a href="https://ocw.mit.edu/courses/8-333-statistical-mechanics-i-statistical-mechanics-of-particles-fall-2013/resources/lecture-1-thermodynamics-part-1/">
+            Thermodynamics Part 1
+          </a>
+          . Work is positive on the system. These are independent study notes.
+        </p>
+      </div>
+    </StatisticalLesson>
+  );
+}

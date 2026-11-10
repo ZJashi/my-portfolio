@@ -36,17 +36,31 @@
 .aboutBg1 {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(20, 184, 166, 0.05), transparent, rgba(16, 185, 129, 0.05));
+  background: linear-gradient(
+    to right,
+    rgba(20, 184, 166, 0.05),
+    transparent,
+    rgba(16, 185, 129, 0.05)
+  );
 }
 
 :global(.dark) .aboutBg1 {
-  background: linear-gradient(to right, rgba(20, 184, 166, 0.1), transparent, rgba(16, 185, 129, 0.1));
+  background: linear-gradient(
+    to right,
+    rgba(20, 184, 166, 0.1),
+    transparent,
+    rgba(16, 185, 129, 0.1)
+  );
 }
 
 .aboutBg2 {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.5), transparent);
+  background: radial-gradient(
+    ellipse at top,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
 }
 
 :global(.dark) .aboutBg2 {

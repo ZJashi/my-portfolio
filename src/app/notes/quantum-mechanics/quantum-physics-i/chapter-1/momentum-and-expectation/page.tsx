@@ -1,7 +1,7 @@
 import { QuantumLesson } from "@/components/notes/QuantumLesson";
 import { NoteBox } from "@/components/notes/NoteBox";
 import { Equation, MathParagraph as P } from "@/components/notes/Equation";
-import styles from "../../../../notes.module.css";
+import styles from "../../../../notes.styles";
 
 export const metadata = {
   title: "Momentum Space & Expectation Values | Quantum Physics I | Zura Jashi",

@@ -1,22 +1,166 @@
 import { FinanceLesson } from "@/components/notes/FinanceLesson";
 import { Equation, MathText } from "@/components/notes/Equation";
-import { NoteBox } from "@/components/notes/NoteBox";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
+import { course, sections } from "./lesson-data";
+import { DiagnosticsSection } from "./diagnostics-section";
+import { OlsSection } from "./ols-section";
+import { TestsSection } from "./tests-section";
+import { SamplingSection } from "./sampling-section";
+import { GlsSection } from "./gls-section";
 
-export const metadata = { title: "Regression Inference and Diagnostics | MIT 18.642 Lecture 8 | Zura Jashi", description: "Least squares geometry, normal theory, t and F tests, prediction, leverage, influence, Gauss–Markov and GLS, with a complete worked fit." };
-const course = "https://ocw.mit.edu/courses/18-642-topics-in-mathematics-with-applications-in-finance-fall-2024/";
-const sections = [["ols", "Least squares and projection"], ["sampling", "Sampling uncertainty"], ["tests", "t and F tests"], ["prediction", "Prediction intervals"], ["diagnostics", "Residuals and influence"], ["gls", "Gauss–Markov and GLS"], ["extensions", "Further regression methods"], ["practice", "Practice"]] as const;
+export const metadata = {
+  title:
+    "Regression Inference and Diagnostics | MIT 18.642 Lecture 8 | Zura Jashi",
+  description:
+    "Least squares geometry, normal theory, t and F tests, prediction, leverage, influence, Gauss–Markov and GLS, with a complete worked fit.",
+};
 
 export default function LectureEight() {
-return <FinanceLesson number={8} title="Regression inference and diagnostics" description="Derive the least squares estimator, quantify its uncertainty, and use residuals and influence to check whether the model deserves confidence." instructor="Peter Kempthorne" topics="Regression Analysis continued · Estimation and inference" sections={sections} previous={{slug:"linear-rates-products-and-models",title:"Linear rates, products and models"}} next={{slug:"pca-in-finance",title:"PCA in finance"}} sources={<p>Sources: <a href={`${course}resources/18642-lecture-8-version-2_mp4/`}>Lecture 8 recording</a>, <a href={`${course}pages/week-5/`}>Week 5 materials</a>, and the shared <a href={`${course}mit18_642_f24_lec06_1.pdf`}>Regression Analysis slides</a>. These notes supply independent derivations and an original five observation example. The shared deck extends beyond the core lecture; regularisation below is marked as a further reading guide. Exact test formulas here use n−p residual degrees of freedom.</p>}>
-<div className={styles.lessonOverview}><p>Lecture 8 continues regression after the rates guest lecture. Its central connection is between orthogonal projection, the sampling distribution of fitted coefficients, and diagnostics. The worked example continues the line fitted in Lecture 6; all calculations refer to a fixed design matrix.</p></div>
-<section id="ols" className={styles.section}><span className={styles.sectionNumber}>01 / ESTIMATION AS PROJECTION</span><h2>Least squares and projection</h2><p><MathText>{"Let $y=X\\beta+\\varepsilon$ with $X\\in\\mathbb R^{n\\times p}$ of full column rank and $n>p$. Include an intercept among the p columns when needed. Ordinary least squares minimises $Q(b)=(y-Xb)^T(y-Xb)$. Expanding and differentiating yields:"}</MathText></p><Equation>{"Q(b)=y^Ty-2b^TX^Ty+b^TX^TXb,\\qquad\\nabla Q(b)=-2X^T(y-Xb)."}</Equation><NoteBox kind="result" title="OLS and the hat matrix"><Equation>{"\\widehat\\beta=(X^TX)^{-1}X^Ty,\\qquad H=X(X^TX)^{-1}X^T,\\qquad\\widehat y=Hy,\\quad e=(I-H)y."}</Equation><p>Full column rank makes the coefficients unique. In computation, solve by QR or SVD rather than explicitly forming the inverse.</p></NoteBox><p><MathText>{"The matrix H satisfies $H^T=H$ and $H^2=H$, so it is an orthogonal projection onto the column space of X. Also $X^Te=0$. For any alternative b, the decomposition $y-Xb=e+X(\\widehat\\beta-b)$ has perpendicular terms, proving:"}</MathText></p><Equation>{"\\|y-Xb\\|^2=\\|e\\|^2+\\|X(\\widehat\\beta-b)\\|^2\\ge\\|e\\|^2."}</Equation><p>These are algebraic properties of the fitted data. They do not require Gaussian errors. With an intercept, residuals sum to zero and the usual centred total sum of squares splits into explained and residual sums.</p><h3>Original example revisited</h3><Equation>{"x=(-2,-1,0,1,2)^T,\\quad y=(0,0,1,2,2)^T,\\quad X^TX=\\begin{pmatrix}5&0\\\\0&10\\end{pmatrix},\\quad\\widehat\\beta=\\begin{pmatrix}1\\\\0.6\\end{pmatrix}."}</Equation><p><MathText>{"The residual vector is $(0.2,-0.4,0,0.4,-0.2)^T$, so $\\mathrm{RSS}=0.4$. Since $\\sum_i(y_i-1)^2=4$, the in sample $R^2=1-0.4/4=0.9$. A high in sample fit is not an out of sample accuracy guarantee."}</MathText></p></section>
-<section id="sampling" className={styles.section}><span className={styles.sectionNumber}>02 / FROM A FIT TO AN ESTIMATOR</span><h2>Sampling uncertainty</h2><p><MathText>{"Now assume $\\mathbb E[\\varepsilon\\mid X]=0$ and $\\operatorname{Cov}(\\varepsilon\\mid X)=\\sigma^2I$. Because $\\widehat\\beta=\\beta+(X^TX)^{-1}X^T\\varepsilon$, its expectation is $\\beta$ and its covariance is $\\sigma^2(X^TX)^{-1}$. Exact normal inference adds $\\varepsilon\\mid X\\sim N_n(0,\\sigma^2I)$."}</MathText></p><NoteBox kind="result" title="Normal theory for coefficients and residuals"><Equation>{"\\widehat\\beta\\mid X\\sim N_p(\\beta,\\sigma^2C),\\quad C=(X^TX)^{-1},\\qquad e\\mid X\\sim N_n(0,\\sigma^2(I-H))."}</Equation><Equation>{"s^2=\\frac{e^Te}{n-p},\\qquad\\frac{(n-p)s^2}{\\sigma^2}\\sim\\chi^2_{n-p}."}</Equation><p>The coefficient estimator and residual vector are independent under the normal model. Residuals themselves are generally correlated and have unequal variances, even when the underlying errors are iid.</p></NoteBox><p><MathText>{"For independence, compute the cross covariance $\\sigma^2(X^TX)^{-1}X^T(I-H)=0$. Joint normality upgrades zero covariance to independence. The projector $I-H$ has rank $n-p$, so its Gaussian quadratic form gives the chi squared result."}</MathText></p><p><MathText>{"In our example, $n=5$, $p=2$ and $s^2=0.4/3=2/15$. The slope standard error is $s\\sqrt{C_{22}}=\\sqrt{(2/15)/10}\\approx0.11547$; the intercept standard error is $\\sqrt{(2/15)/5}\\approx0.16330$."}</MathText></p><p>Under a Gaussian likelihood, the coefficient MLE is the same OLS fit, but the variance MLE is RSS/n. The unbiased variance estimator divides by n−p. These answer different estimation criteria.</p></section>
-<section id="tests" className={styles.section}><span className={styles.sectionNumber}>03 / HYPOTHESES ABOUT COEFFICIENTS</span><h2>t and F tests</h2><NoteBox kind="result" title="A single coefficient test"><Equation>{"t_j=\\frac{\\widehat\\beta_j-\\beta_{j,0}}{s\\sqrt{C_{jj}}}\\sim t_{n-p}\\quad\\text{under the null and normal model}."}</Equation><p>The denominator contains the square root of the covariance diagonal. A two sided confidence interval uses the corresponding Student quantile and the same residual degrees of freedom.</p></NoteBox><p><MathText>{"Testing slope zero in our example gives $t=0.6/0.11547\\approx5.196$ with 3 degrees of freedom. A 95% interval uses $t_{0.975,3}\\approx3.182$: $0.6\\pm3.182(0.11547)$, or approximately $(0.2325,0.9675)$."}</MathText></p><p>The assumptions, sample size and units qualify this interval. It describes coefficient uncertainty in the stated model, rather than a 95% probability statement about a fixed parameter after observing the interval.</p><h3>Joint restrictions through nested models</h3><p><MathText>{"Fit a restricted model with k parameters and a full model with p parameters to exactly the same n observations, where the restricted column space lies inside the full one. Under the null and Gaussian equal variance errors:"}</MathText></p><Equation>{"F=\\frac{(\\mathrm{RSS}_0-\\mathrm{RSS}_1)/(p-k)}{\\mathrm{RSS}_1/(n-p)}\\sim F_{p-k,n-p}."}</Equation><p><MathText>{"For the intercept only restriction, $k=1$, $\\mathrm{RSS}_0=4$, $\\mathrm{RSS}_1=0.4$. Hence $F=3.6/(0.4/3)=27=t^2$. The denominator degrees of freedom belong to the full model: $n-p=3$, not $n-k$."}</MathText></p><p>A small p value is evidence against the specified restriction under the assumed error model. It does not establish a causal relationship, economic usefulness, or robustness to trying many models.</p></section>
-<section id="prediction" className={styles.section}><span className={styles.sectionNumber}>04 / A MEAN VERSUS A NEW OBSERVATION</span><h2>Prediction intervals</h2><p><MathText>{"For a new predictor vector $x_0$, the fitted conditional mean is $\\widehat m_0=x_0^T\\widehat\\beta$. Its estimated variance is $s^2x_0^TCx_0$. A new independent response also has its own error variance, adding the extra 1:"}</MathText></p><Equation>{"\\mathrm{SE}(\\widehat m_0)=s\\sqrt{x_0^TCx_0},\\qquad\\mathrm{SE}_{\\mathrm{pred}}=s\\sqrt{1+x_0^TCx_0}."}</Equation><p><MathText>{"At $x=0$ in our example, $x_0=(1,0)^T$ and the fitted mean is 1. The 95% mean interval is $1\\pm3.182\\sqrt{(2/15)(1/5)}\\approx1\\pm0.520$. The individual prediction interval is $1\\pm3.182\\sqrt{(2/15)(1+1/5)}\\approx1\\pm1.273$."}</MathText></p><p>The wider interval recognises new observation noise. These formulas assume the same valid model and an independent new error. Predictions far outside the observed predictor range may be sensitive to model misspecification even if an interval can be calculated.</p></section>
-<section id="diagnostics" className={styles.section}><span className={styles.sectionNumber}>05 / TEST THE MODEL AGAINST ITS RESIDUALS</span><h2>Residuals and influence</h2><p><MathText>{"The leverage of observation i is $h_{ii}=x_i^TCx_i$. Since $\\operatorname{Var}(e_i\\mid X)=\\sigma^2(1-h_{ii})$, raw residual magnitudes are not directly comparable. Also $\\sum_i h_{ii}=p$, so average leverage is $p/n$."}</MathText></p><Equation>{"r_i=\\frac{e_i}{s\\sqrt{1-h_{ii}}},\\qquad D_i=\\frac{e_i^2}{p s^2}\\frac{h_{ii}}{(1-h_{ii})^2}."}</Equation><p>The first quantity is an internally standardised residual. Cook’s distance D combines residual size and leverage to measure sensitivity of fitted values to deleting a case. Externally studentised residuals instead use a variance estimate obtained after deleting that observation.</p><h3>Original diagnostic calculation</h3><p><MathText>{"For the endpoint $x=2$, $h_{ii}=1/5+4/10=0.6$ and $e_i=-0.2$. The standardised residual is $-0.2/\\sqrt{(2/15)(0.4)}\\approx-0.8660$, while Cook’s distance is $0.5625$. The endpoint has more leverage than the central point, whose leverage is 0.2."}</MathText></p><p>A point can have high leverage without a large residual, and a large residual without high leverage. Neither property alone proves a data error. Inspect the observation and compare fits before deciding whether it should be excluded.</p><ol><li><strong>Residuals versus fitted values:</strong> look for curvature, omitted structure or changing spread.</li><li><strong>Residuals over time:</strong> look for persistence, breaks or calendar patterns.</li><li><strong>Normal quantile comparison:</strong> assess the Gaussian assumption used for exact small sample tests.</li><li><strong>Leverage and influence:</strong> examine whether a few observations drive the coefficient estimates.</li><li><strong>Future period validation:</strong> check prediction using only information available at each forecast origin.</li></ol><p>Even a reassuring residual plot cannot prove all assumptions. In financial data, volatility changes and dependence can invalidate classical standard errors while leaving the least squares fit algebraically unchanged.</p></section>
-<section id="gls" className={styles.section}><span className={styles.sectionNumber}>06 / UNEQUAL OR CORRELATED ERRORS</span><h2>Gauss–Markov and generalised least squares</h2><NoteBox kind="result" title="Best linear unbiased under the stated covariance"><p><MathText>{"With full rank X, $\\mathbb E[\\varepsilon\\mid X]=0$ and $\\operatorname{Cov}(\\varepsilon\\mid X)=\\sigma^2I$, OLS has minimum covariance among estimators linear in y and unbiased for every $\\beta$. Gaussian errors are not required for this Gauss–Markov statement."}</MathText></p></NoteBox><p><MathText>{"Write an alternative linear unbiased estimator as $(A+D)y$ where $A=(X^TX)^{-1}X^T$ and $DX=0$. The cross covariance terms vanish because $AD^T=CX^TD^T=0$. Its covariance is $\\sigma^2C+\\sigma^2DD^T$, which cannot improve on OLS."}</MathText></p><p><MathText>{"If instead covariance is $\\sigma^2\\Omega$ with known positive definite $\\Omega$, whiten using a matrix L satisfying $L\\Omega L^T=I$. Fit least squares to Ly and LX. This gives:"}</MathText></p><Equation>{"\\widehat\\beta_{\\mathrm{GLS}}=(X^T\\Omega^{-1}X)^{-1}X^T\\Omega^{-1}y."}</Equation><h3>Original weighted mean example</h3><p><MathText>{"For an intercept only model, observations 10 and 14 have independent variances 1 and 4. Weights are inversely proportional to variance, so the fitted mean is $(10+14/4)/(1+1/4)=10.8$, compared with the unweighted mean 12. The known variance of this weighted estimate is $1/(1+1/4)=0.8$."}</MathText></p><p>Feasible GLS estimates the covariance structure rather than assuming it known; that adds uncertainty. Heteroscedasticity consistent or serial dependence robust standard errors are another approach to inference, but they do not repair a misspecified conditional mean or endogeneity.</p></section>
-<section id="extensions" className={styles.section}><span className={styles.sectionNumber}>07 / FURTHER READING IN THE SHARED DECK</span><h2>Further regression methods</h2><p>The shared regression deck also covers maximum likelihood, robust and quantile criteria, ridge, principal components regression and lasso. These form a reading guide rather than a claim that all extensions were completed in Lecture 8.</p><Equation>{"\\widehat\\beta_{\\mathrm{ridge}}=\\arg\\min_b\\{\\|y-Xb\\|^2+\\lambda\\|b\\|_2^2\\}=(X^TX+\\lambda I)^{-1}X^Ty."}</Equation><p><MathText>{"For centred and appropriately scaled predictors, ridge shrinks coefficients continuously. With $X=UDV^T$, fitted components are multiplied by $d_j^2/(d_j^2+\\lambda)$. Principal components regression retains selected singular directions outright; lasso uses an L1 penalty and can set coefficients to zero. Intercepts are normally handled separately and left unpenalised."}</MathText></p><p>Select tuning parameters with validation that respects the prediction setting. Scaling and feature selection must be fitted on training data. For a time series, a random split can leak future information into an earlier prediction task.</p></section>
-<section id="practice" className={styles.section}><span className={styles.sectionNumber}>08 / PRACTICE</span><h2>Check your understanding</h2><p>Original exercises, separate from MIT’s assignments.</p><ol><li>If n = 30 and X has five independent columns including the intercept, what are the residual degrees of freedom?</li><li>For a nested two parameter restriction in that full model, give both F degrees of freedom.</li><li>Why is an individual prediction interval wider than an interval for the conditional mean?</li><li>Does Gauss–Markov say OLS is best among all possible biased and nonlinear estimators?</li></ol><details><summary>Compare your answers</summary><p>1. 25. The intercept has already been counted among the five parameters.</p><p>2. Numerator 2, denominator 25.</p><p>3. A new individual outcome adds its own error variance to uncertainty about the mean.</p><p>4. No. The comparison is restricted to linear unbiased estimators under the stated model and covariance assumptions.</p></details></section>
-</FinanceLesson>;
+  return (
+    <FinanceLesson
+      number={8}
+      title="Regression inference and diagnostics"
+      description="Derive the least squares estimator, quantify its uncertainty, and use residuals and influence to check whether the model deserves confidence."
+      instructor="Peter Kempthorne"
+      topics="Regression Analysis continued · Estimation and inference"
+      sections={sections}
+      previous={{
+        slug: "linear-rates-products-and-models",
+        title: "Linear rates, products and models",
+      }}
+      next={{ slug: "pca-in-finance", title: "PCA in finance" }}
+      sources={
+        <p>
+          Sources:{" "}
+          <a href={`${course}resources/18642-lecture-8-version-2_mp4/`}>
+            Lecture 8 recording
+          </a>
+          , <a href={`${course}pages/week-5/`}>Week 5 materials</a>, and the
+          shared{" "}
+          <a href={`${course}mit18_642_f24_lec06_1.pdf`}>
+            Regression Analysis slides
+          </a>
+          . These notes supply independent derivations and an original five
+          observation example. The shared deck extends beyond the core lecture;
+          regularisation below is marked as a further reading guide. Exact test
+          formulas here use n−p residual degrees of freedom.
+        </p>
+      }
+    >
+      <div className={styles.lessonOverview}>
+        <p>
+          Lecture 8 continues regression after the rates guest lecture. Its
+          central connection is between orthogonal projection, the sampling
+          distribution of fitted coefficients, and diagnostics. The worked
+          example continues the line fitted in Lecture 6; all calculations refer
+          to a fixed design matrix.
+        </p>
+      </div>
+      <OlsSection />
+      <SamplingSection />
+      <TestsSection />
+      <section id="prediction" className={styles.section}>
+        <span className={styles.sectionNumber}>
+          04 / A MEAN VERSUS A NEW OBSERVATION
+        </span>
+        <h2>Prediction intervals</h2>
+        <p>
+          <MathText>
+            {
+              "For a new predictor vector $x_0$, the fitted conditional mean is $\\widehat m_0=x_0^T\\widehat\\beta$. Its estimated variance is $s^2x_0^TCx_0$. A new independent response also has its own error variance, adding the extra 1:"
+            }
+          </MathText>
+        </p>
+        <Equation>
+          {
+            "\\mathrm{SE}(\\widehat m_0)=s\\sqrt{x_0^TCx_0},\\qquad\\mathrm{SE}_{\\mathrm{pred}}=s\\sqrt{1+x_0^TCx_0}."
+          }
+        </Equation>
+        <p>
+          <MathText>
+            {
+              "At $x=0$ in our example, $x_0=(1,0)^T$ and the fitted mean is 1. The 95% mean interval is $1\\pm3.182\\sqrt{(2/15)(1/5)}\\approx1\\pm0.520$. The individual prediction interval is $1\\pm3.182\\sqrt{(2/15)(1+1/5)}\\approx1\\pm1.273$."
+            }
+          </MathText>
+        </p>
+        <p>
+          The wider interval recognises new observation noise. These formulas
+          assume the same valid model and an independent new error. Predictions
+          far outside the observed predictor range may be sensitive to model
+          misspecification even if an interval can be calculated.
+        </p>
+      </section>
+      <DiagnosticsSection />
+      <GlsSection />
+      <section id="extensions" className={styles.section}>
+        <span className={styles.sectionNumber}>
+          07 / FURTHER READING IN THE SHARED DECK
+        </span>
+        <h2>Further regression methods</h2>
+        <p>
+          The shared regression deck also covers maximum likelihood, robust and
+          quantile criteria, ridge, principal components regression and lasso.
+          These form a reading guide rather than a claim that all extensions
+          were completed in Lecture 8.
+        </p>
+        <Equation>
+          {
+            "\\widehat\\beta_{\\mathrm{ridge}}=\\arg\\min_b\\{\\|y-Xb\\|^2+\\lambda\\|b\\|_2^2\\}=(X^TX+\\lambda I)^{-1}X^Ty."
+          }
+        </Equation>
+        <p>
+          <MathText>
+            {
+              "For centred and appropriately scaled predictors, ridge shrinks coefficients continuously. With $X=UDV^T$, fitted components are multiplied by $d_j^2/(d_j^2+\\lambda)$. Principal components regression retains selected singular directions outright; lasso uses an L1 penalty and can set coefficients to zero. Intercepts are normally handled separately and left unpenalised."
+            }
+          </MathText>
+        </p>
+        <p>
+          Select tuning parameters with validation that respects the prediction
+          setting. Scaling and feature selection must be fitted on training
+          data. For a time series, a random split can leak future information
+          into an earlier prediction task.
+        </p>
+      </section>
+      <section id="practice" className={styles.section}>
+        <span className={styles.sectionNumber}>08 / PRACTICE</span>
+        <h2>Check your understanding</h2>
+        <p>Original exercises, separate from MIT’s assignments.</p>
+        <ol>
+          <li>
+            If n = 30 and X has five independent columns including the
+            intercept, what are the residual degrees of freedom?
+          </li>
+          <li>
+            For a nested two parameter restriction in that full model, give both
+            F degrees of freedom.
+          </li>
+          <li>
+            Why is an individual prediction interval wider than an interval for
+            the conditional mean?
+          </li>
+          <li>
+            Does Gauss–Markov say OLS is best among all possible biased and
+            nonlinear estimators?
+          </li>
+        </ol>
+        <details>
+          <summary>Compare your answers</summary>
+          <p>
+            1. 25. The intercept has already been counted among the five
+            parameters.
+          </p>
+          <p>2. Numerator 2, denominator 25.</p>
+          <p>
+            3. A new individual outcome adds its own error variance to
+            uncertainty about the mean.
+          </p>
+          <p>
+            4. No. The comparison is restricted to linear unbiased estimators
+            under the stated model and covariance assumptions.
+          </p>
+        </details>
+      </section>
+    </FinanceLesson>
+  );
 }

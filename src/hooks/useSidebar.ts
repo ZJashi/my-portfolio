@@ -13,7 +13,8 @@ export function useSidebar() {
   const handleNavClick = (e: MouseEvent<HTMLAnchorElement>, item: NavItem) => {
     if (!item.href.startsWith("#") || pathname !== "/") return;
     e.preventDefault();
-    document.getElementById(item.href.slice(1))
+    document
+      .getElementById(item.href.slice(1))
       ?.scrollIntoView({ behavior: "smooth" });
   };
 

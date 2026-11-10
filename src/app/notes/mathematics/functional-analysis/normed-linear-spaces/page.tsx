@@ -1,113 +1,187 @@
 import { LessonNavigation } from "@/components/notes/LessonNavigation";
 import Link from "next/link";
 import { Equation, MathText } from "@/components/notes/Equation";
-import { NoteBox } from "@/components/notes/NoteBox";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
+import { RememberSection } from "./remember-section";
+import { ProductExercisesSection } from "./product-exercises-section";
+import { QuotientTriangleSection } from "./quotient-triangle-section";
+import { QuotientNormSection } from "./quotient-norm-section";
+import { ClosureSection } from "./closure-section";
+import { BanachSection } from "./banach-section";
+import { EquivalentSection } from "./equivalent-section";
+import { ReverseTriangleSection } from "./reverse-triangle-section";
+import { NormSection } from "./norm-section";
+import { MetricSection } from "./metric-section";
+import { SubspacesSection } from "./subspaces-section";
+import { QuotientHomogeneitySection } from "./quotient-homogeneity-section";
 
-export const metadata = { title: "Normed Linear Spaces | Functional Analysis | Zura Jashi", description: "Lecture 3: norms, induced metrics, equivalent norms, products, closures, quotient norms and Banach spaces, with proofs and solved exercises." };
+export const metadata = {
+  title: "Normed Linear Spaces | Functional Analysis | Zura Jashi",
+  description:
+    "Lecture 3: norms, induced metrics, equivalent norms, products, closures, quotient norms and Banach spaces, with proofs and solved exercises.",
+};
 
 export default function NormedSpacesLesson() {
-return <div className={styles.page}>
-<nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes">Notes</Link><span>/</span><Link href="/notes/mathematics">Mathematics</Link><span>/</span><Link href="/notes/mathematics/functional-analysis">Functional Analysis</Link><span>/</span><span>Lecture 3</span></nav>
-<header className={styles.readingHeader}><p className={styles.subjectKicker}>03 / FUNCTIONAL ANALYSIS</p><h1 className={styles.subjectTitle}>Normed linear spaces</h1><p className={styles.subjectDescription}>Give vectors a size, turn size into distance, and construct norms on subspaces, products and quotients. Finish with completeness and Banach spaces.</p><div className={styles.readingMeta}><span>Lecture 3</span><span>Linear spaces · Quotients · Infima · Sequences</span></div><p className={styles.lessonSourceCredit}>Source: <a href="https://www.youtube.com/watch?v=9p5hp53yh6w">Claudio Landim · IMPA lecture 3</a>. Adapted from captions; board notation unverified.</p></header>
-<div className={styles.lessonLayout}><article className={styles.article}><div className={styles.lessonOverview}><p><MathText>{"A norm links the algebra of a vector space to the analysis of limits. It induces a metric and a topology, allows different notions of size to be compared, and makes it possible to ask whether every Cauchy sequence converges within the space. The main construction here is the norm on a quotient by a closed subspace."}</MathText></p></div>
-<section id="norm" className={styles.section}><span className={styles.sectionNumber}>01 / LECTURE 3</span><h2>Norms on linear spaces</h2><p><MathText>{"Let $X$ be a linear space over $\\mathbb K$, where $\\mathbb K$ is $\\mathbb R$ or $\\mathbb C$. A norm assigns a nonnegative real size to each vector. Write its value at $x$ as $\\|x\\|$."}</MathText></p>
-<NoteBox kind="definition" title="Norm"><p><MathText>{"A function $\\|\\cdot\\|:X\\to[0,\\infty)$ is a norm if it satisfies definiteness, absolute homogeneity and the triangle inequality."}</MathText></p></NoteBox>
-<ul className={styles.takeaways}><li><strong>Definiteness.</strong> <MathText>{"$\\|x\\|\\geq0$ for every $x\\in X$, and $\\|x\\|=0$ if and only if $x=0$."}</MathText></li><li><strong>Absolute homogeneity.</strong> <MathText>{"$\\|\\alpha x\\|=|\\alpha|\\,\\|x\\|$ for every $\\alpha\\in\\mathbb K$ and $x\\in X$."}</MathText></li><li><strong>Triangle inequality.</strong> <MathText>{"$\\|x+u\\|\\leq\\|x\\|+\\|u\\|$ for every $x,u\\in X$."}</MathText></li></ul>
-<p><MathText>{"The pair $(X,\\|\\cdot\\|)$ is a normed linear space. The vectors may be functions, sequences or other objects; the norm provides a way to measure their size without requiring coordinates. In the complex case, $|\\alpha|$ is the complex modulus."}</MathText></p></section>
-<section id="reverse-triangle" className={styles.section}><span className={styles.sectionNumber}>02 / LECTURE 3</span><h2>Symmetry and the reverse triangle inequality</h2><h3>A vector and its negative have the same norm</h3>
-<p><MathText>{"Absolute homogeneity with the scalar $-1$ gives"}</MathText></p>
-<Equation>{"\\|-x\\|=\\|(-1)x\\|=|-1|\\,\\|x\\|=\\|x\\|."}</Equation>
-<p><MathText>{"In particular, $\\|u-x\\|=\\|x-u\\|$. This identity lets us exchange the order of a difference without changing its norm."}</MathText></p>
-<h3>The difference of sizes is bounded by the size of the difference</h3>
-<p><MathText>{"Write $x=(x-u)+u$ and apply the triangle inequality:"}</MathText></p>
-<Equation>{"\\|x\\|\\leq\\|x-u\\|+\\|u\\|,\\qquad \\|x\\|-\\|u\\|\\leq\\|x-u\\|."}</Equation>
-<p><MathText>{"Exchange $x$ and $u$ to obtain $\\|u\\|-\\|x\\|\\leq\\|u-x\\|=\\|x-u\\|$. Both signs of the difference are therefore bounded by the same quantity."}</MathText></p>
-<NoteBox kind="result" title="Reverse triangle inequality"><Equation>{"\\bigl|\\|x\\|-\\|u\\|\\bigr|\\leq\\|x-u\\|."}</Equation></NoteBox>
-<p><MathText>{"The expression on the left is the absolute value of a real number; the expression on the right is the norm of a vector. Consequently, convergence in norm implies convergence of the corresponding real-valued norms."}</MathText></p></section>
-<section id="metric" className={styles.section}><span className={styles.sectionNumber}>03 / LECTURE 3</span><h2>The metric induced by a norm</h2><NoteBox kind="definition" title="Distance induced by the norm"><p><MathText>{"Define the distance between two vectors by the norm of their difference."}</MathText></p><Equation>{"d(x,u)=\\|u-x\\|."}</Equation></NoteBox>
-<p><MathText>{"This function satisfies the three metric properties."}</MathText></p>
-<h3>Nonnegativity and separation</h3>
-<p><MathText>{"Nonnegativity follows directly from the norm. Also, $d(x,u)=0$ holds precisely when $\\|u-x\\|=0$, hence precisely when $u-x=0$, or $u=x$."}</MathText></p>
-<h3>Symmetry</h3>
-<Equation>{"d(x,u)=\\|u-x\\|=\\|x-u\\|=d(u,x)."}</Equation>
-<h3>Triangle inequality</h3>
-<p><MathText>{"For any intermediate point $u$, split the difference from $x$ to $z$ into two parts:"}</MathText></p>
-<Equation>{"\\begin{aligned}d(x,z)&=\\|z-x\\|\\\\&=\\|(z-u)+(u-x)\\|\\\\&\\leq\\|z-u\\|+\\|u-x\\|\\\\&=d(u,z)+d(x,u).\\end{aligned}"}</Equation>
-<p><MathText>{"Thus every normed linear space is also a metric space. The norm and the metric have different inputs: $\\|x\\|$ measures one vector, whereas $d(x,u)$ measures the separation of two vectors."}</MathText></p></section>
-<section id="topology" className={styles.section}><span className={styles.sectionNumber}>04 / LECTURE 3</span><h2>Convergence and the induced topology</h2><p><MathText>{"The induced metric gives a meaning to convergence. A sequence $(x_n)$ converges to $x$ precisely when its distance from $x$ tends to zero:"}</MathText></p>
-<Equation>{"x_n\\longrightarrow x\\quad\\Longleftrightarrow\\quad\\|x_n-x\\|\\longrightarrow0."}</Equation>
-<p><MathText>{"It also supplies the topology in which we discuss open sets, closed sets and compact sets. For example, an open ball with centre $x$ and radius $r>0$ is"}</MathText></p>
-<Equation>{"B(x,r)=\\{u\\in X:\\|u-x\\|<r\\}."}</Equation>
-<p><MathText>{"A set is open if each of its points has an open ball contained in the set. In this metric topology, a set is closed if it contains every limit in $X$ of a convergent sequence of its points. This sequential description will be crucial for the quotient norm."}</MathText></p></section>
-<section id="equivalent" className={styles.section}><span className={styles.sectionNumber}>05 / LECTURE 3</span><h2>Equivalent norms</h2><p><MathText>{"Two different norms on the same vector space may give the same notion of convergence. A quantitative comparison guarantees this."}</MathText></p>
-<NoteBox kind="definition" title="Equivalent norms"><p><MathText>{"Norms $\\|\\cdot\\|_1$ and $\\|\\cdot\\|_2$ are equivalent if there is a constant $0<c<\\infty$, independent of $x$, such that"}</MathText></p><Equation>{"c\\|x\\|_1\\leq\\|x\\|_2\\leq c^{-1}\\|x\\|_1\\qquad(x\\in X)."}</Equation></NoteBox>
-<p><MathText>{"One may take $0<c\\leq1$. Equivalently, there are constants $a,b>0$ with $a\\|x\\|_1\\leq\\|x\\|_2\\leq b\\|x\\|_1$. The bounds must hold uniformly for every vector; choosing a different constant for each vector does not establish equivalence."}</MathText></p>
-<h3>Equivalent norms have the same convergent sequences</h3>
-<p><MathText>{"If $\\|x_n-x\\|_1\\to0$, then $\\|x_n-x\\|_2\\leq c^{-1}\\|x_n-x\\|_1\\to0$. Conversely, the lower bound gives $\\|x_n-x\\|_1\\leq c^{-1}\\|x_n-x\\|_2\\to0$."}</MathText></p>
-<h3>Equivalent norms have the same topology</h3>
-<p><MathText>{"The inequalities compare their balls as well. Writing $B_i$ for balls in the $i$th norm,"}</MathText></p>
-<Equation>{"B_1(x,cr)\\subseteq B_2(x,r),\\qquad B_2(x,cr)\\subseteq B_1(x,r)."}</Equation>
-<p><MathText>{"Every neighbourhood in one norm therefore contains a neighbourhood in the other. Both norms give exactly the same open sets and closed sets. They need not assign the same numerical length to a vector."}</MathText></p></section>
-<section id="subspaces" className={styles.section}><span className={styles.sectionNumber}>06 / LECTURE 3</span><h2>Subspaces and product spaces</h2><h3>Restricting a norm to a subspace</h3>
-<p><MathText>{"If $Y\\subseteq X$ is a linear subspace, the same function $\\|\\cdot\\|$, restricted to $Y$, satisfies all three norm axioms. Thus $(Y,\\|\\cdot\\|)$ is a normed linear space. Closedness is not required for this construction."}</MathText></p>
-<h3>The product of two normed spaces</h3>
-<p><MathText>{"Let $X_1$ and $X_2$ be normed linear spaces over the same field, with norms $N_1$ and $N_2$. Their product consists of ordered pairs $v=(x_1,x_2)$. Addition and scalar multiplication act coordinate by coordinate."}</MathText></p>
-<Equation>{"(x_1,x_2)+(u_1,u_2)=(x_1+u_1,x_2+u_2),\\qquad \\alpha(x_1,x_2)=(\\alpha x_1,\\alpha x_2)."}</Equation>
-<p><MathText>{"Three natural norms on the product are the sum norm, maximum norm and Euclidean combination norm:"}</MathText></p>
-<Equation>{"\\begin{aligned}P_1(x_1,x_2)&=N_1(x_1)+N_2(x_2),\\\\P_\\infty(x_1,x_2)&=\\max\\{N_1(x_1),N_2(x_2)\\},\\\\P_2(x_1,x_2)&=\\sqrt{N_1(x_1)^2+N_2(x_2)^2}.\\end{aligned}"}</Equation>
-<p><MathText>{"The names distinguish the three product norms from the norms on their component spaces. Each is a norm, and all three are equivalent. The following exercises verify these assertions."}</MathText></p></section>
-<section id="product-exercises" className={styles.section}><span className={styles.sectionNumber}>07 / LECTURE 3</span><h2>Exercises on the product norms</h2><div className={styles.exercise}><h3>1. Verify the sum and maximum norms</h3><p><MathText>{"Check definiteness, absolute homogeneity and the triangle inequality for $P_1$ and $P_\\infty$."}</MathText></p><details><summary>Show solution</summary><p><MathText>{"Both expressions are nonnegative and vanish only when both component norms vanish, which means $x_1=x_2=0$. Absolute homogeneity follows by factoring out $|\\alpha|$ in each component."}</MathText></p><p><MathText>{"For the sum norm, apply the component triangle inequalities and collect terms:"}</MathText></p><Equation>{"P_1(v+w)\\leq N_1(x_1)+N_1(u_1)+N_2(x_2)+N_2(u_2)=P_1(v)+P_1(w)."}</Equation><p><MathText>{"For the maximum norm, each component is at most the sum of the corresponding component norms, which is at most $P_\\infty(v)+P_\\infty(w)$. Taking the maximum preserves the bound."}</MathText></p></details></div>
-<div className={styles.exercise}><h3>2. Verify the Euclidean combination norm</h3><p><MathText>{"Show that $P_2$ satisfies the norm axioms."}</MathText></p><details><summary>Show solution</summary><p><MathText>{"Definiteness and absolute homogeneity follow directly from those of $N_1$ and $N_2$. For the triangle inequality, put $a_i=N_i(x_i)$ and $b_i=N_i(u_i)$. The component inequalities give"}</MathText></p><Equation>{"P_2(v+w)\\leq\\sqrt{(a_1+b_1)^2+(a_2+b_2)^2}."}</Equation><p><MathText>{"The ordinary Euclidean triangle inequality in $\\mathbb R^2$ bounds this by $\\sqrt{a_1^2+a_2^2}+\\sqrt{b_1^2+b_2^2}=P_2(v)+P_2(w)$. It follows, for example, by expanding the square and using $a_1b_1+a_2b_2\\leq\\sqrt{a_1^2+a_2^2}\\sqrt{b_1^2+b_2^2}$."}</MathText></p></details></div>
-<div className={styles.exercise}><h3>3. Prove that the three norms are equivalent</h3><p><MathText>{"Find constants comparing $P_1$, $P_2$ and $P_\\infty$ for all vectors in the product."}</MathText></p><details><summary>Show solution</summary><Equation>{"P_\\infty(v)\\leq P_2(v)\\leq P_1(v)\\leq\\sqrt2\\,P_2(v)\\leq2P_\\infty(v)."}</Equation><p><MathText>{"For nonnegative $a,b$, the first two comparisons follow from $\\max\\{a,b\\}\\leq\\sqrt{a^2+b^2}\\leq a+b$. The bound $a+b\\leq\\sqrt2\\sqrt{a^2+b^2}$ follows by squaring and using $2ab\\leq a^2+b^2$. These constants do not depend on the vector, so every pair of norms is equivalent."}</MathText></p></details></div></section>
-<section id="closure" className={styles.section}><span className={styles.sectionNumber}>08 / LECTURE 3</span><h2>The closure of a linear subspace</h2><p><MathText>{"The closure of a subset $Y$ consists of the points of the ambient space that can be approximated by sequences from $Y$:"}</MathText></p>
-<Equation>{"\\overline Y=\\{x\\in X:\\text{there is }(y_n)\\subseteq Y\\text{ with }\\|y_n-x\\|\\to0\\}."}</Equation>
-<p><MathText>{"If $Y$ is a linear subspace, its closure is also a linear subspace. This gives another normed linear space by restricting the norm of $X$ to $\\overline Y$."}</MathText></p>
-<div className={styles.exercise}><h3>4. Show that the closure is a subspace</h3><p><MathText>{"For $x,u\\in\\overline Y$ and $\\alpha\\in\\mathbb K$, prove that $\\alpha x+u\\in\\overline Y$."}</MathText></p><details><summary>Show solution</summary><p><MathText>{"Choose sequences $y_n,v_n\\in Y$ with $y_n\\to x$ and $v_n\\to u$. Each $\\alpha y_n+v_n$ belongs to $Y$, and"}</MathText></p><Equation>{"\\|(\\alpha y_n+v_n)-(\\alpha x+u)\\|\\leq|\\alpha|\\,\\|y_n-x\\|+\\|v_n-u\\|\\longrightarrow0."}</Equation><p><MathText>{"Thus $\\alpha x+u$ is a limit of points of $Y$ and belongs to $\\overline Y$. The closure is nonempty because it contains $Y$, establishing the subspace test."}</MathText></p></details></div>
-<p><MathText>{"The closure is taken inside $X$: only limits that belong to the ambient space enter $\\overline Y$. This construction alone does not assert that $X$ or $\\overline Y$ is complete."}</MathText></p></section>
-<section id="quotient-norm" className={styles.section}><span className={styles.sectionNumber}>09 / LECTURE 3</span><h2>A norm on a quotient by a closed subspace</h2><p><MathText>{"Now let $Y$ be a closed linear subspace of the normed space $X$. Recall that the points of $X/Y$ are equivalence classes $[x]=x+Y$, and that $[0]=Y$ is the zero class."}</MathText></p>
-<NoteBox kind="definition" title="Quotient norm"><p><MathText>{"Measure a class by the infimum of the norms of all its representatives."}</MathText></p><Equation>{"\\|[x]\\|_{X/Y}=\\inf_{z\\in[x]}\\|z\\|=\\inf_{y\\in Y}\\|x-y\\|."}</Equation></NoteBox>
-<p><MathText>{"The second expression follows from $[x]=x+Y$ and $Y=-Y$. It is the distance from the vector $x$ to the subspace $Y$. The value depends on the class, not on the representative: equal classes are the same set over which the infimum is taken."}</MathText></p>
-<p><MathText>{"The value is finite because $x\\in[x]$, giving $0\\leq\\|[x]\\|_{X/Y}\\leq\\|x\\|$. There is no assumption that a representative of minimum norm exists. An infimum can be approached without being attained."}</MathText></p>
-<h3>Definiteness and the role of closedness</h3>
-<p><MathText>{"The infimum is nonnegative. Since $0\\in Y=[0]$, the zero class has norm zero. Conversely, suppose $\\|[x]\\|_{X/Y}=0$. Choose representatives $z_j\\in[x]$ with $\\|z_j\\|\\to0$. Every $z_j-x$ belongs to $Y$, and"}</MathText></p>
-<Equation>{"\\|(z_j-x)-(-x)\\|=\\|z_j\\|\\longrightarrow0."}</Equation>
-<p><MathText>{"Thus $z_j-x\\to-x$. Because $Y$ is closed, $-x\\in Y$; because it is a subspace, $x\\in Y$. Hence $[x]=Y=[0]$."}</MathText></p>
-<p><MathText>{"To see the equality of classes directly, if $z\\in[x]$ then $z-x\\in Y$ and $x\\in Y$, so $z=(z-x)+x\\in Y$. Conversely, if $z\\in Y$, then $z-x\\in Y$, so $z\\in[x]$. Both inclusions give $[x]=Y$."}</MathText></p>
-<NoteBox kind="definition" title="Closedness is essential"><p><MathText>{"Without closedness, the same formula can assign zero to a nonzero class. If $x\\in\\overline Y\\setminus Y$, there are points of $Y$ arbitrarily close to $x$, so $\\|[x]\\|_{X/Y}=0$ even though $[x]\\ne[0]$. The formula then defines a seminorm rather than a norm."}</MathText></p></NoteBox></section>
-<section id="quotient-homogeneity" className={styles.section}><span className={styles.sectionNumber}>10 / LECTURE 3</span><h2>Absolute homogeneity of the quotient norm</h2><p><MathText>{"We must show $\\|\\alpha[x]\\|_{X/Y}=|\\alpha|\\,\\|[x]\\|_{X/Y}$. First take $\\alpha\\ne0$. Multiplication by $\\alpha$ maps the representatives of $[x]$ bijectively onto those of $[\\alpha x]$:"}</MathText></p>
-<Equation>{"z\\in[\\alpha x]\\quad\\Longleftrightarrow\\quad z-\\alpha x\\in Y\\quad\\Longleftrightarrow\\quad z/\\alpha-x\\in Y\\quad\\Longleftrightarrow\\quad z/\\alpha\\in[x]."}</Equation>
-<p><MathText>{"This uses closure of $Y$ under multiplication by both $\\alpha$ and $1/\\alpha$. Substitute $z=\\alpha w$ in the infimum and use homogeneity in $X$:"}</MathText></p>
-<Equation>{"\\begin{aligned}\\|\\alpha[x]\\|_{X/Y}&=\\|[\\alpha x]\\|_{X/Y}\\\\&=\\inf_{w\\in[x]}\\|\\alpha w\\|\\\\&=|\\alpha|\\inf_{w\\in[x]}\\|w\\|\\\\&=|\\alpha|\\,\\|[x]\\|_{X/Y}.\\end{aligned}"}</Equation>
-<p><MathText>{"For $\\alpha=0$, the left side is $\\|[0]\\|_{X/Y}=0$ and the right side is also zero. This case is handled separately because division by $\\alpha$ is unavailable."}</MathText></p></section>
-<section id="quotient-triangle" className={styles.section}><span className={styles.sectionNumber}>11 / LECTURE 3</span><h2>The quotient triangle inequality</h2><p><MathText>{"We need to prove that the norm of a sum of classes is at most the sum of their quotient norms. Use $u$ for the second vector, keeping $Y$ reserved for the subspace."}</MathText></p>
-<Equation>{"\\|[x]+[u]\\|_{X/Y}\\leq\\|[x]\\|_{X/Y}+\\|[u]\\|_{X/Y}."}</Equation>
-<h3>Representatives of the sum class</h3>
-<p><MathText>{"As subsets of $X$, the sum of the classes is precisely the class of the sum:"}</MathText></p>
-<Equation>{"[x+u]=\\{z_1+z_2:z_1\\in[x],\\ z_2\\in[u]\\}."}</Equation>
-<p><MathText>{"One inclusion follows by adding $z_1-x\\in Y$ and $z_2-u\\in Y$. For the reverse inclusion, if $z-(x+u)\\in Y$, take $z_1=x$ and $z_2=z-x$; then $z_2-u\\in Y$. Thus every representative of $[x+u]$ has the required form."}</MathText></p>
-<p><MathText>{"The quotient definition and the triangle inequality in $X$ now give"}</MathText></p>
-<Equation>{"\\begin{aligned}\\|[x]+[u]\\|_{X/Y}&=\\inf_{\\substack{z_1\\in[x]\\\\z_2\\in[u]}}\\|z_1+z_2\\|\\\\&\\leq\\inf_{\\substack{z_1\\in[x]\\\\z_2\\in[u]}}\\bigl(\\|z_1\\|+\\|z_2\\|\\bigr).\\end{aligned}"}</Equation>
-<h3>Separating the two infima</h3>
-<p><MathText>{"Put $A=\\inf_{z_1\\in[x]}\\|z_1\\|$ and $B=\\inf_{z_2\\in[u]}\\|z_2\\|$. Both are finite. For any $\\varepsilon>0$, choose $w_1\\in[x]$ and $w_2\\in[u]$ with"}</MathText></p>
-<Equation>{"A\\leq\\|w_1\\|<A+\\varepsilon,\\qquad B\\leq\\|w_2\\|<B+\\varepsilon."}</Equation>
-<p><MathText>{"Then"}</MathText></p>
-<Equation>{"\\inf_{\\substack{z_1\\in[x]\\\\z_2\\in[u]}}\\bigl(\\|z_1\\|+\\|z_2\\|\\bigr)\\leq\\|w_1\\|+\\|w_2\\|<A+B+2\\varepsilon."}</Equation>
-<p><MathText>{"Because this holds for every positive $\\varepsilon$, the infimum is at most $A+B$. It is also at least $A+B$, since each individual summand is at least its own infimum. Hence"}</MathText></p>
-<Equation>{"\\inf_{\\substack{z_1\\in[x]\\\\z_2\\in[u]}}\\bigl(\\|z_1\\|+\\|z_2\\|\\bigr)=A+B."}</Equation>
-<NoteBox kind="result" title="Triangle inequality on the quotient"><Equation>{"\\|[x]+[u]\\|_{X/Y}\\leq\\|[x]\\|_{X/Y}+\\|[u]\\|_{X/Y}."}</Equation></NoteBox>
-<p><MathText>{"All three norm axioms are now proved. Therefore the quotient by a closed linear subspace is a normed linear space. The approximate-minimizer argument avoids making any claim that either infimum is attained."}</MathText></p></section>
-<section id="banach" className={styles.section}><span className={styles.sectionNumber}>12 / LECTURE 3</span><h2>Cauchy sequences, completeness and Banach spaces</h2><NoteBox kind="definition" title="Cauchy sequence"><p><MathText>{"A sequence $(x_k)$ in $X$ is Cauchy if its terms eventually become arbitrarily close to one another."}</MathText></p><Equation>{"\\forall\\varepsilon>0\\ \\exists N\\ \\forall j,k\\geq N:\\quad\\|x_j-x_k\\|<\\varepsilon."}</Equation></NoteBox>
-<p><MathText>{"The definition compares pairs of late terms; it does not name a limit. Using a non-strict bound $\\leq\\varepsilon$ gives the same definition, since the condition is required for every positive tolerance."}</MathText></p>
-<NoteBox kind="definition" title="Completeness"><p><MathText>{"A normed space is complete if every Cauchy sequence converges to a point of that same space."}</MathText></p><Equation>{"(x_k)\\text{ Cauchy}\\quad\\Longrightarrow\\quad\\exists x\\in X:\\ \\|x_k-x\\|\\longrightarrow0."}</Equation></NoteBox>
-<p><MathText>{"The phrase “in $X$” matters. A sequence may approach a point in a larger ambient space while having no limit within the space under consideration. Completeness requires the limit to remain inside the space."}</MathText></p>
-<NoteBox kind="definition" title="Banach space"><p><MathText>{"A Banach space is a complete normed linear space. The norm supplies the metric, and completeness is understood with respect to that metric."}</MathText></p></NoteBox>
-<p><MathText>{"Being a normed space and being a Banach space are different assertions. The constructions above establish norms on subspaces, products, closures and closed-subspace quotients; completeness requires its own justification."}</MathText></p></section>
-<section id="remember" className={styles.section}><span className={styles.sectionNumber}>13 / REVISION</span><h2>Main results to remember</h2><NoteBox kind="definition" title="From size to convergence"><ul className={styles.takeaways}><li><strong>Norm axioms.</strong> <MathText>{"Definiteness, absolute homogeneity and the triangle inequality define a norm."}</MathText></li><li><strong>Reverse triangle inequality.</strong> <MathText>{"$\\bigl|\\|x\\|-\\|u\\|\\bigr|\\leq\\|x-u\\|$, and $\\|-x\\|=\\|x\\|$."}</MathText></li><li><strong>Induced metric.</strong> <MathText>{"$d(x,u)=\\|u-x\\|$ is a distance, and $x_n\\to x$ means $\\|x_n-x\\|\\to0$."}</MathText></li><li><strong>Equivalent norms.</strong> <MathText>{"Uniform two-sided comparison gives the same convergent sequences, open sets and closed sets."}</MathText></li></ul></NoteBox>
-<NoteBox kind="definition" title="Constructing normed spaces"><ul className={styles.takeaways}><li><strong>Subspaces and closures.</strong> <MathText>{"A subspace inherits the ambient norm; the closure of a subspace is also a subspace."}</MathText></li><li><strong>Products.</strong> <MathText>{"The sum, maximum and Euclidean combination norms on $X_1\\times X_2$ are equivalent."}</MathText></li><li><strong>Quotients.</strong> <MathText>{"For closed $Y$, $\\|[x]\\|_{X/Y}=\\inf_{y\\in Y}\\|x-y\\|$ is a norm. Closedness is used to prove definiteness."}</MathText></li><li><strong>Infima.</strong> <MathText>{"Use representatives within $\\varepsilon$ of each infimum; a minimizer need not exist."}</MathText></li></ul></NoteBox>
-<NoteBox kind="definition" title="When a normed space is Banach"><ul className={styles.takeaways}><li><strong>Cauchy.</strong> <MathText>{"Late terms become arbitrarily close to each other."}</MathText></li><li><strong>Complete.</strong> <MathText>{"Every Cauchy sequence has a limit in the space itself."}</MathText></li><li><strong>Banach.</strong> <MathText>{"A normed linear space that is complete in its norm-induced metric."}</MathText></li></ul></NoteBox></section>
+  return (
+    <div className={styles.page}>
+      <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
+        <Link href="/notes">Notes</Link>
+        <span>/</span>
+        <Link href="/notes/mathematics">Mathematics</Link>
+        <span>/</span>
+        <Link href="/notes/mathematics/functional-analysis">
+          Functional Analysis
+        </Link>
+        <span>/</span>
+        <span>Lecture 3</span>
+      </nav>
+      <header className={styles.readingHeader}>
+        <p className={styles.subjectKicker}>03 / FUNCTIONAL ANALYSIS</p>
+        <h1 className={styles.subjectTitle}>Normed linear spaces</h1>
+        <p className={styles.subjectDescription}>
+          Give vectors a size, turn size into distance, and construct norms on
+          subspaces, products and quotients. Finish with completeness and Banach
+          spaces.
+        </p>
+        <div className={styles.readingMeta}>
+          <span>Lecture 3</span>
+          <span>Linear spaces · Quotients · Infima · Sequences</span>
+        </div>
+        <p className={styles.lessonSourceCredit}>
+          Source:{" "}
+          <a href="https://www.youtube.com/watch?v=9p5hp53yh6w">
+            Claudio Landim · IMPA lecture 3
+          </a>
+          . Adapted from captions; board notation unverified.
+        </p>
+      </header>
+      <div className={styles.lessonLayout}>
+        <article className={styles.article}>
+          <div className={styles.lessonOverview}>
+            <p>
+              <MathText>
+                {
+                  "A norm links the algebra of a vector space to the analysis of limits. It induces a metric and a topology, allows different notions of size to be compared, and makes it possible to ask whether every Cauchy sequence converges within the space. The main construction here is the norm on a quotient by a closed subspace."
+                }
+              </MathText>
+            </p>
+          </div>
+          <NormSection />
+          <ReverseTriangleSection />
+          <MetricSection />
+          <section id="topology" className={styles.section}>
+            <span className={styles.sectionNumber}>04 / LECTURE 3</span>
+            <h2>Convergence and the induced topology</h2>
+            <p>
+              <MathText>
+                {
+                  "The induced metric gives a meaning to convergence. A sequence $(x_n)$ converges to $x$ precisely when its distance from $x$ tends to zero:"
+                }
+              </MathText>
+            </p>
+            <Equation>
+              {
+                "x_n\\longrightarrow x\\quad\\Longleftrightarrow\\quad\\|x_n-x\\|\\longrightarrow0."
+              }
+            </Equation>
+            <p>
+              <MathText>
+                {
+                  "It also supplies the topology in which we discuss open sets, closed sets and compact sets. For example, an open ball with centre $x$ and radius $r>0$ is"
+                }
+              </MathText>
+            </p>
+            <Equation>{"B(x,r)=\\{u\\in X:\\|u-x\\|<r\\}."}</Equation>
+            <p>
+              <MathText>
+                {
+                  "A set is open if each of its points has an open ball contained in the set. In this metric topology, a set is closed if it contains every limit in $X$ of a convergent sequence of its points. This sequential description will be crucial for the quotient norm."
+                }
+              </MathText>
+            </p>
+          </section>
+          <EquivalentSection />
+          <SubspacesSection />
+          <ProductExercisesSection />
+          <ClosureSection />
+          <QuotientNormSection />
+          <QuotientHomogeneitySection />
+          <QuotientTriangleSection />
+          <BanachSection />
+          <RememberSection />
 
-<LessonNavigation contents={{ href: "/notes/mathematics/functional-analysis", title: "Functional Analysis" }} previous={{"href":"/notes/mathematics/functional-analysis/quotient-spaces-and-convex-sets","title":"Quotient spaces and convex sets"}} next={{"href":"/notes/mathematics/functional-analysis/completing-a-normed-linear-space","title":"Completing a normed linear space"}} />
-</article><aside className={styles.toc}><nav aria-label="On this page"><p className={styles.label}>In this lecture</p><ol><li><a href="#norm">Norms on linear spaces</a></li><li><a href="#reverse-triangle">Symmetry and the reverse triangle inequality</a></li><li><a href="#metric">The metric induced by a norm</a></li><li><a href="#topology">Convergence and the induced topology</a></li><li><a href="#equivalent">Equivalent norms</a></li><li><a href="#subspaces">Subspaces and product spaces</a></li><li><a href="#product-exercises">Exercises on the product norms</a></li><li><a href="#closure">The closure of a linear subspace</a></li><li><a href="#quotient-norm">A norm on a quotient by a closed subspace</a></li><li><a href="#quotient-homogeneity">Absolute homogeneity of the quotient norm</a></li><li><a href="#quotient-triangle">The quotient triangle inequality</a></li><li><a href="#banach">Cauchy sequences, completeness and Banach spaces</a></li><li><a href="#remember">Main results to remember</a></li></ol></nav></aside></div></div>;
+          <LessonNavigation
+            contents={{
+              href: "/notes/mathematics/functional-analysis",
+              title: "Functional Analysis",
+            }}
+            previous={{
+              href: "/notes/mathematics/functional-analysis/quotient-spaces-and-convex-sets",
+              title: "Quotient spaces and convex sets",
+            }}
+            next={{
+              href: "/notes/mathematics/functional-analysis/completing-a-normed-linear-space",
+              title: "Completing a normed linear space",
+            }}
+          />
+        </article>
+        <aside className={styles.toc}>
+          <nav aria-label="On this page">
+            <p className={styles.label}>In this lecture</p>
+            <ol>
+              <li>
+                <a href="#norm">Norms on linear spaces</a>
+              </li>
+              <li>
+                <a href="#reverse-triangle">
+                  Symmetry and the reverse triangle inequality
+                </a>
+              </li>
+              <li>
+                <a href="#metric">The metric induced by a norm</a>
+              </li>
+              <li>
+                <a href="#topology">Convergence and the induced topology</a>
+              </li>
+              <li>
+                <a href="#equivalent">Equivalent norms</a>
+              </li>
+              <li>
+                <a href="#subspaces">Subspaces and product spaces</a>
+              </li>
+              <li>
+                <a href="#product-exercises">Exercises on the product norms</a>
+              </li>
+              <li>
+                <a href="#closure">The closure of a linear subspace</a>
+              </li>
+              <li>
+                <a href="#quotient-norm">
+                  A norm on a quotient by a closed subspace
+                </a>
+              </li>
+              <li>
+                <a href="#quotient-homogeneity">
+                  Absolute homogeneity of the quotient norm
+                </a>
+              </li>
+              <li>
+                <a href="#quotient-triangle">
+                  The quotient triangle inequality
+                </a>
+              </li>
+              <li>
+                <a href="#banach">
+                  Cauchy sequences, completeness and Banach spaces
+                </a>
+              </li>
+              <li>
+                <a href="#remember">Main results to remember</a>
+              </li>
+            </ol>
+          </nav>
+        </aside>
+      </div>
+    </div>
+  );
 }
-

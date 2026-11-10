@@ -1,28 +1,186 @@
 import Link from "next/link";
 import { Equation, MathText } from "@/components/notes/Equation";
-import { NoteBox } from "@/components/notes/NoteBox";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
+import { course, sections } from "./lesson-data";
+import { PricingSection } from "./pricing-section";
+import { ReplicationSection } from "./replication-section";
+import { SvdSection } from "./svd-section";
+import { MarkovSection } from "./markov-section";
+import { EigenvaluesSection } from "./eigenvalues-section";
+import { VectorsSection } from "./vectors-section";
 
-export const metadata = { title: "Linear Algebra | MIT 18.642 Lecture 2 | Zura Jashi", description: "Portfolio vectors, payoff matrices, replication, state prices, eigenvalues, Markov chains and SVD, with worked examples." };
-const course = "https://ocw.mit.edu/courses/18-642-topics-in-mathematics-with-applications-in-finance-fall-2024/";
-const sections = [["vectors", "Vectors and portfolios"], ["geometry", "Geometry and matrix algebra"], ["replication", "Replication and rank"], ["pricing", "Arbitrage and state prices"], ["eigenvalues", "Eigenvalues and dynamics"], ["markov", "Markov chains"], ["svd", "Singular value decomposition"], ["practice", "Practice"]];
+export const metadata = {
+  title: "Linear Algebra | MIT 18.642 Lecture 2 | Zura Jashi",
+  description:
+    "Portfolio vectors, payoff matrices, replication, state prices, eigenvalues, Markov chains and SVD, with worked examples.",
+};
 
 export default function LinearAlgebraLesson() {
-return <div className={styles.page}>
-<nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes">Notes</Link><span>/</span><Link href="/notes/finance">Finance</Link><span>/</span><Link href="/notes/finance/mathematics-in-finance">Mathematics in Finance</Link><span>/</span><span>Lecture 2</span></nav>
-<header className={styles.readingHeader}><p className={styles.subjectKicker}>02 / MIT 18.642</p><h1 className={styles.subjectTitle}>Linear algebra</h1><p className={styles.subjectDescription}>Represent a portfolio as a vector and a market as a matrix. Then use linear equations to replicate payments and eigenvectors to understand repeated changes.</p><div className={styles.readingMeta}><span>Peter Kempthorne · Lecture 2</span><span>Vectors · Matrices · Finite state models</span></div></header>
-<div className={styles.lessonLayout}><article className={styles.article}>
-<div className={styles.lessonOverview}><p>MIT’s <a href={`${course}pages/week-2/`}>Lecture 2 materials</a> connect vector and matrix operations to quantitative finance. These notes develop the main topics through original numerical examples, with the accompanying one period model reading used for pricing and completeness.</p></div>
-<section id="vectors" className={styles.section}><span className={styles.sectionNumber}>01 / HOLDINGS AND VALUE</span><h2>Vectors and portfolios</h2><NoteBox title="A portfolio is a vector of quantities"><p><MathText>{"Write $p\\in\\mathbb R^n$ for prices and $h\\in\\mathbb R^n$ for holdings. A negative holding is a short position. Their dot product gives portfolio value; holdings are quantities, not percentages."}</MathText></p><Equation>{"V=p^Th=\\sum_{j=1}^n p_jh_j."}</Equation></NoteBox><p><strong>Original example.</strong> Suppose two assets cost £20 and £50. Holding three units of the first and shorting one unit of the second costs £10. If their prices become £22 and £47, the position is worth £19. Its gain is £9 before costs or distributions.</p><Equation>{"p_0=\\begin{pmatrix}20\\\\50\\end{pmatrix},\\quad h=\\begin{pmatrix}3\\\\-1\\end{pmatrix},\\quad p_1=\\begin{pmatrix}22\\\\47\\end{pmatrix},\\qquad h^T(p_1-p_0)=3(2)-1(-3)=9."}</Equation><p><MathText>{"Include a cash account to record funding. A rebalance $\\Delta h$ is self financing at current prices if $p^T\\Delta h=0$: purchases are funded by sales or cash already in the portfolio. This statement assumes frictionless trading; transaction costs require additional cash."}</MathText></p><p>One profitable outcome does not establish arbitrage. The same initial position must avoid losses across every possible terminal state.</p></section>
-<section id="geometry" className={styles.section}><span className={styles.sectionNumber}>02 / LINEAR OPERATIONS</span><h2>Geometry and matrix algebra</h2><p><MathText>{"For real vectors, $u^Tv=\\sum_i u_iv_i$, $\\|v\\|_2=\\sqrt{v^Tv}$ and $u^Tv=\\|u\\|_2\\|v\\|_2\\cos\\theta$. Nonzero vectors are orthogonal when their dot product vanishes. A basis is an independent spanning collection; independence means $\\sum_j c_jv_j=0$ forces every $c_j=0$."}</MathText></p><p><MathText>{"An $m\\times n$ matrix maps $n$ inputs to $m$ outputs. Its product with a vector is a weighted sum of its columns. If $B$ is $n\\times k$, $AB$ is $m\\times k$."}</MathText></p><Equation>{"Ah=\\sum_{j=1}^n h_j a_j,\\qquad (AB)_{ij}=\\sum_{\\ell=1}^n A_{i\\ell}B_{\\ell j},\\qquad (AB)^T=B^TA^T."}</Equation><p><MathText>{"The identity satisfies $Iv=v$; a diagonal matrix scales coordinates separately. A symmetric matrix satisfies $A^T=A$. Matrix multiplication preserves order: $AB$ generally differs from $BA$."}</MathText></p><p><strong>Original geometric example.</strong><MathText>{" The vectors $(1,1)^T$ and $(1,-1)^T$ are orthogonal and form a basis of $\\mathbb R^2$. The vector $(3,1)^T$ is $2(1,1)^T+(1,-1)^T$. Coordinates depend on the chosen basis even though the vector stays the same."}</MathText></p></section>
-<section id="replication" className={styles.section}><span className={styles.sectionNumber}>03 / A MARKET AS A MATRIX</span><h2>Replication and rank</h2><p><MathText>{"Consider $m$ terminal states and $n$ assets. All states are possible. Let $A_{ij}$ be asset $j$’s terminal payoff in state $i$, and let $p$ be its current price vector. Assume unrestricted real holdings, no costs, and trading only at the initial and terminal dates."}</MathText></p><NoteBox kind="result" title="Replication is a linear system"><Equation>{"A\\in\\mathbb R^{m\\times n},\\quad h\\in\\mathbb R^n,\\quad c\\in\\mathbb R^m,\\qquad Ah=c,\\qquad V_0=p^Th."}</Equation><p>A claim is attainable when its payoff vector lies in the column space of A. The market is complete when rank A equals the number of states. A replicating position is unique when the null space of A is zero.</p></NoteBox><h3>Original example with two states</h3><p>A bond costs £1 and pays £1.05 in either state. A stock costs £100 and pays £120 in the up state or £80 in the down state. A call with strike £100 pays £20 or zero.</p><Equation>{"p=\\begin{pmatrix}1\\\\100\\end{pmatrix},\\quad A=\\begin{pmatrix}1.05&120\\\\1.05&80\\end{pmatrix},\\quad c=\\begin{pmatrix}20\\\\0\\end{pmatrix}."}</Equation><p>Subtracting the down equation from the up equation eliminates the bond holding. Half a stock supplies the £20 payoff difference; borrowing finances the remaining offset.</p><Equation>{"1.05h_B+120h_S=20,\\quad1.05h_B+80h_S=0\\quad\\Longrightarrow\\quad h_S=\\frac12,\\quad h_B=-\\frac{40}{1.05}."}</Equation><Equation>{"C_0=p^Th=50-\\frac{40}{1.05}=\\frac{250}{21}\\approx\\pounds11.90."}</Equation><p><MathText>{"The determinant is $1.05(80-120)=-42\\ne0$, so every two state claim has a unique replicating position. In a larger market, $Ah=c$ may have no solution or many solutions. If one solution is $h_0$, every solution is $h_0+z$ with $Az=0$. Redundant assets can make holdings nonunique even in a complete market."}</MathText></p></section>
-<section id="pricing" className={styles.section}><span className={styles.sectionNumber}>04 / CONSISTENT PRICES</span><h2>Arbitrage and state prices</h2><NoteBox title="Arbitrage in a finite state market"><p><MathText>{"An arbitrage has $p^Th\\le0$, $Ah\\ge0$ componentwise, and a strict gain either initially or in at least one possible terminal state. With a positive payoff cash account, an initial receipt can be invested to give the usual zero cost version."}</MathText></p></NoteBox><p><MathText>{"A strictly positive state price vector $\\psi$ satisfying $A^T\\psi=p$ rules this out: the cost of a portfolio equals $\\psi^TAh$, which is positive whenever its payoff is nonnegative and nonzero. Conversely, the finite dimensional separation theorem gives such a vector in an arbitrage free frictionless market."}</MathText></p><Equation>{"A^T\\psi=p,\\qquad\\psi_i>0,\\qquad C_0=\\psi^Tc\\quad\\text{for an attainable claim}."}</Equation><h3>Price the same call a second way</h3><p>For the bond and stock above, solve the two asset pricing equations. Adding state prices prices the bond; their weighted sum prices the stock.</p><Equation>{"1.05(\\psi_u+\\psi_d)=1,\\qquad120\\psi_u+80\\psi_d=100\\quad\\Longrightarrow\\quad\\psi=\\begin{pmatrix}25/42\\\\5/14\\end{pmatrix}."}</Equation><p><MathText>{"The discount factor is $D=\\psi_u+\\psi_d=20/21$. Normalising gives pricing probabilities $Q_u=5/8$ and $Q_d=3/8$. Hence:"}</MathText></p><Equation>{"C_0=D\\mathbb E_Q[c]=\\frac{20}{21}\\left(\\frac58\\times20+\\frac38\\times0\\right)=\\frac{250}{21}."}</Equation><p><strong>Pricing probabilities are not forecasts.</strong> They encode consistency with observed prices. No assumption about the real world up probability was needed. If this call traded at £15, selling it and buying its £11.90 replicating portfolio would leave an initial receipt and zero net terminal payoff.</p><p><MathText>{"With no arbitrage, completeness is equivalent to uniqueness of state prices, and therefore uniqueness of the pricing measure when a risk free account fixes discounting. In an incomplete market, attainable claims still have unique replication prices; unspanned claims generally do not."}</MathText></p></section>
-<section id="eigenvalues" className={styles.section}><span className={styles.sectionNumber}>05 / REPEATED TRANSFORMATIONS</span><h2>Eigenvalues and dynamics</h2><NoteBox title="An eigenvector keeps its direction"><Equation>{"Mv=\\lambda v,\\qquad v\\ne0,\\qquad\\det(M-\\lambda I)=0."}</Equation><p>If a square matrix has a full basis of eigenvectors, collect them as columns of S. Then powers act by raising each eigenvalue to the same power.</p><Equation>{"M=S\\Lambda S^{-1},\\qquad M^t=S\\Lambda^tS^{-1}."}</Equation></NoteBox><p><MathText>{"For the deterministic state equation $x_{t+1}=Mx_t$, this gives $x_t=M^tx_0$. A mode decays when $|\\lambda|<1$, persists at $\\lambda=1$, alternates for a negative real eigenvalue, and grows when $|\\lambda|>1$. Diagonalisation requires independent eigenvectors; it is not automatic."}</MathText></p><p><strong>Original example.</strong><MathText>{" Take $M=\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}$. The unit vectors $v_+=(1,1)^T/\\sqrt2$ and $v_-=(1,-1)^T/\\sqrt2$ have eigenvalues 3 and 1. Since $(1,0)^T=(v_++v_-)/\\sqrt2$, repeated multiplication gives:"}</MathText></p><Equation>{"M^t\\begin{pmatrix}1\\\\0\\end{pmatrix}=\\frac12\\begin{pmatrix}3^t+1\\\\3^t-1\\end{pmatrix}."}</Equation><p><MathText>{"For any real symmetric matrix, eigenvalues are real and an orthonormal eigenbasis exists: $M=S\\Lambda S^T$. To see why distinct modes are orthogonal, compute $v_i^TMv_j$ in two ways: $(\\lambda_j-\\lambda_i)v_i^Tv_j=0$."}</MathText></p></section>
-<section id="markov" className={styles.section}><span className={styles.sectionNumber}>06 / PROBABILITY DYNAMICS</span><h2>Markov chains and stationary distributions</h2><p><MathText>{"Use column probability vectors and $P_{ij}=\\Pr(S_{t+1}=i\\mid S_t=j)$. Each column sums to one and entries are nonnegative. Thus $\\pi_{t+1}=P\\pi_t$ preserves total probability. A stationary distribution satisfies $P\\pi_*=\\pi_*$ and $\\mathbf1^T\\pi_*=1$."}</MathText></p><h3>Original two regime example</h3><Equation>{"P=\\begin{pmatrix}0.9&0.2\\\\0.1&0.8\\end{pmatrix},\\qquad\\pi_0=\\begin{pmatrix}1\\\\0\\end{pmatrix},\\qquad\\pi_1=\\begin{pmatrix}0.9\\\\0.1\\end{pmatrix}."}</Equation><p><MathText>{"Writing $\\pi_*=(a,b)^T$, stationarity gives $0.1a=0.2b$ and $a+b=1$, so $\\pi_*=(2/3,1/3)^T$. The other eigenvalue is 0.7; the initial deviation decays geometrically:"}</MathText></p><Equation>{"\\pi_t=\\begin{pmatrix}2/3\\\\1/3\\end{pmatrix}+\\frac{0.7^t}{3}\\begin{pmatrix}1\\\\-1\\end{pmatrix}."}</Equation><NoteBox kind="result" title="When convergence follows"><p><MathText>{"For a strictly positive square matrix, Perron–Frobenius gives a simple positive dominant eigenvalue and positive eigenvector, with all other eigenvalues strictly smaller in modulus. For a strictly positive stochastic matrix this eigenvalue is 1 and the normalised eigenvector is the unique limiting distribution."}</MathText></p></NoteBox><p><MathText>{"Nonnegative entries alone are insufficient for convergence. The transition matrix $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ has stationary distribution $(1/2,1/2)^T$, but an initial mass in one state alternates forever. More generally, a finite irreducible and aperiodic chain converges."}</MathText></p></section>
-<section id="svd" className={styles.section}><span className={styles.sectionNumber}>07 / MATRIX STRETCH</span><h2>Singular value decomposition</h2><NoteBox kind="result" title="SVD works for rectangular matrices"><Equation>{"A=U\\Sigma V^T,\\quad U^TU=I_m,\\quad V^TV=I_n,\\quad\\sigma_1\\ge\\sigma_2\\ge\\cdots\\ge0."}</Equation><p><MathText>{"Here $U$ is $m\\times m$, $\\Sigma$ is $m\\times n$ and $V$ is $n\\times n$. The positive singular values are square roots of the positive eigenvalues of $A^TA$. Their number is the rank."}</MathText></p></NoteBox><p><MathText>{"Choose orthonormal eigenvectors $v_i$ of $A^TA$. For $\\sigma_i>0$, define $u_i=Av_i/\\sigma_i$. Then $u_i^Tu_j=v_i^TA^TAv_j/(\\sigma_i\\sigma_j)=\\delta_{ij}$. Complete the $u_i$ to an orthonormal basis to obtain the decomposition. It expresses A as a sum of rank one maps:"}</MathText></p><Equation>{"A=\\sum_{i=1}^{r}\\sigma_i u_iv_i^T,\\qquad\\max_{\\|x\\|_2=1}\\|Ax\\|_2=\\sigma_1."}</Equation><p><MathText>{"Indeed, writing $x=Vz$ preserves length and gives $\\|Ax\\|_2^2=\\sum_i\\sigma_i^2z_i^2\\le\\sigma_1^2$, with equality at $x=v_1$. For symmetric A this maximum is $\\max_i|\\lambda_i|$; that equality fails for general matrices."}</MathText></p><h3>A counterexample to confusing eigenvalues with stretch</h3><Equation>{"A=\\begin{pmatrix}0&2\\\\0&0\\end{pmatrix},\\qquad\\lambda_1=\\lambda_2=0,\\qquad A\\begin{pmatrix}0\\\\1\\end{pmatrix}=\\begin{pmatrix}2\\\\0\\end{pmatrix}."}</Equation><p>The largest stretch is 2 despite both eigenvalues being zero. This is why general sensitivity calculations use singular values. In a data matrix, retaining large singular modes gives a route toward dimension reduction; later lectures connect related ideas to principal components.</p></section>
-<section id="practice" className={styles.section}><span className={styles.sectionNumber}>08 / CHECK YOUR UNDERSTANDING</span><h2>Practice</h2><p>Original exercises, separate from MIT’s problem set.</p><ol><li>In the two state example, replicate a put with strike £100. Verify its price using state prices.</li><li>With three states and two independent asset payoff columns, is the market complete?</li><li>For the two regime chain, find the probability vector after two transitions from the first regime.</li></ol><details><summary>Compare your answers</summary><p><MathText>{"1. The payoff is $(0,20)^T$. Subtraction gives $h_S=-1/2$ and $h_B=60/1.05$. Its price is $60/1.05-50=50/7\\approx\\pounds7.14$, also $20\\psi_d$."}</MathText></p><p>2. No. Rank is 2, below the three state dimension. Some claims may still be replicated.</p><p><MathText>{"3. $P(0.9,0.1)^T=(0.83,0.17)^T$."}</MathText></p></details></section>
-<div className={styles.lessonSources}><p>Sources: <a href={`${course}resources/18642-lecture-2-version-2_mp4/`}>Lecture 2 video</a>, <a href={`${course}mit18_642_f24_lec02_1.pdf`}>Linear Algebra slides</a> and <a href={`${course}mit18_642_f24_lec02_2.pdf`}>One Period Financial Models reading</a>. Independent exposition with original examples. The slides’ matrix norm statement is qualified here: the general Euclidean norm is the largest singular value. The longer reading supports the pricing discussion; these notes do not imply that every reading result was proved in the video.</p></div>
-<nav className={styles.lessonEnd} aria-label="Lesson navigation"><Link href="/notes/finance/mathematics-in-finance/markets-and-bond-math">Previous: Markets and bond mathematics</Link><Link href="/notes/finance/mathematics-in-finance">Course contents</Link><Link href="/notes/finance/mathematics-in-finance/probability-theory">Next available: Probability theory · Lecture 4</Link></nav>
-</article><aside className={styles.toc}><nav aria-label="On this page"><p className={styles.label}>In this lecture</p><ol>{sections.map(([id,title])=><li key={id}><a href={`#${id}`}>{title}</a></li>)}</ol></nav></aside></div>
-</div>;
+  return (
+    <div className={styles.page}>
+      <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
+        <Link href="/notes">Notes</Link>
+        <span>/</span>
+        <Link href="/notes/finance">Finance</Link>
+        <span>/</span>
+        <Link href="/notes/finance/mathematics-in-finance">
+          Mathematics in Finance
+        </Link>
+        <span>/</span>
+        <span>Lecture 2</span>
+      </nav>
+      <header className={styles.readingHeader}>
+        <p className={styles.subjectKicker}>02 / MIT 18.642</p>
+        <h1 className={styles.subjectTitle}>Linear algebra</h1>
+        <p className={styles.subjectDescription}>
+          Represent a portfolio as a vector and a market as a matrix. Then use
+          linear equations to replicate payments and eigenvectors to understand
+          repeated changes.
+        </p>
+        <div className={styles.readingMeta}>
+          <span>Peter Kempthorne · Lecture 2</span>
+          <span>Vectors · Matrices · Finite state models</span>
+        </div>
+      </header>
+      <div className={styles.lessonLayout}>
+        <article className={styles.article}>
+          <div className={styles.lessonOverview}>
+            <p>
+              MIT’s <a href={`${course}pages/week-2/`}>Lecture 2 materials</a>{" "}
+              connect vector and matrix operations to quantitative finance.
+              These notes develop the main topics through original numerical
+              examples, with the accompanying one period model reading used for
+              pricing and completeness.
+            </p>
+          </div>
+          <VectorsSection />
+          <section id="geometry" className={styles.section}>
+            <span className={styles.sectionNumber}>02 / LINEAR OPERATIONS</span>
+            <h2>Geometry and matrix algebra</h2>
+            <p>
+              <MathText>
+                {
+                  "For real vectors, $u^Tv=\\sum_i u_iv_i$, $\\|v\\|_2=\\sqrt{v^Tv}$ and $u^Tv=\\|u\\|_2\\|v\\|_2\\cos\\theta$. Nonzero vectors are orthogonal when their dot product vanishes. A basis is an independent spanning collection; independence means $\\sum_j c_jv_j=0$ forces every $c_j=0$."
+                }
+              </MathText>
+            </p>
+            <p>
+              <MathText>
+                {
+                  "An $m\\times n$ matrix maps $n$ inputs to $m$ outputs. Its product with a vector is a weighted sum of its columns. If $B$ is $n\\times k$, $AB$ is $m\\times k$."
+                }
+              </MathText>
+            </p>
+            <Equation>
+              {
+                "Ah=\\sum_{j=1}^n h_j a_j,\\qquad (AB)_{ij}=\\sum_{\\ell=1}^n A_{i\\ell}B_{\\ell j},\\qquad (AB)^T=B^TA^T."
+              }
+            </Equation>
+            <p>
+              <MathText>
+                {
+                  "The identity satisfies $Iv=v$; a diagonal matrix scales coordinates separately. A symmetric matrix satisfies $A^T=A$. Matrix multiplication preserves order: $AB$ generally differs from $BA$."
+                }
+              </MathText>
+            </p>
+            <p>
+              <strong>Original geometric example.</strong>
+              <MathText>
+                {
+                  " The vectors $(1,1)^T$ and $(1,-1)^T$ are orthogonal and form a basis of $\\mathbb R^2$. The vector $(3,1)^T$ is $2(1,1)^T+(1,-1)^T$. Coordinates depend on the chosen basis even though the vector stays the same."
+                }
+              </MathText>
+            </p>
+          </section>
+          <ReplicationSection />
+          <PricingSection />
+          <EigenvaluesSection />
+          <MarkovSection />
+          <SvdSection />
+          <section id="practice" className={styles.section}>
+            <span className={styles.sectionNumber}>
+              08 / CHECK YOUR UNDERSTANDING
+            </span>
+            <h2>Practice</h2>
+            <p>Original exercises, separate from MIT’s problem set.</p>
+            <ol>
+              <li>
+                In the two state example, replicate a put with strike £100.
+                Verify its price using state prices.
+              </li>
+              <li>
+                With three states and two independent asset payoff columns, is
+                the market complete?
+              </li>
+              <li>
+                For the two regime chain, find the probability vector after two
+                transitions from the first regime.
+              </li>
+            </ol>
+            <details>
+              <summary>Compare your answers</summary>
+              <p>
+                <MathText>
+                  {
+                    "1. The payoff is $(0,20)^T$. Subtraction gives $h_S=-1/2$ and $h_B=60/1.05$. Its price is $60/1.05-50=50/7\\approx\\pounds7.14$, also $20\\psi_d$."
+                  }
+                </MathText>
+              </p>
+              <p>
+                2. No. Rank is 2, below the three state dimension. Some claims
+                may still be replicated.
+              </p>
+              <p>
+                <MathText>{"3. $P(0.9,0.1)^T=(0.83,0.17)^T$."}</MathText>
+              </p>
+            </details>
+          </section>
+          <div className={styles.lessonSources}>
+            <p>
+              Sources:{" "}
+              <a href={`${course}resources/18642-lecture-2-version-2_mp4/`}>
+                Lecture 2 video
+              </a>
+              ,{" "}
+              <a href={`${course}mit18_642_f24_lec02_1.pdf`}>
+                Linear Algebra slides
+              </a>{" "}
+              and{" "}
+              <a href={`${course}mit18_642_f24_lec02_2.pdf`}>
+                One Period Financial Models reading
+              </a>
+              . Independent exposition with original examples. The slides’
+              matrix norm statement is qualified here: the general Euclidean
+              norm is the largest singular value. The longer reading supports
+              the pricing discussion; these notes do not imply that every
+              reading result was proved in the video.
+            </p>
+          </div>
+          <nav className={styles.lessonEnd} aria-label="Lesson navigation">
+            <Link href="/notes/finance/mathematics-in-finance/markets-and-bond-math">
+              Previous: Markets and bond mathematics
+            </Link>
+            <Link href="/notes/finance/mathematics-in-finance">
+              Course contents
+            </Link>
+            <Link href="/notes/finance/mathematics-in-finance/probability-theory">
+              Next available: Probability theory · Lecture 4
+            </Link>
+          </nav>
+        </article>
+        <aside className={styles.toc}>
+          <nav aria-label="On this page">
+            <p className={styles.label}>In this lecture</p>
+            <ol>
+              {sections.map(([id, title]) => (
+                <li key={id}>
+                  <a href={`#${id}`}>{title}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </aside>
+      </div>
+    </div>
+  );
 }

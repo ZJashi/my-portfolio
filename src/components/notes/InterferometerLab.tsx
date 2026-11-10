@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
 export default function InterferometerLab() {
   const [phase, setPhase] = useState(0);
   const [blocked, setBlocked] = useState(false);

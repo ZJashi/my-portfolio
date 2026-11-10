@@ -2,27 +2,187 @@ import { LessonNavigation } from "@/components/notes/LessonNavigation";
 import Link from "next/link";
 import { Equation, MathText } from "@/components/notes/Equation";
 import { NoteBox } from "@/components/notes/NoteBox";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
+import { NormalizationSection } from "./normalization-section";
+import { RememberSection } from "./remember-section";
+import { NormUniquenessSection } from "./norm-uniqueness-section";
+import { SignsSection } from "./signs-section";
+import { CorrespondenceSection } from "./correspondence-section";
+import { SettingSection } from "./setting-section";
+import { VariationSection } from "./variation-section";
+import { DensityExampleSection } from "./density-example-section";
+import { StepFunctionsSection } from "./step-functions-section";
 
-export const metadata = { title: "The dual space of C([a,b]) | Functional Analysis | Zura Jashi", description: "Signed measures, total variation, bounded variation, and the interval proof of the Riesz representation theorem." };
+export const metadata = {
+  title: "The dual space of C([a,b]) | Functional Analysis | Zura Jashi",
+  description:
+    "Signed measures, total variation, bounded variation, and the interval proof of the Riesz representation theorem.",
+};
 export default function Lesson() {
-return <div className={styles.page}>
-<nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes">Notes</Link><span>/</span><Link href="/notes/mathematics">Mathematics</Link><span>/</span><Link href="/notes/mathematics/functional-analysis">Functional Analysis</Link><span>/</span><span>Lecture 14A</span></nav>
-<header className={styles.readingHeader}><p className={styles.subjectKicker}>14A / FUNCTIONAL ANALYSIS</p><h1 className={styles.subjectTitle}>The dual space of C([a,b])</h1><p className={styles.subjectDescription}>Signed measures, total variation, bounded variation, and the interval proof of the Riesz representation theorem.</p><div className={styles.readingMeta}><span>Lecture 14A</span><span>Hahn–Banach / Measure theory</span></div><p className={styles.lessonSourceCredit}>Source: <a href="https://www.youtube.com/watch?v=N9qxmcjj21s">Claudio Landim · IMPA lecture 14A</a>. Adapted from captions; board notation unverified.</p></header>
-<div className={styles.lessonLayout}><article className={styles.article}><div className={styles.lessonOverview}><p><MathText>{"Every bounded linear functional on $C([a,b])$ is integration against a unique finite signed measure. The interval proof builds cumulative BV data from an extension to bounded functions, then recovers the functional through step approximations."}</MathText></p></div>
-<section id="setting" className={styles.section}><span className={styles.sectionNumber}>01 / LECTURE 14A</span><h2>Continuous functions and signed measures</h2><p><MathText>{"Let $K$ be a compact metric space and let $C(K)=C(K;\\mathbb R)$ carry the norm $\\|f\\|_\\infty=\\sup_{x\\in K}|f(x)|$. Compactness makes each continuous function bounded. Uniform limits of continuous functions are continuous, so $C(K)$ is Banach. The Borel sigma-algebra $\\mathcal B(K)$ is the smallest sigma-algebra containing the open sets."}</MathText></p><NoteBox kind="definition" title="Signed Borel measure"><p><MathText>{"A signed measure is countably additive on Borel sets and assigns zero to the empty set. In the extended-valued definition it cannot take both $+\\infty$ and $-\\infty$, since the required sums must be defined. Here the representing measures will be finite."}</MathText></p></NoteBox><Equation>{"\\nu\\!\\left(\\bigcup_{j=1}^{\\infty}A_j\\right)=\\sum_{j=1}^{\\infty}\\nu(A_j)\\qquad(A_j\\text{ pairwise disjoint})."}</Equation><p><MathText>{"The Hahn–Jordan decomposition writes a finite signed measure uniquely as $\\nu=\\nu^+-\\nu^-$ with mutually singular finite positive measures. The mutual singularity is important: an arbitrary difference of positive measures is not necessarily the Jordan decomposition. Define $|\\nu|=\\nu^++\\nu^-$ and the total variation norm by"}</MathText></p><Equation>{"\\|\\nu\\|_{\\mathrm{TV}}=|\\nu|(K)=\\nu^+(K)+\\nu^-(K)."}</Equation><p><MathText>{"The space $M(K)$ of finite signed Borel measures is Banach in this norm. These measure-theory facts provide the background for the representation theorem."}</MathText></p></section>
-<section id="riesz" className={styles.section}><span className={styles.sectionNumber}>02 / LECTURE 14A</span><h2>The representation theorem</h2><NoteBox kind="result" title="Riesz representation for continuous functions"><p><MathText>{"For compact metric $K$, every $\\ell\\in C(K)'$ has a unique finite signed Borel measure $\\nu$ such that"}</MathText></p><Equation>{"\\ell(f)=\\int_K f\\,d\\nu\\quad(f\\in C(K)),\\qquad \\|\\ell\\|=\\|\\nu\\|_{\\mathrm{TV}}."}</Equation></NoteBox><p><MathText>{"Conversely, integration against any such measure is a bounded linear functional. Thus $C(K)'$ and $M(K)$ are isometrically identified. On compact metric spaces finite Borel measures are regular, which makes continuous functions sufficient to determine them. The general theorem is stated as measure-theory background; the remainder develops the interval case $K=[a,b]$, with $a<b$, by Hahn–Banach and Stieltjes integration."}</MathText></p></section>
-<section id="variation" className={styles.section}><span className={styles.sectionNumber}>03 / LECTURE 14A</span><h2>Functions of bounded variation and the endpoint mass</h2><p><MathText>{"For a partition $\\pi:a=t_0<t_1<\\cdots<t_n=b$, define"}</MathText></p><Equation>{"V_\\pi(r)=\\sum_{j=0}^{n-1}|r(t_{j+1})-r(t_j)|,\\qquad \\operatorname{Var}_{[a,b]}r=\\sup_\\pi V_\\pi(r)."}</Equation><NoteBox kind="definition" title="Bounded variation"><p><MathText>{"A real function belongs to $BV([a,b])$ if this supremum is finite. Its variation measures accumulated changes, not its absolute starting value."}</MathText></p></NoteBox><p><MathText>{"Variation alone is a seminorm: every constant function has variation zero. For the measure correspondence we must also record the mass at $a$. The appropriate norm is"}</MathText></p><Equation>{"\\|r\\|_{\\mathrm{BV},a}=|r(a)|+\\operatorname{Var}_{[a,b]}r."}</Equation><p><MathText>{"For example, $\\nu=c\\delta_a$ has cumulative function $r(t)=c$ for every $t\\in[a,b]$. Its variation is zero but its measure norm is $|c|$. Omitting $|r(a)|$ would lose this mass and invalidate the norm identity."}</MathText></p></section>
-<section id="correspondence" className={styles.section}><span className={styles.sectionNumber}>04 / LECTURE 14A</span><h2>Cumulative functions and Stieltjes measures</h2><p><MathText>{"Given $\\nu\\in M([a,b])$, set $r(t)=\\nu([a,t])$. Then $r$ is right-continuous on $[a,b)$, its value at $a$ records the atom there, and"}</MathText></p><Equation>{"\\nu(\\{a\\})=r(a),\\qquad \\nu((s,t])=r(t)-r(s)\\quad(a\\leq s<t\\leq b)."}</Equation><p><MathText>{"To see bounded variation, apply $|\\nu(E)|\\leq|\\nu|(E)$ to the disjoint partition cells $\\{a\\},(t_0,t_1],\\ldots,(t_{n-1},t_n]$. This bounds $|r(a)|+V_\\pi(r)$ by $|\\nu|([a,b])$. The full equality, a standard fact for interval measures, is"}</MathText></p><Equation>{"\\|\\nu\\|_{\\mathrm{TV}}=|r(a)|+\\operatorname{Var}_{[a,b]}r."}</Equation><p><MathText>{"Conversely, a right-continuous BV function gives a unique finite signed Borel measure with these interval values. One decomposes it into right-continuous nondecreasing parts, builds their positive Stieltjes measures by extension from half-open intervals, and subtracts. The singleton $\\{a\\}$ is included separately. Right continuity is required for countable additivity, not just for presentation."}</MathText></p><NoteBox kind="definition" title="Endpoint convention"><p><MathText>{"We use cumulative functions $r(t)=\\nu([a,t])$, right-continuous for $t<b$, with a possible jump at $b$ recording an atom at $b$. The integral notation includes the initial mass:"}</MathText></p><Equation>{"\\int_{[a,b]}f\\,d\\nu=f(a)r(a)+\\int_{(a,b]}f\\,dr."}</Equation></NoteBox></section>
-<section id="extension" className={styles.section}><span className={styles.sectionNumber}>05 / LECTURE 14A</span><h2>Extend the functional to bounded functions</h2><p><MathText>{"Fix $\\ell\\in C([a,b])'$ and set $C=\\|\\ell\\|$. Let $B([a,b])$ be the space of all bounded real functions, with supremum norm. Since $C([a,b])$ is a linear subspace, Hahn–Banach gives an extension $\\Lambda:B([a,b])\\to\\mathbb R$ with $\\|\\Lambda\\|=C$. Indicators now belong to the domain. Define the preliminary cumulative function"}</MathText></p><Equation>{"r(t)=\\Lambda(\\mathbf1_{[a,t]})."}</Equation><p><MathText>{"Then $r(t)-r(s)=\\Lambda(\\mathbf1_{(s,t]})$. This is the motivation for the construction: if $\\ell$ were already integration against a measure, these quantities would be its interval masses. However, an arbitrary Hahn–Banach extension is not automatically countably additive on indicators; its preliminary $r$ need not yet be right-continuous. We first obtain BV control, then choose the normalized Stieltjes representative."}</MathText></p></section>
-<section id="signs" className={styles.section}><span className={styles.sectionNumber}>06 / LECTURE 14A</span><h2>The sign-function estimate</h2><p><MathText>{"Take a partition $\\pi$. Choose $s_{-1}=\\operatorname{sgn}r(a)$ and $s_j=\\operatorname{sgn}(r(t_{j+1})-r(t_j))$, taking either sign at zero. The bounded step function"}</MathText></p><Equation>{"u=s_{-1}\\mathbf1_{\\{a\\}}+\\sum_{j=0}^{n-1}s_j\\mathbf1_{(t_j,t_{j+1}]}"}</Equation><p><MathText>{"has $\\|u\\|_\\infty\\leq1$, since its cells are disjoint. By linearity and the choice of signs,"}</MathText></p><Equation>{"|r(a)|+\\sum_{j=0}^{n-1}|r(t_{j+1})-r(t_j)|=\\Lambda(u)\\leq C."}</Equation><NoteBox kind="result" title="Uniform BV estimate"><p><MathText>{"The bound does not depend on the partition. Taking the supremum gives"}</MathText></p><Equation>{"|r(a)|+\\operatorname{Var}_{[a,b]}r\\leq\\|\\ell\\|."}</Equation></NoteBox><p><MathText>{"The core trick is to turn a sum of absolute values into one application of a bounded linear functional by multiplying each increment by its sign. Including the singleton term strengthens the variation estimate to the full norm needed for endpoint masses."}</MathText></p></section>
-<section id="step-functions" className={styles.section}><span className={styles.sectionNumber}>07 / LECTURE 14A</span><h2>Approximate continuous functions by step functions</h2><p><MathText>{"For a partition $\\pi$, define"}</MathText></p><Equation>{"h_\\pi=f(a)\\mathbf1_{\\{a\\}}+\\sum_{j=0}^{n-1}f(t_j)\\mathbf1_{(t_j,t_{j+1}]}."}</Equation><p><MathText>{"On the first interval this simply has value $f(a)$, including at $a$; later intervals use the value at their left endpoint. Let $|\\pi|=\\max_j(t_{j+1}-t_j)$. Uniform continuity gives $\\|h_\\pi-f\\|_\\infty\\leq\\omega_f(|\\pi|)\\to0$, where $\\omega_f$ is the modulus of continuity. Therefore"}</MathText></p><Equation>{"\\ell(f)=\\Lambda(f)=\\lim_{|\\pi|\\to0}\\left[f(a)r(a)+\\sum_{j=0}^{n-1}f(t_j)\\big(r(t_{j+1})-r(t_j)\\big)\\right]."}</Equation><p><MathText>{"The sums are Stieltjes sums. For a continuous integrand and a BV integrator their limit exists, and changing the tags changes the sum by at most $\\omega_f(|\\pi|)\\operatorname{Var}r$. This identifies the functional with integration against the BV data, including the mass at the first endpoint."}</MathText></p></section>
-<section id="normalization" className={styles.section}><span className={styles.sectionNumber}>08 / LECTURE 14A</span><h2>Choose the right-continuous representative</h2><p><MathText>{"To pass from the preliminary BV data to a countably additive measure, take its right-continuous representative:"}</MathText></p><Equation>{"F(t)=r(t+)\\quad(a\\leq t<b),\\qquad F(b)=r(b)."}</Equation><p><MathText>{"BV functions have one-sided limits, so this is defined. The initial right limit absorbs any preliminary variation immediately to the right of $a$ into the endpoint mass; keeping $r(b)$ retains the final endpoint contribution. The BV bound survives normalization:"}</MathText></p><Equation>{"|F(a)|+\\operatorname{Var}F\\leq|r(a)|+\\operatorname{Var}r\\leq C."}</Equation><p><MathText>{"For a direct justification, estimate any partition sum for $F$ by choosing points just to the right of its interior nodes and $a$, keeping $b$ fixed. The triangle inequality bounds the initial value at the first chosen point by $|r(a)|$ plus the variation from $a$ to that point. Let the chosen points decrease to the nodes and take the supremum."}</MathText></p><p><MathText>{"Normalization leaves the Stieltjes functional on continuous functions unchanged. This can also be checked first for $f\\in C^1([a,b])$: summation by parts in the preceding step sums gives"}</MathText></p><Equation>{"\\ell(f)=f(b)r(b)-\\int_a^b r(t)f'(t)\\,dt."}</Equation><p><MathText>{"A BV function and its right-limit version differ only at a countable set, so the ordinary integral is unchanged when $r$ is replaced by $F$. Since $F(b)=r(b)$, the same expression equals $\\int_{[a,b]}f\\,d\\nu_F$ for the Stieltjes measure of $F$. Finally, $C^1$ functions are uniformly dense in $C([a,b])$, and both functionals are bounded, so equality extends to every continuous $f$."}</MathText></p><NoteBox kind="result" title="The representing measure exists"><p><MathText>{"The normalized BV function determines a finite signed Borel measure $\\nu_F$ with"}</MathText></p><Equation>{"\\ell(f)=\\int_{[a,b]}f\\,d\\nu_F,\\qquad \\|\\nu_F\\|_{\\mathrm{TV}}\\leq\\|\\ell\\|."}</Equation></NoteBox><p><MathText>{"This normalization makes explicit the right-continuity convention used for half-open intervals. It does not claim the arbitrary extension $\\Lambda$ agrees with the final measure on every bounded function; the required agreement is on continuous functions."}</MathText></p></section>
-<section id="norm-uniqueness" className={styles.section}><span className={styles.sectionNumber}>09 / LECTURE 14A</span><h2>Equality of norms, uniqueness and the converse</h2><p><MathText>{"For any finite signed measure $\\nu$, integration satisfies"}</MathText></p><Equation>{"\\left|\\int f\\,d\\nu\\right|\\leq\\int|f|\\,d|\\nu|\\leq\\|f\\|_\\infty\\|\\nu\\|_{\\mathrm{TV}}."}</Equation><p><MathText>{"Applied to the representing measure constructed above, this gives $\\|\\ell\\|\\leq\\|\\nu_F\\|_{\\mathrm{TV}}$. Together with the reverse bound from the construction, it proves equality."}</MathText></p><p><MathText>{"To verify uniqueness, suppose two finite signed Borel measures give the same integrals for every continuous function, and subtract them to obtain $\\mu$. For each $t<b$, choose continuous functions equal to one on $[a,t]$, decreasing linearly to zero just to the right of $t$, and zero thereafter. These are bounded by one and converge pointwise to $\\mathbf1_{[a,t]}$. Dominated convergence with respect to $|\\mu|$ gives $\\mu([a,t])=0$. The constant function gives $\\mu([a,b])=0$. Differences determine all half-open interval masses, and uniqueness of finite measures on the generated Borel sigma-algebra gives $\\mu=0$."}</MathText></p><p><MathText>{"Conversely, define $\\ell_\\nu(f)=\\int f\\,d\\nu$ for a prescribed finite signed measure. It is linear and bounded by the preceding estimate. Apply the construction to $\\ell_\\nu$: it produces a measure with norm $\\|\\ell_\\nu\\|$. Uniqueness forces that measure to be $\\nu$, proving the reverse inequality and hence"}</MathText></p><NoteBox kind="result" title="Isometric identification"><p><MathText>{"Finite signed measures, normalized BV functions and bounded functionals carry the same norm."}</MathText></p><Equation>{"\\|\\ell_\\nu\\|=\\|\\nu\\|_{\\mathrm{TV}}=|F(a)|+\\operatorname{Var}F,\\qquad F(t)=\\nu([a,t])."}</Equation></NoteBox></section>
-<section id="density-example" className={styles.section}><span className={styles.sectionNumber}>10 / LECTURE 14A</span><h2>Example: an integrable density</h2><p><MathText>{"Let $h\\in L^1([a,b])$ and define $\\ell_h(f)=\\int_a^b f(t)h(t)\\,dt$. This is bounded because $|\\ell_h(f)|\\leq\\|f\\|_\\infty\\|h\\|_1$. Its representing measure is $\\nu(E)=\\int_Eh(t)\\,dt$, and its cumulative function is"}</MathText></p><Equation>{"F(t)=\\int_a^t h(s)\\,ds."}</Equation><p><MathText>{"Here $F(a)=0$ and $F$ is absolutely continuous. Its variation is $\\int_a^b|h(t)|\\,dt$; equivalently $|\\nu|(E)=\\int_E|h(t)|\\,dt$. The representation norm identity therefore gives"}</MathText></p><NoteBox kind="result" title="The norm of an integral functional"><p><MathText>{"An integrable density defines a bounded functional on continuous functions with exactly its integral norm."}</MathText></p><Equation>{"\\|\\ell_h\\|=\\int_a^b|h(t)|\\,dt=\\|h\\|_1."}</Equation></NoteBox><p><MathText>{"This is a supremum over continuous functions bounded by one; the sign of $h$ need not itself be continuous, so equality of norms does not assert that a maximizing continuous function exists. Measures with atoms, such as $\\delta_t$, also give bounded functionals and need not have an integrable density."}</MathText></p></section>
-<section id="remember" className={styles.section}><span className={styles.sectionNumber}>11 / REVISION</span><h2>Main results to remember</h2><NoteBox kind="definition" title="Measures and BV data"><ul className={styles.takeaways}><li><strong>Total variation.</strong> <MathText>{"For the Jordan decomposition $\\nu=\\nu^+-\\nu^-$, $\\|\\nu\\|_{\\mathrm{TV}}=\\nu^+([a,b])+\\nu^-([a,b])$."}</MathText></li><li><strong>Cumulative convention.</strong> <MathText>{"$F(t)=\\nu([a,t])$ is right-continuous for $t<b$ and includes $\\nu(\\{a\\})=F(a)$."}</MathText></li><li><strong>BV norm.</strong> <MathText>{"Use $|F(a)|+\\operatorname{Var}F$; variation alone misses a left-endpoint atom."}</MathText></li></ul></NoteBox><NoteBox kind="result" title="Representation and proof strategy"><ul className={styles.takeaways}><li><strong>Riesz representation.</strong> <MathText>{"$C([a,b])'$ is isometrically the space of finite signed Borel measures: $\\ell(f)=\\int f\\,d\\nu$ and $\\|\\ell\\|=\\|\\nu\\|_{\\mathrm{TV}}$."}</MathText></li><li><strong>Construction.</strong> <MathText>{"Extend to bounded functions, test interval indicators, use signs to bound variation, and approximate continuous functions uniformly by step functions."}</MathText></li><li><strong>Normalization.</strong> <MathText>{"Choose right-continuous cumulative data before using countable-additive Stieltjes measures. Continuous integrals determine the measure uniquely."}</MathText></li><li><strong>Density example.</strong> <MathText>{"For $\\ell_h(f)=\\int fh$, $\\|\\ell_h\\|=\\|h\\|_1$. Norm equality need not imply a maximizing continuous function exists."}</MathText></li></ul></NoteBox></section>
+  return (
+    <div className={styles.page}>
+      <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
+        <Link href="/notes">Notes</Link>
+        <span>/</span>
+        <Link href="/notes/mathematics">Mathematics</Link>
+        <span>/</span>
+        <Link href="/notes/mathematics/functional-analysis">
+          Functional Analysis
+        </Link>
+        <span>/</span>
+        <span>Lecture 14A</span>
+      </nav>
+      <header className={styles.readingHeader}>
+        <p className={styles.subjectKicker}>14A / FUNCTIONAL ANALYSIS</p>
+        <h1 className={styles.subjectTitle}>The dual space of C([a,b])</h1>
+        <p className={styles.subjectDescription}>
+          Signed measures, total variation, bounded variation, and the interval
+          proof of the Riesz representation theorem.
+        </p>
+        <div className={styles.readingMeta}>
+          <span>Lecture 14A</span>
+          <span>Hahn–Banach / Measure theory</span>
+        </div>
+        <p className={styles.lessonSourceCredit}>
+          Source:{" "}
+          <a href="https://www.youtube.com/watch?v=N9qxmcjj21s">
+            Claudio Landim · IMPA lecture 14A
+          </a>
+          . Adapted from captions; board notation unverified.
+        </p>
+      </header>
+      <div className={styles.lessonLayout}>
+        <article className={styles.article}>
+          <div className={styles.lessonOverview}>
+            <p>
+              <MathText>
+                {
+                  "Every bounded linear functional on $C([a,b])$ is integration against a unique finite signed measure. The interval proof builds cumulative BV data from an extension to bounded functions, then recovers the functional through step approximations."
+                }
+              </MathText>
+            </p>
+          </div>
+          <SettingSection />
+          <section id="riesz" className={styles.section}>
+            <span className={styles.sectionNumber}>02 / LECTURE 14A</span>
+            <h2>The representation theorem</h2>
+            <NoteBox
+              kind="result"
+              title="Riesz representation for continuous functions"
+            >
+              <p>
+                <MathText>
+                  {
+                    "For compact metric $K$, every $\\ell\\in C(K)'$ has a unique finite signed Borel measure $\\nu$ such that"
+                  }
+                </MathText>
+              </p>
+              <Equation>
+                {
+                  "\\ell(f)=\\int_K f\\,d\\nu\\quad(f\\in C(K)),\\qquad \\|\\ell\\|=\\|\\nu\\|_{\\mathrm{TV}}."
+                }
+              </Equation>
+            </NoteBox>
+            <p>
+              <MathText>
+                {
+                  "Conversely, integration against any such measure is a bounded linear functional. Thus $C(K)'$ and $M(K)$ are isometrically identified. On compact metric spaces finite Borel measures are regular, which makes continuous functions sufficient to determine them. The general theorem is stated as measure-theory background; the remainder develops the interval case $K=[a,b]$, with $a<b$, by Hahn–Banach and Stieltjes integration."
+                }
+              </MathText>
+            </p>
+          </section>
+          <VariationSection />
+          <CorrespondenceSection />
+          <section id="extension" className={styles.section}>
+            <span className={styles.sectionNumber}>05 / LECTURE 14A</span>
+            <h2>Extend the functional to bounded functions</h2>
+            <p>
+              <MathText>
+                {
+                  "Fix $\\ell\\in C([a,b])'$ and set $C=\\|\\ell\\|$. Let $B([a,b])$ be the space of all bounded real functions, with supremum norm. Since $C([a,b])$ is a linear subspace, Hahn–Banach gives an extension $\\Lambda:B([a,b])\\to\\mathbb R$ with $\\|\\Lambda\\|=C$. Indicators now belong to the domain. Define the preliminary cumulative function"
+                }
+              </MathText>
+            </p>
+            <Equation>{"r(t)=\\Lambda(\\mathbf1_{[a,t]})."}</Equation>
+            <p>
+              <MathText>
+                {
+                  "Then $r(t)-r(s)=\\Lambda(\\mathbf1_{(s,t]})$. This is the motivation for the construction: if $\\ell$ were already integration against a measure, these quantities would be its interval masses. However, an arbitrary Hahn–Banach extension is not automatically countably additive on indicators; its preliminary $r$ need not yet be right-continuous. We first obtain BV control, then choose the normalized Stieltjes representative."
+                }
+              </MathText>
+            </p>
+          </section>
+          <SignsSection />
+          <StepFunctionsSection />
+          <NormalizationSection />
+          <NormUniquenessSection />
+          <DensityExampleSection />
+          <RememberSection />
 
-<LessonNavigation contents={{ href: "/notes/mathematics/functional-analysis", title: "Functional Analysis" }} previous={{"href":"/notes/mathematics/functional-analysis/reflexive-spaces","title":"Reflexive spaces"}} />
-</article><aside className={styles.toc}><nav aria-label="On this page"><p className={styles.label}>In this lecture</p><ol><li><a href="#setting">Continuous functions and signed measures</a></li><li><a href="#riesz">The representation theorem</a></li><li><a href="#variation">Functions of bounded variation and the endpoint mass</a></li><li><a href="#correspondence">Cumulative functions and Stieltjes measures</a></li><li><a href="#extension">Extend the functional to bounded functions</a></li><li><a href="#signs">The sign-function estimate</a></li><li><a href="#step-functions">Approximate continuous functions by step functions</a></li><li><a href="#normalization">Choose the right-continuous representative</a></li><li><a href="#norm-uniqueness">Equality of norms, uniqueness and the converse</a></li><li><a href="#density-example">Example: an integrable density</a></li><li><a href="#remember">Main results to remember</a></li></ol></nav></aside></div></div>;
+          <LessonNavigation
+            contents={{
+              href: "/notes/mathematics/functional-analysis",
+              title: "Functional Analysis",
+            }}
+            previous={{
+              href: "/notes/mathematics/functional-analysis/reflexive-spaces",
+              title: "Reflexive spaces",
+            }}
+          />
+        </article>
+        <aside className={styles.toc}>
+          <nav aria-label="On this page">
+            <p className={styles.label}>In this lecture</p>
+            <ol>
+              <li>
+                <a href="#setting">Continuous functions and signed measures</a>
+              </li>
+              <li>
+                <a href="#riesz">The representation theorem</a>
+              </li>
+              <li>
+                <a href="#variation">
+                  Functions of bounded variation and the endpoint mass
+                </a>
+              </li>
+              <li>
+                <a href="#correspondence">
+                  Cumulative functions and Stieltjes measures
+                </a>
+              </li>
+              <li>
+                <a href="#extension">
+                  Extend the functional to bounded functions
+                </a>
+              </li>
+              <li>
+                <a href="#signs">The sign-function estimate</a>
+              </li>
+              <li>
+                <a href="#step-functions">
+                  Approximate continuous functions by step functions
+                </a>
+              </li>
+              <li>
+                <a href="#normalization">
+                  Choose the right-continuous representative
+                </a>
+              </li>
+              <li>
+                <a href="#norm-uniqueness">
+                  Equality of norms, uniqueness and the converse
+                </a>
+              </li>
+              <li>
+                <a href="#density-example">Example: an integrable density</a>
+              </li>
+              <li>
+                <a href="#remember">Main results to remember</a>
+              </li>
+            </ol>
+          </nav>
+        </aside>
+      </div>
+    </div>
+  );
 }
-

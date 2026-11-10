@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "format": "prettier . --write --ignore-unknown",
+    "format:check": "prettier . --check --ignore-unknown",
+    "check:lines": "node scripts/check-line-limit.mjs",
+    "prebuild": "npm run check:lines",
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",

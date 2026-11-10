@@ -2,74 +2,188 @@ import { NoteBox } from "@/components/notes/NoteBox";
 import Link from "next/link";
 import { Equation } from "@/components/notes/Equation";
 import { SystemFigure } from "@/components/notes/SystemFigures";
-import CenterOfMassLab from "@/components/notes/CenterOfMassLab";
-import styles from "../../../notes.module.css";
-const base = "/notes/classical-mechanics/chapter-1";
-export const metadata = { title: "Mechanics of a System of Particles | Lesson 1.2 | Zura Jashi", description: "Illustrated notes on center of mass, internal forces, angular momentum, and energy for many-particle systems." };
-const sections = [["forces","Internal & external forces"],["center","Center of mass"],["torque","Internal torques"],["split","Motion about the center"],["energy","Work & kinetic energy"],["pairs","Pair potentials"],["practice","Practice"]];
+import styles from "../../../notes.styles";
+import { base, sections } from "./lesson-data";
+import { PracticeSection } from "./practice-section";
+import { CenterSection } from "./center-section";
+import { ForcesSection } from "./forces-section";
+import { PairsSection } from "./pairs-section";
+import { EnergySection } from "./energy-section";
+
+export const metadata = {
+  title: "Mechanics of a System of Particles | Lesson 1.2 | Zura Jashi",
+  description:
+    "Illustrated notes on center of mass, internal forces, angular momentum, and energy for many-particle systems.",
+};
+
 export default function SystemLesson() {
- return <div className={styles.page}>
- <nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes">Notes</Link><span>/</span><Link href="/notes/physics">Physics</Link><span>/</span><Link href="/notes/classical-mechanics">Classical Mechanics</Link><span>/</span><Link href={base}>Chapter 1</Link><span>/</span><span>1.2</span></nav>
- <header className={styles.readingHeader}><p className={styles.subjectKicker}><span>1.2</span> SURVEY OF THE ELEMENTARY PRINCIPLES</p><h1 className={styles.subjectTitle}>Mechanics of<br /><em>a System of Particles</em></h1><p className={styles.subjectDescription}>Many particles, one collective motion. Separate what the system does as a whole from what happens inside it.</p><div className={styles.readingMeta}><span>Builds on lesson 1.1</span></div></header>
- <div className={styles.lessonLayout}><article className={styles.article}>
- <div className={styles.lessonOverview}><p className={styles.label}>THE CENTRAL IDEA</p><p>Internal forces can rearrange a system without accelerating its center of mass. Yet those same forces can change its kinetic energy. Force cancellation and work cancellation are different statements.</p></div>
- <section id="forces" className={styles.section}><span className={styles.sectionNumber}>01 / DRAW THE SYSTEM BOUNDARY</span><h2>Separate forces by their source.</h2>
-<NoteBox kind="definition" title="Internal and external forces"><ul><li><strong>Internal force:</strong> an interaction between members of the chosen system.</li><li><strong>External force:</strong> an interaction with something outside the system.</li><li><strong>Index convention:</strong> fᵢⱼ is the force on particle i due to particle j.</li></ul></NoteBox><p>Choose which particles belong to the system. An external force comes from outside that set; an internal force is an interaction between two members. This distinction depends on the boundary: the spring force is external to one attached particle, but internal to a system containing both particles and their ideal connecting spring.</p><p>Assume fixed particle masses and an inertial frame. Write fᵢⱼ for the force on particle i due to particle j. This index convention puts the receiving particle first.</p>
- <Equation>{String.raw`m_i\ddot{\mathbf r}_i=\mathbf F_i^{\mathrm{ext}}+\sum_{j\ne i}\mathbf f_{ij}`}</Equation>
- <p>If each internal pair is equal and opposite, summing all particle equations cancels the internal force sum pair by pair. This is the <strong>weak form of action and reaction</strong>.</p>
- <NoteBox kind="law" title="Newton’s third law · Equal and opposite pairs"><Equation>{String.raw`\mathbf f_{ij}=-\mathbf f_{ji},\qquad \sum_i\sum_{j\ne i}\mathbf f_{ij}=\sum_{i<j}(\mathbf f_{ij}+\mathbf f_{ji})=\mathbf0`}</Equation><p>These forces act on <strong>different particles</strong>. They cancel in the force sum for the combined system.</p></NoteBox>
- <div className={styles.callout}><strong>Check what is included.</strong><p>These particle-only balances assume the stated force laws. In electromagnetic systems, the fields can carry momentum and angular momentum too; ignoring that contribution can make a particle-only conservation statement fail.</p></div></section>
- <section id="center" className={styles.section}><span className={styles.sectionNumber}>02 / THE COLLECTIVE COORDINATE</span><h2>The center of mass follows the external force.</h2><p>Define the total mass M and the mass-weighted average position R. This is a geometric point; it need not coincide with a particle or lie inside the material of an object.</p>
- <NoteBox kind="definition" title="Center of mass · Mass-weighted position"><Equation>{String.raw`M=\sum_i m_i,\qquad \mathbf R=\frac1M\sum_i m_i\mathbf r_i`}</Equation></NoteBox>
- <p>Differentiate twice and use the summed equations of motion. Internal forces disappear under the equal-and-opposite assumption.</p>
- <NoteBox kind="result" title="Center-of-mass equation of motion"><Equation>{String.raw`M\ddot{\mathbf R}=\sum_i\mathbf F_i^{\mathrm{ext}}=\mathbf F^{\mathrm{ext}}`}</Equation><p>Assumes <strong>fixed masses</strong>, an <strong>inertial frame</strong>, and equal-and-opposite internal forces.</p></NoteBox>
- <p>The center of mass accelerates as if the entire mass were concentrated there and acted on by the net external force. This does not replace the individual equations when you want the shape, rotation, or relative motion.</p>
- <Equation>{String.raw`\mathbf P=\sum_i m_i\dot{\mathbf r}_i=M\dot{\mathbf R},\qquad \dot{\mathbf P}=\mathbf F^{\mathrm{ext}}`}</Equation>
- <p>Zero external force means constant total momentum, not necessarily zero momentum. A component is conserved when the corresponding external force component vanishes.</p>
- <CenterOfMassLab />
- <div className={styles.workedExample}><span className={styles.sectionNumber}>WORKED EXAMPLE / TWO SEPARATING PIECES</span><p>Two pieces of masses 1 kg and 3 kg separate from a body initially at rest. During the brief separation, external impulse is negligible. If the lighter piece moves at +6 m/s, what is the heavier piece’s velocity?</p><Equation>{String.raw`0=(1)(6)+(3)v_2\quad\Rightarrow\quad v_2=-2\ \mathrm{m/s}`}</Equation><p>Neither piece stays still, but their center of mass does. Their kinetic energy increases by 24 J, supplied by stored internal energy.</p></div>
- <p>A fragmented projectile in a uniform gravitational field has a center of mass following the same ballistic trajectory as before breakup, provided all fragments are included and air resistance is negligible. Its individual fragments need not follow that trajectory.</p></section>
- <section id="torque" className={styles.section}><span className={styles.sectionNumber}>03 / A STRONGER CONDITION</span><h2>Canceling forces may still leave a torque.</h2><p>About a fixed origin O in the inertial frame, sum the particles’ angular momenta. The total torque contains external terms and internal pair terms.</p>
- <Equation>{String.raw`\mathbf L_O=\sum_i\mathbf r_i\times m_i\mathbf v_i`}</Equation>
- <Equation>{String.raw`\dot{\mathbf L}_O=\boldsymbol\tau_O^{\mathrm{ext}}+\sum_{i<j}(\mathbf r_i-\mathbf r_j)\times\mathbf f_{ij}`}</Equation>
- <p>Equal and opposite forces remove net force, but their lines of action can differ. For the internal torque to cancel pair by pair, the forces must also be central: parallel to the vector joining the particles. This extra requirement is the <strong>strong form of action and reaction</strong>.</p>
- <SystemFigure pair />
- <NoteBox kind="law" title="Angular-momentum balance · Central internal forces"><Equation>{String.raw`\mathbf f_{ij}\parallel(\mathbf r_i-\mathbf r_j)\quad\Rightarrow\quad\dot{\mathbf L}_O=\boldsymbol\tau_O^{\mathrm{ext}}`}</Equation><p>In addition to equal-and-opposite pairs, internal forces must be <strong>central</strong> for pairwise torque cancellation. Use a fixed origin in an inertial frame.</p></NoteBox>
- <p>With zero external torque, angular momentum is conserved. If only the z-component of external torque vanishes, only L_z is guaranteed constant.</p>
- <div className={styles.workedExample}><span className={styles.sectionNumber}>COUNTEREXAMPLE / AN INTERNAL COUPLE</span><p>Place two particles at (−a, 0, 0) and (+a, 0, 0). Give the first force (0, F, 0) and the second (0, −F, 0). The net force is zero, while the total torque is (0, 0, −2aF). Equal and opposite alone does not establish conservation of particle angular momentum.</p></div></section>
- <section id="split" className={styles.section}><span className={styles.sectionNumber}>04 / CHANGE THE DESCRIPTION</span><h2>Translation of the center, motion around it.</h2><p>Let r′ᵢ be the displacement from the center of mass to particle i. Use axes parallel to the original inertial axes, so this is a translating coordinate system without an additional rotation.</p>
- <Equation>{String.raw`\mathbf r_i=\mathbf R+\mathbf r'_i,\qquad\mathbf v_i=\mathbf V_{\mathrm{CM}}+\mathbf v'_i,\qquad\mathbf V_{\mathrm{CM}}=\dot{\mathbf R}`}</Equation>
- <SystemFigure />
- <p>The defining property of the center of mass supplies two cancellations. The second follows by differentiating the first with constant masses.</p>
- <Equation>{String.raw`\sum_i m_i\mathbf r'_i=\mathbf0,\qquad\sum_i m_i\mathbf v'_i=\mathbf0`}</Equation>
- <p>Expand each angular momentum using the split positions and velocities. The two mixed sums vanish, leaving an orbital part and an intrinsic part.</p>
- <Equation>{String.raw`\mathbf L_O=\underbrace{\mathbf R\times\mathbf P}_{\text{motion of the center}}+\underbrace{\sum_i\mathbf r'_i\times m_i\mathbf v'_i}_{\mathbf L_{\mathrm{CM}}}`}</Equation>
- <p>The first term depends on the chosen origin. The second describes angular momentum relative to the center of mass: the particles can circulate around their center while the whole system translates. Here “intrinsic” describes this collective classical motion, not quantum spin.</p><p>Changing the fixed origin by displacement a changes the angular momentum to L′ = L − a × P. If total momentum is zero, the angular momentum is independent of that shift.</p></section>
- <section id="energy" className={styles.section}><span className={styles.sectionNumber}>05 / ENERGY HAS TWO PARTS TOO</span><h2>Internal forces can do work.</h2><p>Sum the single-particle work–energy theorems. Each force must be paired with the displacement of the particle on which it acts.</p>
- <Equation>{String.raw`T=\frac12\sum_i m_i v_i^2,\qquad W_{\mathrm{ext}}+W_{\mathrm{int}}=T_2-T_1`}</Equation>
- <p>For one equal-and-opposite pair, the total work is proportional to the change in their relative position, rather than their common translation.</p>
- <Equation>{String.raw`dW_{ij}=\mathbf f_{ij}\cdot d\mathbf r_i+\mathbf f_{ji}\cdot d\mathbf r_j=\mathbf f_{ij}\cdot d(\mathbf r_i-\mathbf r_j)`}</Equation>
- <p>Two particles moving apart under a repulsive force can both gain kinetic energy while their net force sums to zero. The displacements differ, so the work does not cancel.</p><p>Substituting the center-of-mass velocity split into T gives:</p>
- <Equation>{String.raw`T=\frac12 M V_{\mathrm{CM}}^2+\mathbf V_{\mathrm{CM}}\cdot\sum_i m_i\mathbf v'_i+\frac12\sum_i m_i(v'_i)^2`}</Equation>
- <p>The middle term vanishes. Thus kinetic energy separates into translation of the center of mass and motion relative to it.</p>
- <NoteBox kind="result" title="Kinetic energy · Translation plus relative motion"><Equation>{String.raw`T=\frac12 M V_{\mathrm{CM}}^2+T_{\mathrm{CM}},\qquad T_{\mathrm{CM}}=\frac12\sum_i m_i(v'_i)^2`}</Equation></NoteBox>
- <div className={styles.workedExample}><span className={styles.sectionNumber}>WORKED EXAMPLE / CHECK BOTH DESCRIPTIONS</span><p>Take masses 1 kg and 3 kg with velocities +4 m/s and 0. Their total momentum is 4 kg·m/s and the center-of-mass velocity is 1 m/s.</p><Equation>{String.raw`T=8\ \mathrm J,\qquad T_{\mathrm{translation}}=\tfrac12(4)(1)^2=2\ \mathrm J`}</Equation><Equation>{String.raw`T_{\mathrm{CM}}=\tfrac12(1)(3)^2+\tfrac12(3)(-1)^2=6\ \mathrm J`}</Equation><p>The two parts add to 8 J. The relative motion is not captured by treating all the mass as a single moving point.</p></div></section>
- <section id="pairs" className={styles.section}><span className={styles.sectionNumber}>06 / COUNT EACH INTERACTION ONCE</span><h2>Build the potential from pairs.</h2><p>For a conservative central interaction, a pair potential depends only on the separation sᵢⱼ. The gradient with respect to each particle’s position generates equal, opposite, central forces.</p>
- <Equation>{String.raw`s_{ij}=|\mathbf r_i-\mathbf r_j|,\qquad \mathbf f_{ij}=-\nabla_i V_{ij}(s_{ij})=-V'_{ij}(s_{ij})\frac{\mathbf r_i-\mathbf r_j}{s_{ij}}`}</Equation>
- <p>Because the derivatives with respect to the two positions have opposite signs, fⱼᵢ = −fᵢⱼ. Their pair work is −dVᵢⱼ. For example, gravity has Vᵢⱼ = −Gmᵢmⱼ/sᵢⱼ and gives an attractive force.</p>
- <Equation>{String.raw`V=\sum_i V_i^{\mathrm{ext}}+\sum_{i<j}V_{ij}=\sum_i V_i^{\mathrm{ext}}+\frac12\sum_i\sum_{j\ne i}V_{ij}`}</Equation>
- <p>The factor ½ corrects double counting in the ordered double sum: it contains both (i, j) and (j, i). Three particles have three distinct pairs, not six.</p><p>If all the forces are obtained from this time-independent potential and no other forces do work, the mechanical energy is conserved.</p>
- <NoteBox kind="law" title="Conservation of mechanical energy"><Equation>{String.raw`E=T+V=\text{constant}`}</Equation><p>For the stated <strong>time-independent potential</strong>, with no additional nonconservative work.</p></NoteBox>
- <div className={styles.callout}><strong>Rigid does not mean “no kinetic energy.”</strong><p>In a rigid body, every interparticle distance stays fixed. For central pair forces, the relative displacement is perpendicular to that pair’s force, so total internal pair work is zero. Distance-dependent internal potential is constant and its value can be absorbed into the energy zero. Rotation and translation can still carry kinetic energy.</p></div>
- <p>These are assumptions about the force model. A more general interaction need not be a sum of distance-only pair potentials. Explicit time dependence or nonconservative work also requires an energy balance rather than the constant-E statement.</p></section>
- <section id="practice" className={styles.section}><span className={styles.sectionNumber}>07 / PRACTICE</span><h2>Check what cancels.</h2>
- <div className={styles.exercise}><h3>1. Locate the center</h3><p>Masses 2 kg and 6 kg sit at x = −1 m and x = 3 m. Find R.</p><details><summary>Show solution</summary><Equation>{String.raw`R=\frac{2(-1)+6(3)}8=2\ \mathrm m`}</Equation><p>It lies closer to the heavier particle.</p></details></div>
- <div className={styles.exercise}><h3>2. Can internal forces accelerate the center?</h3><p>Two isolated particles interact through a central spring. Can their center accelerate while they oscillate?</p><details><summary>Show reasoning</summary><p>No. The spring forces cancel in the total force, so the center has constant velocity. Each particle can accelerate relative to it.</p></details></div>
- <div className={styles.exercise}><h3>3. Count the pairs</h3><p>How many distinct pair potentials occur for five particles? Why does an ordered sum need a factor of ½?</p><details><summary>Show solution</summary><Equation>{String.raw`N_{\mathrm{pairs}}=\frac{5(5-1)}2=10`}</Equation><p>The ordered sum contains 20 entries; each physical pair occurs twice.</p></details></div>
- <div className={styles.exercise}><h3>4. Momentum is conserved; is kinetic energy?</h3><p>Two equal masses approach each other at speeds u and stick together. Ignore external impulse. What happens to total momentum and kinetic energy?</p><details><summary>Show reasoning</summary><p>Total momentum is initially zero and remains zero. The joined object is at rest, so translational kinetic energy falls from mu² to zero. Energy is transferred into deformation, heat, and other internal forms. Momentum conservation alone never guaranteed kinetic-energy conservation.</p></details></div>
- <ul className={styles.takeaways}><li>Equal-and-opposite internal forces cancel in the momentum balance.</li><li>Central internal pairs also cancel in the angular-momentum balance.</li><li>Internal work need not vanish: relative motion matters.</li><li>Angular momentum and kinetic energy each split into center motion and motion about the center.</li></ul></section>
- <div className={styles.lessonSources}><p className={styles.label}>READING & NOTATION</p><p>Original study notes based on the supplied pages of Goldstein, Poole & Safko, <em>Classical Mechanics</em>, Chapter 1, §1.2 (pp. 5–12). Illustrations, examples, and exercises are original. We use τ for torque, V for potential energy, and fᵢⱼ for the force on i due to j.</p></div>
- <nav className={styles.lessonEnd} aria-label="Lesson navigation"><Link href={`${base}/mechanics-of-a-particle`}>Previous: 1.1 · Mechanics of a Particle</Link><Link href={base}>Chapter contents</Link><span>Next: 1.3 · Constraints<small>Coming soon</small></span></nav>
- </article><aside className={styles.toc}><nav aria-label="On this page"><p className={styles.label}>In this lesson</p><ol>{sections.map(([id,title],i)=><li key={id}><a href={`#${id}`}>{String(i+1).padStart(2,'0')} / {title}</a></li>)}</ol></nav></aside></div>
- </div>;
+  return (
+    <div className={styles.page}>
+      <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
+        <Link href="/notes">Notes</Link>
+        <span>/</span>
+        <Link href="/notes/physics">Physics</Link>
+        <span>/</span>
+        <Link href="/notes/classical-mechanics">Classical Mechanics</Link>
+        <span>/</span>
+        <Link href={base}>Chapter 1</Link>
+        <span>/</span>
+        <span>1.2</span>
+      </nav>
+      <header className={styles.readingHeader}>
+        <p className={styles.subjectKicker}>
+          <span>1.2</span> SURVEY OF THE ELEMENTARY PRINCIPLES
+        </p>
+        <h1 className={styles.subjectTitle}>
+          Mechanics of
+          <br />
+          <em>a System of Particles</em>
+        </h1>
+        <p className={styles.subjectDescription}>
+          Many particles, one collective motion. Separate what the system does
+          as a whole from what happens inside it.
+        </p>
+        <div className={styles.readingMeta}>
+          <span>Builds on lesson 1.1</span>
+        </div>
+      </header>
+      <div className={styles.lessonLayout}>
+        <article className={styles.article}>
+          <div className={styles.lessonOverview}>
+            <p className={styles.label}>THE CENTRAL IDEA</p>
+            <p>
+              Internal forces can rearrange a system without accelerating its
+              center of mass. Yet those same forces can change its kinetic
+              energy. Force cancellation and work cancellation are different
+              statements.
+            </p>
+          </div>
+          <ForcesSection />
+          <CenterSection />
+          <section id="torque" className={styles.section}>
+            <span className={styles.sectionNumber}>
+              03 / A STRONGER CONDITION
+            </span>
+            <h2>Canceling forces may still leave a torque.</h2>
+            <p>
+              About a fixed origin O in the inertial frame, sum the particles’
+              angular momenta. The total torque contains external terms and
+              internal pair terms.
+            </p>
+            <Equation>{String.raw`\mathbf L_O=\sum_i\mathbf r_i\times m_i\mathbf v_i`}</Equation>
+            <Equation>{String.raw`\dot{\mathbf L}_O=\boldsymbol\tau_O^{\mathrm{ext}}+\sum_{i<j}(\mathbf r_i-\mathbf r_j)\times\mathbf f_{ij}`}</Equation>
+            <p>
+              Equal and opposite forces remove net force, but their lines of
+              action can differ. For the internal torque to cancel pair by pair,
+              the forces must also be central: parallel to the vector joining
+              the particles. This extra requirement is the{" "}
+              <strong>strong form of action and reaction</strong>.
+            </p>
+            <SystemFigure pair />
+            <NoteBox
+              kind="law"
+              title="Angular-momentum balance · Central internal forces"
+            >
+              <Equation>{String.raw`\mathbf f_{ij}\parallel(\mathbf r_i-\mathbf r_j)\quad\Rightarrow\quad\dot{\mathbf L}_O=\boldsymbol\tau_O^{\mathrm{ext}}`}</Equation>
+              <p>
+                In addition to equal-and-opposite pairs, internal forces must be{" "}
+                <strong>central</strong> for pairwise torque cancellation. Use a
+                fixed origin in an inertial frame.
+              </p>
+            </NoteBox>
+            <p>
+              With zero external torque, angular momentum is conserved. If only
+              the z-component of external torque vanishes, only L_z is
+              guaranteed constant.
+            </p>
+            <div className={styles.workedExample}>
+              <span className={styles.sectionNumber}>
+                COUNTEREXAMPLE / AN INTERNAL COUPLE
+              </span>
+              <p>
+                Place two particles at (−a, 0, 0) and (+a, 0, 0). Give the first
+                force (0, F, 0) and the second (0, −F, 0). The net force is
+                zero, while the total torque is (0, 0, −2aF). Equal and opposite
+                alone does not establish conservation of particle angular
+                momentum.
+              </p>
+            </div>
+          </section>
+          <section id="split" className={styles.section}>
+            <span className={styles.sectionNumber}>
+              04 / CHANGE THE DESCRIPTION
+            </span>
+            <h2>Translation of the center, motion around it.</h2>
+            <p>
+              Let r′ᵢ be the displacement from the center of mass to particle i.
+              Use axes parallel to the original inertial axes, so this is a
+              translating coordinate system without an additional rotation.
+            </p>
+            <Equation>{String.raw`\mathbf r_i=\mathbf R+\mathbf r'_i,\qquad\mathbf v_i=\mathbf V_{\mathrm{CM}}+\mathbf v'_i,\qquad\mathbf V_{\mathrm{CM}}=\dot{\mathbf R}`}</Equation>
+            <SystemFigure />
+            <p>
+              The defining property of the center of mass supplies two
+              cancellations. The second follows by differentiating the first
+              with constant masses.
+            </p>
+            <Equation>{String.raw`\sum_i m_i\mathbf r'_i=\mathbf0,\qquad\sum_i m_i\mathbf v'_i=\mathbf0`}</Equation>
+            <p>
+              Expand each angular momentum using the split positions and
+              velocities. The two mixed sums vanish, leaving an orbital part and
+              an intrinsic part.
+            </p>
+            <Equation>{String.raw`\mathbf L_O=\underbrace{\mathbf R\times\mathbf P}_{\text{motion of the center}}+\underbrace{\sum_i\mathbf r'_i\times m_i\mathbf v'_i}_{\mathbf L_{\mathrm{CM}}}`}</Equation>
+            <p>
+              The first term depends on the chosen origin. The second describes
+              angular momentum relative to the center of mass: the particles can
+              circulate around their center while the whole system translates.
+              Here “intrinsic” describes this collective classical motion, not
+              quantum spin.
+            </p>
+            <p>
+              Changing the fixed origin by displacement a changes the angular
+              momentum to L′ = L − a × P. If total momentum is zero, the angular
+              momentum is independent of that shift.
+            </p>
+          </section>
+          <EnergySection />
+          <PairsSection />
+          <PracticeSection />
+          <div className={styles.lessonSources}>
+            <p className={styles.label}>READING & NOTATION</p>
+            <p>
+              Original study notes based on the supplied pages of Goldstein,
+              Poole & Safko, <em>Classical Mechanics</em>, Chapter 1, §1.2 (pp.
+              5–12). Illustrations, examples, and exercises are original. We use
+              τ for torque, V for potential energy, and fᵢⱼ for the force on i
+              due to j.
+            </p>
+          </div>
+          <nav className={styles.lessonEnd} aria-label="Lesson navigation">
+            <Link href={`${base}/mechanics-of-a-particle`}>
+              Previous: 1.1 · Mechanics of a Particle
+            </Link>
+            <Link href={base}>Chapter contents</Link>
+            <span>
+              Next: 1.3 · Constraints<small>Coming soon</small>
+            </span>
+          </nav>
+        </article>
+        <aside className={styles.toc}>
+          <nav aria-label="On this page">
+            <p className={styles.label}>In this lesson</p>
+            <ol>
+              {sections.map(([id, title], i) => (
+                <li key={id}>
+                  <a href={`#${id}`}>
+                    {String(i + 1).padStart(2, "0")} / {title}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </aside>
+      </div>
+    </div>
+  );
 }

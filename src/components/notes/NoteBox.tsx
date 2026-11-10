@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
 
 /** A titled, author-selected takeaway; derivations stay in the surrounding prose. */
 export function NoteBox({

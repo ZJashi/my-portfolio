@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { MathText } from "./Equation";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
 export default function FreeEnergyLab() {
   const [pressure, setPressure] = useState(1);
   const [volume, setVolume] = useState(1);

@@ -1,22 +1,188 @@
 import { FinanceLesson } from "@/components/notes/FinanceLesson";
 import { Equation, MathText } from "@/components/notes/Equation";
-import { NoteBox } from "@/components/notes/NoteBox";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
+import { course, sections } from "./lesson-data";
+import { SwapsSection } from "./swaps-section";
+import { RatesSection } from "./rates-section";
+import { CurvesSection } from "./curves-section";
+import { ForwardsSection } from "./forwards-section";
 
-export const metadata = { title: "Linear Rates Products and Models | MIT 18.642 Lecture 7 | Zura Jashi", description: "Rates conventions, deposits, forwards, swaps, curve calibration, PV01 hedging, PnL attribution and bond spreads." };
-const course = "https://ocw.mit.edu/courses/18-642-topics-in-mathematics-with-applications-in-finance-fall-2024/";
-const sections = [["rates", "Rates and conventions"], ["forwards", "Deposits and forwards"], ["swaps", "Valuing a swap"], ["curves", "Building a yield curve"], ["risk", "Sensitivities and hedges"], ["desk", "PnL and market structure"], ["bonds", "Bonds on the same curve"], ["practice", "Practice"]] as const;
+export const metadata = {
+  title: "Linear Rates Products and Models | MIT 18.642 Lecture 7 | Zura Jashi",
+  description:
+    "Rates conventions, deposits, forwards, swaps, curve calibration, PV01 hedging, PnL attribution and bond spreads.",
+};
 
 export default function LectureSeven() {
-return <FinanceLesson number={7} title="Linear rates, products and models" description="Turn interest rate quotes into cash flows, calibrate a curve, and express the resulting risk in instruments that can hedge it." instructor="Andrew Gunstensen" topics="Guest lecture · Mizuho Financial Group · Fall 2024" sections={sections} previous={{slug:"stopping-times-and-regression",title:"Stopping times and regression"}} next={{slug:"regression-inference-and-diagnostics",title:"Regression inference and diagnostics"}} sources={<p>Course sources: <a href={`${course}resources/18642-lecture-7-version-2_mp4/`}>Lecture 7 recording</a> and <a href={`${course}mit18_642_f24_lec07.pdf`}>Linear Rates Models slides</a>. These notes follow the Fall 2024 teaching context, with original simplified examples. Market conventions are stated for each calculation; examples are not live market quotes or trading recommendations.</p>}>
-<div className={styles.lessonOverview}><p>The guest lecture connects rates products, valuation, curve construction, hedging, clearing and electronic trading. The worked examples use a deliberately simple single curve model first, then identify where funding, index conventions and collateral arrangements require more detail.</p></div>
-<section id="rates" className={styles.section}><span className={styles.sectionNumber}>01 / DEFINE THE CONTRACT FIRST</span><h2>Rates and conventions</h2><p>“Linear” products include vanilla bonds, swaps and interest rate futures. Their cash flows can be fixed or linear in a rate, but their present values can still be nonlinear in a curve. Convexity and cash flow conventions therefore remain relevant.</p><NoteBox title="A rate needs units and an accrual convention"><Equation>{"\\text{interest}=N r\\alpha,\\qquad\\alpha=\\text{year fraction},\\qquad1\\text{ basis point}=10^{-4}."}</Equation><p>N is notional in currency units, r is an annual decimal rate, and α is the contract’s accrual fraction. Reset dates, accrual dates and payment dates can differ.</p></NoteBox><p><strong>Original example.</strong> A notional of 1,000,000 at 5% over 90 days on an Actual/360 convention accrues 12,500. Using 90/365 would instead give about 12,328.77. A quoted annual rate alone is insufficient to determine the cash flow.</p><p>The lecture contrasts the unsecured LIBOR framework with overnight SOFR and the effects of compounding in arrears. Keep overnight compounded rates distinct from a forward looking term rate.</p><Equation>{"R_{\\mathrm{comp}}=\\frac{\\prod_{i=1}^{m}(1+r_i\\delta_i)-1}{\\alpha},\\qquad\\alpha=\\sum_i\\delta_i."}</Equation><p><MathText>{"Here $\\delta_i$ is the accrual fraction associated with each fixing. For two synthetic half year periods at 4% and 6%, the compounded annual return is $(1.02)(1.03)-1=5.06\\%$, not the 5% simple weighted average. Actual overnight periods are much shorter and follow specific calendars and fixing rules."}</MathText></p></section>
-<section id="forwards" className={styles.section}><span className={styles.sectionNumber}>02 / PRICES IMPLY RATES</span><h2>Deposits and forwards</h2><p><MathText>{"Let $D(0,T)$ be today’s price of a certain unit paid at T. In a simple interest deposit model, $D(0,T)=1/(1+r\\alpha)$. In a frictionless single curve framework, compare investing to the end date directly with investing to the start date and locking the remaining rate."}</MathText></p><NoteBox kind="result" title="A forward from two discount factors"><Equation>{"F(0;T_1,T_2)=\\frac{D(0,T_1)/D(0,T_2)-1}{\\alpha_{12}}."}</Equation><p>This is an annualised simple rate for the specified accrual period. A rate implied today is not a prediction of the rate that will be observed later.</p></NoteBox><p><strong>Original example.</strong><MathText>{" With $D(0,0.5)=0.98$, $D(0,1)=0.95$ and $\\alpha_{12}=0.5$, the forward rate is $(0.98/0.95-1)/0.5\\approx6.3158\\%$."}</MathText></p><p>A futures quote of 95.20 in a 100 minus percentage rate convention corresponds to 4.80%. Futures settlement and daily margining can produce a convexity adjustment relative to a forward; a futures rate is not automatically interchangeable with a forward rate.</p><p>Discounting and projecting floating cash flows need compatible funding and collateral assumptions. When an index curve differs from the discount curve, retain separate projection and discount inputs rather than forcing all quantities into one discount factor ratio.</p></section>
-<section id="swaps" className={styles.section}><span className={styles.sectionNumber}>03 / TWO CASH FLOW LEGS</span><h2>Valuing a swap</h2><p><MathText>{"A vanilla interest rate swap exchanges fixed and floating interest on a notional, normally without exchanging that notional. Use K for the fixed annual rate, $\\alpha_i$ for fixed accruals, $\\beta_j$ for floating accruals and $F_j$ for projected floating rates. The formulas below value the receiver of fixed and payer of floating."}</MathText></p><NoteBox kind="result" title="Swap present value and the par fixed rate"><Equation>{"V_{\\mathrm{recv}}=N\\left[K\\sum_i\\alpha_iD(0,T_i)-\\sum_j\\beta_jF_jD(0,U_j)\\right]."}</Equation><Equation>{"K_{\\mathrm{par}}=\\frac{\\sum_j\\beta_jF_jD(0,U_j)}{\\sum_i\\alpha_iD(0,T_i)}."}</Equation><p>Payment schedules may differ across the legs. A par swap has zero initial value under the chosen curves and conventions; an existing off market swap generally does not.</p></NoteBox><h3>Original two payment example</h3><p><MathText>{"Use payment times 0.5 and 1, accrual fractions 0.5 on both legs, $D_1=0.98$, $D_2=0.95$, and an immediate start. In the single curve model, projected floating coupons telescope:"}</MathText></p><Equation>{"\\sum_i\\alpha_iF_iD_i=\\sum_i(D_{i-1}-D_i)=1-D_2=0.05,\\qquad A=0.5(0.98+0.95)=0.965."}</Equation><Equation>{"K_{\\mathrm{par}}=0.05/0.965\\approx5.18135\\%."}</Equation><p>For notional 1,000,000, a receiver fixed swap at 5% has value 1,000,000(0.05 × 0.965 − 0.05) = −1,750. Receiving a below market fixed rate has negative value in this example.</p><p>The telescoping identity assumes matching reset/payment periods, one curve, no payment lag complications and an immediate start. It should not be carried unchanged into an arbitrary multi curve or seasoned swap calculation.</p><figure className={styles.lessonFigure}><svg viewBox="0 0 600 150" role="img" aria-labelledby="swap-title swap-desc"><title id="swap-title">Two legs of a fixed receiver swap</title><desc id="swap-desc">The fixed receiver receives fixed payments and pays floating payments at each of the two dates. The notional is not exchanged.</desc><g stroke="currentColor" fill="none" strokeWidth="2"><path d="M40 75H560M220 75V30M480 75V30M220 75v45M480 75v45"/><path d="m215 37 5-7 5 7m250 0 5-7 5 7M215 113l5 7 5-7m250 0 5 7 5-7"/></g><g fill="currentColor" textAnchor="middle" fontSize="16"><text x="220" y="20">Receive NKα₁</text><text x="480" y="20">Receive NKα₂</text><text x="220" y="144">Pay NF₁α₁</text><text x="480" y="144">Pay NF₂α₂</text><text x="220" y="70">T₁</text><text x="480" y="70">T₂</text></g></svg><figcaption>Schematic cash flow directions from the fixed receiver’s perspective.</figcaption></figure></section>
-<section id="curves" className={styles.section}><span className={styles.sectionNumber}>04 / CALIBRATION AND INTERPOLATION</span><h2>Building a yield curve</h2><p>A curve is a parameterised way to value payments at many dates. Calibration chooses parameters so that model prices reproduce selected deposit, futures and swap quotes. Interpolation controls values between the calibration dates and can change both forward shapes and hedge sensitivities.</p><h3>Original bootstrap</h3><p><MathText>{"Suppose the first half year discount factor is 0.98 and a one year swap with half year coupons has par rate 5%. Solve for the second discount factor using the zero PV condition:"}</MathText></p><Equation>{"0.05[0.5(0.98)+0.5D_2]=1-D_2\\quad\\Longrightarrow\\quad D_2=\\frac{1-0.025(0.98)}{1.025}\\approx0.9517073."}</Equation><p><MathText>{"Log linear discount interpolation gives $\\log D(t)=(1-w)\\log D(t_a)+w\\log D(t_b)$, where $w=(t-t_a)/(t_b-t_a)$. It preserves positive discount factors and makes the instantaneous forward $-d\\log D(t)/dt$ constant between knots. It need not make forwards continuous at knots."}</MathText></p><p>A smooth spline supplies different local forwards and hedge distributions. Policy meeting dates may motivate piecewise front end segments, while a smoother approach may suit longer maturities. Smooth appearance alone does not establish a good calibration.</p><p><MathText>{"With parameters $\\theta$, quote errors $g_i(\\theta)$ can be set to zero or fitted by $\\min_\\theta\\sum_iw_i g_i(\\theta)^2$ with suitable weights and constraints. An equal count of instruments and parameters does not guarantee a solution or uniqueness: independence and identification also matter."}</MathText></p></section>
-<section id="risk" className={styles.section}><span className={styles.sectionNumber}>05 / EXPRESS RISK IN QUOTE SPACE</span><h2>Sensitivities and hedges</h2><p><MathText>{"Let $q_i$ be a market rate quote in decimal units. Define a signed PV01 here as the linear PV change for a +1 bp move, holding other market quotes fixed and recalibrating the curve. Some desks report the opposite sign or an absolute amount, so the convention must accompany the number."}</MathText></p><Equation>{"\\Delta_i\\approx\\frac{V(q_i+h)-V(q_i-h)}{2h},\\qquad\\mathrm{PV01}_i=10^{-4}\\Delta_i."}</Equation><Equation>{"\\Gamma_{ii}\\approx\\frac{V(q_i+h)-2V(q_i)+V(q_i-h)}{h^2}."}</Equation><p>Differentiate with respect to observable quotes or internal curve parameters deliberately; they are different risks. A parallel bump compresses risk into one number, while a bucket ladder retains maturity exposures. Finite bump sizes trade truncation error against numerical noise.</p><h3>Original hedge calculation</h3><p>A portfolio’s signed PV01 is +4,800 currency units per bp. One unit of an available hedge has PV01 −1,200. Four units neutralise the first order parallel exposure: 4,800 + 4(−1,200) = 0.</p><p>This hedge does not automatically remove curve twists, basis risk or convexity. For several buckets, assemble a sensitivity matrix B whose columns are hedge instruments and solve Bh = −d when possible, or a suitably weighted least squares approximation when an exact hedge is unavailable.</p></section>
-<section id="desk" className={styles.section}><span className={styles.sectionNumber}>06 / A MODEL ON A TRADING DESK</span><h2>PnL and market structure</h2><p>The lecture ties pricing to clearing, margin, electronic quotes and PnL attribution. Collateral and clearing arrangements affect funding and exposure; similar contracts at different clearing venues can retain a basis. A theoretical mid price is distinct from a tradable bid or offer.</p><Equation>{"\\Delta V\\approx\\Theta\\Delta t+\\sum_i\\Delta_i\\Delta q_i+\\frac12\\sum_{i,j}\\Gamma_{ij}\\Delta q_i\\Delta q_j+\\text{trade and cash flow effects}."}</Equation><p><strong>Original attribution example.</strong> If signed PV01 is +4,800 and the relevant quote rises 2 bp, the linear contribution is +9,600. Add time passage, realised cash flows, changes in positions and higher order terms before comparing against total economic PnL. A large unexplained remainder can reveal missing risks or valuation inconsistencies.</p><p>Fast electronic pricing can reuse a recent full valuation and sensitivities for small quote moves. Recalibration remains necessary as the market moves far enough that the local approximation becomes inaccurate. Operational dates and cash flow rolls are as important as the numerical derivative.</p></section>
-<section id="bonds" className={styles.section}><span className={styles.sectionNumber}>07 / BOND AND SWAP RISK</span><h2>Bonds on the same curve</h2><p><MathText>{"A fixed bond can be valued with the same discount curve plus a fitted constant spread. In a continuous spread convention, choose s so that $P_{\\mathrm{dirty}}=\\sum_iCF_iD(0,T_i)e^{-sT_i}$. This is a z spread in the stated convention. The fitted spread can reflect several effects and is not a pure default probability."}</MathText></p><p><strong>Original example.</strong><MathText>{" A single payment of 100 in two years has market price 90, while the base curve discount factor is 0.94. Then $90=94e^{-2s}$, giving $s=\\log(94/90)/2\\approx2.1743\\%$. Use dirty price including accrued interest when matching a coupon bond’s full payment PV."}</MathText></p><p>Mapping bond risk to a common curve permits comparison with swap hedges, but spread changes and issue specific liquidity can remain. A duration match alone does not remove every source of bond risk.</p></section>
-<section id="practice" className={styles.section}><span className={styles.sectionNumber}>08 / PRACTICE</span><h2>Check your understanding</h2><p>Original exercises, separate from MIT’s assignments.</p><ol><li>What decimal rate is a 25 bp move?</li><li>With discount factors 0.98 and 0.95, what is the value of the two period fixed receiver swap at K = 6% and notional 1,000,000?</li><li>Does a parallel PV01 hedge necessarily hedge a steepening of the yield curve?</li></ol><details><summary>Compare your answers</summary><p>1. 0.0025, or 0.25 percentage points.</p><p>2. 1,000,000(0.06 × 0.965 − 0.05) = +7,900.</p><p>3. No. A steepening changes maturities differently; bucket sensitivities matter.</p></details></section>
-</FinanceLesson>;
+  return (
+    <FinanceLesson
+      number={7}
+      title="Linear rates, products and models"
+      description="Turn interest rate quotes into cash flows, calibrate a curve, and express the resulting risk in instruments that can hedge it."
+      instructor="Andrew Gunstensen"
+      topics="Guest lecture · Mizuho Financial Group · Fall 2024"
+      sections={sections}
+      previous={{
+        slug: "stopping-times-and-regression",
+        title: "Stopping times and regression",
+      }}
+      next={{
+        slug: "regression-inference-and-diagnostics",
+        title: "Regression inference and diagnostics",
+      }}
+      sources={
+        <p>
+          Course sources:{" "}
+          <a href={`${course}resources/18642-lecture-7-version-2_mp4/`}>
+            Lecture 7 recording
+          </a>{" "}
+          and{" "}
+          <a href={`${course}mit18_642_f24_lec07.pdf`}>
+            Linear Rates Models slides
+          </a>
+          . These notes follow the Fall 2024 teaching context, with original
+          simplified examples. Market conventions are stated for each
+          calculation; examples are not live market quotes or trading
+          recommendations.
+        </p>
+      }
+    >
+      <div className={styles.lessonOverview}>
+        <p>
+          The guest lecture connects rates products, valuation, curve
+          construction, hedging, clearing and electronic trading. The worked
+          examples use a deliberately simple single curve model first, then
+          identify where funding, index conventions and collateral arrangements
+          require more detail.
+        </p>
+      </div>
+      <RatesSection />
+      <ForwardsSection />
+      <SwapsSection />
+      <CurvesSection />
+      <section id="risk" className={styles.section}>
+        <span className={styles.sectionNumber}>
+          05 / EXPRESS RISK IN QUOTE SPACE
+        </span>
+        <h2>Sensitivities and hedges</h2>
+        <p>
+          <MathText>
+            {
+              "Let $q_i$ be a market rate quote in decimal units. Define a signed PV01 here as the linear PV change for a +1 bp move, holding other market quotes fixed and recalibrating the curve. Some desks report the opposite sign or an absolute amount, so the convention must accompany the number."
+            }
+          </MathText>
+        </p>
+        <Equation>
+          {
+            "\\Delta_i\\approx\\frac{V(q_i+h)-V(q_i-h)}{2h},\\qquad\\mathrm{PV01}_i=10^{-4}\\Delta_i."
+          }
+        </Equation>
+        <Equation>
+          {"\\Gamma_{ii}\\approx\\frac{V(q_i+h)-2V(q_i)+V(q_i-h)}{h^2}."}
+        </Equation>
+        <p>
+          Differentiate with respect to observable quotes or internal curve
+          parameters deliberately; they are different risks. A parallel bump
+          compresses risk into one number, while a bucket ladder retains
+          maturity exposures. Finite bump sizes trade truncation error against
+          numerical noise.
+        </p>
+        <h3>Original hedge calculation</h3>
+        <p>
+          A portfolio’s signed PV01 is +4,800 currency units per bp. One unit of
+          an available hedge has PV01 −1,200. Four units neutralise the first
+          order parallel exposure: 4,800 + 4(−1,200) = 0.
+        </p>
+        <p>
+          This hedge does not automatically remove curve twists, basis risk or
+          convexity. For several buckets, assemble a sensitivity matrix B whose
+          columns are hedge instruments and solve Bh = −d when possible, or a
+          suitably weighted least squares approximation when an exact hedge is
+          unavailable.
+        </p>
+      </section>
+      <section id="desk" className={styles.section}>
+        <span className={styles.sectionNumber}>
+          06 / A MODEL ON A TRADING DESK
+        </span>
+        <h2>PnL and market structure</h2>
+        <p>
+          The lecture ties pricing to clearing, margin, electronic quotes and
+          PnL attribution. Collateral and clearing arrangements affect funding
+          and exposure; similar contracts at different clearing venues can
+          retain a basis. A theoretical mid price is distinct from a tradable
+          bid or offer.
+        </p>
+        <Equation>
+          {
+            "\\Delta V\\approx\\Theta\\Delta t+\\sum_i\\Delta_i\\Delta q_i+\\frac12\\sum_{i,j}\\Gamma_{ij}\\Delta q_i\\Delta q_j+\\text{trade and cash flow effects}."
+          }
+        </Equation>
+        <p>
+          <strong>Original attribution example.</strong> If signed PV01 is
+          +4,800 and the relevant quote rises 2 bp, the linear contribution is
+          +9,600. Add time passage, realised cash flows, changes in positions
+          and higher order terms before comparing against total economic PnL. A
+          large unexplained remainder can reveal missing risks or valuation
+          inconsistencies.
+        </p>
+        <p>
+          Fast electronic pricing can reuse a recent full valuation and
+          sensitivities for small quote moves. Recalibration remains necessary
+          as the market moves far enough that the local approximation becomes
+          inaccurate. Operational dates and cash flow rolls are as important as
+          the numerical derivative.
+        </p>
+      </section>
+      <section id="bonds" className={styles.section}>
+        <span className={styles.sectionNumber}>07 / BOND AND SWAP RISK</span>
+        <h2>Bonds on the same curve</h2>
+        <p>
+          <MathText>
+            {
+              "A fixed bond can be valued with the same discount curve plus a fitted constant spread. In a continuous spread convention, choose s so that $P_{\\mathrm{dirty}}=\\sum_iCF_iD(0,T_i)e^{-sT_i}$. This is a z spread in the stated convention. The fitted spread can reflect several effects and is not a pure default probability."
+            }
+          </MathText>
+        </p>
+        <p>
+          <strong>Original example.</strong>
+          <MathText>
+            {
+              " A single payment of 100 in two years has market price 90, while the base curve discount factor is 0.94. Then $90=94e^{-2s}$, giving $s=\\log(94/90)/2\\approx2.1743\\%$. Use dirty price including accrued interest when matching a coupon bond’s full payment PV."
+            }
+          </MathText>
+        </p>
+        <p>
+          Mapping bond risk to a common curve permits comparison with swap
+          hedges, but spread changes and issue specific liquidity can remain. A
+          duration match alone does not remove every source of bond risk.
+        </p>
+      </section>
+      <section id="practice" className={styles.section}>
+        <span className={styles.sectionNumber}>08 / PRACTICE</span>
+        <h2>Check your understanding</h2>
+        <p>Original exercises, separate from MIT’s assignments.</p>
+        <ol>
+          <li>What decimal rate is a 25 bp move?</li>
+          <li>
+            With discount factors 0.98 and 0.95, what is the value of the two
+            period fixed receiver swap at K = 6% and notional 1,000,000?
+          </li>
+          <li>
+            Does a parallel PV01 hedge necessarily hedge a steepening of the
+            yield curve?
+          </li>
+        </ol>
+        <details>
+          <summary>Compare your answers</summary>
+          <p>1. 0.0025, or 0.25 percentage points.</p>
+          <p>2. 1,000,000(0.06 × 0.965 − 0.05) = +7,900.</p>
+          <p>
+            3. No. A steepening changes maturities differently; bucket
+            sensitivities matter.
+          </p>
+        </details>
+      </section>
+    </FinanceLesson>
+  );
 }

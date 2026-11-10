@@ -2,92 +2,182 @@ import { LessonNavigation } from "@/components/notes/LessonNavigation";
 import Link from "next/link";
 import { Equation, MathText } from "@/components/notes/Equation";
 import { NoteBox } from "@/components/notes/NoteBox";
-import styles from "@/app/notes/notes.module.css";
+import styles from "@/app/notes/notes.styles";
+import { CoordinateBoundSection } from "./coordinate-bound-section";
+import { RememberSection } from "./remember-section";
+import { DimensionSection } from "./dimension-section";
+import { CompactnessSection } from "./compactness-section";
+import { CompletenessSection } from "./completeness-section";
+import { CoordinateNormSection } from "./coordinate-norm-section";
+import { EquivalenceSection } from "./equivalence-section";
+import { IndependenceSection } from "./independence-section";
+import { BasisSection } from "./basis-section";
 
-export const metadata = { title: "Finite Dimensional Linear Spaces | Functional Analysis | Zura Jashi", description: "Lecture 5: bases and dimension, coordinate estimates, compact unit balls, equivalence of all norms and completeness in finite dimensions." };
+export const metadata = {
+  title: "Finite Dimensional Linear Spaces | Functional Analysis | Zura Jashi",
+  description:
+    "Lecture 5: bases and dimension, coordinate estimates, compact unit balls, equivalence of all norms and completeness in finite dimensions.",
+};
 
 export default function FiniteDimensionalLesson() {
-return <div className={styles.page}>
-<nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes">Notes</Link><span>/</span><Link href="/notes/mathematics">Mathematics</Link><span>/</span><Link href="/notes/mathematics/functional-analysis">Functional Analysis</Link><span>/</span><span>Lecture 5</span></nav>
-<header className={styles.readingHeader}><p className={styles.subjectKicker}>05 / FUNCTIONAL ANALYSIS</p><h1 className={styles.subjectTitle}>Finite dimensional linear spaces</h1><p className={styles.subjectDescription}>Use a finite basis to control coordinates, extract convergent subsequences, compare every norm, and prove completeness.</p><div className={styles.readingMeta}><span>Lecture 5</span><span>Linear independence · Matrices · Norms · Scalar compactness</span></div><p className={styles.lessonSourceCredit}>Source: <a href="https://www.youtube.com/watch?v=2tnSxSeypNk">Claudio Landim · IMPA lecture 5</a>. Adapted from captions; board notation unverified.</p></header>
-<div className={styles.lessonLayout}><article className={styles.article}><div className={styles.lessonOverview}><p><MathText>{"Finite dimension gives strong analytic conclusions from elementary coordinate arguments. The central estimate bounds the sum of coordinate magnitudes by the norm of the vector. It leads to compactness of the closed unit ball, equivalence of all norms, and completeness."}</MathText></p></div>
-<section id="independence" className={styles.section}><span className={styles.sectionNumber}>01 / LECTURE 5</span><h2>Linear independence and unique coordinates</h2><p><MathText>{"Let $X$ be a normed linear space over $\\mathbb K=\\mathbb R$ or $\\mathbb C$. The first definitions concern its algebraic structure and do not depend on the choice of norm."}</MathText></p>
-<NoteBox kind="definition" title="Linear independence"><p><MathText>{"Vectors $z_1,\\ldots,z_n$ are linearly independent if the zero vector has only the trivial representation as their linear combination."}</MathText></p><Equation>{"\\sum_{j=1}^{n}\\alpha_jz_j=0\\quad\\Longrightarrow\\quad\\alpha_1=\\cdots=\\alpha_n=0."}</Equation></NoteBox>
-<p><MathText>{"Suppose a vector has two representations in terms of these vectors:"}</MathText></p>
-<Equation>{"x=\\sum_{j=1}^{n}\\alpha_jz_j=\\sum_{j=1}^{n}\\beta_jz_j."}</Equation>
-<p><MathText>{"Subtracting gives $\\sum_{j=1}^{n}(\\alpha_j-\\beta_j)z_j=0$. Linear independence forces $\\alpha_j=\\beta_j$ for every $j$. Thus the coefficients are unique whenever the representation exists. Write them as $\\alpha_j(x)$ to indicate their dependence on $x$."}</MathText></p></section>
-<section id="basis" className={styles.section}><span className={styles.sectionNumber}>02 / LECTURE 5</span><h2>Bases and maximal independent families</h2><NoteBox kind="definition" title="Basis"><p><MathText>{"A basis is a linearly independent family that spans $X$. For a finite basis $z_1,\\ldots,z_n$, every $x\\in X$ has a unique expansion"}</MathText></p><Equation>{"x=\\sum_{j=1}^{n}\\alpha_j(x)z_j."}</Equation></NoteBox>
-<p><MathText>{"Such a family is maximal among linearly independent families: no additional vector can be added while preserving independence. Conversely, a maximal linearly independent family must span the space. If $x$ were outside its span, a relation $a x+\\sum_j b_jz_j=0$ would force $a=0$; otherwise it would express $x$ in the span. Independence would then force all $b_j=0$, so adjoining $x$ would give a larger independent family."}</MathText></p>
-<p><MathText>{"Uniqueness also shows that each coordinate map is linear. Expand $x$ and $u$ in the basis and combine their expansions:"}</MathText></p>
-<Equation>{"\\alpha_j(ax+bu)=a\\alpha_j(x)+b\\alpha_j(u),\\qquad a,b\\in\\mathbb K."}</Equation>
-<p><MathText>{"Existence comes from spanning; uniqueness comes from independence. Both are needed to make these coordinate maps well defined."}</MathText></p></section>
-<section id="dimension" className={styles.section}><span className={styles.sectionNumber}>03 / LECTURE 5</span><h2>Why all finite bases have the same size</h2><p><MathText>{"Suppose $z_1,\\ldots,z_n$ and $w_1,\\ldots,w_m$ are two bases of the same space. Since each spans $X$, write"}</MathText></p>
-<Equation>{"w_k=\\sum_{j=1}^{n}a_{kj}z_j,\\qquad z_j=\\sum_{\\ell=1}^{m}b_{j\\ell}w_\\ell."}</Equation>
-<p><MathText>{"The coefficient matrices have sizes $A\\in\\mathbb K^{m\\times n}$ and $B\\in\\mathbb K^{n\\times m}$. Substituting the second expansion into the first gives"}</MathText></p>
-<Equation>{"w_k=\\sum_{\\ell=1}^{m}\\left(\\sum_{j=1}^{n}a_{kj}b_{j\\ell}\\right)w_\\ell."}</Equation>
-<p><MathText>{"By uniqueness of the coefficients in the $w$ basis, $\\sum_j a_{kj}b_{j\\ell}=\\delta_{k\\ell}$. Here $\\delta_{k\\ell}$ is one when $k=\\ell$ and zero otherwise. Hence $AB=I_m$. Reversing the substitution and using independence of the $z$ vectors gives $BA=I_n$."}</MathText></p>
-<h3>The matrix dimension argument</h3>
-<Equation>{"m=\\operatorname{rank}(AB)\\leq n,\\qquad n=\\operatorname{rank}(BA)\\leq m."}</Equation>
-<p><MathText>{"The two inequalities imply $m=n$. Both identities matter: $AB=I_m$ by itself gives only $m\\leq n$, not equality. This proves that the size of a finite basis depends only on the space."}</MathText></p>
-<NoteBox kind="definition" title="Dimension"><p><MathText>{"The dimension of $X$ is the number of vectors in any finite basis. If there are arbitrarily large finite linearly independent families, the space is infinite dimensional."}</MathText></p><Equation>{"\\dim X=n\\quad\\text{when }X\\text{ has a basis of }n\\text{ vectors}."}</Equation></NoteBox>
-<p><MathText>{"The zero space has dimension zero and an empty basis. For the arguments below, take $n\\geq1$; their conclusions are immediate for the zero space. Dimension here is algebraic dimension over the specified field."}</MathText></p></section>
-<section id="coordinate-bound" className={styles.section}><span className={styles.sectionNumber}>04 / LECTURE 5</span><h2>A uniform bound on coordinates</h2><p><MathText>{"Fix a basis $z_1,\\ldots,z_n$ of the finite dimensional normed space $X$. Although each vector has coordinates, it remains to show that a small vector cannot have arbitrarily large coordinates through cancellation."}</MathText></p>
-<NoteBox kind="result" title="Coordinate estimate"><p><MathText>{"There is a finite constant $C>0$, depending on the fixed basis and norm but not on $x$, such that"}</MathText></p><Equation>{"\\sum_{j=1}^{n}|\\alpha_j(x)|\\leq C\\|x\\|\\qquad(x\\in X)."}</Equation></NoteBox>
-<h3>Normalize a hypothetical counterexample</h3>
-<p><MathText>{"Assume no such constant exists. For every integer $p\\geq1$, choose $x_p$ satisfying"}</MathText></p>
-<Equation>{"s_p:=\\sum_{j=1}^{n}|\\alpha_j(x_p)|>p\\|x_p\\|."}</Equation>
-<p><MathText>{"The number $s_p$ is positive, so define $y_p=x_p/s_p$. By linearity of the coordinates and homogeneity of the norm,"}</MathText></p>
-<Equation>{"\\sum_{j=1}^{n}|\\alpha_j(y_p)|=1,\\qquad \\|y_p\\|<\\frac1p."}</Equation>
-<p><MathText>{"Thus $y_p\\to0$ in $X$, while its total coordinate magnitude stays equal to one."}</MathText></p>
-<h3>Extract a common coordinate subsequence</h3>
-<p><MathText>{"Each scalar sequence $(\\alpha_j(y_p))_p$ is bounded by one. A bounded sequence in $\\mathbb R$ or $\\mathbb C$ has a convergent subsequence. Extract a subsequence for the first coordinate, then a subsequence of it for the second, and continue through the finitely many coordinates. The resulting indices $p_\\ell$ satisfy"}</MathText></p>
-<Equation>{"\\alpha_j(y_{p_\\ell})\\longrightarrow a_j\\qquad(1\\leq j\\leq n)."}</Equation>
-<p><MathText>{"Because the number of coordinates is finite, the normalization passes to the limit: $\\sum_j|a_j|=1$. Define $y=\\sum_j a_jz_j$. The triangle inequality gives convergence in the original norm without invoking any unproved coordinate-continuity claim:"}</MathText></p>
-<Equation>{"\\|y_{p_\\ell}-y\\|\\leq\\sum_{j=1}^{n}|\\alpha_j(y_{p_\\ell})-a_j|\\,\\|z_j\\|\\longrightarrow0."}</Equation>
-<h3>Obtain the contradiction</h3>
-<p><MathText>{"The same subsequence converges to zero because $\\|y_p\\|<1/p$. Limits in a normed space are unique, so $y=0$. Independence of the basis gives $a_j=0$ for all $j$, contradicting $\\sum_j|a_j|=1$. The coordinate estimate follows."}</MathText></p>
-<p><MathText>{"This proof uses compactness only for bounded scalar sequences, not compactness of the unit ball in $X$. There is therefore no circular dependence on the next result."}</MathText></p></section>
-<section id="compactness" className={styles.section}><span className={styles.sectionNumber}>05 / LECTURE 5</span><h2>The closed unit ball is compact</h2><NoteBox kind="result" title="Finite dimensional compactness"><p><MathText>{"In a finite dimensional normed space, the closed unit ball is compact."}</MathText></p><Equation>{"B=\\{x\\in X:\\|x\\|\\leq1\\}."}</Equation></NoteBox>
-<p><MathText>{"To prove this, take any sequence $(x_p)$ in $B$. The coordinate estimate gives"}</MathText></p>
-<Equation>{"\\sum_{j=1}^{n}|\\alpha_j(x_p)|\\leq C\\|x_p\\|\\leq C."}</Equation>
-<p><MathText>{"In particular each coordinate sequence is bounded by $C$. Successively extract subsequences to obtain a common subsequence $p_\\ell$ for which every coordinate converges, say $\\alpha_j(x_{p_\\ell})\\to a_j$. Let $y=\\sum_j a_jz_j$. Then"}</MathText></p>
-<Equation>{"\\|x_{p_\\ell}-y\\|\\leq\\sum_{j=1}^{n}|\\alpha_j(x_{p_\\ell})-a_j|\\,\\|z_j\\|\\longrightarrow0."}</Equation>
-<p><MathText>{"The limit remains in the closed unit ball, since"}</MathText></p>
-<Equation>{"\\|y\\|\\leq\\|y-x_{p_\\ell}\\|+\\|x_{p_\\ell}\\|\\leq\\|y-x_{p_\\ell}\\|+1."}</Equation>
-<p><MathText>{"Taking the limit yields $\\|y\\|\\leq1$. Thus every sequence in $B$ has a subsequence converging to a point of $B$. In metric spaces, sequential compactness is equivalent to compactness, proving the result."}</MathText></p>
-<p><MathText>{"The word “closed” is essential: the set here uses $\\|x\\|\\leq1$, not $\\|x\\|<1$. A limit of points of an open unit ball can lie on its boundary."}</MathText></p></section>
-<section id="coordinate-norm" className={styles.section}><span className={styles.sectionNumber}>06 / LECTURE 5</span><h2>The coordinate norm</h2><p><MathText>{"Using the fixed basis, define a new norm by adding the absolute values of the coordinates."}</MathText></p>
-<NoteBox kind="definition" title="Coordinate norm"><Equation>{"\\|x\\|_0=\\sum_{j=1}^{n}|\\alpha_j(x)|."}</Equation></NoteBox>
-<h3>Verification of the norm axioms</h3>
-<ul className={styles.takeaways}><li><strong>Definiteness.</strong> <MathText>{"$\\|x\\|_0\\geq0$. It equals zero precisely when every coordinate is zero, which is equivalent to $x=0$."}</MathText></li><li><strong>Absolute homogeneity.</strong> <MathText>{"Coordinate linearity gives $\\alpha_j(a x)=a\\alpha_j(x)$, so $\\|a x\\|_0=|a|\\,\\|x\\|_0$."}</MathText></li><li><strong>Triangle inequality.</strong> <MathText>{"Since $\\alpha_j(x+u)=\\alpha_j(x)+\\alpha_j(u)$, summing the scalar triangle inequalities gives $\\|x+u\\|_0\\leq\\|x\\|_0+\\|u\\|_0$."}</MathText></li></ul>
-<p><MathText>{"This norm depends on the chosen basis, but its relation to any other norm can be controlled uniformly."}</MathText></p></section>
-<section id="equivalence" className={styles.section}><span className={styles.sectionNumber}>07 / LECTURE 5</span><h2>Every norm is equivalent to the coordinate norm</h2><h3>Bound the original norm by the coordinate norm</h3>
-<p><MathText>{"Expand $x$ in the basis, apply the triangle inequality and use absolute homogeneity:"}</MathText></p>
-<Equation>{"\\begin{aligned}\\|x\\|&=\\left\\|\\sum_{j=1}^{n}\\alpha_j(x)z_j\\right\\|\\\\&\\leq\\sum_{j=1}^{n}|\\alpha_j(x)|\\,\\|z_j\\|\\\\&\\leq M\\|x\\|_0,\\qquad M=\\max_{1\\leq j\\leq n}\\|z_j\\|.\\end{aligned}"}</Equation>
-<p><MathText>{"The maximum is finite because there are finitely many basis vectors."}</MathText></p>
-<h3>Bound the coordinate norm by the original norm</h3>
-<p><MathText>{"The coordinate estimate gives the reverse inequality $\\|x\\|_0\\leq C\\|x\\|$. Its normalized contradiction argument can be restated directly in norm notation: if the bound failed, choose $x_p$ with $\\|x_p\\|_0>p\\|x_p\\|$ and set $y_p=x_p/\\|x_p\\|_0$. Then $\\|y_p\\|_0=1$ but $\\|y_p\\|<1/p$. A common convergent coordinate subsequence would produce a nonzero coordinate limit whose vector is zero, contradicting independence."}</MathText></p>
-<NoteBox kind="result" title="Two-sided comparison"><Equation>{"C^{-1}\\|x\\|_0\\leq\\|x\\|\\leq M\\|x\\|_0\\qquad(x\\in X)."}</Equation></NoteBox>
-<p><MathText>{"The constants depend on the basis and the norm, but do not depend on the individual vector. This uniform comparison is exactly norm equivalence."}</MathText></p></section>
-<section id="all-norms" className={styles.section}><span className={styles.sectionNumber}>08 / LECTURE 5</span><h2>All norms on a finite dimensional space are equivalent</h2><p><MathText>{"Apply the preceding comparison to two norms $N$ and $P$ using the same basis and therefore the same coordinate norm. There are positive constants $C_N,M_N,C_P,M_P$ such that"}</MathText></p>
-<Equation>{"\\|x\\|_0\\leq C_NN(x),\\quad N(x)\\leq M_N\\|x\\|_0,\\qquad \\|x\\|_0\\leq C_PP(x),\\quad P(x)\\leq M_P\\|x\\|_0."}</Equation>
-<p><MathText>{"Combining them gives bounds directly between the two norms:"}</MathText></p>
-<Equation>{"P(x)\\leq M_PC_NN(x),\\qquad N(x)\\leq M_NC_PP(x)."}</Equation>
-<NoteBox kind="result" title="All norms are equivalent"><p><MathText>{"Any two norms on a fixed finite dimensional real or complex vector space are equivalent. They induce the same convergence, open sets and closed sets."}</MathText></p></NoteBox>
-<p><MathText>{"Equivalence does not mean the norms assign the same value to a vector. It means that uniform positive constants compare their sizes in both directions. The finite dimension assumption is essential to the coordinate-subsequence argument."}</MathText></p></section>
-<section id="completeness" className={styles.section}><span className={styles.sectionNumber}>09 / LECTURE 5</span><h2>Finite dimensional normed spaces are complete</h2><p><MathText>{"Let $(x_p)$ be Cauchy in the original norm. Since $\\|x\\|_0\\leq C\\|x\\|$, it is also Cauchy in the coordinate norm:"}</MathText></p>
-<Equation>{"\\|x_p-x_q\\|_0=\\sum_{j=1}^{n}|\\alpha_j(x_p)-\\alpha_j(x_q)|\\leq C\\|x_p-x_q\\|."}</Equation>
-<p><MathText>{"For each fixed $j$, its coordinate difference is no larger than this sum. Therefore $(\\alpha_j(x_p))_p$ is a Cauchy sequence in $\\mathbb K$. Completeness of $\\mathbb R$ and $\\mathbb C$ gives a limit $a_j$ for every coordinate. These are limits of the whole coordinate sequences, not merely subsequential limits."}</MathText></p>
-<p><MathText>{"Define $x=\\sum_j a_jz_j$, which belongs to $X$. The sum has only finitely many terms, so"}</MathText></p>
-<Equation>{"\\|x_p-x\\|_0=\\sum_{j=1}^{n}|\\alpha_j(x_p)-a_j|\\longrightarrow0."}</Equation>
-<p><MathText>{"Return to the original norm using $\\|x_p-x\\|\\leq M\\|x_p-x\\|_0\\to0$. Every Cauchy sequence converges to a point of $X$."}</MathText></p>
-<NoteBox kind="result" title="Finite dimensional spaces are Banach"><p><MathText>{"Every finite dimensional normed linear space over $\\mathbb R$ or $\\mathbb C$ is complete, and hence is a Banach space."}</MathText></p></NoteBox>
-<p><MathText>{"The key mechanism is finite coordinate control: finitely many complete scalar sequences determine a vector limit. Together with uniform norm comparison, this transfers scalar completeness to the entire space."}</MathText></p></section>
-<section id="remember" className={styles.section}><span className={styles.sectionNumber}>10 / REVISION</span><h2>Main results to remember</h2><NoteBox kind="definition" title="Bases and dimension"><ul className={styles.takeaways}><li><strong>Coordinates.</strong> <MathText>{"Independence gives uniqueness; spanning gives existence. A basis supplies both."}</MathText></li><li><strong>Dimension.</strong> <MathText>{"All finite bases have the same size. Comparing two bases gives $AB=I_m$ and $BA=I_n$, hence $m=n$."}</MathText></li><li><strong>Coordinate maps.</strong> <MathText>{"Each $\\alpha_j:X\\to\\mathbb K$ is linear."}</MathText></li></ul></NoteBox>
-<NoteBox kind="result" title="The estimate behind the proofs"><ul className={styles.takeaways}><li><strong>Uniform coordinate bound.</strong> <MathText>{"$\\sum_j|\\alpha_j(x)|\\leq C\\|x\\|$. Normalizing a hypothetical counterexample produces a contradiction with independence."}</MathText></li><li><strong>Coordinate norm.</strong> <MathText>{"$\\|x\\|_0=\\sum_j|\\alpha_j(x)|$ is equivalent to every norm on $X$."}</MathText></li><li><strong>Finite extraction.</strong> <MathText>{"Finitely many bounded scalar coordinates admit one common convergent subsequence."}</MathText></li></ul></NoteBox>
-<NoteBox kind="definition" title="Consequences of finite dimension"><ul className={styles.takeaways}><li><strong>Compactness.</strong> <MathText>{"The closed unit ball is compact; subsequential limits stay inside it."}</MathText></li><li><strong>Norm equivalence.</strong> <MathText>{"All norms on the same finite dimensional vector space induce the same topology."}</MathText></li><li><strong>Completeness.</strong> <MathText>{"Every Cauchy sequence has a limit in $X$. Every finite dimensional normed space is Banach."}</MathText></li></ul></NoteBox></section>
+  return (
+    <div className={styles.page}>
+      <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
+        <Link href="/notes">Notes</Link>
+        <span>/</span>
+        <Link href="/notes/mathematics">Mathematics</Link>
+        <span>/</span>
+        <Link href="/notes/mathematics/functional-analysis">
+          Functional Analysis
+        </Link>
+        <span>/</span>
+        <span>Lecture 5</span>
+      </nav>
+      <header className={styles.readingHeader}>
+        <p className={styles.subjectKicker}>05 / FUNCTIONAL ANALYSIS</p>
+        <h1 className={styles.subjectTitle}>
+          Finite dimensional linear spaces
+        </h1>
+        <p className={styles.subjectDescription}>
+          Use a finite basis to control coordinates, extract convergent
+          subsequences, compare every norm, and prove completeness.
+        </p>
+        <div className={styles.readingMeta}>
+          <span>Lecture 5</span>
+          <span>
+            Linear independence · Matrices · Norms · Scalar compactness
+          </span>
+        </div>
+        <p className={styles.lessonSourceCredit}>
+          Source:{" "}
+          <a href="https://www.youtube.com/watch?v=2tnSxSeypNk">
+            Claudio Landim · IMPA lecture 5
+          </a>
+          . Adapted from captions; board notation unverified.
+        </p>
+      </header>
+      <div className={styles.lessonLayout}>
+        <article className={styles.article}>
+          <div className={styles.lessonOverview}>
+            <p>
+              <MathText>
+                {
+                  "Finite dimension gives strong analytic conclusions from elementary coordinate arguments. The central estimate bounds the sum of coordinate magnitudes by the norm of the vector. It leads to compactness of the closed unit ball, equivalence of all norms, and completeness."
+                }
+              </MathText>
+            </p>
+          </div>
+          <IndependenceSection />
+          <BasisSection />
+          <DimensionSection />
+          <CoordinateBoundSection />
+          <CompactnessSection />
+          <CoordinateNormSection />
+          <EquivalenceSection />
+          <section id="all-norms" className={styles.section}>
+            <span className={styles.sectionNumber}>08 / LECTURE 5</span>
+            <h2>All norms on a finite dimensional space are equivalent</h2>
+            <p>
+              <MathText>
+                {
+                  "Apply the preceding comparison to two norms $N$ and $P$ using the same basis and therefore the same coordinate norm. There are positive constants $C_N,M_N,C_P,M_P$ such that"
+                }
+              </MathText>
+            </p>
+            <Equation>
+              {
+                "\\|x\\|_0\\leq C_NN(x),\\quad N(x)\\leq M_N\\|x\\|_0,\\qquad \\|x\\|_0\\leq C_PP(x),\\quad P(x)\\leq M_P\\|x\\|_0."
+              }
+            </Equation>
+            <p>
+              <MathText>
+                {"Combining them gives bounds directly between the two norms:"}
+              </MathText>
+            </p>
+            <Equation>
+              {"P(x)\\leq M_PC_NN(x),\\qquad N(x)\\leq M_NC_PP(x)."}
+            </Equation>
+            <NoteBox kind="result" title="All norms are equivalent">
+              <p>
+                <MathText>
+                  {
+                    "Any two norms on a fixed finite dimensional real or complex vector space are equivalent. They induce the same convergence, open sets and closed sets."
+                  }
+                </MathText>
+              </p>
+            </NoteBox>
+            <p>
+              <MathText>
+                {
+                  "Equivalence does not mean the norms assign the same value to a vector. It means that uniform positive constants compare their sizes in both directions. The finite dimension assumption is essential to the coordinate-subsequence argument."
+                }
+              </MathText>
+            </p>
+          </section>
+          <CompletenessSection />
+          <RememberSection />
 
-<LessonNavigation contents={{ href: "/notes/mathematics/functional-analysis", title: "Functional Analysis" }} previous={{"href":"/notes/mathematics/functional-analysis/completing-a-normed-linear-space","title":"Completing a normed linear space"}} next={{"href":"/notes/mathematics/functional-analysis/examples-of-normed-linear-spaces","title":"Examples of normed linear spaces"}} />
-</article><aside className={styles.toc}><nav aria-label="On this page"><p className={styles.label}>In this lecture</p><ol><li><a href="#independence">Linear independence and unique coordinates</a></li><li><a href="#basis">Bases and maximal independent families</a></li><li><a href="#dimension">Why all finite bases have the same size</a></li><li><a href="#coordinate-bound">A uniform bound on coordinates</a></li><li><a href="#compactness">The closed unit ball is compact</a></li><li><a href="#coordinate-norm">The coordinate norm</a></li><li><a href="#equivalence">Every norm is equivalent to the coordinate norm</a></li><li><a href="#all-norms">All norms on a finite dimensional space are equivalent</a></li><li><a href="#completeness">Finite dimensional normed spaces are complete</a></li><li><a href="#remember">Main results to remember</a></li></ol></nav></aside></div></div>;
+          <LessonNavigation
+            contents={{
+              href: "/notes/mathematics/functional-analysis",
+              title: "Functional Analysis",
+            }}
+            previous={{
+              href: "/notes/mathematics/functional-analysis/completing-a-normed-linear-space",
+              title: "Completing a normed linear space",
+            }}
+            next={{
+              href: "/notes/mathematics/functional-analysis/examples-of-normed-linear-spaces",
+              title: "Examples of normed linear spaces",
+            }}
+          />
+        </article>
+        <aside className={styles.toc}>
+          <nav aria-label="On this page">
+            <p className={styles.label}>In this lecture</p>
+            <ol>
+              <li>
+                <a href="#independence">
+                  Linear independence and unique coordinates
+                </a>
+              </li>
+              <li>
+                <a href="#basis">Bases and maximal independent families</a>
+              </li>
+              <li>
+                <a href="#dimension">Why all finite bases have the same size</a>
+              </li>
+              <li>
+                <a href="#coordinate-bound">A uniform bound on coordinates</a>
+              </li>
+              <li>
+                <a href="#compactness">The closed unit ball is compact</a>
+              </li>
+              <li>
+                <a href="#coordinate-norm">The coordinate norm</a>
+              </li>
+              <li>
+                <a href="#equivalence">
+                  Every norm is equivalent to the coordinate norm
+                </a>
+              </li>
+              <li>
+                <a href="#all-norms">
+                  All norms on a finite dimensional space are equivalent
+                </a>
+              </li>
+              <li>
+                <a href="#completeness">
+                  Finite dimensional normed spaces are complete
+                </a>
+              </li>
+              <li>
+                <a href="#remember">Main results to remember</a>
+              </li>
+            </ol>
+          </nav>
+        </aside>
+      </div>
+    </div>
+  );
 }
-

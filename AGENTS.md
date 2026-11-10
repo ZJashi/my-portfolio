@@ -1,4 +1,13 @@
-# Study-note design guidelines
+# Repository guidelines
+
+## Formatting and file size
+
+- Every hand-maintained source, stylesheet, configuration, script, and documentation file must contain **no more than 200 lines after Prettier formatting**, including comments and blank lines.
+- Split larger files into cohesive components, section modules, data modules, or stylesheets. Preserve content and behavior; never compress code, disable Prettier, or remove explanations to meet the limit.
+- This rule applies across the entire repository, including new files and changes to existing files. Generated dependency lockfiles, generated framework declarations, build output, and binary assets are exempt; do not split or hand-edit those generated files.
+- Run `npm run format` after editing. Before finishing, run `npm run format:check` and `npm run check:lines`, then the appropriate TypeScript/build checks. The production build also enforces the line limit automatically.
+
+## Study-note design guidelines
 
 When creating or editing learning material, including statistical mechanics, quantum mechanics, and classical mechanics, preserve the existing notebook palette, typography, navigation, mathematical conventions, and explanatory depth. Make notes polished and easy to revise using meaningful visual hierarchy.
 
@@ -21,6 +30,8 @@ When creating or editing learning material, including statistical mechanics, qua
 These guidelines apply to future study notes as well as revisions. Keep unrelated portfolio content and existing user changes intact.
 
 ## Local development and validation
+
+- Notes visibility is controlled by `src/lib/notes-visibility.ts`: all notebooks are visible in `npm run dev`, while production builds hide the sidebar entry and return 404 for the entire `/notes` subtree. Keep local directory entries active rather than manually commenting them out for deployment.
 
 - Development output lives in `.next-dev`; production build/start output lives in `.next`. Preserve this phase-based separation in `next.config.ts`.
 - Never delete or replace the generated directory used by a running server. Stop only a server you own or have verified belongs to this project when a restart is necessary.

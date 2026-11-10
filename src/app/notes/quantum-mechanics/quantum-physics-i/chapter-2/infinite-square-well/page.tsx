@@ -1,41 +1,151 @@
 import { QuantumLesson } from "@/components/notes/QuantumLesson";
 import { NoteBox } from "@/components/notes/NoteBox";
 import { Equation, MathParagraph as P } from "@/components/notes/Equation";
-import styles from "../../../../notes.module.css";
+import styles from "../../../../notes.styles";
+import { SpectrumSection } from "./spectrum-section";
 
-export const metadata = { title: "The Infinite Square Well | Quantum Physics I | Zura Jashi" };
-export default function Lesson() { return <QuantumLesson number="2.2" title="The Infinite Square Well" description="Derive hard-wall energy levels, normalize standing-wave eigenstates, and calculate probabilities and time-dependent superpositions." sections={[["walls","Hard-wall model"],["spectrum","Energy spectrum"],["probabilities","Position probabilities"],["superposition","Superpositions & time"],["practice","Practice"]]}>
-
-<P>{String.raw`A ring allowed a wave to return smoothly to its starting point. A box with impenetrable walls imposes a different condition: the wavefunction vanishes at each end. The differential equation inside is still the free-particle equation, but its boundary conditions now select standing waves and remove the zero-energy mode.`}</P>
-<section id="walls" className={styles.section}><h2>Confinement is encoded at the endpoints.</h2>
-<NoteBox kind="definition" title="Infinite square well · Ideal hard walls"><Equation>{String.raw`V(x)=\begin{cases}0,&0<x<L,\\+\infty,&x\le0\ \text{or}\ x\ge L,\end{cases}\qquad\phi(0)=\phi(L)=0.`}</Equation><p>Here L is the <strong>full width</strong>. The infinite barrier is an idealization defined by hard-wall boundary conditions; solve the finite differential equation in the interior.</p></NoteBox>
-<P>{String.raw`Inside the well, $-\hbar^2\phi''/(2m)=E\phi$. For positive E, write $\phi=A\sin kx+B\cos kx$, where $k=\sqrt{2mE}/\hbar$. The left wall sets B to zero. The right wall requires $A\sin(kL)=0$. We discard the identically zero function, so the sine must vanish at L.`}</P>
-<P>{String.raw`The case E = 0 needs separate treatment: its interior solution is A + Bx, and both endpoint conditions make it identically zero. Negative energies are excluded because the Dirichlet kinetic-energy operator is nonnegative. There is therefore no physical zero-energy or negative-energy state in this model.`}</P>
-</section>
-<section id="spectrum" className={styles.section}><h2>Only whole numbers of half-wavelengths fit.</h2>
-<NoteBox kind="result" title="Normalized eigenstates and allowed energies"><Equation>{String.raw`\phi_n(x)=\sqrt{\frac2L}\sin\!\left(\frac{n\pi x}{L}\right),\qquad E_n=\frac{n^2\pi^2\hbar^2}{2mL^2},\qquad n=1,2,3,\ldots`}</Equation><p>The wavefunction is zero outside the well. Each energy is <strong>nondegenerate</strong> for this one-dimensional spinless model. The ground state has positive energy E₁.</p></NoteBox>
-<P>{String.raw`Normalization follows from $\int_0^L\sin^2(n\pi x/L)dx=L/2$. Different n give orthogonal functions. The n-th state has n − 1 internal nodes, and its energy grows as $n^2$. Positive and negative n do not create a new pair of states here: changing the sine’s sign only adds a global phase.`}</P>
-<figure className={styles.lessonFigure}><svg viewBox="0 0 600 270" role="img" aria-labelledby="box-modes-title box-modes-desc"><title id="box-modes-title">First three hard-wall eigenfunctions</title><desc id="box-modes-desc">Three sine waves between zero and L show zero, one, and two internal nodes. Each row has its own zero baseline and the same arbitrary display amplitude.</desc><g fill="none" stroke="currentColor"><path d="M90 25V240M530 25V240" strokeWidth="2"/>{[1,2,3].map((n)=><g key={n}><path d={`M90 ${n*70}H530`} opacity=".25"/><path d={Array.from({length:161},(_,i)=>`${i?'L':'M'}${90+440*i/160},${n*70-24*Math.sin(n*Math.PI*i/160)}`).join(' ')} strokeWidth="2"/><text x="30" y={n*70+5} fill="currentColor" stroke="none" fontSize="16">n={n}</text></g>)}</g><g fill="currentColor" fontSize="16"><text x="85" y="263">0</text><text x="525" y="263">L</text></g></svg><figcaption>Real eigenfunction amplitudes, vertically offset for clarity. These rows are not an energy-level diagram: the energies are in the ratio 1 : 4 : 9.</figcaption></figure>
-<div className={styles.workedExample}><h3>Worked example · An electron in a 1 nm box</h3><P>{String.raw`With $L=1.00\,\mathrm{nm}$ and the bare electron mass,`}</P><Equation>{String.raw`E_1\approx0.376\,\mathrm{eV},\qquad E_2\approx1.504\,\mathrm{eV},\qquad E_2-E_1\approx1.128\,\mathrm{eV}.`}</Equation><p>Doubling the width divides every energy by four. These are ideal confinement energies, not a complete description of an electron in a real material.</p></div>
-</section>
-<section id="probabilities" className={styles.section}><h2>Integrate the squared wave, not the wave.</h2>
-<P>{String.raw`In an energy eigenstate, the position density is $(2/L)\sin^2(n\pi x/L)$. It is stationary but not uniform. The sign of the amplitude does not change its local density. For an interval $[a,b]$ within the well, use $2\sin^2u=1-\cos2u$ to integrate explicitly.`}</P>
-<NoteBox kind="result" title="Position probability in a hard-wall eigenstate"><Equation>{String.raw`P_n(a\le x\le b)=\frac{b-a}{L}-\frac{\sin(2n\pi b/L)-\sin(2n\pi a/L)}{2n\pi}.`}</Equation><p>Requires <strong>0 ≤ a ≤ b ≤ L</strong>. A node has zero density, while a finite detector region has a probability given by this integral.</p></NoteBox>
-<div className={styles.workedExample}><h3>Worked example · The central half of the ground state</h3><Equation>{String.raw`P_1(L/4\le x\le3L/4)=\frac12+\frac1\pi\approx0.818.`}</Equation><p>The ground-state density peaks at the center, so more than half the detections fall in the central half of the box. Treating the particle as uniformly distributed would miss the wave structure.</p></div>
-<P>{String.raw`Reflection symmetry gives $\langle x\rangle=L/2$. Direct integration also yields`}</P><Equation>{String.raw`(\Delta x)^2=L^2\left(\frac1{12}-\frac1{2n^2\pi^2}\right).`}</Equation><p>Higher states have more oscillations. Their density averaged over many nearby peaks approaches a uniform profile, although the exact density still has nodes.</p>
-</section>
-<section id="superposition" className={styles.section}><h2>Different energies make a moving interference pattern.</h2>
-<P>{String.raw`Prepare an equal coherent superposition of the first two modes. Their coefficients keep equal magnitudes under the static Hamiltonian, but their relative phase changes at angular frequency $(E_2-E_1)/\hbar$.`}</P>
-<Equation>{String.raw`\psi(x,t)=\frac{\phi_1(x)e^{-iE_1t/\hbar}+\phi_2(x)e^{-iE_2t/\hbar}}{\sqrt2}.`}</Equation>
-<NoteBox kind="result" title="Density of a two-energy superposition"><Equation>{String.raw`\rho(x,t)=\frac{\phi_1^2+\phi_2^2}{2}+\phi_1\phi_2\cos\!\left(\frac{E_2-E_1}{\hbar}t\right).`}</Equation><p>The eigenfunctions are chosen real. The interference term changes sign across the center, redistributing probability while the total remains one.</p></NoteBox>
-<P>{String.raw`As a concrete average, integrate x times this density. The diagonal terms each give $L/2$, while $\int_0^Lx\phi_1\phi_2dx=-16L/(9\pi^2)$. Thus`}</P>
-<Equation>{String.raw`\langle x\rangle_t=\frac L2-\frac{16L}{9\pi^2}\cos\!\left(\frac{E_2-E_1}{\hbar}t\right).`}</Equation>
-<p>The mean position oscillates, but an energy measurement still gives E₁ or E₂ with equal probability. An incoherent mixture with the same energy probabilities lacks this cross term.</p>
-</section>
-<section id="practice" className={styles.section}><h2>Keep the wall conditions attached to the result.</h2>
-<div className={styles.exercise}><h3>1. Why not n = 0?</h3><p>Why is the zero mode allowed on a free ring but absent in the hard-wall box?</p><details><summary>Show reasoning</summary><p>A nonzero constant function is periodic on a ring. In the box it fails the zero endpoint conditions. The only zero-energy linear solution satisfying both hard walls is the zero function, which cannot be normalized.</p></details></div>
-<div className={styles.exercise}><h3>2. The center of the second state</h3><p>Does the n = 2 state have nonzero probability density at the center? What probability lies in the left half?</p><details><summary>Show solution</summary><P>{String.raw`The density at $x=L/2$ is zero because $\sin\pi=0$. Reflection symmetry still puts probability $1/2$ in each half. A zero at one point does not make the probability over an entire region vanish.`}</P></details></div>
-<div className={styles.exercise}><h3>3. Interference period</h3><p>For the 1 nm electron box above, find the density oscillation period of the equal first-two-state superposition.</p><details><summary>Show solution</summary><Equation>{String.raw`T=\frac{h}{E_2-E_1}\approx\frac{4.136\times10^{-15}\,\mathrm{eV\,s}}{1.128\,\mathrm{eV}}\approx3.67\times10^{-15}\,\mathrm s.`}</Equation><p>This is a relative-phase period, not a classical travel time between walls.</p></details></div>
-</section>
-<div className={styles.lessonSources}><p>Original explanations, derivations, and exercises. Topic sequence follows <a href="https://ocw.mit.edu/courses/8-04-quantum-physics-i-spring-2016/pages/lecture-notes/">Barton Zwiebach’s MIT 8.04 lecture notes, Spring 2016</a>, lecture-note set 11. Lesson numbering and the division into two lessons are local to this notebook.</p></div>
-</QuantumLesson>; }
+export const metadata = {
+  title: "The Infinite Square Well | Quantum Physics I | Zura Jashi",
+};
+export default function Lesson() {
+  return (
+    <QuantumLesson
+      number="2.2"
+      title="The Infinite Square Well"
+      description="Derive hard-wall energy levels, normalize standing-wave eigenstates, and calculate probabilities and time-dependent superpositions."
+      sections={[
+        ["walls", "Hard-wall model"],
+        ["spectrum", "Energy spectrum"],
+        ["probabilities", "Position probabilities"],
+        ["superposition", "Superpositions & time"],
+        ["practice", "Practice"],
+      ]}
+    >
+      <P>{String.raw`A ring allowed a wave to return smoothly to its starting point. A box with impenetrable walls imposes a different condition: the wavefunction vanishes at each end. The differential equation inside is still the free-particle equation, but its boundary conditions now select standing waves and remove the zero-energy mode.`}</P>
+      <section id="walls" className={styles.section}>
+        <h2>Confinement is encoded at the endpoints.</h2>
+        <NoteBox
+          kind="definition"
+          title="Infinite square well · Ideal hard walls"
+        >
+          <Equation>{String.raw`V(x)=\begin{cases}0,&0<x<L,\\+\infty,&x\le0\ \text{or}\ x\ge L,\end{cases}\qquad\phi(0)=\phi(L)=0.`}</Equation>
+          <p>
+            Here L is the <strong>full width</strong>. The infinite barrier is
+            an idealization defined by hard-wall boundary conditions; solve the
+            finite differential equation in the interior.
+          </p>
+        </NoteBox>
+        <P>{String.raw`Inside the well, $-\hbar^2\phi''/(2m)=E\phi$. For positive E, write $\phi=A\sin kx+B\cos kx$, where $k=\sqrt{2mE}/\hbar$. The left wall sets B to zero. The right wall requires $A\sin(kL)=0$. We discard the identically zero function, so the sine must vanish at L.`}</P>
+        <P>{String.raw`The case E = 0 needs separate treatment: its interior solution is A + Bx, and both endpoint conditions make it identically zero. Negative energies are excluded because the Dirichlet kinetic-energy operator is nonnegative. There is therefore no physical zero-energy or negative-energy state in this model.`}</P>
+      </section>
+      <SpectrumSection />
+      <section id="probabilities" className={styles.section}>
+        <h2>Integrate the squared wave, not the wave.</h2>
+        <P>{String.raw`In an energy eigenstate, the position density is $(2/L)\sin^2(n\pi x/L)$. It is stationary but not uniform. The sign of the amplitude does not change its local density. For an interval $[a,b]$ within the well, use $2\sin^2u=1-\cos2u$ to integrate explicitly.`}</P>
+        <NoteBox
+          kind="result"
+          title="Position probability in a hard-wall eigenstate"
+        >
+          <Equation>{String.raw`P_n(a\le x\le b)=\frac{b-a}{L}-\frac{\sin(2n\pi b/L)-\sin(2n\pi a/L)}{2n\pi}.`}</Equation>
+          <p>
+            Requires <strong>0 ≤ a ≤ b ≤ L</strong>. A node has zero density,
+            while a finite detector region has a probability given by this
+            integral.
+          </p>
+        </NoteBox>
+        <div className={styles.workedExample}>
+          <h3>Worked example · The central half of the ground state</h3>
+          <Equation>{String.raw`P_1(L/4\le x\le3L/4)=\frac12+\frac1\pi\approx0.818.`}</Equation>
+          <p>
+            The ground-state density peaks at the center, so more than half the
+            detections fall in the central half of the box. Treating the
+            particle as uniformly distributed would miss the wave structure.
+          </p>
+        </div>
+        <P>{String.raw`Reflection symmetry gives $\langle x\rangle=L/2$. Direct integration also yields`}</P>
+        <Equation>{String.raw`(\Delta x)^2=L^2\left(\frac1{12}-\frac1{2n^2\pi^2}\right).`}</Equation>
+        <p>
+          Higher states have more oscillations. Their density averaged over many
+          nearby peaks approaches a uniform profile, although the exact density
+          still has nodes.
+        </p>
+      </section>
+      <section id="superposition" className={styles.section}>
+        <h2>Different energies make a moving interference pattern.</h2>
+        <P>{String.raw`Prepare an equal coherent superposition of the first two modes. Their coefficients keep equal magnitudes under the static Hamiltonian, but their relative phase changes at angular frequency $(E_2-E_1)/\hbar$.`}</P>
+        <Equation>{String.raw`\psi(x,t)=\frac{\phi_1(x)e^{-iE_1t/\hbar}+\phi_2(x)e^{-iE_2t/\hbar}}{\sqrt2}.`}</Equation>
+        <NoteBox kind="result" title="Density of a two-energy superposition">
+          <Equation>{String.raw`\rho(x,t)=\frac{\phi_1^2+\phi_2^2}{2}+\phi_1\phi_2\cos\!\left(\frac{E_2-E_1}{\hbar}t\right).`}</Equation>
+          <p>
+            The eigenfunctions are chosen real. The interference term changes
+            sign across the center, redistributing probability while the total
+            remains one.
+          </p>
+        </NoteBox>
+        <P>{String.raw`As a concrete average, integrate x times this density. The diagonal terms each give $L/2$, while $\int_0^Lx\phi_1\phi_2dx=-16L/(9\pi^2)$. Thus`}</P>
+        <Equation>{String.raw`\langle x\rangle_t=\frac L2-\frac{16L}{9\pi^2}\cos\!\left(\frac{E_2-E_1}{\hbar}t\right).`}</Equation>
+        <p>
+          The mean position oscillates, but an energy measurement still gives E₁
+          or E₂ with equal probability. An incoherent mixture with the same
+          energy probabilities lacks this cross term.
+        </p>
+      </section>
+      <section id="practice" className={styles.section}>
+        <h2>Keep the wall conditions attached to the result.</h2>
+        <div className={styles.exercise}>
+          <h3>1. Why not n = 0?</h3>
+          <p>
+            Why is the zero mode allowed on a free ring but absent in the
+            hard-wall box?
+          </p>
+          <details>
+            <summary>Show reasoning</summary>
+            <p>
+              A nonzero constant function is periodic on a ring. In the box it
+              fails the zero endpoint conditions. The only zero-energy linear
+              solution satisfying both hard walls is the zero function, which
+              cannot be normalized.
+            </p>
+          </details>
+        </div>
+        <div className={styles.exercise}>
+          <h3>2. The center of the second state</h3>
+          <p>
+            Does the n = 2 state have nonzero probability density at the center?
+            What probability lies in the left half?
+          </p>
+          <details>
+            <summary>Show solution</summary>
+            <P>{String.raw`The density at $x=L/2$ is zero because $\sin\pi=0$. Reflection symmetry still puts probability $1/2$ in each half. A zero at one point does not make the probability over an entire region vanish.`}</P>
+          </details>
+        </div>
+        <div className={styles.exercise}>
+          <h3>3. Interference period</h3>
+          <p>
+            For the 1 nm electron box above, find the density oscillation period
+            of the equal first-two-state superposition.
+          </p>
+          <details>
+            <summary>Show solution</summary>
+            <Equation>{String.raw`T=\frac{h}{E_2-E_1}\approx\frac{4.136\times10^{-15}\,\mathrm{eV\,s}}{1.128\,\mathrm{eV}}\approx3.67\times10^{-15}\,\mathrm s.`}</Equation>
+            <p>
+              This is a relative-phase period, not a classical travel time
+              between walls.
+            </p>
+          </details>
+        </div>
+      </section>
+      <div className={styles.lessonSources}>
+        <p>
+          Original explanations, derivations, and exercises. Topic sequence
+          follows{" "}
+          <a href="https://ocw.mit.edu/courses/8-04-quantum-physics-i-spring-2016/pages/lecture-notes/">
+            Barton Zwiebach’s MIT 8.04 lecture notes, Spring 2016
+          </a>
+          , lecture-note set 11. Lesson numbering and the division into two
+          lessons are local to this notebook.
+        </p>
+      </div>
+    </QuantumLesson>
+  );
+}
