@@ -30,7 +30,7 @@ export default function ParticleLesson() {
       <p className={styles.subjectKicker}><span>1.1</span> SURVEY OF THE ELEMENTARY PRINCIPLES</p>
       <h1 className={styles.subjectTitle}>Mechanics of<br /><em>a Particle</em></h1>
       <p className={styles.subjectDescription}>One moving point is enough to connect force, momentum, and energy. The goal is to recognize which description makes a problem easiest to solve.</p>
-      <div className={styles.readingMeta}><span>25–35 min + exercises</span><span>Vectors · Derivatives · Integrals</span></div>
+      <div className={styles.readingMeta}><span>Vectors · Derivatives · Integrals</span></div>
     </header>
     <div className={styles.lessonLayout}>
       <article className={styles.article}>

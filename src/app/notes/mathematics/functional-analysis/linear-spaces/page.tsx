@@ -1,3 +1,4 @@
+import { LessonNavigation } from "@/components/notes/LessonNavigation";
 import Link from "next/link";
 import { Equation, MathText } from "@/components/notes/Equation";
 import { NoteBox } from "@/components/notes/NoteBox";
@@ -8,7 +9,7 @@ export const metadata = { title: "Linear Spaces | Functional Analysis | Zura Jas
 export default function LinearSpacesLesson() {
 return <div className={styles.page}>
 <nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes">Notes</Link><span>/</span><Link href="/notes/mathematics">Mathematics</Link><span>/</span><Link href="/notes/mathematics/functional-analysis">Functional Analysis</Link><span>/</span><span>Lecture 1</span></nav>
-<header className={styles.readingHeader}><p className={styles.subjectKicker}>01 / FUNCTIONAL ANALYSIS</p><h1 className={styles.subjectTitle}>Linear spaces</h1><p className={styles.subjectDescription}>Definitions, examples and the algebra of subspaces. Build the span from first principles, then describe every element explicitly.</p><div className={styles.readingMeta}><span>Lecture 1 · approximately 39 minutes</span><span>Real and complex scalars · Sets · Basic algebra</span></div></header>
+<header className={styles.readingHeader}><p className={styles.subjectKicker}>01 / FUNCTIONAL ANALYSIS</p><h1 className={styles.subjectTitle}>Linear spaces</h1><p className={styles.subjectDescription}>Definitions, examples and the algebra of subspaces. Build the span from first principles, then describe every element explicitly.</p><div className={styles.readingMeta}><span>Lecture 1</span><span>Real and complex scalars · Sets · Basic algebra</span></div><p className={styles.lessonSourceCredit}>Source: <a href="https://www.youtube.com/watch?v=OonaUALrKUk">Claudio Landim · IMPA lecture 1</a>.</p></header>
 <div className={styles.lessonLayout}><article className={styles.article}>
 <div className={styles.lessonOverview}><p>{"The structure of a linear space provides the algebraic foundation for functional analysis. Starting with "}<a href="https://www.youtube.com/watch?v=OonaUALrKUk">{"linear spaces"}</a>{", we develop subspaces and prove that every element of a span is a finite linear combination of its generators."}</p>
 </div>
@@ -144,8 +145,8 @@ return <div className={styles.page}>
 <li><strong>Empty set:</strong> <MathText>{"$L(\\varnothing)=\\{0\\}$, using the empty sum."}</MathText></li>
 </ul></NoteBox>
 </section>
-<div className={styles.lessonSources}><p>Independent study notes following <a href="https://www.youtube.com/watch?v=OonaUALrKUk">IMPA Functional Analysis Lecture 1</a>. <a href="https://www.youtube.com/playlist?list=PLo4jXE-LdDTTIIIRwqK35CbFJieSJEcVR">Course playlist</a>. The exposition includes supporting explanations and the conditions needed for each result.</p></div>
-<nav className={styles.lessonEnd} aria-label="Lesson navigation"><Link href="/notes/mathematics/functional-analysis">Functional Analysis contents</Link><Link href="/notes/mathematics/functional-analysis/quotient-spaces-and-convex-sets">Next: Quotient spaces and convex sets</Link></nav>
+
+<LessonNavigation contents={{ href: "/notes/mathematics/functional-analysis", title: "Functional Analysis" }} next={{"href":"/notes/mathematics/functional-analysis/quotient-spaces-and-convex-sets","title":"Quotient spaces and convex sets"}} />
 </article><aside className={styles.toc}><nav aria-label="On this page"><p className={styles.label}>In this lecture</p><ol><li><a href="#definition">Definition of a linear space</a></li><li><a href="#section-1">Two consequences of the axioms</a></li><li><a href="#section-2">Examples of linear spaces</a></li><li><a href="#section-3">Linear subspaces</a></li><li><a href="#section-4">The zero subspace and sums of subspaces</a></li><li><a href="#section-5">Intersections of subspaces</a></li><li><a href="#section-6">Totally ordered families and their unions</a></li><li><a href="#section-7">Definition of the linear span</a></li><li><a href="#section-8">Linear combinations</a></li><li><a href="#section-9">The span consists of finite linear combinations</a></li><li><a href="#section-10">Main results to remember</a></li></ol></nav></aside></div>
 </div>;
 }

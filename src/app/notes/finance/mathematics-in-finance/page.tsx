@@ -1,5 +1,6 @@
 import { SubjectHeader } from "@/components/notes/SubjectHeader";
 import Link from "next/link";
+import { CourseContents } from "@/components/notes/CourseContents";
 import styles from "@/app/notes/notes.module.css";
 
 export const metadata = { title: "Mathematics in Finance | MIT 18.642 | Zura Jashi", description: "A growing notebook for MIT 18.642, Fall 2024. Start with markets, discounting and bond mathematics." };
@@ -8,22 +9,94 @@ const course = "https://ocw.mit.edu/courses/18-642-topics-in-mathematics-with-ap
 export default function FinanceCourse() {
   return <div className={styles.page}>
     <nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes">Notes</Link><span>/</span><Link href="/notes/finance">Finance</Link><span>/</span><span>Mathematics in Finance</span></nav>
-    <SubjectHeader title="Mathematics in Finance" description="Mathematical foundations for prices, uncertainty, portfolios, and financial decisions." credit={<> Based on <a href={course}>MIT 18.642</a> · Fall 2024. </>} />
-    <article className={styles.article}>
-      <section className={styles.section}><h2>Where to begin</h2><p>The course connects mathematical foundations with financial applications. Its prerequisites include differential equations, probability and statistics, and linear algebra; previous finance study is optional. See the <a href={`${course}pages/syllabus/`}>MIT syllabus</a>.</p></section>
-      <Link className={styles.chapterCard} href="/notes/finance/mathematics-in-finance/markets-and-bond-math"><span className={styles.chapterNumber}>01</span><div><h2>Markets and bond mathematics</h2><p>Financial vocabulary, compound interest, present value, coupon bonds, yields, duration, convexity and forward rates. Includes original worked examples and practice questions.</p></div></Link>
-      <Link className={styles.chapterCard} href="/notes/finance/mathematics-in-finance/linear-algebra"><span className={styles.chapterNumber}>02</span><div><h2>Linear algebra</h2><p>Portfolio vectors, replication and rank, state prices, eigenvalues, Markov chains and singular value decomposition. Includes worked examples and practice questions.</p></div></Link>
-      <section className={styles.section} aria-labelledby="lecture-three"><p className={styles.cardTop}>03 / GUEST LECTURE</p><h2 id="lecture-three">Quantitative equity investing</h2><p>Jeff Shen, BlackRock Investment Institute. <a href={`${course}pages/week-2/`}>MIT lists this guest recording as unavailable to OCW learners</a>. Lecture notes are not available here; the original numbering is preserved.</p></section>
-      <Link className={styles.chapterCard} href="/notes/finance/mathematics-in-finance/probability-theory"><span className={styles.chapterNumber}>04</span><div><h2>Probability theory</h2><p>Linear algebra review, distributions, moments, normal and lognormal models, expected payoffs, covariance and PCA. Includes worked examples, exercises and a companion reading guide.</p></div></Link>
-      <Link className={styles.chapterCard} href="/notes/finance/mathematics-in-finance/stochastic-processes-i"><span className={styles.chapterNumber}>05</span><div><h2>Probability and stochastic processes</h2><p>PCA, probability limits, utility pricing, information and martingales. Includes worked proofs, examples, exercises and a stopping time reading guide.</p></div></Link>
-      <Link className={styles.chapterCard} href="/notes/finance/mathematics-in-finance/stopping-times-and-regression"><span className={styles.chapterNumber}>06</span><div><h2>Stopping times and regression</h2><p>Stopped martingales, fair and biased exit problems, Markov chains and regression foundations. Includes an original fitted line continued in Lecture 8.</p></div></Link>
-      <Link className={styles.chapterCard} href="/notes/finance/mathematics-in-finance/linear-rates-products-and-models"><span className={styles.chapterNumber}>07</span><div><h2>Linear rates, products and models</h2><p>Rate conventions, forwards, swaps, yield curve calibration, PV01 hedging, PnL and bond spreads, with worked cash flow examples.</p></div></Link>
-      <Link className={styles.chapterCard} href="/notes/finance/mathematics-in-finance/regression-inference-and-diagnostics"><span className={styles.chapterNumber}>08</span><div><h2>Regression inference and diagnostics</h2><p>OLS geometry, coefficient uncertainty, t and F tests, prediction intervals, influence and GLS. Follow the complete worked fit from Lecture 6.</p></div></Link>
-      <Link className={styles.chapterCard} href="/notes/finance/mathematics-in-finance/pca-in-finance"><span className={styles.chapterNumber}>09</span><div><h2>PCA in finance</h2><p>Financial data preparation, yield curve factors, factor neutral portfolios and out of sample validation, with original numerical examples.</p></div></Link>
-      <Link className={styles.chapterCard} href="/notes/finance/mathematics-in-finance/counterparty-risk-optimization"><span className={styles.chapterNumber}>10</span><div><h2>Counterparty risk optimisation</h2><p>VaR, expected shortfall, collateral, scenario optimisation and risk preserving network trades. Includes discrete loss and network examples.</p></div></Link>
-      <Link className={styles.chapterCard} href="/notes/finance/mathematics-in-finance/regression-regularization-and-regime-changes"><span className={styles.chapterNumber}>11</span><div><h2>Regression, regularisation and regime changes</h2><p>Ridge, PCR, lasso, coefficient restrictions, period stability tests and empirical CAPM interpretation, with a complete two period example.</p></div></Link>
-      <section className={styles.section}><h2>The route through the course</h2><p>The <a href={`${course}pages/calendar/`}>official calendar</a> is the complete lecture index. Notes follow its sequence and are available through Lecture 11, except Lecture 3, which has no OCW recording.</p><ol><li><strong>Foundations:</strong> linear algebra, probability and stochastic processes, alongside equity investing and interest rate applications.</li><li><strong>Models and portfolios:</strong> regression, principal components, time series, portfolio management and counterparty risk.</li><li><strong>Advanced applications:</strong> volatility, risk neutral valuation, systematic trading, machine learning and stochastic calculus.</li></ol></section>
-      <div className={styles.lessonSources}><p><a href="https://www.youtube.com/watch?v=b8u2CQLQBVU&list=PLUl4u3cNGP601Q2jo-J_3raNCMMs6Jves">Lecture series on YouTube</a> · <a href={`${course}pages/week-1/`}>Week 1 materials</a>.</p></div>
-    </article>
+    <SubjectHeader title="Mathematics in Finance" description="Mathematical foundations for prices, uncertainty, portfolios, and financial decisions." credit={<> <a href={course}>MIT 18.642</a> · Fall 2024 </>} />
+    <div>
+
+      <CourseContents groups={[
+  {
+    "title": "Markets and mathematical foundations",
+    "range": "Lectures 1–5",
+    "entries": [
+      {
+        "href": "/notes/finance/mathematics-in-finance/markets-and-bond-math",
+        "number": "01",
+        "title": "Markets and bond mathematics",
+        "description": "Financial vocabulary, compound interest, present value, coupon bonds, yields, duration, convexity and forward rates. Includes original worked examples and practice questions."
+      },
+      {
+        "href": "/notes/finance/mathematics-in-finance/linear-algebra",
+        "number": "02",
+        "title": "Linear algebra",
+        "description": "Portfolio vectors, replication and rank, state prices, eigenvalues, Markov chains and singular value decomposition. Includes worked examples and practice questions."
+      },
+      {
+        "number": "03",
+        "title": "Quantitative equity investing",
+        "description": "Jeff Shen · Guest recording unavailable on MIT OpenCourseWare."
+      },
+      {
+        "href": "/notes/finance/mathematics-in-finance/probability-theory",
+        "number": "04",
+        "title": "Probability theory",
+        "description": "Linear algebra review, distributions, moments, normal and lognormal models, expected payoffs, covariance and PCA. Includes worked examples, exercises and a companion reading guide."
+      },
+      {
+        "href": "/notes/finance/mathematics-in-finance/stochastic-processes-i",
+        "number": "05",
+        "title": "Probability and stochastic processes",
+        "description": "PCA, probability limits, utility pricing, information and martingales. Includes worked proofs, examples, exercises and a stopping time reading guide."
+      }
+    ]
+  },
+  {
+    "title": "Stochastic processes, rates and regression",
+    "range": "Lectures 6–8",
+    "entries": [
+      {
+        "href": "/notes/finance/mathematics-in-finance/stopping-times-and-regression",
+        "number": "06",
+        "title": "Stopping times and regression",
+        "description": "Stopped martingales, fair and biased exit problems, Markov chains and regression foundations. Includes an original fitted line continued in Lecture 8."
+      },
+      {
+        "href": "/notes/finance/mathematics-in-finance/linear-rates-products-and-models",
+        "number": "07",
+        "title": "Linear rates, products and models",
+        "description": "Rate conventions, forwards, swaps, yield curve calibration, PV01 hedging, PnL and bond spreads, with worked cash flow examples."
+      },
+      {
+        "href": "/notes/finance/mathematics-in-finance/regression-inference-and-diagnostics",
+        "number": "08",
+        "title": "Regression inference and diagnostics",
+        "description": "OLS geometry, coefficient uncertainty, t and F tests, prediction intervals, influence and GLS. Follow the complete worked fit from Lecture 6."
+      }
+    ]
+  },
+  {
+    "title": "Factors, counterparty risk and model stability",
+    "range": "Lectures 9–11",
+    "entries": [
+      {
+        "href": "/notes/finance/mathematics-in-finance/pca-in-finance",
+        "number": "09",
+        "title": "PCA in finance",
+        "description": "Financial data preparation, yield curve factors, factor neutral portfolios and out of sample validation, with original numerical examples."
+      },
+      {
+        "href": "/notes/finance/mathematics-in-finance/counterparty-risk-optimization",
+        "number": "10",
+        "title": "Counterparty risk optimisation",
+        "description": "VaR, expected shortfall, collateral, scenario optimisation and risk preserving network trades. Includes discrete loss and network examples."
+      },
+      {
+        "href": "/notes/finance/mathematics-in-finance/regression-regularization-and-regime-changes",
+        "number": "11",
+        "title": "Regression, regularisation and regime changes",
+        "description": "Ridge, PCR, lasso, coefficient restrictions, period stability tests and empirical CAPM interpretation, with a complete two period example."
+      }
+    ]
+  }
+]} />
+    </div>
   </div>;
 }

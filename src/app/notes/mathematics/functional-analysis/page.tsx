@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SubjectHeader } from "@/components/notes/SubjectHeader";
-import courseStyles from "./course.module.css";
+import { CourseContents } from "@/components/notes/CourseContents";
 import styles from "@/app/notes/notes.module.css";
 
 const lectures = [
@@ -101,18 +101,12 @@ export const metadata = { title: "Functional Analysis | Mathematics | Zura Jashi
 export default function FunctionalAnalysisPage() {
 return <div className={styles.page}>
 <nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes">Notes</Link><span>/</span><Link href="/notes/mathematics">Mathematics</Link><span>/</span><span>Functional Analysis</span></nav>
-<SubjectHeader title="Functional Analysis" description="Spaces of functions, built from their algebraic foundations, with definitions, examples, and proofs." credit={<> Based on <a href="https://www.youtube.com/playlist?list=PLo4jXE-LdDTTIIIRwqK35CbFJieSJEcVR">Claudio Landim’s IMPA lectures</a>. </>} />
+<SubjectHeader title="Functional Analysis" description="Spaces of functions, built from their algebraic foundations, with definitions, examples, and proofs." credit={<> <a href="https://www.youtube.com/playlist?list=PLo4jXE-LdDTTIIIRwqK35CbFJieSJEcVR">Claudio Landim’s IMPA lectures</a> </>} />
 <p className={styles.label}>Lectures</p>
-<div className={courseStyles.groups}>
-{Array.from({ length: Math.ceil(lectures.length / 5) }, (_, groupIndex) => {
-const start = groupIndex * 5;
-return <details className={courseStyles.group} key={start} open={groupIndex === Math.floor((lectures.length - 1) / 5)}>
-<summary className={courseStyles.summary}><div><span className={courseStyles.range}>Lectures {lectures[start].number}–{lectures[Math.min(start + 4, lectures.length - 1)].number}</span><h2>{groupTitles[groupIndex] ?? "Further lectures"}</h2></div><span className={courseStyles.chevron} aria-hidden="true">⌄</span></summary>
-<ol className={courseStyles.lectures} start={start + 1}>
-{lectures.slice(start, start + 5).map((lecture) => <li key={lecture.slug}><Link className={courseStyles.lecture} href={`/notes/mathematics/functional-analysis/${lecture.slug}`}><span className={courseStyles.number}>{lecture.number.padStart(2, "0")}</span><div><h3>{lecture.title}</h3><p>{lecture.description}</p></div></Link></li>)}
-</ol></details>;
-})}
-</div>
+<CourseContents groups={Array.from({ length: Math.ceil(lectures.length / 5) }, (_, groupIndex) => {
+const batch = lectures.slice(groupIndex * 5, groupIndex * 5 + 5);
+return { title: groupTitles[groupIndex] ?? "Further lectures", range: `Lectures ${batch[0].number}–${batch[batch.length - 1].number}`, entries: batch.map(lecture => ({ ...lecture, number: lecture.number.padStart(2, "0"), href: `/notes/mathematics/functional-analysis/${lecture.slug}` })) };
+})} />
 
 </div>;
 }

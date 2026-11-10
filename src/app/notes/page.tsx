@@ -1,26 +1,35 @@
-import Link from "next/link";
-import { TbAtom, TbMathSymbols, TbCode, TbBrain, TbChartLine } from "react-icons/tb";
+// import Link from "next/link";
+// import { TbAtom, TbMathSymbols, TbChartLine } from "react-icons/tb";
 import styles from "./notes.module.css";
 
-export const metadata = { title: "Notes | Zura Jashi", description: "Working notebooks on physics, mathematics, computer science, AI, and finance." };
+export const metadata = { title: "Notes | Zura Jashi", description: "Research reading notes, worked examples, and evolving study notebooks." };
 
 export default function NotesPage() {
  return <div className={styles.page}>
   <header className={styles.fieldIndexHeader}>
    <p className={styles.fieldIndexKicker}>ZURA JASHI / PERSONAL NOTES</p>
    <h1>Field notes</h1>
-   <p className={styles.fieldIndexDescription}>Notes, worked examples, and ideas across five fields.</p>
-   <nav aria-label="Subject index" className={styles.fieldIndexNav}>
+   <p className={styles.fieldIndexDescription}>An evolving reading notebook: ideas from research papers, worked examples, and questions to return to.</p>
+   {/* Subject index hidden for now; uncomment to restore.
+<nav aria-label="Subject index" className={styles.fieldIndexNav}>
     {[
      { title: "Physics", slug: "physics", Icon: TbAtom },
      { title: "Mathematics", slug: "mathematics", Icon: TbMathSymbols },
-     { title: "Computer Science", slug: "computer-science", Icon: TbCode },
-     { title: "AI", slug: "ai", Icon: TbBrain },
+     // { title: "Computer Science", slug: "computer-science", Icon: TbCode },
+     // { title: "AI", slug: "ai", Icon: TbBrain },
      { title: "Finance", slug: "finance", Icon: TbChartLine },
     ].map(({ title, slug, Icon }) => <Link key={slug} href={`/notes/${slug}`}><Icon aria-hidden="true" /><span>{title}</span></Link>)}
    </nav>
+*/}
   </header>
-  <Link href="/notes/physics" className={styles.notebook}>
+  {/* Paper notes hidden for now; uncomment to restore.
+  <Link href="/notes/papers" className={styles.chapterCard}>
+   <span className={styles.chapterNumber}>01</span>
+   <div><h2>Paper notes</h2><p>Detailed readings of research papers, with explanations, derivations, and open questions.</p></div>
+  </Link>
+  */}
+  {/* Subject hidden for now; uncomment to restore.
+<Link href="/notes/physics" className={styles.notebook}>
    <div className={styles.notebookDrawing} aria-hidden="true"><span className={styles.drawingNumber}>01 / PHYSICS</span>          <svg viewBox="0 0 280 240" fill="none">
             <path d="M75 38h130M87 30l-8 8m24-8-8 8m24-8-8 8m24-8-8 8m24-8-8 8m24-8-8 8m24-8-8 8m24-8-8 8" stroke="currentColor" strokeWidth="1.2" />
             <path d="M140 38v156M140 38l62 139" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 5" opacity=".45" />
@@ -34,7 +43,9 @@ export default function NotesPage() {
           </svg><span className={styles.drawingCaption}>The physical world, worked through.</span></div>
    <div className={styles.notebookBody}><h2 className={styles.fieldTitle}><TbAtom aria-hidden="true" /><span>Physics</span></h2><p>Motion, matter, and the laws that connect them. From classical mechanics to the quantum world.</p></div>
   </Link>
-  <Link href="/notes/mathematics" className={styles.notebook}>
+*/}
+  {/* Subject hidden for now; uncomment to restore.
+<Link href="/notes/mathematics" className={styles.notebook}>
    <div className={styles.notebookDrawing} aria-hidden="true"><span className={styles.drawingNumber}>02 / MATHEMATICS</span><svg viewBox="0 0 280 240" fill="none" stroke="currentColor" strokeWidth="1.5">
  <path d="M35 173h210M65 202V35" opacity=".5" />
  <path d="M42 75C80 205 102 207 140 120S202 30 240 102" />
@@ -44,6 +55,8 @@ export default function NotesPage() {
  </svg><span className={styles.drawingCaption}>Patterns worth following.</span></div>
    <div className={styles.notebookBody}><h2 className={styles.fieldTitle}><TbMathSymbols aria-hidden="true" /><span>Mathematics</span></h2><p>The language behind the ideas. Exploring structure, change, and the patterns that make a proof click.</p></div>
   </Link>
+*/}
+  {/* Hidden until notes are available.
   <Link href="/notes/computer-science" className={styles.notebook}>
    <div className={styles.notebookDrawing} aria-hidden="true"><span className={styles.drawingNumber}>03 / COMPUTER SCIENCE</span><svg viewBox="0 0 280 240" fill="none" stroke="currentColor" strokeWidth="1.5">
  <path d="m140 55-60 60m60-60 60 60m-120 0-35 65m35-65 35 65m85-65-35 65m35-65 35 65" />
@@ -52,6 +65,8 @@ export default function NotesPage() {
  </svg><span className={styles.drawingCaption}>Ideas, expressed as computation.</span></div>
    <div className={styles.notebookBody}><h2 className={styles.fieldTitle}><TbCode aria-hidden="true" /><span>Computer Science</span></h2><p>Algorithms, data structures, and the systems built from them. Understanding how a good idea becomes a working program.</p></div>
   </Link>
+  */}
+  {/* Hidden until notes are available.
   <Link href="/notes/ai" className={styles.notebook}>
    <div className={`${styles.notebookDrawing} ${styles.refinedDrawing}`} aria-hidden="true">
     <span className={styles.drawingNumber}>04 / AI</span>
@@ -66,7 +81,9 @@ export default function NotesPage() {
    </div>
    <div className={styles.notebookBody}><h2 className={styles.fieldTitle}><TbBrain aria-hidden="true" /><span>AI</span></h2><p>Learning from data, representing knowledge, and building intelligent systems. Working through the models and the ideas behind them.</p></div>
   </Link>
-  <Link href="/notes/finance" className={styles.notebook}>
+  */}
+  {/* Subject hidden for now; uncomment to restore.
+<Link href="/notes/finance" className={styles.notebook}>
    <div className={`${styles.notebookDrawing} ${styles.refinedDrawing}`} aria-hidden="true">
     <span className={styles.drawingNumber}>05 / FINANCE</span>
     <svg viewBox="0 0 280 240" fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -82,5 +99,6 @@ export default function NotesPage() {
    </div>
    <div className={styles.notebookBody}><h2 className={styles.fieldTitle}><TbChartLine aria-hidden="true" /><span>Finance</span></h2><p>Risk, return, and the value of time. Exploring markets, portfolios, and the mathematics behind financial decisions.</p></div>
   </Link>
+*/}
  </div>;
 }

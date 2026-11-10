@@ -25,7 +25,7 @@ export default function LessonOne() {
       <p className={styles.eyebrow}>Classical Mechanics / Lesson 01</p>
       <h1 className={styles.title}>From Newton’s Laws to Generalized Coordinates</h1>
       <p className={styles.intro}>How do we choose variables that make a mechanical problem simple? A pendulum gives us the whole story: forces, constraints, and a better way to describe motion.</p>
-      <div className={styles.meta}><span>~20 min + exercises</span><span>Prerequisites: derivatives & vectors</span><span>Reading companion to Goldstein, Ch. 1</span></div>
+      <div className={styles.meta}><span>Prerequisites: derivatives & vectors</span><span>Reading companion to Goldstein, Ch. 1</span></div>
       <hr className={styles.rule} />
       <div className={styles.lessonLayout}>
         <article className={styles.article}>

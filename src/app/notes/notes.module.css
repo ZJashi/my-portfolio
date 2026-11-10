@@ -232,3 +232,6 @@
 
 .courseHeader .courseCredit { margin: 0 0 14px; color: var(--stone); font-size: .76rem; line-height: 1.7; }
 .courseCredit a { color: var(--notes-accent); text-decoration: underline; text-underline-offset: 3px; }
+
+.lessonSourceCredit { margin-top: 18px; color: var(--stone); font-size: .78rem; line-height: 1.7; }
+.lessonSourceCredit a { color: var(--notes-accent); text-decoration: underline; text-underline-offset: 3px; }

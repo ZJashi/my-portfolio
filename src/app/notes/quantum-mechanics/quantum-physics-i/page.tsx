@@ -1,3 +1,5 @@
+import { CourseContents } from "@/components/notes/CourseContents";
+import { quantumLessons, quantumChapterTwoLessons, quantumChapterThreeLessons } from "@/components/notes/QuantumLesson";
 import Link from "next/link";
 import { SubjectHeader } from "@/components/notes/SubjectHeader";
 import styles from "../../notes.module.css";
@@ -10,9 +12,8 @@ const chapters = [
 export default function CoursePage() {
   return <div className={styles.page}>
     <nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/notes/physics">Physics</Link><span>/</span><Link href="/notes/quantum-mechanics">Quantum Mechanics</Link><span>/</span><span>Quantum Physics I</span></nav>
-    <SubjectHeader title="Quantum Physics I" description="An independent study companion from quantum amplitudes and wave mechanics through scattering, angular momentum, and hydrogen. Original derivations, diagrams, interactive models, and exercises with solutions." credit={<> Based on Barton Zwiebach’s <a href="https://ocw.mit.edu/courses/8-04-quantum-physics-i-spring-2016/">MIT 8.04</a>. </>} />
+    <SubjectHeader title="Quantum Physics I" description="An independent study companion from quantum amplitudes and wave mechanics through scattering, angular momentum, and hydrogen. Original derivations, diagrams, interactive models, and exercises with solutions." credit={<> Barton Zwiebach’s <a href="https://ocw.mit.edu/courses/8-04-quantum-physics-i-spring-2016/">MIT 8.04</a> </>} />
 
-    {chapters.map(chapter => <Link key={chapter.slug} href={`/notes/quantum-mechanics/quantum-physics-i/${chapter.slug}`} className={styles.chapterCard}><span className={styles.chapterNumber}>{chapter.number}</span><div><h2>{chapter.title}</h2><p>{chapter.description}</p></div></Link>)}
-    <p className={styles.reference}>The introductory topic sequence reaches hydrogen and ends with a review in lesson 3.4. Local lessons do not map one-to-one to source lectures. These notes complement the source course and its assignments and exams.</p>
+    <CourseContents groups={chapters.map((chapter, index) => ({ title: chapter.title, range: `Chapter ${index + 1} · Lessons ${[quantumLessons, quantumChapterTwoLessons, quantumChapterThreeLessons][index][0][0]}–${[quantumLessons, quantumChapterTwoLessons, quantumChapterThreeLessons][index].at(-1)![0]}`, entries: [quantumLessons, quantumChapterTwoLessons, quantumChapterThreeLessons][index].map(([number, title, slug]) => ({ number, title, href: `/notes/quantum-mechanics/quantum-physics-i/${chapter.slug}/${slug}` })) }))} />
   </div>;
 }
