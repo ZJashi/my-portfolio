@@ -1,5 +1,6 @@
 import { SubjectHeader } from "@/components/notes/SubjectHeader";
 import Link from "next/link";
+import { GameTheoryCard } from "./game-theory-card";
 import styles from "../notes.styles";
 export const metadata = { title: "Finance | Notes | Zura Jashi" };
 export default function SubjectPage() {
@@ -77,6 +78,7 @@ export default function SubjectPage() {
           </p>
         </div>
       </Link>
+      <GameTheoryCard />
     </div>
   );
 }
